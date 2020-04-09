@@ -28,31 +28,26 @@ final class TodayWorkoutViewController: UIViewController {
     // MARK: View Life Cycle
     override func loadView() {
         super.loadView()
-        setup()
+        self.setup()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
-        fetchWorkoutOfToday()
+        self.configureTableView()
+        self.fetchWorkoutOfToday()
         
-        workoutAddButton.addTarget(self,
+        self.workoutAddButton.addTarget(self,
                                    action: #selector(addWorkout(_:)),
                                    for: .touchUpInside)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print(#function)
     }
     
     @objc func addWorkout(_ sender: UIButton) {
         let vc = AddWorkoutViewController()
         let newWorkout = Workout()
         
-        if let workoutsOfToday = workoutsOfToday {
+        if let workoutsOfToday = self.workoutsOfToday {
             do {
-                try realm.write {
+                try self.realm.write {
                     workoutsOfToday.workouts.append(newWorkout)
                 }
             } catch let error as NSError {
@@ -62,8 +57,8 @@ final class TodayWorkoutViewController: UIViewController {
             let workoutsOfToday = WorkoutsOfDay()
             self.workoutsOfToday = workoutsOfToday
             do {
-                try realm.write {
-                    realm.add(workoutsOfToday)
+                try self.realm.write {
+                    self.realm.add(workoutsOfToday)
                     workoutsOfToday.workouts.append(newWorkout)
                 }
             } catch let error as NSError {
@@ -71,44 +66,44 @@ final class TodayWorkoutViewController: UIViewController {
             }
         }
         vc.workout = newWorkout
-        present(vc, animated: true, completion: nil)
+        self.present(vc, animated: true, completion: nil)
     }
 }
 
 
 extension TodayWorkoutViewController {
     private func setup() {
-        view.backgroundColor = .white
+        self.view.backgroundColor = .white
         
         let headerView = HeaderView()
         headerView.frame.size.height = 200
-        tableView = UITableView()
-        tableView.tableHeaderView = headerView
+        self.tableView = UITableView()
+        self.tableView.tableHeaderView = headerView
         
-        workoutAddButton = UIButton()
-        workoutAddButton.backgroundColor = .tintColor
-        workoutAddButton.setTitle("운동 추가", for: .normal)
+        self.workoutAddButton = UIButton()
+        self.workoutAddButton.backgroundColor = .tintColor
+        self.workoutAddButton.setTitle("운동 추가", for: .normal)
 
-        view.addSubview(tableView)
-        view.addSubview(workoutAddButton)
+        self.view.addSubview(self.tableView)
+        self.view.addSubview(self.workoutAddButton)
         
-        workoutAddButton.snp.makeConstraints { (make) in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        self.workoutAddButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(55)
         }
-        tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.layoutMarginsGuide.snp.top)
+        self.tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.layoutMarginsGuide.snp.top)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(workoutAddButton.snp.top)
+            make.bottom.equalTo(self.workoutAddButton.snp.top)
         }
     }
     
     private func configureTableView() {
-        tableView.separatorColor = .clear
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(TodayWorkoutTableViewCell.self, forCellReuseIdentifier: String(describing: TodayWorkoutTableViewCell.self))
+        self.tableView.separatorColor = .clear
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.register(TodayWorkoutTableViewCell.self, forCellReuseIdentifier: String(describing: TodayWorkoutTableViewCell.self))
     }
     
     private func fetchWorkoutOfToday() {
@@ -123,13 +118,13 @@ extension TodayWorkoutViewController {
 // MARK: TableView DataSource
 extension TodayWorkoutViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let workoutsOfToday = workoutsOfToday else { return 0 }
+        guard let workoutsOfToday = self.workoutsOfToday else { return 0 }
         return workoutsOfToday.countOfWorkouts
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TodayWorkoutTableViewCell.self), for: indexPath) as! TodayWorkoutTableViewCell
-        guard let workouts = workoutsOfToday else { fatalError() }
+        guard let workouts = self.workoutsOfToday else { fatalError() }
         let workout = workouts.workouts[indexPath.row]
         cell.workout = workout
         return cell

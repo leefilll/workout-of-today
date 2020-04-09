@@ -31,27 +31,27 @@ final class WorkoutSetView: UIView {
     }
     
     private func setup() {
-        setCountLabel = UILabel()
-        addSubview(setCountLabel)
+        self.setCountLabel = UILabel()
+        self.addSubview(self.setCountLabel)
         
-        weightLabel = UILabel()
-        weightLabel.backgroundColor = .red
-        repsLabel = UILabel()
-        repsLabel.backgroundColor = .blue
-        stackView = UIStackView(arrangedSubviews: [weightLabel, repsLabel])
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.spacing = 10
-        addSubview(stackView)
+        self.weightLabel = UILabel()
+        self.weightLabel.backgroundColor = .red
+        self.repsLabel = UILabel()
+        self.repsLabel.backgroundColor = .blue
+        self.stackView = UIStackView(arrangedSubviews: [self.weightLabel, self.repsLabel])
+        self.stackView.axis = .horizontal
+        self.stackView.alignment = .fill
+        self.stackView.spacing = 10
+        self.addSubview(self.stackView)
         
-        setCountLabel.snp.makeConstraints { (make) in
+        self.setCountLabel.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(20)
         }
         
-        stackView.snp.makeConstraints { (make) in
+        self.stackView.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
-            make.leading.equalTo(setCountLabel).offset(20)
+            make.leading.equalTo(self.setCountLabel).offset(20)
             make.trailing.equalToSuperview().offset(20)
         }
     }

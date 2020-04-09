@@ -16,17 +16,22 @@ final class AddWorkoutTableViewCell: UITableViewCell {
     var delegate: AddingWorkoutSet?
     
     var isAddingCell: Bool = false {
-           willSet {
-                   setAddButton.isHidden = !newValue
-                   containerView.isHidden = newValue
-           }
-       }
+        willSet {
+            self.addWorkoutSetButton.isHidden = !newValue
+            self.containerView.isHidden = newValue
+        }
+    }
     
+    var isCompleted: Bool = false {
+        didSet {
+            // Complete set
+        }
+    }
     
     // UI
     private var containerView: UIView!
     
-    var setAddButton: UIButton!
+    var addWorkoutSetButton: UIButton!
     
     var countLabel: UILabel!
     
@@ -37,55 +42,58 @@ final class AddWorkoutTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
+        self.setup()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setup()
+        self.setup()
     }
     
     deinit {
-        delegate = nil
+        self.delegate = nil
     }
     
     private func setup() {
-        setAddButton = UIButton()
-        setAddButton.setTitle("세트 추가", for: .normal)
-        setAddButton.backgroundColor = UIColor.tintColor.withAlphaComponent(0.5)
-        setAddButton.isHidden = true
-        setAddButton.layer.cornerRadius = 10
-        setAddButton.layer.masksToBounds = true
-        setAddButton.addTarget(self, action: #selector(addWorkoutSet(_:)), for: .touchUpInside)
+        self.addWorkoutSetButton = UIButton()
+        self.addWorkoutSetButton.setTitle("세트 추가", for: .normal)
+        self.addWorkoutSetButton.setTitleColor(UIColor.tintColor, for: .normal)
+        self.addWorkoutSetButton.backgroundColor = UIColor.tintColor.withAlphaComponent(0.1)
+        self.addWorkoutSetButton.isHidden = true
+        self.addWorkoutSetButton.layer.cornerRadius = 10
+        self.addWorkoutSetButton.layer.masksToBounds = true
+        self.addWorkoutSetButton.addTarget(self, action: #selector(addWorkoutSet(_:)), for: .touchUpInside)
         
-        containerView = UIView()
+        self.containerView = UIView()
         
-        countLabel = UILabel()
-        countLabel.textAlignment = .center
+        self.countLabel = UILabel()
+        self.countLabel.textAlignment = .center
         
-        weightTextField = UITextField()
-        weightTextField.placeholder = "kg"
-        weightTextField.backgroundColor = UIColor.colorWithRGBHex(hex: 0xe2e3e6)
-        weightTextField.font = UIFont.preferredFont(forTextStyle: .body)
-        weightTextField.textAlignment = .center
-        weightTextField.layer.cornerRadius = 10
+        func textField(with placeholder: String) -> UITextField {
+            let textField = UITextField()
+            textField.placeholder = placeholder
+            textField.backgroundColor = UIColor.concaveColor.withAlphaComponent(0.6)
+            textField.font = UIFont.body
+            textField.textAlignment = .center
+            textField.layer.cornerRadius = 10
+            return textField
+        }
         
-        repsTextField = UITextField()
-        repsTextField.placeholder = "0"
-        repsTextField.backgroundColor = UIColor.colorWithRGBHex(hex: 0xe2e3e6)
-        repsTextField.font = UIFont.preferredFont(forTextStyle: .body)
-        repsTextField.textAlignment = .center
-        repsTextField.layer.cornerRadius = 10
+        self.weightTextField = textField(with: "kg")
+        self.repsTextField = textField(with: "0")
+        self.weightTextField.delegate = self
+        self.repsTextField.delegate = self
         
-        let stackView = UIStackView(arrangedSubviews: [weightTextField, repsTextField])
+        let stackView = UIStackView(arrangedSubviews: [self.weightTextField,
+                                                       self.repsTextField])
         stackView.configureForWorkoutSet()
         
-        addSubview(setAddButton)
-        addSubview(containerView)
-        containerView.addSubview(countLabel)
-        containerView.addSubview(stackView)
+        self.addSubview(self.addWorkoutSetButton)
+        self.addSubview(self.containerView)
+        self.containerView.addSubview(self.countLabel)
+        self.containerView.addSubview(stackView)
         
-        setAddButton.snp.makeConstraints { (make) in
+        self.addWorkoutSetButton.snp.makeConstraints { (make) in
             make.centerX.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(Inset.Cell.horizontalInset)
             make.trailing.equalToSuperview().offset(-Inset.Cell.horizontalInset)
@@ -93,28 +101,46 @@ final class AddWorkoutTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-Inset.Cell.veticalInset)
         }
         
-        containerView.snp.makeConstraints { (make) in
+        self.containerView.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(Inset.Cell.veticalInset)
             make.bottom.equalToSuperview().offset(-Inset.Cell.veticalInset)
             make.leading.equalToSuperview().offset(Inset.Cell.horizontalInset)
             make.trailing.equalToSuperview().offset(-Inset.Cell.horizontalInset)
         }
         
-        countLabel.snp.makeConstraints { (make) in
+        self.countLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview()
             make.width.equalTo(30)
             make.centerY.equalToSuperview()
         }
         
         stackView.snp.makeConstraints { (make) in
-            make.leading.equalTo(countLabel.snp.trailing).offset(20)
+            make.leading.equalTo(self.countLabel.snp.trailing).offset(20)
             make.trailing.equalToSuperview()
             make.top.bottom.equalToSuperview()
         }
     }
     
     @objc func addWorkoutSet(_ sender: UIButton) {
-        delegate?.addWorkoutSet()
+        self.delegate?.addWorkoutSet()
+    }
+}
+
+extension AddWorkoutTableViewCell: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+            case self.weightTextField:
+                textField.resignFirstResponder()
+                self.repsTextField.becomeFirstResponder()
+            break
+            case self.repsTextField:
+                textField.resignFirstResponder()
+                self.isCompleted = true
+            break
+            default:
+            break
+        }
+        return true
     }
 }
 

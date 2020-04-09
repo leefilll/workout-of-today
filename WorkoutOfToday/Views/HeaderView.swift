@@ -18,33 +18,33 @@ final class HeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        self.setup()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setup()
+        self.setup()
     }
     
     private func setup() {
-        titleLabel = UILabel()
-        titleLabel.font = UIFont.largeTitle
-        titleLabel.text = "오늘의 운동"
-        addSubview(titleLabel)
+        self.titleLabel = UILabel()
+        self.titleLabel.font = UIFont.largeTitle
+        self.titleLabel.text = "오늘의 운동"
+        self.addSubview(self.titleLabel)
         
-        dateLabel = UILabel()
-        dateLabel.text = DateFormatter.sharedFormatter.dateString(from: Date())
-        dateLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        addSubview(dateLabel)
+        self.dateLabel = UILabel()
+        self.dateLabel.text = DateFormatter.sharedFormatter.dateString(from: Date())
+        self.dateLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        self.addSubview(dateLabel)
         
-        dateLabel.snp.makeConstraints { (make) in
+        self.dateLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(20)
             make.bottom.equalToSuperview().offset(-10)
         }
         
-        titleLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(dateLabel.snp.leading)
-            make.bottom.equalTo(dateLabel.snp.top).offset(-10)
+        self.titleLabel.snp.makeConstraints { (make) in
+            make.leading.equalTo(self.dateLabel.snp.leading)
+            make.bottom.equalTo(self.dateLabel.snp.top).offset(-10)
         }
     }
 }

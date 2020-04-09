@@ -20,7 +20,7 @@ class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
         let tabBarControllers = [todayWorkoutViewController, feedViewController, settingViewController]
         self.viewControllers = tabBarControllers
         
-        if let items = tabBar.items {
+        if let items = self.tabBar.items {
             items[0].title = "Workout"
             items[1].title = "Feed"
             items[2].title = "Eating"

@@ -17,7 +17,7 @@ final class TodayWorkoutTableViewCell: UITableViewCell {
     
     var workout: Workout? {
         didSet {
-            titleLabel.text = workout?.name
+            self.titleLabel.text = workout?.name
         }
     }
     
@@ -30,29 +30,29 @@ final class TodayWorkoutTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
+        self.setup()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setup()
+        self.setup()
     }
     
     private func setup() {
-        cardView = CardView()
-        addSubview(cardView)
+        self.cardView = CardView()
+        self.addSubview(self.cardView)
         
-        titleLabel = UILabel()
-        titleLabel.font = UIFont.title
-        cardView.addSubview(titleLabel)
+        self.titleLabel = UILabel()
+        self.titleLabel.font = UIFont.title
+        self.cardView.addSubview(self.titleLabel)
         
-        cardView.snp.makeConstraints { (make) in
+        self.cardView.snp.makeConstraints { (make) in
             make.top.leading.equalToSuperview().offset(padding)
             make.bottom.trailing.equalToSuperview().offset(-padding)
             make.height.greaterThanOrEqualTo(300)
         }
         
-        titleLabel.snp.makeConstraints { (make) in
+        self.titleLabel.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(20)
             make.top.equalToSuperview().offset(20)
         }

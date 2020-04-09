@@ -18,4 +18,6 @@ extension UIColor {
     }
     
     static var tintColor = UIColor.colorWithRGBHex(hex: 0x61bff2)
+    
+    static var concaveColor = UIColor.colorWithRGBHex(hex: 0xe5e6e8)
 }

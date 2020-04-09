@@ -12,7 +12,7 @@ final class CardView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .clear
+        self.backgroundColor = .clear
     }
     
     required init?(coder: NSCoder) {
@@ -21,7 +21,7 @@ final class CardView: UIView {
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        dropShadow()
-        configureRoundedRect(usingRadius: 20)
+        self.dropShadow()
+        self.configureRoundedRect(usingRadius: 20)
     }
 }

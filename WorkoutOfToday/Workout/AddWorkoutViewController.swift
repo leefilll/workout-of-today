@@ -44,12 +44,12 @@ final class AddWorkoutViewController: UIViewController {
     // MARK: View Life Cycle
     override func loadView() {
         super.loadView()
-        setup()
+        self.setup()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
+        self.configureTableView()
     }
     
     @objc func addWorkout(_ sender: UIBarButtonItem) {
@@ -64,13 +64,13 @@ extension AddWorkoutViewController {
     
     
     private func setup() {
-        view.backgroundColor = .white
+        self.view.backgroundColor = .white
         
         // subViews
-        workoutNameTextField = UITextField()
-        workoutNameTextField.placeholder = "운동 이름"
-        workoutNameTextField.font = UIFont.largeTitle
-        workoutNameTextField.delegate = self
+        self.workoutNameTextField = UITextField()
+        self.workoutNameTextField.placeholder = "운동 이름"
+        self.workoutNameTextField.font = UIFont.largeTitle
+        self.workoutNameTextField.delegate = self
         
         func descLabel(_ text: String) -> UILabel {
             let label = UILabel()
@@ -91,29 +91,29 @@ extension AddWorkoutViewController {
         containerView.addSubview(stackView)
 
         let headerView = UIView()
-        headerView.addSubview(workoutNameTextField)
+        headerView.addSubview(self.workoutNameTextField)
         headerView.addSubview(containerView)
         headerView.frame.size.height = 150
         
-        tableView = UITableView()
-        tableView.tableHeaderView = headerView
-        tableView.rowHeight = Size.Cell.height
-        tableView.separatorColor = .clear
-        tableView.allowsSelection = false
+        self.tableView = UITableView()
+        self.tableView.tableHeaderView = headerView
+        self.tableView.rowHeight = Size.Cell.height
+        self.tableView.separatorColor = .clear
+        self.tableView.allowsSelection = false
         
-        view.addSubview(navigationBar)
-        view.addSubview(tableView)
+        self.view.addSubview(self.navigationBar)
+        self.view.addSubview(self.tableView)
         
         // constraint
-        navigationBar.snp.makeConstraints { (make) in
-            make.top.equalTo(view.layoutMarginsGuide.snp.top)
+        self.navigationBar.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.layoutMarginsGuide.snp.top)
             make.leading.trailing.equalToSuperview()
         }
         
-        tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(navigationBar.snp.bottom)
+        self.tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.navigationBar.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(view.layoutMarginsGuide.snp.bottom)
+            make.bottom.equalTo(self.view.layoutMarginsGuide.snp.bottom)
         }
         
         containerView.snp.makeConstraints { (make) in
@@ -135,7 +135,7 @@ extension AddWorkoutViewController {
             make.top.bottom.equalToSuperview()
         }
         
-        workoutNameTextField.snp.makeConstraints { (make) in
+        self.workoutNameTextField.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.bottom.equalTo(containerView.snp.top)
@@ -144,9 +144,9 @@ extension AddWorkoutViewController {
     }
     
     private func configureTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(AddWorkoutTableViewCell.self, forCellReuseIdentifier: String(describing: AddWorkoutTableViewCell.self))
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.register(AddWorkoutTableViewCell.self, forCellReuseIdentifier: String(describing: AddWorkoutTableViewCell.self))
     }
 }
 
@@ -156,16 +156,16 @@ extension AddWorkoutViewController: AddingWorkoutSet {
     func addWorkoutSet() {
         let newWorkoutSet = WorkoutSet()
         do {
-            try realm.write {
-                workout.sets.append(newWorkoutSet)
-                realm.add(workout, update: .modified)
-                print("Added new workoutSet to \(workout.name)")
+            try self.realm.write {
+                self.workout.sets.append(newWorkoutSet)
+                self.realm.add(self.workout, update: .modified)
+                print("Added new workoutSet to \(self.workout.name)")
             }
         } catch let error as NSError {
             fatalError("Error occurs while add workoutSet: \(error)")
         }
         
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
 }
 
@@ -173,14 +173,14 @@ extension AddWorkoutViewController: AddingWorkoutSet {
 // MARK: TableView DataSource
 extension AddWorkoutViewController: UITableViewDataSource {
     private func isLastCell(_ indexPath: IndexPath) -> Bool {
-        if indexPath.row == workout.countOfSets {
+        if indexPath.row == self.workout.countOfSets {
             return true
         }
         return false
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return workout.countOfSets + 1
+        return self.workout.countOfSets + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -207,8 +207,8 @@ extension AddWorkoutViewController: UITableViewDataSource {
         switch editingStyle {
         case .delete:
             do {
-                try realm.write {
-                    workout.sets.remove(at: indexPath.row)
+                try self.realm.write {
+                    self.workout.sets.remove(at: indexPath.row)
                     print("The workoutSet was successfully Deleted")
                 }
             } catch let error as NSError {
@@ -237,15 +237,15 @@ extension AddWorkoutViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text else { return false }
         do {
-            try realm.write {
-                workout.name = text
+            try self.realm.write {
+                self.workout.name = text
             }
         } catch let error as NSError {
             fatalError("Error occurs while delete workoutSet: \(error)")
         }
         textField.resignFirstResponder()
         
-        if workout.countOfSets == 0 {
+        if self.workout.countOfSets == 0 {
             addWorkoutSet()
         }
         return true

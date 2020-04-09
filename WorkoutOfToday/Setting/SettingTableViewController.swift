@@ -12,7 +12,7 @@ class SettingTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        self.setup()
     }
 
     // MARK: - Table view data source
@@ -56,9 +56,9 @@ extension SettingTableViewController {
     private func setup() {
         if let navigationController = navigationController {
             navigationController.navigationBar.prefersLargeTitles = true
-            title = "설정"
+            self.title = "설정"
         }
-        tableView.backgroundColor = .white
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SettingTableViewCell")
+        self.tableView.backgroundColor = .white
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SettingTableViewCell")
     }
 }
