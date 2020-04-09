@@ -11,15 +11,19 @@ import UIKit
 import SnapKit
 import RealmSwift
 
-class TodayWorkoutViewController: UIViewController {
+final class TodayWorkoutViewController: UIViewController {
     
+    // properties
     private var workoutsOfToday: WorkoutsOfDay?
+   
+    private let realm = try! Realm()
     
+    
+    // UI
     var tableView: UITableView!
     
     private var workoutAddButton : UIButton!
     
-    private let realm = try! Realm()
     
     // MARK: View Life Cycle
     override func loadView() {
@@ -32,7 +36,9 @@ class TodayWorkoutViewController: UIViewController {
         configureTableView()
         fetchWorkoutOfToday()
         
-        workoutAddButton.addTarget(self, action: #selector(addWorkout(_:)), for: .touchUpInside)
+        workoutAddButton.addTarget(self,
+                                   action: #selector(addWorkout(_:)),
+                                   for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,7 +58,6 @@ class TodayWorkoutViewController: UIViewController {
             } catch let error as NSError {
                 fatalError("Error occurs while create workout: \(error)")
             }
-            
         } else {
             let workoutsOfToday = WorkoutsOfDay()
             self.workoutsOfToday = workoutsOfToday
@@ -65,7 +70,6 @@ class TodayWorkoutViewController: UIViewController {
                 fatalError("Error occurs while create workout: \(error)")
             }
         }
-        
         vc.workout = newWorkout
         present(vc, animated: true, completion: nil)
     }
@@ -93,7 +97,6 @@ extension TodayWorkoutViewController {
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(55)
         }
-        
         tableView.snp.makeConstraints { (make) in
             make.top.equalTo(view.layoutMarginsGuide.snp.top)
             make.leading.trailing.equalToSuperview()
@@ -117,7 +120,8 @@ extension TodayWorkoutViewController {
 }
 
 
-extension TodayWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
+// MARK: TableView DataSource
+extension TodayWorkoutViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let workoutsOfToday = workoutsOfToday else { return 0 }
         return workoutsOfToday.countOfWorkouts
@@ -130,7 +134,11 @@ extension TodayWorkoutViewController: UITableViewDelegate, UITableViewDataSource
         cell.workout = workout
         return cell
     }
-    
+}
+
+
+// MARK: TableView Delegate
+extension TodayWorkoutViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -138,4 +146,5 @@ extension TodayWorkoutViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
 }

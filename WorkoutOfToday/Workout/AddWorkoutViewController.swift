@@ -11,16 +11,23 @@ import UIKit
 import RealmSwift
 import SnapKit
 
-class AddWorkoutViewController: UIViewController {
+final class AddWorkoutViewController: UIViewController {
     
+    // properites
+    private let realm = try! Realm()
+    
+    var workout: Workout!
+    
+    // UI
     private var navigationBar: UINavigationBar = {
         let bar = UINavigationBar()
         bar.barTintColor = .white
         let barItem = UINavigationItem()
         barItem.title = "운동 추가"
-//        barItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(dismiss(_:)))
-        barItem.rightBarButtonItem = UIBarButtonItem(title: "추가", style: .done, target: self, action: #selector(addWorkout(_:)))
-        //        barItem.rightBarButtonItem?.isEnabled = false
+        barItem.rightBarButtonItem = UIBarButtonItem(title: "추가",
+                                                     style: .done,
+                                                     target: self,
+                                                     action: #selector(addWorkout(_:)))
         bar.items = [barItem]
         
         // Delete bottom border of nav bar
@@ -28,10 +35,6 @@ class AddWorkoutViewController: UIViewController {
         bar.shadowImage = UIImage()
         return bar
     }()
-    
-    private let realm = try! Realm()
-    
-    var workout: Workout!
     
     var tableView: UITableView!
     
@@ -49,65 +52,97 @@ class AddWorkoutViewController: UIViewController {
         configureTableView()
     }
     
-//    @objc func dismiss(_ sender: UIBarButtonItem) {
-//        self.dismiss(animated: true, completion: nil)
-//
-//    }
-//
     @objc func addWorkout(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
 }
 
 
-// MARK:- Setup functions
+// MARK: Setup functions
 extension AddWorkoutViewController {
+    
+    
     
     private func setup() {
         view.backgroundColor = .white
         
+        // subViews
         workoutNameTextField = UITextField()
         workoutNameTextField.placeholder = "운동 이름"
-        let font = UIFont.preferredFont(forTextStyle: .largeTitle)
-        let fontSize = font.pointSize
-        workoutNameTextField.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
+        workoutNameTextField.font = UIFont.largeTitle
         workoutNameTextField.delegate = self
         
+        func descLabel(_ text: String) -> UILabel {
+            let label = UILabel()
+            label.textAlignment = .center
+            label.font = UIFont.caption
+            label.text = text
+            return label
+        }
+        
+        let containerView = UIView()
+        let countDescLabel = descLabel("Set")
+        let weightDescLabel = descLabel("Kg")
+        let repsDescLabel = descLabel("reps")
+        
+        let stackView = UIStackView(arrangedSubviews: [weightDescLabel, repsDescLabel])
+        stackView.configureForWorkoutSet()
+        containerView.addSubview(countDescLabel)
+        containerView.addSubview(stackView)
+
         let headerView = UIView()
         headerView.addSubview(workoutNameTextField)
+        headerView.addSubview(containerView)
         headerView.frame.size.height = 150
         
         tableView = UITableView()
         tableView.tableHeaderView = headerView
-        tableView.rowHeight = 60
+        tableView.rowHeight = Size.Cell.height
         tableView.separatorColor = .clear
         tableView.allowsSelection = false
         
         view.addSubview(navigationBar)
         view.addSubview(tableView)
         
-        setupConstraint()
-    }
-    
-    private func setupConstraint() {
+        // constraint
         navigationBar.snp.makeConstraints { (make) in
             make.top.equalTo(view.layoutMarginsGuide.snp.top)
             make.leading.trailing.equalToSuperview()
         }
+        
         tableView.snp.makeConstraints { (make) in
             make.top.equalTo(navigationBar.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.layoutMarginsGuide.snp.bottom)
         }
         
+        containerView.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview().offset(Inset.Cell.horizontalInset)
+            make.trailing.equalToSuperview().offset(-Inset.Cell.horizontalInset)
+            make.height.equalTo(Size.Cell.height - 20)
+            make.bottom.equalToSuperview()
+        }
+        
+        countDescLabel.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.width.equalTo(30)
+        }
+        
+        stackView.snp.makeConstraints { (make) in
+            make.leading.equalTo(countDescLabel.snp.trailing).offset(20)
+            make.trailing.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+        }
+        
         workoutNameTextField.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.bottom.equalToSuperview().offset(-15)
+            make.bottom.equalTo(containerView.snp.top)
             make.height.equalTo(100)
         }
     }
-
+    
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -116,8 +151,7 @@ extension AddWorkoutViewController {
 }
 
 
-
-// MARK:- Add WorkoutSet Delegate
+// MARK: Add WorkoutSet Delegate
 extension AddWorkoutViewController: AddingWorkoutSet {
     func addWorkoutSet() {
         let newWorkoutSet = WorkoutSet()
@@ -136,8 +170,8 @@ extension AddWorkoutViewController: AddingWorkoutSet {
 }
 
 
-// MARK:- TableView Delegate
-extension AddWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
+// MARK: TableView DataSource
+extension AddWorkoutViewController: UITableViewDataSource {
     private func isLastCell(_ indexPath: IndexPath) -> Bool {
         if indexPath.row == workout.countOfSets {
             return true
@@ -154,10 +188,8 @@ extension AddWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
         if isLastCell(indexPath) {
             cell.isAddingCell = true
             cell.delegate = self
-//            cell.setAddButton.addTarget(self, action: #selector(addWorkoutSet(_:)), for: .touchUpInside)
         } else {
             cell.isAddingCell = false
-            //            let workoutSet = workout.sets[indexPath.row]
             cell.countLabel.text = "\(indexPath.row + 1)"
         }
         return cell
@@ -194,7 +226,13 @@ extension AddWorkoutViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-// MARK:- TextField Delegate
+// MARK: TableView Delegate
+extension AddWorkoutViewController: UITableViewDelegate {
+    
+}
+
+
+// MARK: TextField Delegate
 extension AddWorkoutViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text else { return false }

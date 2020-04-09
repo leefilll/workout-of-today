@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-class HeaderView: UIView {
+final class HeaderView: UIView {
     
     var titleLabel: UILabel!
     
@@ -28,9 +28,7 @@ class HeaderView: UIView {
     
     private func setup() {
         titleLabel = UILabel()
-        let font = UIFont.preferredFont(forTextStyle: .largeTitle)
-        let fontSize = font.pointSize
-        titleLabel.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
+        titleLabel.font = UIFont.largeTitle
         titleLabel.text = "오늘의 운동"
         addSubview(titleLabel)
         

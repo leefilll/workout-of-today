@@ -10,11 +10,10 @@ import UIKit
 
 import SnapKit
 
-class TodayWorkoutTableViewCell: UITableViewCell {
+final class TodayWorkoutTableViewCell: UITableViewCell {
     
+    // properties
     private let padding = 10
-    
-    private var cardView: CardView!
     
     var workout: Workout? {
         didSet {
@@ -22,7 +21,12 @@ class TodayWorkoutTableViewCell: UITableViewCell {
         }
     }
     
+    
+    // UI
+    private var cardView: CardView!
+    
     var titleLabel: UILabel!
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -39,9 +43,7 @@ class TodayWorkoutTableViewCell: UITableViewCell {
         addSubview(cardView)
         
         titleLabel = UILabel()
-        let font = UIFont.preferredFont(forTextStyle: .title2)
-        let fontSize = font.pointSize
-        titleLabel.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
+        titleLabel.font = UIFont.title
         cardView.addSubview(titleLabel)
         
         cardView.snp.makeConstraints { (make) in

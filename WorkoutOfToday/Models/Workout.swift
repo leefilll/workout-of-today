@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Workout: Object {
+final class Workout: Object {
     @objc dynamic var name: String = ""
     @objc dynamic var createdDateTime: Date = Date()
     @objc dynamic var id = UUID().uuidString

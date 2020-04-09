@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class WorkoutsOfDay: Object {
+final class WorkoutsOfDay: Object {
     @objc dynamic var createdDateTime = Date.now
     @objc dynamic var id: String  = DateFormatter.sharedFormatter.string(from: Date.now.startOfDay!)
     

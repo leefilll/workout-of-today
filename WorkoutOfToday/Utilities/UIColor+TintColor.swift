@@ -19,6 +19,3 @@ extension UIColor {
     
     static var tintColor = UIColor.colorWithRGBHex(hex: 0x61bff2)
 }
-
-extension UIButton {
-}

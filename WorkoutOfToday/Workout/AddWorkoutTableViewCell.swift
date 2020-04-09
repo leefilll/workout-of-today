@@ -10,18 +10,21 @@ import UIKit
 
 import SnapKit
 
-class AddWorkoutTableViewCell: UITableViewCell {
+final class AddWorkoutTableViewCell: UITableViewCell {
     
-    private var containerView: UIView!
+    // properties
+    var delegate: AddingWorkoutSet?
     
     var isAddingCell: Bool = false {
-        willSet {
-                setAddButton.isHidden = !newValue
-                containerView.isHidden = newValue
-        }
-    }
+           willSet {
+                   setAddButton.isHidden = !newValue
+                   containerView.isHidden = newValue
+           }
+       }
     
-    var delegate: AddingWorkoutSet?
+    
+    // UI
+    private var containerView: UIView!
     
     var setAddButton: UIButton!
     
@@ -30,6 +33,7 @@ class AddWorkoutTableViewCell: UITableViewCell {
     var weightTextField: UITextField!
     
     var repsTextField: UITextField!
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -48,8 +52,7 @@ class AddWorkoutTableViewCell: UITableViewCell {
     private func setup() {
         setAddButton = UIButton()
         setAddButton.setTitle("세트 추가", for: .normal)
-        let tintColor = UIColor.tintColor
-        setAddButton.backgroundColor = tintColor.withAlphaComponent(0.5)
+        setAddButton.backgroundColor = UIColor.tintColor.withAlphaComponent(0.5)
         setAddButton.isHidden = true
         setAddButton.layer.cornerRadius = 10
         setAddButton.layer.masksToBounds = true
@@ -58,7 +61,7 @@ class AddWorkoutTableViewCell: UITableViewCell {
         containerView = UIView()
         
         countLabel = UILabel()
-        countLabel.text = "33"
+        countLabel.textAlignment = .center
         
         weightTextField = UITextField()
         weightTextField.placeholder = "kg"
@@ -75,9 +78,7 @@ class AddWorkoutTableViewCell: UITableViewCell {
         repsTextField.layer.cornerRadius = 10
         
         let stackView = UIStackView(arrangedSubviews: [weightTextField, repsTextField])
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.distribution = .fillEqually
+        stackView.configureForWorkoutSet()
         
         addSubview(setAddButton)
         addSubview(containerView)
@@ -86,33 +87,34 @@ class AddWorkoutTableViewCell: UITableViewCell {
         
         setAddButton.snp.makeConstraints { (make) in
             make.centerX.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(15)
-            make.trailing.equalToSuperview().offset(-15)
-            make.top.equalToSuperview().offset(10)
-            make.bottom.equalToSuperview().offset(-10)
+            make.leading.equalToSuperview().offset(Inset.Cell.horizontalInset)
+            make.trailing.equalToSuperview().offset(-Inset.Cell.horizontalInset)
+            make.top.equalToSuperview().offset(Inset.Cell.veticalInset)
+            make.bottom.equalToSuperview().offset(-Inset.Cell.veticalInset)
         }
         
         containerView.snp.makeConstraints { (make) in
-            make.leading.trailing.top.bottom.equalToSuperview()
+            make.top.equalToSuperview().offset(Inset.Cell.veticalInset)
+            make.bottom.equalToSuperview().offset(-Inset.Cell.veticalInset)
+            make.leading.equalToSuperview().offset(Inset.Cell.horizontalInset)
+            make.trailing.equalToSuperview().offset(-Inset.Cell.horizontalInset)
         }
         
         countLabel.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview()
             make.width.equalTo(30)
             make.centerY.equalToSuperview()
         }
         
         stackView.snp.makeConstraints { (make) in
             make.leading.equalTo(countLabel.snp.trailing).offset(20)
-            make.trailing.equalToSuperview().offset(-20)
-            make.top.equalToSuperview().offset(10)
-            make.bottom.equalToSuperview().offset(-10)
+            make.trailing.equalToSuperview()
+            make.top.bottom.equalToSuperview()
         }
     }
     
     @objc func addWorkoutSet(_ sender: UIButton) {
         delegate?.addWorkoutSet()
-//        print("TAP")
     }
 }
 

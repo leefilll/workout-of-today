@@ -33,7 +33,7 @@ extension UIView {
       }
 }
 
-enum PartOfView {
+fileprivate enum PartOfView {
     case top
     case bottom
     case entire

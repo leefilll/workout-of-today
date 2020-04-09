@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class WorkoutSet: Object {
+final class WorkoutSet: Object {
     @objc dynamic var order: Int16 = 0
     @objc dynamic var weight: Int16 = 0
     @objc dynamic var reps: Int16 = 0

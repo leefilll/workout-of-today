@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-class WorkoutSetView: UIView {
+final class WorkoutSetView: UIView {
     
     var setCountLabel: UILabel!
     

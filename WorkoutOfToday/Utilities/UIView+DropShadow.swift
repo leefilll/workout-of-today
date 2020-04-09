@@ -19,7 +19,6 @@ extension UIView {
         layer.shadowPath = UIBezierPath(rect: bounds).cgPath
         layer.rasterizationScale = scale ? UIScreen.main.scale : 1
     }
-//    dropShadow(color: .black, opacity: 0.09, offSet: CGSize(width: 0, height: 0), radius: 12, cornerRadius: 20, scale: true)
     
     func dropShadow(color: UIColor, opacity: Float = 0.5, offSet: CGSize, radius: CGFloat = 1, cornerRadius: CGFloat, scale: Bool = true) {
         self.clipsToBounds = false
