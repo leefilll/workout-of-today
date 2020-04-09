@@ -19,4 +19,8 @@ enum Size {
     enum Cell {
         static let height: CGFloat = 60
     }
+    
+    enum CellView {
+        static let height: CGFloat = 50
+    }
 }

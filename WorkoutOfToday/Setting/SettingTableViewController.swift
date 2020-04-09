@@ -9,7 +9,7 @@
 import UIKit
 
 class SettingTableViewController: UITableViewController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setup()
@@ -30,10 +30,12 @@ class SettingTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell", for: indexPath) as! SettingTableViewCell
+        
         switch indexPath.section {
         case 0:
-            cell.textLabel?.text = Version.version
+            cell.textLabel?.text = "버전"
+            cell.detailTextLabel?.text = Version.version
             break
         default:
             break
@@ -41,13 +43,9 @@ class SettingTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "버젼"
-        default:
-            return nil
-        }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.selectionStyle = .none
     }
 }
 
@@ -59,6 +57,18 @@ extension SettingTableViewController {
             self.title = "설정"
         }
         self.tableView.backgroundColor = .white
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SettingTableViewCell")
+        self.tableView.register(SettingTableViewCell.self,
+                                forCellReuseIdentifier: "SettingTableViewCell")
+    }
+}
+
+
+class SettingTableViewCell: UITableViewCell {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .value1, reuseIdentifier: reuseIdentifier)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
 }

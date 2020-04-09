@@ -25,7 +25,11 @@ extension UIFont {
         return UIFont.preferredFont(forTextStyle: .body)
     }
     
-    static var caption: UIFont {
+    static var subheadline: UIFont {
         return UIFont.preferredFont(forTextStyle: .subheadline)
+    }
+    
+    static var description: UIFont {
+        return UIFont.preferredFont(forTextStyle: .caption1)
     }
 }

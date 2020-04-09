@@ -21,9 +21,9 @@ class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
         self.viewControllers = tabBarControllers
         
         if let items = self.tabBar.items {
-            items[0].title = "Workout"
-            items[1].title = "Feed"
-            items[2].title = "Eating"
+            items[0].title = "오늘의 운동"
+            items[1].title = "피드"
+            items[2].title = "설정"
         }
     }
 }

@@ -10,11 +10,15 @@ import Foundation
 import RealmSwift
 
 final class WorkoutSet: Object {
-    @objc dynamic var order: Int16 = 0
-    @objc dynamic var weight: Int16 = 0
-    @objc dynamic var reps: Int16 = 0
+    @objc dynamic var order: Int = 0
+    @objc dynamic var weight: Int = 0
+    @objc dynamic var reps: Int = 0
     @objc dynamic var id = UUID().uuidString
     let workout = LinkingObjects(fromType: Workout.self, property: "sets")
+    
+    var volume: Int {
+        return self.weight * self.reps
+    }
     
     override class func primaryKey() -> String? {
         return "id"

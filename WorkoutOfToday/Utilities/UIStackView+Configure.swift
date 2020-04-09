@@ -10,6 +10,7 @@
 import UIKit
 
 extension UIStackView {
+    
     func configureForWorkoutSet() {
         self.axis = .horizontal
         self.spacing = 10

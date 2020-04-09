@@ -35,10 +35,16 @@ final class TodayWorkoutViewController: UIViewController {
         super.viewDidLoad()
         self.configureTableView()
         self.fetchWorkoutOfToday()
+        self.addObserverToNotificationCenter()
         
         self.workoutAddButton.addTarget(self,
                                    action: #selector(addWorkout(_:)),
                                    for: .touchUpInside)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func addWorkout(_ sender: UIButton) {
@@ -111,6 +117,21 @@ extension TodayWorkoutViewController {
         let workoutsOfToday =
             realm.object(ofType: WorkoutsOfDay.self, forPrimaryKey: primaryKey)
         self.workoutsOfToday = workoutsOfToday
+    }
+    
+    private func addObserverToNotificationCenter() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(reloadData),
+                                               name: NSNotification.Name.ModalDidDisMissedNotification,
+                                               object: nil)
+    }
+    
+    @objc func reloadData() {
+        self.tableView.reloadData()
+        if let countOfWorkouts = self.workoutsOfToday?.countOfWorkouts {
+        let targetIndexPath = IndexPath(row: countOfWorkouts - 1, section: 0)
+            self.tableView.scrollToRow(at: targetIndexPath, at: .middle, animated: true)
+        }
     }
 }
 

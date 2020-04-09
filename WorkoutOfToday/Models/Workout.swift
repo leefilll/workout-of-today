@@ -20,6 +20,17 @@ final class Workout: Object {
         return sets.count
     }
     
+    public var totalVolume: Int {
+        var total = 0
+        self.sets.forEach { set in
+            total += set.volume
+        }
+//        self.sets.forEach { set in
+//            total += Int(set.weight * set.reps)
+//        }
+        return total
+    }
+    
     override static func primaryKey() -> String? {
         return "id"
     }

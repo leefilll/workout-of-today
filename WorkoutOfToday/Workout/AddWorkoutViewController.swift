@@ -53,6 +53,8 @@ final class AddWorkoutViewController: UIViewController {
     }
     
     @objc func addWorkout(_ sender: UIBarButtonItem) {
+        NotificationCenter.default.post(name: NSNotification.Name.ModalDidDisMissedNotification,
+                                        object: nil)
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -60,8 +62,6 @@ final class AddWorkoutViewController: UIViewController {
 
 // MARK: Setup functions
 extension AddWorkoutViewController {
-    
-    
     
     private func setup() {
         self.view.backgroundColor = .white
@@ -75,7 +75,7 @@ extension AddWorkoutViewController {
         func descLabel(_ text: String) -> UILabel {
             let label = UILabel()
             label.textAlignment = .center
-            label.font = UIFont.caption
+            label.font = UIFont.subheadline
             label.text = text
             return label
         }
@@ -89,7 +89,7 @@ extension AddWorkoutViewController {
         stackView.configureForWorkoutSet()
         containerView.addSubview(countDescLabel)
         containerView.addSubview(stackView)
-
+        
         let headerView = UIView()
         headerView.addSubview(self.workoutNameTextField)
         headerView.addSubview(containerView)
@@ -152,20 +152,33 @@ extension AddWorkoutViewController {
 
 
 // MARK: Add WorkoutSet Delegate
-extension AddWorkoutViewController: AddingWorkoutSet {
-    func addWorkoutSet() {
+extension AddWorkoutViewController: WorkoutSetCellDelegate {
+    
+    func workoutSetCellDidAdded() {
         let newWorkoutSet = WorkoutSet()
-        do {
-            try self.realm.write {
-                self.workout.sets.append(newWorkoutSet)
-                self.realm.add(self.workout, update: .modified)
-                print("Added new workoutSet to \(self.workout.name)")
-            }
-        } catch let error as NSError {
-            fatalError("Error occurs while add workoutSet: \(error)")
-        }
+        self.realm.addToRealm({
+            self.workout.sets.append(newWorkoutSet)
+        }, object: self.workout,
+           update: .modified)
         
-        self.tableView.reloadData()
+        let targetIndexPath = IndexPath(row: self.workout.countOfSets - 1, section: 0)
+        self.tableView.insertRows(at: [targetIndexPath], with: .automatic)
+    }
+    
+    func workoutSetCellDidEndEditingIn(indexPath: IndexPath, toWeight weight: Int) {
+        let targetWorkoutSet = self.workout.sets[indexPath.row]
+        self.realm.addToRealm({
+            targetWorkoutSet.weight = weight
+        }, object: self.workout,
+           update: .modified)
+    }
+    
+    func workoutSetCellDidEndEditingIn(indexPath: IndexPath, toReps reps: Int) {
+        let targetWorkoutSet = self.workout.sets[indexPath.row]
+        self.realm.addToRealm({
+            targetWorkoutSet.reps = reps
+        }, object: self.workout,
+           update: .modified)
     }
 }
 
@@ -179,24 +192,43 @@ extension AddWorkoutViewController: UITableViewDataSource {
         return false
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    private func isButtonSection(section: Int) -> Bool {
+        if section == 0 {
+            return false
+        }
+        return true
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.workout.countOfSets + 1
+        if isButtonSection(section: section) {
+            return 1
+        } else {
+            return self.workout.countOfSets
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddWorkoutTableViewCell.self), for: indexPath) as! AddWorkoutTableViewCell
-        if isLastCell(indexPath) {
+        cell.delegate = self
+        
+        if isButtonSection(section: indexPath.section) {
             cell.isAddingCell = true
-            cell.delegate = self
         } else {
+            let workoutSet = self.workout.sets[indexPath.row]
             cell.isAddingCell = false
-            cell.countLabel.text = "\(indexPath.row + 1)"
+            cell.indexPath = indexPath
+            cell.weightTextField.text = workoutSet.weight != 0 ? "\(workoutSet.weight)" : nil
+            cell.repsTextField.text = workoutSet.reps != 0 ? "\(workoutSet.reps)" : nil
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if isLastCell(indexPath) {
+        if isButtonSection(section: indexPath.section) {
             return false
         } else {
             return true
@@ -205,22 +237,22 @@ extension AddWorkoutViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
-        case .delete:
-            do {
-                try self.realm.write {
-                    self.workout.sets.remove(at: indexPath.row)
-                    print("The workoutSet was successfully Deleted")
+            case .delete:
+                do {
+                    try self.realm.write {
+                        self.workout.sets.remove(at: indexPath.row)
+                        print("The workoutSet was successfully Deleted")
+                    }
+                } catch let error as NSError {
+                    fatalError("Error occurs while delete workoutSet: \(error)")
                 }
-            } catch let error as NSError {
-                fatalError("Error occurs while delete workoutSet: \(error)")
-            }
-            tableView.beginUpdates()
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.endUpdates()
-            tableView.reloadData()
-            break
-        default:
-            break
+                tableView.beginUpdates()
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.endUpdates()
+                tableView.reloadData()
+                break
+            default:
+                break
         }
     }
 }
@@ -234,20 +266,24 @@ extension AddWorkoutViewController: UITableViewDelegate {
 
 // MARK: TextField Delegate
 extension AddWorkoutViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let text = textField.text else { return false }
-        do {
-            try self.realm.write {
-                self.workout.name = text
-            }
-        } catch let error as NSError {
-            fatalError("Error occurs while delete workoutSet: \(error)")
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        self.realm.writeToRealm {
+            self.workout.name = text
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
+        // If there is no cells, add new cell automatically
         if self.workout.countOfSets == 0 {
-            addWorkoutSet()
+            workoutSetCellDidAdded()
         }
         return true
     }
+}
+
+extension NSNotification.Name {
+    static let ModalDidDisMissedNotification = NSNotification.Name(rawValue: "ModalDidDisMissedNotification")
 }

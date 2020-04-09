@@ -9,11 +9,20 @@
 import UIKit
 
 import SnapKit
+import RealmSwift
 
 final class AddWorkoutTableViewCell: UITableViewCell {
     
     // properties
-    var delegate: AddingWorkoutSet?
+    var delegate: WorkoutSetCellDelegate?
+    
+    var indexPath: IndexPath? {
+        didSet {
+            if let indexPath = indexPath {
+                self.countLabel.text = "\(indexPath.row + 1)"
+            }
+        }
+    }
     
     var isAddingCell: Bool = false {
         willSet {
@@ -76,13 +85,19 @@ final class AddWorkoutTableViewCell: UITableViewCell {
             textField.font = UIFont.body
             textField.textAlignment = .center
             textField.layer.cornerRadius = 10
+            textField.keyboardType = .decimalPad
+            textField.delegate = self
             return textField
         }
         
         self.weightTextField = textField(with: "kg")
         self.repsTextField = textField(with: "0")
-        self.weightTextField.delegate = self
-        self.repsTextField.delegate = self
+        self.weightTextField.addToolbar(onDone: (target: self,
+                                                 title: "다음",
+                                                 action: #selector(nextDidTapped(_:))))
+        self.repsTextField.addToolbar(onDone: (target: self,
+                                               title: "확인",
+                                               action: #selector(doneDidTapped(_:))))
         
         let stackView = UIStackView(arrangedSubviews: [self.weightTextField,
                                                        self.repsTextField])
@@ -122,29 +137,58 @@ final class AddWorkoutTableViewCell: UITableViewCell {
     }
     
     @objc func addWorkoutSet(_ sender: UIButton) {
-        self.delegate?.addWorkoutSet()
+        self.delegate?.workoutSetCellDidAdded()
     }
 }
 
+
+// MARK: TextField Delegate
 extension AddWorkoutTableViewCell: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    @objc func nextDidTapped(_ sender: UIBarButtonItem) {
+        self.repsTextField.becomeFirstResponder()
+    }
+    
+    @objc func doneDidTapped(_ sender: UIBarButtonItem) {
+        self.repsTextField.resignFirstResponder()
+        self.isCompleted = true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        
         switch textField {
-            case self.weightTextField:
-                textField.resignFirstResponder()
-                self.repsTextField.becomeFirstResponder()
+            case weightTextField:
+                if let weight = Int(text), let indexPath = self.indexPath {
+                    delegate?.workoutSetCellDidEndEditingIn(indexPath: indexPath,
+                                                            toWeight: weight)
+                }
             break
-            case self.repsTextField:
-                textField.resignFirstResponder()
-                self.isCompleted = true
+            case repsTextField:
+                if let reps = Int(text), let indexPath = self.indexPath {
+                    delegate?.workoutSetCellDidEndEditingIn(indexPath: indexPath,
+                                                            toReps: reps)
+                }
             break
             default:
             break
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let charSet = CharacterSet(charactersIn: "0123456789.").inverted
+        if let _ = string.rangeOfCharacter(from: charSet) {
+            return false
         }
         return true
     }
 }
 
 
-protocol AddingWorkoutSet {
-    func addWorkoutSet()
+protocol WorkoutSetCellDelegate {
+    
+    func workoutSetCellDidAdded()
+    
+    func workoutSetCellDidEndEditingIn(indexPath: IndexPath, toWeight weight: Int)
+    
+    func workoutSetCellDidEndEditingIn(indexPath: IndexPath, toReps reps: Int)
 }
