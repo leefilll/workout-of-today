@@ -13,6 +13,9 @@ enum Inset {
         static let horizontalInset = 20
         static let veticalInset = 13
     }
+    
+    static let workoutCellHorizontalInset = Inset.Cell.horizontalInset
+    static let workoutCellVerticalInset = 5
 }
 
 enum Size {

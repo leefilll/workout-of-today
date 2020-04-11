@@ -9,6 +9,11 @@
 import UIKit
 
 extension UIFont {
+    static var veryLargeTitle: UIFont {
+        let font = UIFont.boldSystemFont(ofSize: 35)
+        return font
+    }
+    
     static var largeTitle: UIFont {
         let font = UIFont.preferredFont(forTextStyle: .largeTitle)
         let fontSize = font.pointSize

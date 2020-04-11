@@ -99,7 +99,9 @@ extension TodayWorkoutViewController {
         self.tableView.separatorColor = .clear
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.register(TodayWorkoutTableViewCell.self, forCellReuseIdentifier: String(describing: TodayWorkoutTableViewCell.self))
+        self.tableView.register(WorkoutsOfTodayTableViewCell.self,
+                                forCellReuseIdentifier: String(describing: WorkoutsOfTodayTableViewCell.self))
+//        self.tableView.register(TodayWorkoutTableViewCell.self, forCellReuseIdentifier: String(describing: TodayWorkoutTableViewCell.self))
         self.tableView.register(AddTodayWorkoutTableViewCell.self, forCellReuseIdentifier: String(describing: AddTodayWorkoutTableViewCell.self))
     }
     
@@ -165,16 +167,17 @@ extension TodayWorkoutViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if isAddingCell(section: indexPath.section) {
-            print(#function)
-            print(#function)
-            print(#function)
-            print(#function)
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddTodayWorkoutTableViewCell.self), for: indexPath) as! AddTodayWorkoutTableViewCell
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TodayWorkoutTableViewCell.self), for: indexPath) as! TodayWorkoutTableViewCell
-            guard let workouts = self.workoutsOfToday else { fatalError() }
-            let workout = workouts.workouts[indexPath.row]
+//            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TodayWorkoutTableViewCell.self), for: indexPath) as! TodayWorkoutTableViewCell
+//            guard let workouts = self.workoutsOfToday else { fatalError() }
+//            let workout = workouts.workouts[indexPath.row]
+//            cell.workout = workout
+//            return cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: WorkoutsOfTodayTableViewCell.self), for: indexPath) as! WorkoutsOfTodayTableViewCell
+            guard let workoutsOfToday = self.workoutsOfToday else { fatalError() }
+            let workout = workoutsOfToday.workouts[indexPath.row]
             cell.workout = workout
             return cell
         }
@@ -194,17 +197,20 @@ extension TodayWorkoutViewController: UITableViewDataSource {
 extension TodayWorkoutViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if isAddingCell(section: indexPath.section) {
-            return 150
+            return 100
         } else {
-            return UITableView.automaticDimension
+//            return UITableView.automaticDimension
+            return 120
         }
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         if isAddingCell(section: indexPath.section) {
-            return 150
+            return 100
         } else {
-            return UITableView.automaticDimension
+//            return UITableView.automaticDimension
+            
+            return 120
         }
     }
     

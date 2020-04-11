@@ -17,7 +17,9 @@ class WorkoutsOfTodayTableViewCell: UITableViewCell {
             self.workoutNameLabel.text = self.workout?.name
             self.totalVolumeLabel.text = "\(self.workout?.totalVolume ?? 0)"
             self.totalSetLabel.text = "\(self.workout?.countOfSets ?? 0)"
-            self.bestSetLabel.text = String(describing: self.workout?.bestSet ?? nil)
+            if let workout = self.workout, let bestSet = workout.bestSet {
+                self.bestSetLabel.text = String(describing: bestSet)
+            }
         }
     }
     
@@ -44,48 +46,62 @@ class WorkoutsOfTodayTableViewCell: UITableViewCell {
     }
     
     private func setup() {
-        let containerView = WorkoutCardView()
+//        let containerView = WorkoutCardView()
+        let containerView = UIView()
+        containerView.backgroundColor = .tintColor
+        containerView.clipsToBounds = true
+        containerView.layer.cornerRadius = 10
+        
+        
         self.workoutNameLabel = UILabel()
         self.workoutNameLabel.font = UIFont.title
         self.workoutNameLabel.textColor = .white
+        self.workoutNameLabel.sizeToFit()
         
         self.totalVolumeLabel = UILabel()
-        self.totalVolumeLabel.font = UIFont.title
+        self.totalVolumeLabel.font = UIFont.veryLargeTitle
         self.totalVolumeLabel.textColor = .white
+        self.totalVolumeLabel.sizeToFit()
         
         self.totalSetLabel = UILabel()
-        self.totalSetLabel.font = UIFont.largeTitle
+        self.totalSetLabel.font = UIFont.veryLargeTitle
         self.totalSetLabel.textColor = .white
+        self.totalSetLabel.sizeToFit()
         
         self.bestSetLabel = UILabel()
         self.bestSetLabel.font = UIFont.description
         self.bestSetLabel.textColor = UIColor.white.withAlphaComponent(0.7)
+        self.bestSetLabel.sizeToFit()
         
         let weightUnitLabel = UILabel()
         weightUnitLabel.font = UIFont.subheadline
         weightUnitLabel.textColor = .white
         weightUnitLabel.text = "kg"
+        weightUnitLabel.sizeToFit()
         
         let weightStackView = UIStackView(arrangedSubviews: [self.totalVolumeLabel,
                                                              weightUnitLabel])
         weightStackView.axis = .horizontal
         weightStackView.spacing = 5
+        weightStackView.alignment = .firstBaseline
         
         
         let setUnitLabel = UILabel()
         setUnitLabel.font = UIFont.title
         setUnitLabel.textColor = .white
         setUnitLabel.text = "set"
+        setUnitLabel.sizeToFit()
         
         let setStackView = UIStackView(arrangedSubviews: [self.totalSetLabel,
                                                           setUnitLabel])
         setStackView.axis = .horizontal
-        setStackView.alignment = .bottom
+        setStackView.alignment = .firstBaseline
         setStackView.spacing = 5
         
         let bestSetUnitLabel = UILabel()
         bestSetUnitLabel.font = UIFont.description
         bestSetUnitLabel.textColor = UIColor.white.withAlphaComponent(0.7)
+        bestSetUnitLabel.sizeToFit()
         
         let bestSetStackView = UIStackView(arrangedSubviews: [bestSetUnitLabel,
                                                               self.bestSetLabel])
@@ -98,6 +114,7 @@ class WorkoutsOfTodayTableViewCell: UITableViewCell {
         leftStackView.axis = .vertical
         leftStackView.alignment = .leading
         leftStackView.spacing = 5
+        leftStackView.distribution = .fillProportionally
         
         let rightStackView = UIStackView(arrangedSubviews: [setStackView,
                                                             bestSetStackView])
@@ -110,22 +127,22 @@ class WorkoutsOfTodayTableViewCell: UITableViewCell {
         containerView.addSubview(rightStackView)
         
         containerView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(Inset.Cell.horizontalInset)
-            make.trailing.equalToSuperview().offset(-Inset.Cell.horizontalInset)
-            make.top.equalToSuperview().offset(Inset.Cell.veticalInset)
-            make.bottom.equalToSuperview().offset(-Inset.Cell.veticalInset)
+            make.leading.equalToSuperview().offset(Inset.workoutCellHorizontalInset)
+            make.trailing.equalToSuperview().offset(-Inset.workoutCellHorizontalInset)
+            make.top.equalToSuperview().offset(Inset.workoutCellVerticalInset)
+            make.bottom.equalToSuperview().offset(-Inset.workoutCellVerticalInset)
         }
         
         leftStackView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(Inset.Cell.horizontalInset)
-            make.top.bottom.equalToSuperview()
+            make.leading.equalToSuperview().offset(Inset.workoutCellHorizontalInset)
+//            make.top.bottom.equalToSuperview()
         }
         
         rightStackView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(Inset.Cell.veticalInset)
-            make.top.bottom.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-Inset.workoutCellHorizontalInset)
+//            make.top.bottom.equalToSuperview()
         }
     }
 
