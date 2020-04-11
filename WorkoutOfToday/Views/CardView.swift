@@ -25,3 +25,20 @@ final class CardView: UIView {
         self.configureRoundedRect(usingRadius: 20)
     }
 }
+
+final class WorkoutCardView: UIView {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = .tintColor
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        self.configureRoundedRect(usingRadius: 20)
+    }
+}

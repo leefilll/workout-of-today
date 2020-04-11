@@ -20,6 +20,10 @@ final class WorkoutSet: Object {
         return self.weight * self.reps
     }
     
+    override var description: String {
+        return "\(self.weight)kg X \(self.reps)reps"
+    }
+    
     override class func primaryKey() -> String? {
         return "id"
     }

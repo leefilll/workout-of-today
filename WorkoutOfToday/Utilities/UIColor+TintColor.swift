@@ -17,7 +17,7 @@ extension UIColor {
         return UIColor(red: CGFloat(r / 255.0), green: CGFloat(g / 255.0), blue:CGFloat(b / 255.0), alpha: CGFloat(alpha))
     }
     
-    static var tintColor = UIColor.colorWithRGBHex(hex: 0x61bff2)
+    static var tintColor = UIColor.colorWithRGBHex(hex: 0x73D2E7)
     
     static var concaveColor = UIColor.colorWithRGBHex(hex: 0xe5e6e8)
 }

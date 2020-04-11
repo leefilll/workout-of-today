@@ -16,14 +16,22 @@ final class AddWorkoutViewController: UIViewController {
     // properites
     private let realm = try! Realm()
     
-    var workout: Workout!
+    var workout: Workout?
+    
+    var isExist: Bool = false
     
     // UI
+    let contentView = CardView()
+    
     private var navigationBar: UINavigationBar = {
         let bar = UINavigationBar()
         bar.barTintColor = .white
         let barItem = UINavigationItem()
         barItem.title = "운동 추가"
+        barItem.leftBarButtonItem = UIBarButtonItem(title: "취소",
+                                                    style: .plain,
+                                                    target: self,
+                                                    action: #selector(dismiss(_:)))
         barItem.rightBarButtonItem = UIBarButtonItem(title: "추가",
                                                      style: .done,
                                                      target: self,
@@ -52,9 +60,34 @@ final class AddWorkoutViewController: UIViewController {
         self.configureTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if self.workout == nil {
+            let newWorkout = Workout()
+            self.workout = newWorkout
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //        NotificationCenter.default.post(name: NSNotification.Name.ModalDidDisMissedNotification,
+        //        object: nil)
+        self.workout = nil
+    }
+    
+    @objc func dismiss(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @objc func addWorkout(_ sender: UIBarButtonItem) {
+        guard let workout = self.workout else { return }
+        let workoutPrimaryKey = workout.id
+        self.realm.addToRealm(object: workout, update: .all)
+        
         NotificationCenter.default.post(name: NSNotification.Name.ModalDidDisMissedNotification,
-                                        object: nil)
+                                        object: nil,
+                                        userInfo: ["PrimaryKey": workoutPrimaryKey])
+        
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -101,19 +134,32 @@ extension AddWorkoutViewController {
         self.tableView.separatorColor = .clear
         self.tableView.allowsSelection = false
         
-        self.view.addSubview(self.navigationBar)
-        self.view.addSubview(self.tableView)
+        self.view.addSubview(self.contentView)
+        self.contentView.addSubview(self.navigationBar)
+        self.contentView.addSubview(self.tableView)
+        
+        //        self.view.addSubview(self.navigationBar)
+        //        self.view.addSubview(self.tableView)
         
         // constraint
+        self.contentView.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview().offset(Inset.Cell.horizontalInset)
+            make.trailing.equalToSuperview().offset(-Inset.Cell.horizontalInset)
+            make.top.equalToSuperview().offset(30)
+            make.bottom.equalToSuperview().offset(-30)
+        }
+        
         self.navigationBar.snp.makeConstraints { (make) in
             make.top.equalTo(self.view.layoutMarginsGuide.snp.top)
+            make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
         }
         
         self.tableView.snp.makeConstraints { (make) in
             make.top.equalTo(self.navigationBar.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(self.view.layoutMarginsGuide.snp.bottom)
+            //            make.bottom.equalTo(self.view.layoutMarginsGuide.snp.bottom)
+            make.bottom.equalToSuperview()
         }
         
         containerView.snp.makeConstraints { (make) in
@@ -155,48 +201,74 @@ extension AddWorkoutViewController {
 extension AddWorkoutViewController: WorkoutSetCellDelegate {
     
     func workoutSetCellDidAdded() {
+        guard let workout = self.workout else { return }
         let newWorkoutSet = WorkoutSet()
-        self.realm.addToRealm({
-            self.workout.sets.append(newWorkoutSet)
-        }, object: self.workout,
-           update: .modified)
+        if self.isExist {
+            self.realm.writeToRealm {
+                workout.sets.append(newWorkoutSet)
+            }
+        } else {
+            workout.sets.append(newWorkoutSet)
+        }
         
-        let targetIndexPath = IndexPath(row: self.workout.countOfSets - 1, section: 0)
+        
+        //        self.realm.addToRealm({
+        //            workout.sets.append(newWorkoutSet)
+        //        }, object: workout,
+        //           update: .modified)
+        //
+        let targetIndexPath = IndexPath(row: workout.countOfSets - 1, section: 0)
         self.tableView.insertRows(at: [targetIndexPath], with: .automatic)
     }
     
     func workoutSetCellDidEndEditingIn(indexPath: IndexPath, toWeight weight: Int) {
-        let targetWorkoutSet = self.workout.sets[indexPath.row]
-        self.realm.addToRealm({
+        guard let workout = self.workout else { return }
+        let targetWorkoutSet = workout.sets[indexPath.row]
+        
+        if self.isExist {
+            self.realm.writeToRealm {
+                targetWorkoutSet.weight = weight
+            }
+        } else {
             targetWorkoutSet.weight = weight
-        }, object: self.workout,
-           update: .modified)
+        }
+        
+            
+        //        self.realm.addToRealm({
+        //            targetWorkoutSet.weight = weight
+        //        }, object: workout,
+        //           update: .modified)
     }
     
     func workoutSetCellDidEndEditingIn(indexPath: IndexPath, toReps reps: Int) {
-        let targetWorkoutSet = self.workout.sets[indexPath.row]
-        self.realm.addToRealm({
+        guard let workout = self.workout else { return }
+        let targetWorkoutSet = workout.sets[indexPath.row]
+        
+        if self.isExist {
+            self.realm.writeToRealm {
+                targetWorkoutSet.reps = reps
+            }
+        } else {
             targetWorkoutSet.reps = reps
-        }, object: self.workout,
-           update: .modified)
+        }
+        
+        
+        //        self.realm.addToRealm({
+        //            targetWorkoutSet.reps = reps
+        //        }, object: workout,
+        //           update: .modified)
     }
 }
 
 
 // MARK: TableView DataSource
 extension AddWorkoutViewController: UITableViewDataSource {
-    private func isLastCell(_ indexPath: IndexPath) -> Bool {
-        if indexPath.row == self.workout.countOfSets {
-            return true
-        }
-        return false
-    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    private func isButtonSection(section: Int) -> Bool {
+    private func isButtonCell(section: Int) -> Bool {
         if section == 0 {
             return false
         }
@@ -204,10 +276,11 @@ extension AddWorkoutViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isButtonSection(section: section) {
+        if isButtonCell(section: section) {
             return 1
         } else {
-            return self.workout.countOfSets
+            guard let workout = self.workout else { return 0}
+            return workout.countOfSets
         }
     }
     
@@ -215,10 +288,11 @@ extension AddWorkoutViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddWorkoutTableViewCell.self), for: indexPath) as! AddWorkoutTableViewCell
         cell.delegate = self
         
-        if isButtonSection(section: indexPath.section) {
+        if isButtonCell(section: indexPath.section) {
             cell.isAddingCell = true
         } else {
-            let workoutSet = self.workout.sets[indexPath.row]
+            guard let workout = self.workout else { fatalError() }
+            let workoutSet = workout.sets[indexPath.row]
             cell.isAddingCell = false
             cell.indexPath = indexPath
             cell.weightTextField.text = workoutSet.weight != 0 ? "\(workoutSet.weight)" : nil
@@ -228,7 +302,7 @@ extension AddWorkoutViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if isButtonSection(section: indexPath.section) {
+        if isButtonCell(section: indexPath.section) {
             return false
         } else {
             return true
@@ -238,14 +312,18 @@ extension AddWorkoutViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
             case .delete:
-                do {
-                    try self.realm.write {
-                        self.workout.sets.remove(at: indexPath.row)
+                guard let workout = self.workout else { return }
+                //                workout.sets.remove(at: indexPath.row)
+                if self.isExist {
+                    self.realm.writeToRealm {
+                        workout.sets.remove(at: indexPath.row)
                         print("The workoutSet was successfully Deleted")
                     }
-                } catch let error as NSError {
-                    fatalError("Error occurs while delete workoutSet: \(error)")
+                } else {
+                    workout.sets.remove(at: indexPath.row)
                 }
+                
+                
                 tableView.beginUpdates()
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 tableView.endUpdates()
@@ -267,17 +345,28 @@ extension AddWorkoutViewController: UITableViewDelegate {
 // MARK: TextField Delegate
 extension AddWorkoutViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let text = textField.text else { return }
-        self.realm.writeToRealm {
-            self.workout.name = text
+        guard let text = textField.text,
+            let workout = self.workout else {
+                
+                return
         }
+//        workout.name = text
+        if self.isExist {
+            self.realm.writeToRealm {
+                workout.name = text
+            }
+        } else {
+            workout.name = text
+            
+        }
+                
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
         // If there is no cells, add new cell automatically
-        if self.workout.countOfSets == 0 {
+        if self.workout?.countOfSets == 0 {
             workoutSetCellDidAdded()
         }
         return true

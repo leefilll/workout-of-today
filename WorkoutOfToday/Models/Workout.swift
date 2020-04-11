@@ -25,10 +25,19 @@ final class Workout: Object {
         self.sets.forEach { set in
             total += set.volume
         }
-//        self.sets.forEach { set in
-//            total += Int(set.weight * set.reps)
-//        }
         return total
+    }
+    
+    public var bestSet: WorkoutSet? {
+        var volume = 0
+        var bestSet: WorkoutSet?
+        self.sets.forEach { set in
+            if set.volume > volume {
+                volume = set.volume
+                bestSet = set
+            }
+        }
+        return bestSet
     }
     
     override static func primaryKey() -> String? {

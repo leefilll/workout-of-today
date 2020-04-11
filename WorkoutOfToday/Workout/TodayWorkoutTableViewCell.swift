@@ -27,7 +27,6 @@ final class TodayWorkoutTableViewCell: UITableViewCell {
         }
     }
     
-    
     // UI
     private var cardView: CardView!
     
@@ -40,6 +39,10 @@ final class TodayWorkoutTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setup()
+        print(#function)
+        print(#function)
+        print(#function)
+        print(#function)
     }
     
     required init?(coder: NSCoder) {
@@ -48,6 +51,8 @@ final class TodayWorkoutTableViewCell: UITableViewCell {
     }
     
     private func setup() {
+        self.selectedBackgroundView = nil
+        
         self.cardView = CardView()
         self.addSubview(self.cardView)
         
@@ -61,8 +66,10 @@ final class TodayWorkoutTableViewCell: UITableViewCell {
         self.cardView.addSubview(descriptionLabel)
         
         self.cardView.snp.makeConstraints { (make) in
-            make.top.leading.equalToSuperview().offset(padding)
-            make.bottom.trailing.equalToSuperview().offset(-padding)
+            make.leading.equalToSuperview().offset(Inset.Cell.horizontalInset)
+            make.trailing.equalToSuperview().offset(-Inset.Cell.horizontalInset)
+            make.top.equalToSuperview().offset(Inset.Cell.veticalInset)
+            make.bottom.equalToSuperview().offset(-Inset.Cell.veticalInset)
         }
         
         self.titleLabel.snp.makeConstraints { (make) in
@@ -76,11 +83,20 @@ final class TodayWorkoutTableViewCell: UITableViewCell {
         }
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.didSetConstraint = false
+    }
+    
     override func updateConstraints() {
         if !self.didSetConstraint {
             setupWorkoutSetViews()
             self.didSetConstraint = true
         }
+        print(#function)
+        print(#function)
+        print(#function)
+        print(#function)
         
         super.updateConstraints()
     }
@@ -113,8 +129,3 @@ final class TodayWorkoutTableViewCell: UITableViewCell {
     }
 }
 
-
-// MARK: StackView class for dynamic stackView
-extension TodayWorkoutTableViewCell {
-    
-}

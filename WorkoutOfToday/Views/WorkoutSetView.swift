@@ -1,5 +1,5 @@
 //
-//  SetView.swift
+//  WorkoutSetView.swift
 //  WorkoutOfToday
 //
 //  Created by Lee on 2020/04/08.

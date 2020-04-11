@@ -31,5 +31,4 @@ extension Realm {
             fatalError("Error occurs: \(error)")
         }
     }
-    
 }
