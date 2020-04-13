@@ -13,6 +13,7 @@ final class Workout: Object {
     @objc dynamic var name: String = ""
     @objc dynamic var createdDateTime: Date = Date()
     @objc dynamic var id = UUID().uuidString
+    @objc dynamic var part: Int = Part.none.rawValue
     let sets = List<WorkoutSet>()
     var day = LinkingObjects(fromType: WorkoutsOfDay.self, property: "workouts")
     

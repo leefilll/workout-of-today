@@ -21,7 +21,7 @@ final class WorkoutSet: Object {
     }
     
     override var description: String {
-        return "\(self.weight)kg X \(self.reps)reps"
+        return "\(self.weight) kg X \(self.reps)"
     }
     
     override class func primaryKey() -> String? {

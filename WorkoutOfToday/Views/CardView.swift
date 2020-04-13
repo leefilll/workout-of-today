@@ -22,7 +22,7 @@ final class CardView: UIView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         self.dropShadow()
-        self.configureRoundedRect(usingRadius: 20)
+//        self.configureRoundedRect(usingRadius: 20)
     }
 }
 
@@ -30,7 +30,8 @@ final class WorkoutCardView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .tintColor
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 10
     }
     
     required init?(coder: NSCoder) {
@@ -39,6 +40,5 @@ final class WorkoutCardView: UIView {
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        self.configureRoundedRect(usingRadius: 20)
     }
 }

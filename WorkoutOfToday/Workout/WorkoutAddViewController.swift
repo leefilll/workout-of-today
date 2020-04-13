@@ -53,7 +53,9 @@ final class WorkoutAddViewController: UIViewController {
         return bar
     }()
     
-    var headerView: AddWorkoutHeaderView!
+    var headerView: WorkoutAddHeaderView!
+    
+    var footerView: WorkoutAddFooterView!
     
     var tableView: UITableView!
     
@@ -68,7 +70,7 @@ final class WorkoutAddViewController: UIViewController {
         super.viewDidLoad()
         self.headerView.workoutNameTextField.becomeFirstResponder()
         self.configureTableView()
-
+        self.addTargets()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,10 +83,72 @@ final class WorkoutAddViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-//        self.workoutNameTextField.text = self.workout?.name
+        //        self.workoutNameTextField.text = self.workout?.name
     }
     
     // MARK: Objc functions
+    
+    
+}
+
+// MARK: Setup functions
+
+extension WorkoutAddViewController {
+    
+    private func setup() {
+        self.view.backgroundColor = .white
+        
+        self.headerView = WorkoutAddHeaderView()
+        self.headerView.frame.size.height = 120
+        self.headerView.workoutNameTextField.delegate = self
+        
+        self.footerView = WorkoutAddFooterView()
+        footerView.frame.size.height = Size.Cell.footerHeight
+        
+        self.tableView = UITableView()
+        self.tableView.tableHeaderView = self.headerView
+        self.tableView.tableFooterView = footerView
+        self.tableView.rowHeight = Size.Cell.height
+        self.tableView.separatorColor = .clear
+        self.tableView.allowsSelection = false
+        self.tableView.keyboardDismissMode = .onDrag
+        
+        self.view.addSubview(self.navigationBar)
+        self.view.addSubview(self.tableView)
+        
+        self.navigationBar.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.layoutMarginsGuide.snp.top)
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+        }
+        
+        self.tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.navigationBar.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+    
+    private func configureTableView() {
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.register(WorkoutSetTableViewCell.self)
+    }
+    
+    private func addTargets() {
+        self.headerView.workoutPartButton.addTarget(self,
+                                                    action: #selector(showActionSheet(_:)),
+                                                    for: .touchUpInside)
+        
+        self.footerView.workoutSetAddButton.addTarget(self,
+                                                      action: #selector(workoutSetDidAdded(_:)),
+                                                      for: .touchUpInside)
+    }
+}
+
+// MARK: objc functions
+extension WorkoutAddViewController {
+    
     
     @objc func dismiss(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
@@ -101,99 +165,6 @@ final class WorkoutAddViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func showActionSheet(_ sender: UIButton) {
-        
-        let alertController = UIAlertController(title: "파트 설정", message: nil, preferredStyle: .actionSheet)
-        for part in Part.allCases {
-            let action = makeAction(for: part)
-            alertController.addAction(action)
-        }
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    private func makeAction(for part: Part) -> UIAlertAction {
-        let alertAction = UIAlertAction(title: part.description,
-                                        style: .default) { [weak self] _ in
-                                            self?.setWorkoutPart(part: part)
-        }
-        return alertAction
-    }
-    
-    private func setWorkoutPart(part: Part) {
-        self.realm.writeToRealm {
-            self.workout?.part = part.rawValue
-            self.headerView.workoutPartButton.backgroundColor = part.color
-        }
-    }
-}
-
-// MARK: Setup functions
-
-extension WorkoutAddViewController {
-    
-    private func setup() {
-        self.view.backgroundColor = .white
-        
-        self.headerView = AddWorkoutHeaderView()
-        self.headerView.frame.size.height = 120
-        self.headerView.workoutNameTextField.delegate = self
-        
-        let footerView = UIView()
-        footerView.frame.size.height = Size.Cell.height
-        let addWorkoutSetButton = UIButton()
-        addWorkoutSetButton.setTitle("세트 추가", for: .normal)
-        addWorkoutSetButton.setTitleColor(UIColor.tintColor, for: .normal)
-        addWorkoutSetButton.backgroundColor = UIColor.tintColor.withAlphaComponent(0.1)
-        addWorkoutSetButton.clipsToBounds = true
-        addWorkoutSetButton.layer.cornerRadius = 10
-        addWorkoutSetButton.addTarget(self, action: #selector(workoutSetDidAdded(_:)), for: .touchUpInside)
-        footerView.addSubview(addWorkoutSetButton)
-        
-        self.tableView = UITableView()
-        self.tableView.tableHeaderView = self.headerView
-        self.tableView.tableFooterView = footerView
-        self.tableView.rowHeight = Size.Cell.height
-        self.tableView.separatorColor = .clear
-        self.tableView.allowsSelection = false
-        
-        self.view.addSubview(self.navigationBar)
-        self.view.addSubview(self.tableView)
-        
-        self.navigationBar.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view.layoutMarginsGuide.snp.top)
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-        }
-        
-        
-        self.tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.navigationBar.snp.bottom)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-        
-        addWorkoutSetButton.snp.makeConstraints { (make) in
-            make.centerX.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(Inset.Cell.horizontalInset)
-            make.trailing.equalToSuperview().offset(-Inset.Cell.horizontalInset)
-            make.top.equalToSuperview().offset(Inset.Cell.veticalInset)
-            make.bottom.equalToSuperview().offset(-Inset.Cell.veticalInset)
-        }
-        
-    }
-    
-    private func configureTableView() {
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.register(AddWorkoutTableViewCell.self, forCellReuseIdentifier: String(describing: AddWorkoutTableViewCell.self))
-    }
-}
-
-
-// MARK: Add WorkoutSet Delegate
-
-extension WorkoutAddViewController: WorkoutSetCellDelegate {
     
     @objc func workoutSetDidAdded(_ sender: UIButton? = nil) {
         guard let workout = self.workout else { return }
@@ -206,21 +177,41 @@ extension WorkoutAddViewController: WorkoutSetCellDelegate {
         self.tableView.insertRows(at: [targetIndexPath], with: .automatic)
     }
     
-    func workoutSetCellDidEndEditingIn(indexPath: IndexPath, toWeight weight: Int) {
-        let targetWorkoutSet = self.workout?.sets[indexPath.row]
-        self.realm.writeToRealm {
-            targetWorkoutSet?.weight = weight
+    @objc func showActionSheet(_ sender: UIButton) {
+        
+        let alertController = UIAlertController(title: "파트 설정", message: nil, preferredStyle: .actionSheet)
+        for part in Part.allCases {
+            let action = makeAction(for: part)
+            alertController.addAction(action)
         }
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
-    func workoutSetCellDidEndEditingIn(indexPath: IndexPath, toReps reps: Int) {
-        let targetWorkoutSet = self.workout?.sets[indexPath.row]
+    private func makeAction(for part: Part) -> UIAlertAction {
+        if part == .none {
+            let alertAction = UIAlertAction(title: "취소",
+                                            style: .cancel) { [weak self] _ in
+                                                self?.setWorkoutPart(part: .none)
+            }
+            return alertAction
+        } else {
+            let alertAction = UIAlertAction(title: part.description,
+                                            style: .default) { [weak self] _ in
+                                                self?.setWorkoutPart(part: part)
+            }
+            return alertAction
+        }
+        
+    }
+    
+    private func setWorkoutPart(part: Part) {
         self.realm.writeToRealm {
-            targetWorkoutSet?.reps = reps
+            self.workout?.part = part.rawValue
+            self.headerView.workoutPartButton.part = part
         }
     }
 }
-
 
 // MARK: TableView DataSource
 
@@ -232,11 +223,10 @@ extension WorkoutAddViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let workout = self.workout else { fatalError() }
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddWorkoutTableViewCell.self), for: indexPath) as! AddWorkoutTableViewCell
+        let cell = tableView.dequeueReusableCell(WorkoutSetTableViewCell.self, for: indexPath)
         let workoutSet = workout.sets[indexPath.row]
         
-        cell.delegate = self
-        cell.indexPath = indexPath
+        cell.setCountLabel.text = "\(indexPath.row + 1)"
         cell.weightTextField.text = workoutSet.weight != 0 ? "\(workoutSet.weight)" : nil
         cell.repsTextField.text = workoutSet.reps != 0 ? "\(workoutSet.reps)" : nil
         
@@ -264,8 +254,8 @@ extension WorkoutAddViewController: UITableViewDataSource {
     }
 }
 
-// MARK: TableView Delegate
 
+// MARK: TableView Delegate
 extension WorkoutAddViewController: UITableViewDelegate {
     
 }
