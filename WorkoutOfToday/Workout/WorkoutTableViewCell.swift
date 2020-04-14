@@ -61,10 +61,9 @@ final class WorkoutTableViewCell: UITableViewCell {
         self.selectionStyle = .none
 
         self.containerView.clipsToBounds = true
-        self.containerView.layer.cornerRadius = 15
+        self.containerView.layer.cornerRadius = 10
         
-        
-        self.nameLabel.font = .boldTitle
+        self.nameLabel.font = .largeTitle
         
         self.totalVolumeLabel.font = .body
         
@@ -72,7 +71,7 @@ final class WorkoutTableViewCell: UITableViewCell {
         
         self.bestSetLabel.font = .subheadline
         
-        self.setLabel.font = .body
+        self.setLabel.font = .title
         self.setLabel.text = "set"
         
     }

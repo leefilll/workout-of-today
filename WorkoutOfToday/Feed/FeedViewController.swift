@@ -23,6 +23,7 @@ class FeedViewController: UIViewController {
     var collectionView: UICollectionView!
     
     // MARK: View Life Cycle
+    
     override func loadView() {
         super.loadView()
     }
@@ -76,6 +77,7 @@ class FeedViewController: UIViewController {
 }
 
 // MARK: CollectionView DataSource
+
 extension FeedViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -118,6 +120,7 @@ extension FeedViewController: UICollectionViewDelegate {
 
 
 // MARK: CollectionView Delegate Flow Layout
+
 extension FeedViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let workoutsOfDay = self.workoutsOfDays?[indexPath.section] else { return CGSize(width: 0, height: 0) }

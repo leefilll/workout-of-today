@@ -168,7 +168,6 @@ extension TodayWorkoutViewController: UITableViewDelegate {
             else { return }
         let currentColor = cell.containerView.backgroundColor
         cell.containerView.backgroundColor = currentColor?.withAlphaComponent(0.6)
-//        cell.containerView.backgroundColor = UIColor.tintColor.withAlphaComponent(0.5)
     }
     
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {

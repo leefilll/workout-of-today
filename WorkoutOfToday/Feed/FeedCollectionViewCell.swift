@@ -22,8 +22,6 @@ class FeedCollectionViewCell: UICollectionViewCell {
     
     // MARK: View
     
-//    var containerView: UIView!
-    
     var nameLabel: UILabel!
     
     override init(frame: CGRect) {
