@@ -55,3 +55,23 @@ enum Part: Int, CustomStringConvertible, CaseIterable {
         }
     }
 }
+
+enum Equipment: Int, CustomStringConvertible, CaseIterable {
+    case none = 0
+    case babel
+    case dumbell
+    case kettlebell
+    case machine
+    case other
+    
+    var description: String {
+        switch self {
+            case .none: return "없음"
+            case .babel: return "바벨"
+            case .dumbell: return "덤벨"
+            case .kettlebell: return "케틀벨"
+            case .machine: return "머신"
+            case .other: return "기타"
+        }
+    }
+}

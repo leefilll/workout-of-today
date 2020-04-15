@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WorkoutAddHeaderView: UIView {
+final class WorkoutAddHeaderView: UIView {
     
     @IBOutlet weak var workoutNameTextField: UITextField!
     

@@ -11,12 +11,22 @@ import RealmSwift
 
 final class WorkoutsOfDay: Object {
     @objc dynamic var createdDateTime = Date.now
-    @objc dynamic var id: String  = DateFormatter.sharedFormatter.string(from: Date.now.startOfDay!)
+    
+    // format: year-month-day
+    @objc dynamic var id: String  = DateFormatter.shared.keyStringFromDate
     
     let workouts = List<Workout>()
     
-    var countOfWorkouts: Int {
+    var numberOfWorkouts: Int {
         return workouts.count
+    }
+    
+    var yearString: String {
+        return DateFormatter.shared.string(of: .year, from: createdDateTime)
+    }
+    
+    var dateAndWeekdayString: String {
+        return DateFormatter.shared.string(from: createdDateTime)
     }
     
     override class func primaryKey() -> String? {

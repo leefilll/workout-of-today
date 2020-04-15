@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4ED928474D7D7FC0509DA153 /* Pods_WorkoutOfTodayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39BFF9168A261E9B4EECA678 /* Pods_WorkoutOfTodayTests.framework */; };
-		568C4D7CE83F665A508309D4 /* Pods_WorkoutOfToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1649F6C72DC0D20F9053D785 /* Pods_WorkoutOfToday.framework */; };
 		B0881FDB94ACD171777EC513 /* Pods_WorkoutOfToday_WorkoutOfTodayUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759A9CFEB15D065C565DBBB2 /* Pods_WorkoutOfToday_WorkoutOfTodayUITests.framework */; };
 		BB5A05132441AFF900AB1604 /* WorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5A05122441AFF900AB1604 /* WorkoutTableViewCell.swift */; };
 		BB5C515C243DA34200A1CD9C /* UIView+CornerRadii.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C515B243DA34200A1CD9C /* UIView+CornerRadii.swift */; };
@@ -24,7 +23,6 @@
 		BB5C5195243EEF0D00A1CD9C /* UIStackView+Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C5194243EEF0D00A1CD9C /* UIStackView+Configure.swift */; };
 		BB5C5197243EF8FE00A1CD9C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C5196243EF8FE00A1CD9C /* Constants.swift */; };
 		BB5C5199243F0BD400A1CD9C /* UITextField+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C5198243F0BD400A1CD9C /* UITextField+Toolbar.swift */; };
-		BB5C519D243F364300A1CD9C /* UViewController+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C519C243F364300A1CD9C /* UViewController+Realm.swift */; };
 		BB8BB760243CBA0200774EA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8BB75F243CBA0200774EA9 /* AppDelegate.swift */; };
 		BB8BB762243CBA0200774EA9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8BB761243CBA0200774EA9 /* SceneDelegate.swift */; };
 		BB8BB764243CBA0200774EA9 /* TodayWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8BB763243CBA0200774EA9 /* TodayWorkoutViewController.swift */; };
@@ -50,6 +48,16 @@
 		BB96FD662444BF5600E8DE10 /* FeedCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB96FD652444BF5600E8DE10 /* FeedCollectionReusableView.swift */; };
 		BBA582DC24440996001FD978 /* UILabel+WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA582DB24440996001FD978 /* UILabel+WorkoutCell.swift */; };
 		BBA582DE24441ABB001FD978 /* WorkoutPartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA582DD24441ABB001FD978 /* WorkoutPartButton.swift */; };
+		BBB3597A24457D2800E8B2F2 /* UIViewController+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB3597924457D2800E8B2F2 /* UIViewController+Notification.swift */; };
+		BBB3597C2445F19F00E8B2F2 /* DBHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB3597B2445F19F00E8B2F2 /* DBHandler.swift */; };
+		BBB3597E2446044800E8B2F2 /* WorkoutSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB3597D2446044800E8B2F2 /* WorkoutSender.swift */; };
+		BBB3598224472D1900E8B2F2 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBB3597F24472D1900E8B2F2 /* Realm.framework */; };
+		BBB3598324472D1900E8B2F2 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BBB3597F24472D1900E8B2F2 /* Realm.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BBB3598424472D1900E8B2F2 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBB3598024472D1900E8B2F2 /* RealmSwift.framework */; };
+		BBB3598524472D1900E8B2F2 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BBB3598024472D1900E8B2F2 /* RealmSwift.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BBB3598624472D1900E8B2F2 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBB3598124472D1900E8B2F2 /* SnapKit.framework */; };
+		BBB3598724472D1900E8B2F2 /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BBB3598124472D1900E8B2F2 /* SnapKit.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BBB3598924472D3E00E8B2F2 /* Pods_WorkoutOfToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1649F6C72DC0D20F9053D785 /* Pods_WorkoutOfToday.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +76,22 @@
 			remoteInfo = WorkoutOfToday;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BBB3598824472D1900E8B2F2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BBB3598724472D1900E8B2F2 /* SnapKit.framework in Embed Frameworks */,
+				BBB3598524472D1900E8B2F2 /* RealmSwift.framework in Embed Frameworks */,
+				BBB3598324472D1900E8B2F2 /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1649F6C72DC0D20F9053D785 /* Pods_WorkoutOfToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WorkoutOfToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,7 +117,6 @@
 		BB5C5194243EEF0D00A1CD9C /* UIStackView+Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Configure.swift"; sourceTree = "<group>"; };
 		BB5C5196243EF8FE00A1CD9C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BB5C5198243F0BD400A1CD9C /* UITextField+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Toolbar.swift"; sourceTree = "<group>"; };
-		BB5C519C243F364300A1CD9C /* UViewController+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UViewController+Realm.swift"; sourceTree = "<group>"; };
 		BB8BB75C243CBA0200774EA9 /* WorkoutOfToday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutOfToday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB8BB75F243CBA0200774EA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB8BB761243CBA0200774EA9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +148,12 @@
 		BB96FD652444BF5600E8DE10 /* FeedCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionReusableView.swift; sourceTree = "<group>"; };
 		BBA582DB24440996001FD978 /* UILabel+WorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+WorkoutCell.swift"; sourceTree = "<group>"; };
 		BBA582DD24441ABB001FD978 /* WorkoutPartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPartButton.swift; sourceTree = "<group>"; };
+		BBB3597924457D2800E8B2F2 /* UIViewController+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Notification.swift"; sourceTree = "<group>"; };
+		BBB3597B2445F19F00E8B2F2 /* DBHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHandler.swift; sourceTree = "<group>"; };
+		BBB3597D2446044800E8B2F2 /* WorkoutSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSender.swift; sourceTree = "<group>"; };
+		BBB3597F24472D1900E8B2F2 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBB3598024472D1900E8B2F2 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBB3598124472D1900E8B2F2 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8DC11B87D8E17E3A036D0F5 /* Pods-WorkoutOfToday-WorkoutOfTodayUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorkoutOfToday-WorkoutOfTodayUITests.release.xcconfig"; path = "Target Support Files/Pods-WorkoutOfToday-WorkoutOfTodayUITests/Pods-WorkoutOfToday-WorkoutOfTodayUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,7 +162,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				568C4D7CE83F665A508309D4 /* Pods_WorkoutOfToday.framework in Frameworks */,
+				BBB3598224472D1900E8B2F2 /* Realm.framework in Frameworks */,
+				BBB3598424472D1900E8B2F2 /* RealmSwift.framework in Frameworks */,
+				BBB3598624472D1900E8B2F2 /* SnapKit.framework in Frameworks */,
+				BBB3598924472D3E00E8B2F2 /* Pods_WorkoutOfToday.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +191,9 @@
 		6BE054C98D2E660F0664D5BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BBB3597F24472D1900E8B2F2 /* Realm.framework */,
+				BBB3598024472D1900E8B2F2 /* RealmSwift.framework */,
+				BBB3598124472D1900E8B2F2 /* SnapKit.framework */,
 				1649F6C72DC0D20F9053D785 /* Pods_WorkoutOfToday.framework */,
 				759A9CFEB15D065C565DBBB2 /* Pods_WorkoutOfToday_WorkoutOfTodayUITests.framework */,
 				39BFF9168A261E9B4EECA678 /* Pods_WorkoutOfTodayTests.framework */,
@@ -250,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				BB8BB763243CBA0200774EA9 /* TodayWorkoutViewController.swift */,
+				BBB3597D2446044800E8B2F2 /* WorkoutSender.swift */,
 				BB5A05122441AFF900AB1604 /* WorkoutTableViewCell.swift */,
 				BB5C518C243DDB4700A1CD9C /* WorkoutAddViewController.swift */,
 				BB96FD5F2444981200E8DE10 /* WorkoutTableViewCell.xib */,
@@ -294,6 +330,7 @@
 		BB8BB79C243CBEDE00774EA9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BBB3597B2445F19F00E8B2F2 /* DBHandler.swift */,
 				BB8BB79F243CBFBD00774EA9 /* WorkoutsOfDay.swift */,
 				BB8BB79D243CBEE700774EA9 /* Workout.swift */,
 				BB5C518A243DD8D300A1CD9C /* WorkoutSet.swift */,
@@ -313,11 +350,11 @@
 				BBA582DB24440996001FD978 /* UILabel+WorkoutCell.swift */,
 				BB5C5192243EED1B00A1CD9C /* UIFont+Static.swift */,
 				BB8BB7A8243CCEBA00774EA9 /* Version.swift */,
+				BBB3597924457D2800E8B2F2 /* UIViewController+Notification.swift */,
 				BB5C5194243EEF0D00A1CD9C /* UIStackView+Configure.swift */,
 				BB5C5196243EF8FE00A1CD9C /* Constants.swift */,
 				BB5C515D243DA7ED00A1CD9C /* Test.playground */,
 				BB5C5198243F0BD400A1CD9C /* UITextField+Toolbar.swift */,
-				BB5C519C243F364300A1CD9C /* UViewController+Realm.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -334,6 +371,7 @@
 				BB8BB759243CBA0200774EA9 /* Frameworks */,
 				BB8BB75A243CBA0200774EA9 /* Resources */,
 				10F70D68348D81F1E8D5AD68 /* [CP] Embed Pods Frameworks */,
+				BBB3598824472D1900E8B2F2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -564,6 +602,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB5C515C243DA34200A1CD9C /* UIView+CornerRadii.swift in Sources */,
+				BBB3597C2445F19F00E8B2F2 /* DBHandler.swift in Sources */,
 				BBA582DE24441ABB001FD978 /* WorkoutPartButton.swift in Sources */,
 				BB5C5163243DB7C900A1CD9C /* UIView+DropShadow.swift in Sources */,
 				BB91CD102444842D00342CFC /* WorkoutAddFooterView.swift in Sources */,
@@ -572,6 +611,7 @@
 				BB5C5167243DBA6B00A1CD9C /* WorkoutSetView.swift in Sources */,
 				BB5C5193243EED1B00A1CD9C /* UIFont+Static.swift in Sources */,
 				BB8BB791243CBD3300774EA9 /* RootTabBarController.swift in Sources */,
+				BBB3597A24457D2800E8B2F2 /* UIViewController+Notification.swift in Sources */,
 				BB8BB793243CBDFF00774EA9 /* FeedViewController.swift in Sources */,
 				BB5C5199243F0BD400A1CD9C /* UITextField+Toolbar.swift in Sources */,
 				BB5C5161243DB4DD00A1CD9C /* CardView.swift in Sources */,
@@ -586,9 +626,9 @@
 				BB8BB79E243CBEE700774EA9 /* Workout.swift in Sources */,
 				BB8BB760243CBA0200774EA9 /* AppDelegate.swift in Sources */,
 				BB5C5191243DE4BB00A1CD9C /* UIColor+TintColor.swift in Sources */,
+				BBB3597E2446044800E8B2F2 /* WorkoutSender.swift in Sources */,
 				BB96FD622444AE1B00E8DE10 /* UITableView+Register.swift in Sources */,
 				BB8BB7A5243CCCF500774EA9 /* SettingTableViewController.swift in Sources */,
-				BB5C519D243F364300A1CD9C /* UViewController+Realm.swift in Sources */,
 				BB5A05132441AFF900AB1604 /* WorkoutTableViewCell.swift in Sources */,
 				BB8BB762243CBA0200774EA9 /* SceneDelegate.swift in Sources */,
 				BB8BB79B243CBE6B00774EA9 /* HeaderView.swift in Sources */,
@@ -772,7 +812,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.leefilll.WorkoutOfToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -792,7 +832,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.leefilll.WorkoutOfToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

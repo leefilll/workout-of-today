@@ -15,15 +15,24 @@ final class WorkoutAddViewController: UIViewController {
     
     // MARK: Model
     
-    private let realm = try! Realm()
-    
-    var workout: Workout? {
+    private var shouldAddWorkout: Bool = false {
         didSet {
-            viewIfLoaded?.setNeedsLayout()
+            if #available(iOS 13.0, *) {
+                self.isModalInPresentation = shouldAddWorkout
+            }
         }
     }
     
-    var primaryKey: String?
+    var workout: Workout? {
+        didSet {
+            self.view.setNeedsDisplay()
+        }
+    }
+    
+    var workoutId: String?
+    
+    var workoutsOfDayId: String!
+
     
     // MARK: View
     
@@ -69,26 +78,19 @@ final class WorkoutAddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.headerView.workoutNameTextField.becomeFirstResponder()
+        self.setupModel()
         self.configureTableView()
         self.addTargets()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if self.workout == nil {
-            let newWorkout = Workout()
-            realm.addToRealm(object: newWorkout, update: .all)
-            self.workout = newWorkout
-        }
-    }
     
+    // 여기서 workout과 엮인 뷰에 관한 코드를 모두 써줌이따가 할게
     override func viewWillLayoutSubviews() {
-        //        self.workoutNameTextField.text = self.workout?.name
+        guard let workout = self.workout else { return }
+        self.headerView.workoutNameTextField.text = workout.name
+        self.headerView.workoutPartButton.partRawValue = workout.part
+        self.tableView.reloadData()
     }
-    
-    // MARK: Objc functions
-    
-    
 }
 
 // MARK: Setup functions
@@ -103,7 +105,7 @@ extension WorkoutAddViewController {
         self.headerView.workoutNameTextField.delegate = self
         
         self.footerView = WorkoutAddFooterView()
-        footerView.frame.size.height = Size.Cell.footerHeight
+        self.footerView.frame.size.height = Size.Cell.footerHeight
         
         self.tableView = UITableView()
         self.tableView.tableHeaderView = self.headerView
@@ -135,6 +137,16 @@ extension WorkoutAddViewController {
         self.tableView.register(WorkoutSetTableViewCell.self)
     }
     
+    private func setupModel() {
+        if let workoutId = self.workoutId,
+            let object = DBHandler.shared.fetchObject(ofType: Workout.self, forPrimaryKey: workoutId) {
+            self.workout = object.copy() as? Workout
+        } else {
+            let newWorkout = Workout()
+            self.workout = newWorkout
+        }
+    }
+    
     private func addTargets() {
         self.headerView.workoutPartButton.addTarget(self,
                                                     action: #selector(showActionSheet(_:)),
@@ -147,33 +159,40 @@ extension WorkoutAddViewController {
 }
 
 // MARK: objc functions
+
 extension WorkoutAddViewController {
-    
     
     @objc func dismiss(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc func addWorkout(_ sender: UIBarButtonItem) {
+        textFieldDidEndEditing(self.headerView.workoutNameTextField)
         guard let workout = self.workout else { return }
-        let workoutPrimaryKey = workout.id
-        self.realm.addToRealm(object: workout, update: .all)
-        
-        NotificationCenter.default.post(name: NSNotification.Name.ModalDidDisMissedNotification,
-                                        object: nil,
-                                        userInfo: ["PrimaryKey": workoutPrimaryKey])
+        if self.workoutId == nil {
+            // create new workout data
+            let workoutsOfDay = DBHandler.shared.fetchObject(ofType: WorkoutsOfDay.self, forPrimaryKey: self.workoutsOfDayId)
+            
+            DBHandler.shared.write {
+                workoutsOfDay?.workouts.append(workout)
+            }
+            
+        } else {
+            // update origin data
+            guard let originWorkout = DBHandler.shared.fetchObject(ofType: Workout.self, forPrimaryKey: self.workoutId!) else { return }
+            DBHandler.shared.write {
+                originWorkout.copy(from: workout)
+            }
+        }
+        self.postNotification(.WorkoutDidAddedNotification)
         self.dismiss(animated: true, completion: nil)
     }
-    
     
     @objc func workoutSetDidAdded(_ sender: UIButton? = nil) {
         guard let workout = self.workout else { return }
         let newWorkoutSet = WorkoutSet()
-        
-        self.realm.writeToRealm {
-            workout.sets.append(newWorkoutSet)
-        }
-        let targetIndexPath = IndexPath(row: workout.countOfSets - 1, section: 0)
+        self.workout?.sets.append(newWorkoutSet)
+        let targetIndexPath = IndexPath(row: workout.numberOfSets - 1, section: 0)
         self.tableView.insertRows(at: [targetIndexPath], with: .automatic)
     }
     
@@ -191,25 +210,22 @@ extension WorkoutAddViewController {
     private func makeAction(for part: Part) -> UIAlertAction {
         if part == .none {
             let alertAction = UIAlertAction(title: "취소",
-                                            style: .cancel) { [weak self] _ in
-                                                self?.setWorkoutPart(part: .none)
-            }
+                                            style: .cancel,
+                                            handler: nil)
             return alertAction
         } else {
             let alertAction = UIAlertAction(title: part.description,
                                             style: .default) { [weak self] _ in
-                                                self?.setWorkoutPart(part: part)
+                                                self?.setWorkoutPart(rawValue: part.rawValue)
             }
             return alertAction
         }
-        
     }
     
-    private func setWorkoutPart(part: Part) {
-        self.realm.writeToRealm {
-            self.workout?.part = part.rawValue
-            self.headerView.workoutPartButton.part = part
-        }
+    private func setWorkoutPart(rawValue part: Part.RawValue) {
+        // MARK: 더 좋은 방법이 없을 까...?!
+        self.workout?.part = part
+        self.headerView.workoutPartButton.partRawValue = part
     }
 }
 
@@ -218,7 +234,7 @@ extension WorkoutAddViewController {
 extension WorkoutAddViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.workout?.countOfSets ?? 0
+        return self.workout?.numberOfSets ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -226,9 +242,13 @@ extension WorkoutAddViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(WorkoutSetTableViewCell.self, for: indexPath)
         let workoutSet = workout.sets[indexPath.row]
         
-        cell.setCountLabel.text = "\(indexPath.row + 1)"
-        cell.weightTextField.text = workoutSet.weight != 0 ? "\(workoutSet.weight)" : nil
-        cell.repsTextField.text = workoutSet.reps != 0 ? "\(workoutSet.reps)" : nil
+        cell.workoutSet = workoutSet
+        
+        //TODO: Cell Model - View Connect
+//
+//        cell.setCountLabel.text = "\(indexPath.row + 1)"
+//        cell.weightTextField.text = workoutSet.weight != 0 ? "\(workoutSet.weight)" : nil
+//        cell.repsTextField.text = workoutSet.reps != 0 ? "\(workoutSet.reps)" : nil
         
         return cell
     }
@@ -240,9 +260,7 @@ extension WorkoutAddViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
             case .delete:
-                self.realm.writeToRealm {
-                    self.workout?.sets.remove(at: indexPath.row)
-                }
+                self.workout?.sets.remove(at: indexPath.row)
                 tableView.beginUpdates()
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 tableView.endUpdates()
@@ -254,8 +272,8 @@ extension WorkoutAddViewController: UITableViewDataSource {
     }
 }
 
-
 // MARK: TableView Delegate
+
 extension WorkoutAddViewController: UITableViewDelegate {
     
 }
@@ -265,8 +283,9 @@ extension WorkoutAddViewController: UITableViewDelegate {
 extension WorkoutAddViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        let objects = DBHandler.shared.realm.objects(Workout.self)
         guard let text = textField.text else { return }
-        realm.writeToRealm {
+        DBHandler.shared.write {
             self.workout?.name = text
         }
     }
@@ -275,7 +294,7 @@ extension WorkoutAddViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         
         // If there is no cells, add new cell automatically
-        if self.workout?.countOfSets == 0 {
+        if self.workout?.numberOfSets == 0 {
             workoutSetDidAdded()
         }
         return true
@@ -285,5 +304,6 @@ extension WorkoutAddViewController: UITextFieldDelegate {
 // MARK: ModalDidDismissedNotification
 
 extension NSNotification.Name {
-    static let ModalDidDisMissedNotification = NSNotification.Name(rawValue: "ModalDidDisMissedNotification")
+    static let WorkoutDidAddedNotification = NSNotification.Name(rawValue: "WorkoutDidAddedNotification")
+    static let WorkoutDidModifiedNotification = NSNotification.Name(rawValue: "WorkoutDidModifiedNotification")
 }

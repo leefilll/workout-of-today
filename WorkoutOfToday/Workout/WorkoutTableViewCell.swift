@@ -12,17 +12,21 @@ import SnapKit
 
 final class WorkoutTableViewCell: UITableViewCell {
     
+    // MARK: Model
+    
     var workout: Workout? {
         didSet {
             self.containerView.backgroundColor = Part(rawValue: self.workout?.part ?? 0)?.color
             self.nameLabel.text = self.workout?.name
             self.totalVolumeLabel.text = "\(self.workout?.totalVolume ?? 0) kg"
-            self.totalSetLabel.text = "\(self.workout?.countOfSets ?? 0)"
+            self.totalSetLabel.text = "\(self.workout?.numberOfSets ?? 0)"
             if let workout = self.workout, let bestSet = workout.bestSet {
                 self.bestSetLabel.text = "최고: " + String(describing: bestSet)
             }
         }
     }
+    
+    // MARK: View
 
     @IBOutlet weak var containerView: UIView!
     
@@ -67,12 +71,15 @@ final class WorkoutTableViewCell: UITableViewCell {
         
         self.totalVolumeLabel.font = .body
         
+        print()
         self.totalSetLabel.font = .veryLargeTitle
+        self.totalSetLabel.sizeToFit()
         
         self.bestSetLabel.font = .subheadline
         
         self.setLabel.font = .title
         self.setLabel.text = "set"
+        self.setLabel.sizeToFit()
         
     }
 }

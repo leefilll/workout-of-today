@@ -9,15 +9,14 @@
 import UIKit
 
 import SnapKit
-import RealmSwift
 
 final class TodayWorkoutViewController: UIViewController {
     
     // MARK: Model
     
-    private var workoutsOfToday: WorkoutsOfDay?
+    var workoutsOfDay: WorkoutsOfDay!
     
-    private let realm = try! Realm()
+    var workoutsOfDayId: String!
     
     // MARK: View
     
@@ -34,15 +33,35 @@ final class TodayWorkoutViewController: UIViewController {
         super.viewDidLoad()
         self.configureTableView()
         self.fetchWorkoutOfToday()
-        self.addObserverToNotificationCenter()
+        self.addObserverToNotificationCenter(.WorkoutDidAddedNotification,
+                                             selector: #selector(reloadTableView(_:)))
+        
+        
+        var c = 0
+        print("REALM")
+        let WOD = DBHandler.shared.realm.objects(WorkoutsOfDay.self)
+        print("WOD---------")
+        for wod in WOD {
+            print("\(wod.id)")
+            for workout in wod.workouts {
+                print("\(workout.name) - \(workout.numberOfSets)")
+                for (idx,set) in workout.sets.enumerated() {
+                    c += 1
+                    print("\(idx+1): \(set.weight) - \(set.reps)")
+                }
+            }
+        }
+        print("TOTAL COUNT: \(c)")
+        
+        
+        let wholeSets = DBHandler.shared.realm.objects(WorkoutSet.self)
+        wholeSets.forEach{ set in
+            print("\(set.weight) - \(set.reps)")
+        }
+        print("TOTAL COUNT: \(wholeSets.count)")
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
 }
@@ -81,79 +100,47 @@ extension TodayWorkoutViewController {
     }
     
     private func fetchWorkoutOfToday() {
-        let primaryKey = Date.now.startOfDayWithString
-        let workoutsOfToday =
-            realm.object(ofType: WorkoutsOfDay.self, forPrimaryKey: primaryKey)
-        
-        if let workoutsOfToday = workoutsOfToday {
-            self.workoutsOfToday = workoutsOfToday
-        } else {
-            // If there is no workouts of today.
-            let workoutsOfToday = WorkoutsOfDay()
-            self.workoutsOfToday = workoutsOfToday
-            self.realm.addToRealm(object: workoutsOfToday, update: .all)
-        }
+//        if self.workoutsOfDay != nil {
+////            let workoutsOfDay = DBHandler.shared.fetchObject(ofType: WorkoutsOfDay.self,
+////                                                             forPrimaryKey: self.workoutsOfDayId)
+////            DBHandler.shared.write {
+////                self.workoutsOfDay = workoutsOfDay
+////            }
+//        } else {
+//            // there is no WOD already existed
+//            let newWorkoutsOfDay = WorkoutsOfDay()
+//            DBHandler.shared.create(object: newWorkoutsOfDay)
+//            self.workoutsOfDay = newWorkoutsOfDay
+//        }
     }
 }
-
 
 // MARK: Delegate pattern
 
 extension TodayWorkoutViewController {
     
-    private func addObserverToNotificationCenter() {
-        NotificationCenter
-            .default
-            .addObserver(self,
-                         selector: #selector(addWorkoutViewControllerDidDismissed(_:)),
-                         name: NSNotification.Name.ModalDidDisMissedNotification,
-                         object: nil)
-    }
-    
-    @objc func addWorkoutViewControllerDidDismissed(_ notification: Notification) {
-        guard let workoutsOfToday = self.workoutsOfToday else { return }
-        if let workoutPrimaryKey = notification.userInfo?["PrimaryKey"] as? String,
-            let addedWorkout = self.realm.object(ofType: Workout.self,
-                                                 forPrimaryKey: workoutPrimaryKey){
-            if !workoutsOfToday.workouts.contains(addedWorkout) {
-                self.realm.writeToRealm {
-                    workoutsOfToday.workouts.append(addedWorkout)
-                }
-            }
-
-            self.tableView.reloadData()
-            let countOfWorkouts = workoutsOfToday.countOfWorkouts
-            let targetIndexPath = IndexPath(row: countOfWorkouts - 1, section: 0)
-            self.tableView.scrollToRow(at: targetIndexPath, at: .middle, animated: true)
-        }
+    @objc func reloadTableView(_ notification: Notification) {
+        self.fetchWorkoutOfToday()
+        self.tableView.reloadData()
     }
 }
-
 
 // MARK: TableView DataSource
 
 extension TodayWorkoutViewController: UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let workoutsOfToday = self.workoutsOfToday else { return 0 }
-        let countOfWorkouts = workoutsOfToday.countOfWorkouts
-        return countOfWorkouts
+        return self.workoutsOfDay.numberOfWorkouts
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(WorkoutTableViewCell.self,
-                                                 for: indexPath)
-        guard let workoutsOfToday = self.workoutsOfToday else { fatalError() }
-        let workout = workoutsOfToday.workouts[indexPath.row]
+        let cell = tableView.dequeueReusableCell(WorkoutTableViewCell.self, for: indexPath)
+        guard let workoutsOfToday = self.workoutsOfDay else { fatalError() }
+        let workout = self.workoutsOfDay.workouts[indexPath.row]
         cell.workout = workout
         return cell
     }
 }
-
 
 // MARK: TableView Delegate
 
@@ -177,12 +164,11 @@ extension TodayWorkoutViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let workoutsOfToday = self.workoutsOfToday else { return }
+        guard let workoutsOfToday = self.workoutsOfDay else { return }
         let vc = WorkoutAddViewController()
         let workout = workoutsOfToday.workouts[indexPath.row]
-        vc.workout = workout
+        vc.workoutId = workout.id
         self.present(vc, animated: true, completion: nil)
     }
 }
 // TODO:- If there is workout here, the add vc make the fields filled
-

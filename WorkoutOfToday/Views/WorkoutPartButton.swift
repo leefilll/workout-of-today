@@ -10,7 +10,13 @@ import UIKit
 
 final class WorkoutPartButton: UIButton {
     
-    var part: Part? {
+    public var partRawValue: Part.RawValue? {
+        didSet {
+            self.part = Part(rawValue: self.partRawValue ?? 0)
+        }
+    }
+    
+    private var part: Part? = Part.none {
         didSet {
             self.backgroundColor = self.part?.color
             self.setTitle(self.part?.description, for: .normal)
@@ -33,7 +39,6 @@ final class WorkoutPartButton: UIButton {
         self.setTitle("파트", for: .normal)
         self.setTitleColor(.white, for: .normal)
         self.titleLabel?.font = .subheadline
-        self.backgroundColor = self.part?.color
     }
     
     override func layoutSubviews() {

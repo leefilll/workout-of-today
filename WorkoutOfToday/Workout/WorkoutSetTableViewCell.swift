@@ -12,17 +12,19 @@ import RealmSwift
 
 final class WorkoutSetTableViewCell: UITableViewCell {
     
+    // MARK: Model
+    
+    var workoutSet: WorkoutSet?
+    
     var isCompleted: Bool = false {
         didSet {
             // Complete set
         }
     }
     
-    // UI
+    // MARK: View
     
     @IBOutlet weak var setCountLabel: UILabel!
-    
-    @IBOutlet weak var setUnitLabel: UILabel!
     
     @IBOutlet weak var weightTextField: UITextField!
     
@@ -55,11 +57,6 @@ final class WorkoutSetTableViewCell: UITableViewCell {
     }
     
     private func setup() {
-        
-        self.setUnitLabel.font = .lightDescription
-        self.setUnitLabel.text = "set"
-        self.setUnitLabel.textColor = .lightGray
-        
         self.weightUnitLabel.font = .lightDescription
         self.weightUnitLabel.text = "kg"
         self.weightUnitLabel.textColor = .lightGray
@@ -90,6 +87,7 @@ final class WorkoutSetTableViewCell: UITableViewCell {
 
 
 // MARK: TextField Delegate
+
 extension WorkoutSetTableViewCell: UITextFieldDelegate {
     @objc func nextDidTapped(_ sender: UIBarButtonItem) {
         self.repsTextField.becomeFirstResponder()

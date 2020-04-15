@@ -25,8 +25,8 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="0bQ-T6-YRJ">
                             <rect key="frame" x="0.0" y="0.0" width="374" height="100"/>
                             <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AIP-RB-qSq">
-                                    <rect key="frame" x="0.0" y="0.0" width="4" height="100"/>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" placeholder="ㄴㅇㄹㄴㅁㅇㄹ" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AIP-RB-qSq">
+                                    <rect key="frame" x="0.0" y="0.0" width="85" height="100"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="100" id="QfF-Vo-plu"/>
                                     </constraints>
@@ -72,7 +72,7 @@
                     </subviews>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hxp-oU-Sfe" customClass="WorkoutPartButton" customModule="WorkoutOfToday" customModuleProvider="target">
-                    <rect key="frame" x="34" y="89" width="56" height="22"/>
+                    <rect key="frame" x="115" y="89" width="56" height="22"/>
                     <inset key="contentEdgeInsets" minX="5" minY="2" maxX="5" maxY="2"/>
                     <state key="normal" title="Button"/>
                 </button>

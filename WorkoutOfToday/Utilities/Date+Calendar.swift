@@ -20,7 +20,7 @@ extension Date {
     }
     
     var startOfDayWithString: String {
-        return DateFormatter.sharedFormatter.string(from: self.startOfDay ?? self)
+        return DateFormatter.shared.string(from: self.startOfDay ?? self)
     }
 
     var startOfWeek: Date? {

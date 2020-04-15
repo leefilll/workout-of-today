@@ -9,19 +9,34 @@
 import Foundation
 import RealmSwift
 
-final class WorkoutSet: Object {
-    @objc dynamic var order: Int = 0
+final class WorkoutSet: Object, NSCopying {
+    
     @objc dynamic var weight: Int = 0
     @objc dynamic var reps: Int = 0
     @objc dynamic var id = UUID().uuidString
     let workout = LinkingObjects(fromType: Workout.self, property: "sets")
     
     var volume: Int {
-        return self.weight * self.reps
+        if self.weight == 0 {
+            return self.reps
+        } else {
+            return self.weight * self.reps
+        }
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = WorkoutSet()
+        copy.weight = self.weight
+        copy.reps = self.reps
+        return copy
     }
     
     override var description: String {
-        return "\(self.weight) kg X \(self.reps)"
+        if self.weight == 0 {
+            return "\(self.reps)"
+        } else {
+            return "\(self.weight) kg X \(self.reps)"
+        }
     }
     
     override class func primaryKey() -> String? {

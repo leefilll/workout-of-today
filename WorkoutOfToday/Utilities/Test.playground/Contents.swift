@@ -1,36 +1,29 @@
 
+import Foundation
+
+
 class Test {
-    var prop: Int = 0 {
-        didSet {
-            print("changed in props")
-        }
-    }
-    
-    func printClassName() {
-        print(String(describing: type(of: self)))
-    }
+    var a = "a"
+    var b = "b"
+    var c = "CCCCC"
 }
 
-struct Test2 {
-    var prop: Int = 0
-}
+var A = Test()
+var B = Test()
 
+A.a = "A"
+A.b = "B"
+A.c = "SDFSDFSdf"
+// A -> B c만 빼고
 
-var test = Test() {
-    didSet {
-        print("DidSet in class")
-    }
-    willSet {
-        print("Wiilset")
-    }
-}
+print(B.a)
+print(B.b)
+print(B.c)
 
-var test2 = Test2() {
-    didSet {
-        print("DidSet in struct")
-    }
-}
-
-test = Test()
-
-test.printClassName()
+print()
+B.a = A.a
+B.b = A.b
+print()
+print(B.a)
+print(B.b)
+print(B.c)

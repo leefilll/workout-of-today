@@ -9,15 +9,31 @@
 import UIKit
 
 class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
+    
+    var workoutsOfDay: WorkoutsOfDay {
+        let keyFromDate = DateFormatter.shared.keyStringFromDate
+        if let workoutsOfDay = DBHandler.shared.fetchObject(ofType: WorkoutsOfDay.self,
+                                                            forPrimaryKey: keyFromDate) {
+            return workoutsOfDay
+        } else {
+            let newWorkoutsOfDay = WorkoutsOfDay()
+            return newWorkoutsOfDay
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
         
-        let todayWorkoutViewController = UINavigationController(rootViewController: TodayWorkoutViewController())
+        let todayWorkoutNavigationController = UINavigationController(rootViewController: TodayWorkoutViewController())
+        
+        let todayWorkoutViewController = todayWorkoutNavigationController.children.first as! TodayWorkoutViewController
+        todayWorkoutViewController.workoutsOfDay = self.workoutsOfDay
+            
+        
         let addWorkoutViewController = WorkoutAddViewController()
         let feedViewController = UINavigationController(rootViewController: FeedViewController())
-        let tabBarControllers = [todayWorkoutViewController, addWorkoutViewController, feedViewController]
+        let tabBarControllers = [todayWorkoutNavigationController, addWorkoutViewController, feedViewController]
         self.viewControllers = tabBarControllers
         
         
@@ -32,6 +48,7 @@ class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
         if viewController is WorkoutAddViewController {
             let vc = WorkoutAddViewController()
             self.modalPresentationStyle = .currentContext
+            vc.workoutsOfDayId = self.workoutsOfDay.id
             self.present(vc, animated: true, completion: nil)
             return false
         }

@@ -24,15 +24,17 @@ class FeedViewController: UIViewController {
     
     // MARK: View Life Cycle
     
-    override func loadView() {
-        super.loadView()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setup()
-        self.fetchAllWorkoutsOfDay()
         self.configureCollectionView()
+//        self.addObserverToNotificationCenter(.WorkoutDidAddedNotification,
+//                                             selector: #selector(fetchAllWorkoutsOfDays(_:)))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.fetchAllWorkoutsOfDays()
     }
     
     private func setup() {
@@ -68,12 +70,38 @@ class FeedViewController: UIViewController {
         self.collectionView.dataSource = self
         self.collectionView.register(FeedCollectionViewCell.self)
         self.collectionView.registerForHeaderView(FeedCollectionReusableView.self)
-        
     }
     
     private func fetchAllWorkoutsOfDay() {
         self.workoutsOfDays = realm.objects(WorkoutsOfDay.self)
     }
+}
+
+// MARK: objc functions
+
+extension FeedViewController {
+    @objc func fetchAllWorkoutsOfDays(_ notification: Notification? = nil) {
+        self.workoutsOfDays = realm.objects(WorkoutsOfDay.self)
+        self.collectionView.reloadData()
+//         guard let workoutsOfToday = self.workoutsOfToday else { return }
+//         if let workoutPrimaryKey = notification.userInfo?["PrimaryKey"] as? String,
+//             let addedWorkout = self.realm.object(ofType: Workout.self,
+//                                                  forPrimaryKey: workoutPrimaryKey){
+//             if !workoutsOfToday.workouts.contains(addedWorkout) {
+//                 self.realm.writeToRealm {
+//                     workoutsOfToday.workouts.append(addedWorkout)
+//                 }
+//             } else {
+//                 // already exist
+//
+//             }
+//
+//             self.tableView.reloadData()
+//             let countOfWorkouts = workoutsOfToday.countOfWorkouts
+//             let targetIndexPath = IndexPath(row: countOfWorkouts - 1, section: 0)
+//             self.tableView.scrollToRow(at: targetIndexPath, at: .middle, animated: true)
+//         }
+     }
 }
 
 // MARK: CollectionView DataSource
@@ -87,7 +115,7 @@ extension FeedViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let workoutsOfDays = self.workoutsOfDays else { return 0 }
         let workoutsOfDay = workoutsOfDays[section]
-        return workoutsOfDay.countOfWorkouts
+        return workoutsOfDay.numberOfWorkouts
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -108,14 +136,20 @@ extension FeedViewController: UICollectionViewDataSource {
             .dequeueReusableSupplementaryHeaderView(FeedCollectionReusableView.self,
                                                     for: indexPath)
         
-        header.dateLabel.text = DateFormatter.sharedFormatter.dateString(from: workoutsOfDay.createdDateTime)
+//        header.dateLabel.text = DateFormatter.shared.dateString(from: workoutsOfDay.createdDateTime)
         return header
     }
 }
 
 // MARK: CollectionView Delegate
 extension FeedViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let workoutsOfDay = self.workoutsOfDays?[indexPath.section] else { return }
+        let workout = workoutsOfDay.workouts[indexPath.item]
+        let vc = WorkoutAddViewController()
+        vc.workout = workout
+        self.present(vc, animated: true, completion: nil)
+    }
 }
 
 

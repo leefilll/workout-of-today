@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-class WorkoutAddFooterView: UIView {
+final class WorkoutAddFooterView: UIView {
     
     var workoutSetAddButton: UIButton!
     

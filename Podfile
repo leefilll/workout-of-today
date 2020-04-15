@@ -6,7 +6,7 @@ target 'WorkoutOfToday' do
   use_frameworks!
   pod 'RealmSwift'
   pod 'SnapKit'
-  pod 'Hero'
+
   # Pods for WorkoutOfToday
 
   target 'WorkoutOfTodayTests' do
