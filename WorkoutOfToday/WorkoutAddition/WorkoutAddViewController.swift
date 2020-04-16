@@ -65,7 +65,7 @@ final class WorkoutAddViewController: UIViewController {
 
     var workoutAddButton: UIButton!
     
-    var buttonBottomConstraint: ConstraintItem!
+//    var buttonBottomConstraint: ConstraintItem!
     
     var headerView: WorkoutAddHeaderView!
     
@@ -87,10 +87,6 @@ final class WorkoutAddViewController: UIViewController {
         self.configureTableView()
         self.addTargets()
         self.addObserverForKeyboard()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         self.headerView.workoutNameTextField.becomeFirstResponder()
     }
     
@@ -148,13 +144,16 @@ extension WorkoutAddViewController {
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(Size.addButtonHeight)
         }
-        self.buttonBottomConstraint = self.workoutAddButton.snp.bottom
+        
+//        self.buttonBottomConstraint = self.workoutAddButton.snp.bottom
+        
         
         self.tableView.snp.makeConstraints { (make) in
             make.top.equalTo(self.navigationBar.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.workoutAddButton.snp.top)
         }
+
     }
     
     private func configureTableView() {

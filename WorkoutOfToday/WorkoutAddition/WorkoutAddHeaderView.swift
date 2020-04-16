@@ -18,9 +18,9 @@ final class WorkoutAddHeaderView: UIView {
     
     @IBOutlet weak var workoutNameTextField: UITextField!
     
-    @IBOutlet weak var workoutPartButton: WorkoutPartButton!
-    
     @IBOutlet weak var recentWorkoutCollectionView: UICollectionView!
+    
+    @IBOutlet weak var workoutPartButton: WorkoutPartButton!
     
     @IBOutlet weak var recentWorkoutHeaderButton: UIButton!
     
@@ -54,6 +54,11 @@ final class WorkoutAddHeaderView: UIView {
     }
     
     private func setup() {
+        self.setUnitLabel.isHidden = true
+        self.weightUnitLabel.isHidden = true
+        self.repsUnitLabel.isHidden = true
+        self.degreeUnitLabel.isHidden = true
+        
         self.setUnitLabel.font = .description
         self.weightUnitLabel.font = .description
         self.repsUnitLabel.font = .description
@@ -68,9 +73,15 @@ final class WorkoutAddHeaderView: UIView {
         self.workoutNameTextField.placeholder = "운동 이름"
         self.workoutNameTextField.minimumFontSize = UIFont.boldTitle.pointSize
         
-        self.recentWorkoutHeaderButton.setTitle("최근 운동 접기", for: .normal)
-        self.recentWorkoutHeaderButton.setTitle("최근 운동 펼치기", for: .selected)
-        self.recentWorkoutHeaderButton.titleLabel?.font = .description
+        self.recentWorkoutHeaderButton.isSelected = true
+        self.recentWorkoutHeaderButton.clipsToBounds = true
+        self.recentWorkoutHeaderButton.layer.cornerRadius = 10
+        self.recentWorkoutHeaderButton.setTitle("최근 운동", for: .normal)
+        self.recentWorkoutHeaderButton.setTitleColor(.tintColor, for: .selected)
+        self.recentWorkoutHeaderButton.setTitleColor(.lightGray, for: .normal)
+        self.recentWorkoutHeaderButton.setBackgroundColor(UIColor.tintColor.withAlphaComponent(0.1), for: .selected)
+        self.recentWorkoutHeaderButton.setBackgroundColor(UIColor.concaveColor.withAlphaComponent(0.7), for: .normal)
+        self.recentWorkoutHeaderButton.titleLabel?.font = .subheadline
         self.recentWorkoutHeaderButton.setTitleColor(.lightGray, for: .normal)
         self.recentWorkoutHeaderButton.addTarget(self, action: #selector(foldCollectionView(_:)), for: .touchDown)
         
@@ -89,15 +100,14 @@ final class WorkoutAddHeaderView: UIView {
 extension WorkoutAddHeaderView {
     @objc func foldCollectionView(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        self.recentWorkoutCollectionView.isHidden = sender.isSelected
-//        if sender.isSelected {
-//            self.recentWorkoutCollectionView.transform = CGAffineTransform(scaleX: 0, y: -100)
-//        } else {
-//            self.recentWorkoutCollectionView.transform = .identity
-//        }
+        self.recentWorkoutCollectionView.isHidden = !sender.isSelected
         UIView.animate(withDuration: 0.1) {
             self.layoutIfNeeded()
         }
+        self.setUnitLabel.isHidden = sender.isSelected
+        self.weightUnitLabel.isHidden = sender.isSelected
+        self.repsUnitLabel.isHidden = sender.isSelected
+        self.degreeUnitLabel.isHidden = sender.isSelected
     }
 }
 

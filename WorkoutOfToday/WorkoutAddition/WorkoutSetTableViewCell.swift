@@ -70,14 +70,14 @@ final class WorkoutSetTableViewCell: UITableViewCell {
         self.setCountLabel.textColor = .lightGray
         
         self.weightTextField.backgroundColor = .concaveColor
-        self.weightTextField.keyboardType = .numberPad
+//        self.weightTextField.keyboardType = .numberPad
         self.weightTextField.layer.cornerRadius = 10
         self.weightTextField.delegate = self
         self.weightTextField.font = .smallBoldTitle
         self.weightTextField.text = "\(self.workoutSet?.weight ?? 0)"
                
         self.repsTextField.backgroundColor = .concaveColor
-        self.repsTextField.keyboardType = .numberPad
+//        self.repsTextField.keyboardType = .numberPad
         self.repsTextField.layer.cornerRadius = 10
         self.repsTextField.delegate = self
         self.repsTextField.font = .smallBoldTitle

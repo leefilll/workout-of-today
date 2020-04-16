@@ -52,17 +52,8 @@ class FeedViewController: UIViewController {
             navigationBar.shadowImage = UIImage()
         }
         
-//        let layout = UICollectionViewFlowLayout()
-//        layout.minimumInteritemSpacing = 3
-//        layout.minimumLineSpacing = 8
-//        layout.scrollDirection = .vertical
-//        layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-//
-//        self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
         let layout = FeedCollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.sectionHeadersPinToVisibleBounds = true
         layout.headerReferenceSize = CGSize(width: 0,
                                             height: 80)
         

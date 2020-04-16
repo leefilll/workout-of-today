@@ -37,13 +37,20 @@ extension UIColor {
     
     class func partColor(_ rawValue: Int) -> UIColor {
         switch rawValue {
-            case 0: return UIColor.colorWithRGBHex(hex: 0xC4C4C4)
-            case 1: return UIColor.colorWithRGBHex(hex: 0xE75A2B)
-            case 2: return UIColor.colorWithRGBHex(hex: 0xF7CC45)
-            case 3: return UIColor.colorWithRGBHex(hex: 0x87D05E)
-            case 4: return UIColor.colorWithRGBHex(hex: 0x5DA7EF)
-            case 5: return UIColor.colorWithRGBHex(hex: 0x73D2E6)
-            case 6: return UIColor.colorWithRGBHex(hex: 0xF09A37)
+//            case 0: return UIColor.colorWithRGBHex(hex: 0xC4C4C4)
+            case 0: return UIColor.lightGray
+//            case 1: return UIColor.colorWithRGBHex(hex: 0xE75A2B)
+//            case 2: return UIColor.colorWithRGBHex(hex: 0xF7CC45)
+//            case 3: return UIColor.colorWithRGBHex(hex: 0x87D05E)
+//            case 4: return UIColor.colorWithRGBHex(hex: 0x5DA7EF)
+//            case 5: return UIColor.colorWithRGBHex(hex: 0x73D2E6)
+//            case 6: return UIColor.colorWithRGBHex(hex: 0xF09A37)
+            case 1: return UIColor.colorWithRGBHex(hex: 0xda6e6a)
+            case 2: return UIColor.colorWithRGBHex(hex: 0x749af7)
+            case 3: return UIColor.colorWithRGBHex(hex: 0x7d60f5)
+            case 4: return UIColor.colorWithRGBHex(hex: 0xea9945)
+            case 5: return UIColor.colorWithRGBHex(hex: 0x5aa764)
+            case 6: return UIColor.colorWithRGBHex(hex: 0x294eca)
             case 7: return UIColor.colorWithRGBHex(hex: 0x000000)
             default: return .lightGray
         }

@@ -18,7 +18,7 @@ final class WorkoutPartButton: UIButton {
     
     private var part: Part? = Part.none {
         didSet {
-            self.backgroundColor = self.part?.color.withAlphaComponent(0.1)
+            self.backgroundColor = self.part?.color.withAlphaComponent(0.2)
             self.setTitleColor(self.part?.color, for: .normal)
             self.setTitle(self.part?.description, for: .normal)
         }
@@ -35,10 +35,10 @@ final class WorkoutPartButton: UIButton {
     }
     
     private func setup() {
+        self.sizeToFit()
         self.part = Part.none
         
         self.setTitle("파트", for: .normal)
-//        self.setTitleColor(.white, for: .normal)
         self.titleLabel?.font = .subheadline
     }
     

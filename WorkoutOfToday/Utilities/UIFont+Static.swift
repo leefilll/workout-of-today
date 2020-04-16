@@ -60,7 +60,9 @@ extension UIFont {
     }
     
     static var subheadline: UIFont {
-        return UIFont.preferredFont(forTextStyle: .subheadline)
+        let font = UIFont.preferredFont(forTextStyle: .subheadline)
+        let fontSize = font.pointSize
+        return UIFont.boldSystemFont(ofSize: fontSize)
     }
     
     static var description: UIFont {
