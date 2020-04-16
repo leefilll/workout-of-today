@@ -13,6 +13,7 @@ final class WorkoutSet: Object, NSCopying {
     
     @objc dynamic var weight: Int = 0
     @objc dynamic var reps: Int = 0
+    @objc dynamic var degree: Degree.RawValue = 0
     @objc dynamic var id = UUID().uuidString
     let workout = LinkingObjects(fromType: Workout.self, property: "sets")
     
@@ -28,6 +29,7 @@ final class WorkoutSet: Object, NSCopying {
         let copy = WorkoutSet()
         copy.weight = self.weight
         copy.reps = self.reps
+        copy.degree = self.degree
         return copy
     }
     

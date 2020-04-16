@@ -14,11 +14,19 @@ final class WorkoutSetTableViewCell: UITableViewCell {
     
     // MARK: Model
     
-    var workoutSet: WorkoutSet?
+    var workoutSet: WorkoutSet? {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
     
     var isCompleted: Bool = false {
         didSet {
-            // Complete set
+            if self.isCompleted {
+                self.contentView.alpha = 1.0
+            } else {
+                self.contentView.alpha = 0.7
+            }
         }
     }
     
@@ -34,6 +42,7 @@ final class WorkoutSetTableViewCell: UITableViewCell {
     
     @IBOutlet weak var repsUnitLabel: UILabel!
     
+    @IBOutlet weak var degreeCircleView: UIView!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -57,23 +66,31 @@ final class WorkoutSetTableViewCell: UITableViewCell {
     }
     
     private func setup() {
-        self.weightUnitLabel.font = .lightDescription
-        self.weightUnitLabel.text = "kg"
-        self.weightUnitLabel.textColor = .lightGray
         
-        self.repsUnitLabel.font = .lightDescription
+        self.weightUnitLabel.font = .description
+        self.weightUnitLabel.text = "kg"
+//        self.weightUnitLabel.textColor = .lightGray
+        
+        self.repsUnitLabel.font = .description
         self.repsUnitLabel.text = "rep"
-        self.repsUnitLabel.textColor = .lightGray
+//        self.repsUnitLabel.textColor = .lightGray
         
         self.weightTextField.backgroundColor = .concaveColor
         self.weightTextField.layer.cornerRadius = 10
         self.weightTextField.delegate = self
         self.weightTextField.font = .boldTitle
-        
+        self.weightTextField.text = "\(self.workoutSet?.weight ?? 0)"
+               
         self.repsTextField.backgroundColor = .concaveColor
         self.repsTextField.layer.cornerRadius = 10
         self.repsTextField.delegate = self
         self.repsTextField.font = .boldTitle
+        self.repsTextField.text = "\(self.workoutSet?.reps ?? 0)"
+        
+//        self.degreeCircleView.frame = CGRect(origin: .zero, size: CGSize(width: 20, height: 20))
+        self.degreeCircleView.backgroundColor = .blue
+        self.degreeCircleView.layer.cornerRadius = self.frame.height / 2
+        self.degreeCircleView.clipsToBounds = true
         
         self.weightTextField.addToolbar(onDone: (target: self,
                                                  title: "다음",
@@ -83,6 +100,8 @@ final class WorkoutSetTableViewCell: UITableViewCell {
                                                action: #selector(doneDidTapped(_:))))
 
     }
+    
+    
 }
 
 

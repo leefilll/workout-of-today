@@ -16,16 +16,16 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" restorationIdentifier="headerView" id="bbd-64-eEv">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dsj-mP-sIr">
-                    <rect key="frame" x="20" y="50" width="374" height="100"/>
+                    <rect key="frame" x="20" y="5" width="374" height="100"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="0bQ-T6-YRJ">
                             <rect key="frame" x="0.0" y="0.0" width="374" height="100"/>
                             <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" placeholder="ㄴㅇㄹㄴㅁㅇㄹ" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AIP-RB-qSq">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" placeholder="ㄴㅇㄹㄴㅁㅇㄹ" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AIP-RB-qSq">
                                     <rect key="frame" x="0.0" y="0.0" width="85" height="100"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="100" id="QfF-Vo-plu"/>
@@ -70,9 +70,12 @@
                             </subviews>
                         </stackView>
                     </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="fqv-1r-hAE"/>
+                    </constraints>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hxp-oU-Sfe" customClass="WorkoutPartButton" customModule="WorkoutOfToday" customModuleProvider="target">
-                    <rect key="frame" x="115" y="89" width="56" height="22"/>
+                    <rect key="frame" x="108" y="44" width="56" height="22"/>
                     <inset key="contentEdgeInsets" minX="5" minY="2" maxX="5" maxY="2"/>
                     <state key="normal" title="Button"/>
                 </button>
@@ -82,14 +85,14 @@
                 <constraint firstItem="94N-8u-NBV" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Hxp-oU-Sfe" secondAttribute="trailing" constant="20" id="FDl-Eg-6aA"/>
                 <constraint firstItem="94N-8u-NBV" firstAttribute="trailing" secondItem="dsj-mP-sIr" secondAttribute="trailing" constant="20" id="Q8s-Ac-UiX"/>
                 <constraint firstItem="Hxp-oU-Sfe" firstAttribute="centerY" secondItem="AIP-RB-qSq" secondAttribute="centerY" id="R8b-Se-vOv"/>
-                <constraint firstItem="Hxp-oU-Sfe" firstAttribute="leading" secondItem="AIP-RB-qSq" secondAttribute="trailing" constant="10" id="eTR-q5-fPM"/>
-                <constraint firstItem="dsj-mP-sIr" firstAttribute="bottom" secondItem="94N-8u-NBV" secondAttribute="bottom" id="neV-4q-7x7"/>
+                <constraint firstItem="Hxp-oU-Sfe" firstAttribute="leading" secondItem="AIP-RB-qSq" secondAttribute="trailing" constant="3" id="eTR-q5-fPM"/>
+                <constraint firstItem="dsj-mP-sIr" firstAttribute="bottom" secondItem="bbd-64-eEv" secondAttribute="bottom" id="neV-4q-7x7"/>
                 <constraint firstItem="dsj-mP-sIr" firstAttribute="leading" secondItem="94N-8u-NBV" secondAttribute="leading" constant="20" id="ybG-kQ-2b5"/>
             </constraints>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="94N-8u-NBV"/>
-            <point key="canvasLocation" x="-833.33333333333337" y="-4.6875"/>
+            <point key="canvasLocation" x="-833.33333333333337" y="10.379464285714285"/>
         </view>
     </objects>
 </document>

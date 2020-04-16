@@ -62,24 +62,23 @@ final class WorkoutTableViewCell: UITableViewCell {
        }
     
     private func setup() {
-        self.selectionStyle = .none
+        self.isAccessibilityElement = false
+        self.selectionStyle = .default
 
         self.containerView.clipsToBounds = true
         self.containerView.layer.cornerRadius = 10
         
-        self.nameLabel.font = .largeTitle
+        self.nameLabel.font = .boldTitle
         
         self.totalVolumeLabel.font = .body
         
-        print()
         self.totalSetLabel.font = .veryLargeTitle
         self.totalSetLabel.sizeToFit()
         
         self.bestSetLabel.font = .subheadline
         
-        self.setLabel.font = .title
+        self.setLabel.font = .smallTitle
         self.setLabel.text = "set"
         self.setLabel.sizeToFit()
-        
     }
 }

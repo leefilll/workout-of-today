@@ -38,8 +38,8 @@ final class WorkoutAddFooterView: UIView {
             make.centerX.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(Inset.Cell.horizontalInset)
             make.trailing.equalToSuperview().offset(-Inset.Cell.horizontalInset)
-            make.top.equalToSuperview().offset(Inset.Cell.veticalInset)
-            make.bottom.equalToSuperview().offset(-Inset.Cell.veticalInset)
+            make.top.equalToSuperview().offset(5)
+            make.bottom.equalToSuperview().offset(-5)
         }
     }
 }

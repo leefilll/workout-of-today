@@ -16,7 +16,7 @@ final class TodayWorkoutViewController: UIViewController {
     
     var workoutsOfDay: WorkoutsOfDay!
     
-    var workoutsOfDayId: String!
+//    var workoutsOfDayId: String!
     
     // MARK: View
     
@@ -32,33 +32,31 @@ final class TodayWorkoutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureTableView()
-        self.fetchWorkoutOfToday()
         self.addObserverToNotificationCenter(.WorkoutDidAddedNotification,
                                              selector: #selector(reloadTableView(_:)))
         
+//        var c = 0
+//        print("REALM")
+//        let WOD = DBHandler.shared.realm.objects(WorkoutsOfDay.self)
+//        print("WOD---------")
+//        for wod in WOD {
+//            print("\(wod.id)")
+//            for workout in wod.workouts {
+//                print("\(workout.name) - \(workout.numberOfSets)")
+//                for (idx,set) in workout.sets.enumerated() {
+//                    c += 1
+//                    print("\(idx+1): \(set.weight) - \(set.reps)")
+//                }
+//            }
+//        }
+//        print("TOTAL COUNT: \(c)")
         
-        var c = 0
-        print("REALM")
-        let WOD = DBHandler.shared.realm.objects(WorkoutsOfDay.self)
-        print("WOD---------")
-        for wod in WOD {
-            print("\(wod.id)")
-            for workout in wod.workouts {
-                print("\(workout.name) - \(workout.numberOfSets)")
-                for (idx,set) in workout.sets.enumerated() {
-                    c += 1
-                    print("\(idx+1): \(set.weight) - \(set.reps)")
-                }
-            }
-        }
-        print("TOTAL COUNT: \(c)")
-        
-        
-        let wholeSets = DBHandler.shared.realm.objects(WorkoutSet.self)
-        wholeSets.forEach{ set in
-            print("\(set.weight) - \(set.reps)")
-        }
-        print("TOTAL COUNT: \(wholeSets.count)")
+//
+//        let wholeSets = DBHandler.shared.realm.objects(WorkoutSet.self)
+//        wholeSets.forEach{ set in
+//            print("\(set.weight) - \(set.reps)")
+//        }
+//        print("TOTAL COUNT: \(wholeSets.count)")
     }
     
     deinit {
@@ -78,10 +76,9 @@ extension TodayWorkoutViewController {
             navigationBar.barTintColor = .groupTableViewBackground
             navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
             navigationBar.shadowImage = UIImage()
-            navigationBar.topItem?.prompt = "2020년"
         }
         
-        self.tableView = UITableView()
+        self.tableView = UITableView(frame: .zero, style: .grouped)
         self.view.addSubview(self.tableView)
         
         self.tableView.snp.makeConstraints { (make) in
@@ -92,26 +89,12 @@ extension TodayWorkoutViewController {
     }
     
     private func configureTableView() {
+        self.tableView.backgroundColor = .clear
         self.tableView.separatorColor = .clear
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.delaysContentTouches = false
+//        self.tableView.delaysContentTouches = false
         self.tableView.register(WorkoutTableViewCell.self)
-    }
-    
-    private func fetchWorkoutOfToday() {
-//        if self.workoutsOfDay != nil {
-////            let workoutsOfDay = DBHandler.shared.fetchObject(ofType: WorkoutsOfDay.self,
-////                                                             forPrimaryKey: self.workoutsOfDayId)
-////            DBHandler.shared.write {
-////                self.workoutsOfDay = workoutsOfDay
-////            }
-//        } else {
-//            // there is no WOD already existed
-//            let newWorkoutsOfDay = WorkoutsOfDay()
-//            DBHandler.shared.create(object: newWorkoutsOfDay)
-//            self.workoutsOfDay = newWorkoutsOfDay
-//        }
     }
 }
 
@@ -120,7 +103,6 @@ extension TodayWorkoutViewController {
 extension TodayWorkoutViewController {
     
     @objc func reloadTableView(_ notification: Notification) {
-        self.fetchWorkoutOfToday()
         self.tableView.reloadData()
     }
 }
@@ -133,11 +115,17 @@ extension TodayWorkoutViewController: UITableViewDataSource {
         return self.workoutsOfDay.numberOfWorkouts
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = TodayWorkoutTableHeaderView()
+        headerView.dateLabel.text = DateFormatter.shared.string(from: self.workoutsOfDay.createdDateTime)
+        return headerView
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(WorkoutTableViewCell.self, for: indexPath)
-        guard let workoutsOfToday = self.workoutsOfDay else { fatalError() }
         let workout = self.workoutsOfDay.workouts[indexPath.row]
         cell.workout = workout
+        cell.isAccessibilityElement = false
         return cell
     }
 }
@@ -147,7 +135,7 @@ extension TodayWorkoutViewController: UITableViewDataSource {
 extension TodayWorkoutViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 100
     }
     
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
@@ -169,6 +157,11 @@ extension TodayWorkoutViewController: UITableViewDelegate {
         let workout = workoutsOfToday.workouts[indexPath.row]
         vc.workoutId = workout.id
         self.present(vc, animated: true, completion: nil)
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }
 // TODO:- If there is workout here, the add vc make the fields filled

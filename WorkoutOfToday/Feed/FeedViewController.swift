@@ -130,7 +130,6 @@ extension FeedViewController: UICollectionViewDataSource {
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let workoutsOfDay = self.workoutsOfDays?[indexPath.section] else { fatalError() }
 
         let header = collectionView
             .dequeueReusableSupplementaryHeaderView(FeedCollectionReusableView.self,

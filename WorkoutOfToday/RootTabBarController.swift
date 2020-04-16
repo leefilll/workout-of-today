@@ -10,26 +10,27 @@ import UIKit
 
 class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
     
-    var workoutsOfDay: WorkoutsOfDay {
-        let keyFromDate = DateFormatter.shared.keyStringFromDate
-        if let workoutsOfDay = DBHandler.shared.fetchObject(ofType: WorkoutsOfDay.self,
-                                                            forPrimaryKey: keyFromDate) {
-            return workoutsOfDay
-        } else {
-            let newWorkoutsOfDay = WorkoutsOfDay()
-            return newWorkoutsOfDay
-        }
-    }
+    var workoutsOfDay: WorkoutsOfDay!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
         
+        let keyFromDate = DateFormatter.shared.keyStringFromDate
+        if let workoutsOfDay = DBHandler.shared.fetchObject(ofType: WorkoutsOfDay.self,
+                                                            forPrimaryKey: keyFromDate) {
+            self.workoutsOfDay = workoutsOfDay
+        } else {
+            let newWorkoutsOfDay = WorkoutsOfDay()
+            self.workoutsOfDay = newWorkoutsOfDay
+            DBHandler.shared.create(object: newWorkoutsOfDay)
+        }
+        
+        
         let todayWorkoutNavigationController = UINavigationController(rootViewController: TodayWorkoutViewController())
         
         let todayWorkoutViewController = todayWorkoutNavigationController.children.first as! TodayWorkoutViewController
         todayWorkoutViewController.workoutsOfDay = self.workoutsOfDay
-            
         
         let addWorkoutViewController = WorkoutAddViewController()
         let feedViewController = UINavigationController(rootViewController: FeedViewController())
@@ -47,7 +48,7 @@ class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if viewController is WorkoutAddViewController {
             let vc = WorkoutAddViewController()
-            self.modalPresentationStyle = .currentContext
+//            vc.presentationController?.delegate = self
             vc.workoutsOfDayId = self.workoutsOfDay.id
             self.present(vc, animated: true, completion: nil)
             return false
@@ -55,3 +56,9 @@ class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
         return true
     }
 }
+//
+//extension RootTabBarController: UIAdaptivePresentationControllerDelegate {
+//    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+//
+//    }
+//}

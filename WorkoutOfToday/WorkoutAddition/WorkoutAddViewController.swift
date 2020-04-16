@@ -47,13 +47,13 @@ final class WorkoutAddViewController: UIViewController {
         leftBarButton.tintColor = .tintColor
         leftBarButton.action = #selector(dismiss(_:))
         barItem.leftBarButtonItem = leftBarButton
-        
-        let rightBarButton = UIBarButtonItem()
-        rightBarButton.title = "확인"
-        rightBarButton.tintColor = .tintColor
-        rightBarButton.action = #selector(addWorkout(_:))
-        barItem.rightBarButtonItem = rightBarButton
-        
+//
+//        let rightBarButton = UIBarButtonItem()
+//        rightBarButton.title = "확인"
+//        rightBarButton.tintColor = .tintColor
+//        rightBarButton.action = #selector(addWorkout(_:))
+//        barItem.rightBarButtonItem = rightBarButton
+//
         bar.items = [barItem]
         
         // Delete bottom border of nav bar
@@ -62,11 +62,16 @@ final class WorkoutAddViewController: UIViewController {
         return bar
     }()
     
+    var workoutAddButton: UIButton!
+    
+    var buttonBottomConstraint: ConstraintItem!
+    
     var headerView: WorkoutAddHeaderView!
     
     var footerView: WorkoutAddFooterView!
     
     var tableView: UITableView!
+    
     
     // MARK: View Life Cycle
     
@@ -77,10 +82,15 @@ final class WorkoutAddViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.headerView.workoutNameTextField.becomeFirstResponder()
         self.setupModel()
         self.configureTableView()
         self.addTargets()
+        self.addObserverForKeyboard()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.headerView.workoutNameTextField.becomeFirstResponder()
     }
     
     
@@ -98,10 +108,12 @@ final class WorkoutAddViewController: UIViewController {
 extension WorkoutAddViewController {
     
     private func setup() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard(_:)))
+        self.view.addGestureRecognizer(tapGestureRecognizer)
         self.view.backgroundColor = .white
         
         self.headerView = WorkoutAddHeaderView()
-        self.headerView.frame.size.height = 120
+        self.headerView.frame.size.height = 100
         self.headerView.workoutNameTextField.delegate = self
         
         self.footerView = WorkoutAddFooterView()
@@ -110,24 +122,38 @@ extension WorkoutAddViewController {
         self.tableView = UITableView()
         self.tableView.tableHeaderView = self.headerView
         self.tableView.tableFooterView = footerView
-        self.tableView.rowHeight = Size.Cell.height
         self.tableView.separatorColor = .clear
         self.tableView.allowsSelection = false
-        self.tableView.keyboardDismissMode = .onDrag
+        self.tableView.keyboardDismissMode = .interactive
+        
+        self.workoutAddButton = UIButton()
+        self.workoutAddButton.setBackgroundColor(.tintColor, for: .normal)
+        self.workoutAddButton.setBackgroundColor(.lightGray, for: .disabled)
+        self.workoutAddButton.setTitle("확인", for: .normal)
+        self.workoutAddButton.titleLabel?.textAlignment = .center
+        self.workoutAddButton.isEnabled = false
         
         self.view.addSubview(self.navigationBar)
         self.view.addSubview(self.tableView)
+        self.view.addSubview(self.workoutAddButton)
         
         self.navigationBar.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view.layoutMarginsGuide.snp.top)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
         }
         
+        self.workoutAddButton.snp.makeConstraints { make in
+            make.bottom.equalTo(self.view.layoutMarginsGuide.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(45)
+        }
+        self.buttonBottomConstraint = self.workoutAddButton.snp.bottom
+        
         self.tableView.snp.makeConstraints { (make) in
             make.top.equalTo(self.navigationBar.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(self.workoutAddButton.snp.top)
         }
     }
     
@@ -155,12 +181,20 @@ extension WorkoutAddViewController {
         self.footerView.workoutSetAddButton.addTarget(self,
                                                       action: #selector(workoutSetDidAdded(_:)),
                                                       for: .touchUpInside)
+        
+        self.workoutAddButton.addTarget(self,
+                                        action: #selector(addWorkout(_:)),
+                                        for: .touchUpInside)
     }
 }
 
 // MARK: objc functions
 
 extension WorkoutAddViewController {
+    
+    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
     
     @objc func dismiss(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
@@ -169,6 +203,10 @@ extension WorkoutAddViewController {
     @objc func addWorkout(_ sender: UIBarButtonItem) {
         textFieldDidEndEditing(self.headerView.workoutNameTextField)
         guard let workout = self.workout else { return }
+        if workout.name == "" {
+            return
+        }
+        
         if self.workoutId == nil {
             // create new workout data
             let workoutsOfDay = DBHandler.shared.fetchObject(ofType: WorkoutsOfDay.self, forPrimaryKey: self.workoutsOfDayId)
@@ -229,6 +267,48 @@ extension WorkoutAddViewController {
     }
 }
 
+// MARK: Notification for Keyboard
+
+extension WorkoutAddViewController {
+    func addObserverForKeyboard() {
+        NotificationCenter
+            .default
+            .addObserver(forName: UIResponder.keyboardWillShowNotification,
+                         object: nil,
+                         queue: OperationQueue.main) { noti in
+                            guard let userInfo = noti.userInfo else { return }
+                            guard let bounds = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+                            
+                            let height = bounds.height
+                            self.workoutAddButton.snp.remakeConstraints { make in
+                                make.bottom.equalToSuperview().offset(-height)
+                                make.leading.trailing.equalToSuperview()
+                                make.height.equalTo(65)
+                            }
+                            
+                            UIView.animate(withDuration: 0.7) {
+                                self.view.layoutIfNeeded()
+                            }
+        }
+        
+        NotificationCenter
+            .default
+            .addObserver(forName: UIResponder.keyboardWillHideNotification,
+                         object: nil,
+                         queue: OperationQueue.main) { noti in
+                            self.workoutAddButton.snp.remakeConstraints { make in
+                                make.bottom.equalTo(self.view.layoutMarginsGuide.snp.bottom)
+                                make.leading.trailing.equalToSuperview()
+                                make.height.equalTo(65)
+                            }
+                            UIView.animate(withDuration: 0.7) {
+                                self.view.layoutIfNeeded()
+                            }
+        }
+    }
+}
+
+
 // MARK: TableView DataSource
 
 extension WorkoutAddViewController: UITableViewDataSource {
@@ -243,12 +323,7 @@ extension WorkoutAddViewController: UITableViewDataSource {
         let workoutSet = workout.sets[indexPath.row]
         
         cell.workoutSet = workoutSet
-        
-        //TODO: Cell Model - View Connect
-//
-//        cell.setCountLabel.text = "\(indexPath.row + 1)"
-//        cell.weightTextField.text = workoutSet.weight != 0 ? "\(workoutSet.weight)" : nil
-//        cell.repsTextField.text = workoutSet.reps != 0 ? "\(workoutSet.reps)" : nil
+        cell.setCountLabel.text = "\(indexPath.row + 1)"
         
         return cell
     }
@@ -275,6 +350,9 @@ extension WorkoutAddViewController: UITableViewDataSource {
 // MARK: TableView Delegate
 
 extension WorkoutAddViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return Size.Cell.height
+    }
     
 }
 
@@ -282,8 +360,17 @@ extension WorkoutAddViewController: UITableViewDelegate {
 
 extension WorkoutAddViewController: UITextFieldDelegate {
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return false }
+        if !string.isEmpty {
+            self.workoutAddButton.isEnabled = true
+        } else if string.isEmpty && text.count <= 1 {
+            self.workoutAddButton.isEnabled = false
+        }
+        return true
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
-        let objects = DBHandler.shared.realm.objects(Workout.self)
         guard let text = textField.text else { return }
         DBHandler.shared.write {
             self.workout?.name = text
@@ -299,11 +386,4 @@ extension WorkoutAddViewController: UITextFieldDelegate {
         }
         return true
     }
-}
-
-// MARK: ModalDidDismissedNotification
-
-extension NSNotification.Name {
-    static let WorkoutDidAddedNotification = NSNotification.Name(rawValue: "WorkoutDidAddedNotification")
-    static let WorkoutDidModifiedNotification = NSNotification.Name(rawValue: "WorkoutDidModifiedNotification")
 }

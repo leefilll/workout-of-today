@@ -23,4 +23,13 @@ extension UIViewController {
             .default
             .post(name: NotificationName, object: nil)
     }
+ 
+}
+
+
+// MARK: ModalDidDismissedNotification
+
+extension NSNotification.Name {
+    static let WorkoutDidAddedNotification = NSNotification.Name(rawValue: "WorkoutDidAddedNotification")
+    static let WorkoutDidModifiedNotification = NSNotification.Name(rawValue: "WorkoutDidModifiedNotification")
 }

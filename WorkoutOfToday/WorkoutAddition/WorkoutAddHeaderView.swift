@@ -26,10 +26,6 @@ final class WorkoutAddHeaderView: UIView {
         self.setup()
     }
     
-    override func awakeFromNib() {
-        print(#function)
-    }
-    
     private func commonInit(){
         let name = String(describing: type(of: self))
         guard let loadedNib = Bundle.main.loadNibNamed(name, owner: self, options: nil) else { return }
@@ -38,7 +34,6 @@ final class WorkoutAddHeaderView: UIView {
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(view)
     }
-    
     
     private func setup() {
         self.workoutNameTextField.font = .largeTitle

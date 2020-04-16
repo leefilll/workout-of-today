@@ -22,8 +22,8 @@ enum Inset {
 
 enum Size {
     enum Cell {
-        static let height: CGFloat = 50
-        static let footerHeight: CGFloat = 60
+        static let height: CGFloat = 40
+        static let footerHeight: CGFloat = 35
     }
 }
 
@@ -74,4 +74,12 @@ enum Equipment: Int, CustomStringConvertible, CaseIterable {
             case .other: return "기타"
         }
     }
+}
+
+enum Degree: Int {
+    case none = 0
+    case fail
+    case hard
+    case medium
+    case easy
 }
