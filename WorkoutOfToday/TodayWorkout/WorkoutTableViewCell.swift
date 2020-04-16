@@ -16,12 +16,15 @@ final class WorkoutTableViewCell: UITableViewCell {
     
     var workout: Workout? {
         didSet {
-            self.containerView.backgroundColor = Part(rawValue: self.workout?.part ?? 0)?.color
+//            self.containerView.backgroundColor = Part(rawValue: self.workout?.part ?? 0)?.color
+            self.backgroundColor = .groupTableViewBackground
+            self.containerView.backgroundColor = .white
             self.nameLabel.text = self.workout?.name
+            
             self.totalVolumeLabel.text = "\(self.workout?.totalVolume ?? 0) kg"
             self.totalSetLabel.text = "\(self.workout?.numberOfSets ?? 0)"
             if let workout = self.workout, let bestSet = workout.bestSet {
-                self.bestSetLabel.text = "최고: " + String(describing: bestSet)
+                self.bestSetLabel.text = "BEST: " + String(describing: bestSet)
             }
         }
     }
@@ -63,21 +66,24 @@ final class WorkoutTableViewCell: UITableViewCell {
     
     private func setup() {
         self.isAccessibilityElement = false
-        self.selectionStyle = .default
+        self.selectionStyle = .none
 
         self.containerView.clipsToBounds = true
         self.containerView.layer.cornerRadius = 10
         
-        self.nameLabel.font = .boldTitle
+        self.nameLabel.font = .smallBoldTitle
+        self.nameLabel.lineBreakMode = .byTruncatingTail
+        self.nameLabel.numberOfLines = 1
         
-        self.totalVolumeLabel.font = .body
+        self.totalVolumeLabel.font = .description
         
         self.totalSetLabel.font = .veryLargeTitle
         self.totalSetLabel.sizeToFit()
         
-        self.bestSetLabel.font = .subheadline
+        self.bestSetLabel.font = .description
+        self.bestSetLabel.text = ""
         
-        self.setLabel.font = .smallTitle
+        self.setLabel.font = .smallBoldTitle
         self.setLabel.text = "set"
         self.setLabel.sizeToFit()
     }

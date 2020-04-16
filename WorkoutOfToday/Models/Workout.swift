@@ -64,8 +64,9 @@ final class Workout: Object, NSCopying {
         self.equipment = workout.equipment
         self.note = workout.note
         // TODO: Have to delete all origin set for mermory management
-        self.sets.removeAll()
         DBHandler.shared.realm.delete(self.sets)
+        self.sets.removeAll()
+        
         for set in workout.sets {
             if let newSet = set.copy() as? WorkoutSet {
                 self.sets.append(newSet)

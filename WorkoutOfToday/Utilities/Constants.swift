@@ -23,8 +23,9 @@ enum Inset {
 enum Size {
     enum Cell {
         static let height: CGFloat = 40
-        static let footerHeight: CGFloat = 35
+        static let footerHeight: CGFloat = 40
     }
+    static let addButtonHeight: CGFloat = 50
 }
 
 enum Part: Int, CustomStringConvertible, CaseIterable {

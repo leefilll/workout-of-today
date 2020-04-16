@@ -24,7 +24,7 @@ class FeedCollectionReusableView: UICollectionReusableView {
     
     private func setup() {
         self.dateLabel = UILabel()
-        self.dateLabel.font = .boldBody
+        self.dateLabel.font = .boldTitle
         
         self.addSubview(self.dateLabel)
         self.dateLabel.snp.makeConstraints { make in

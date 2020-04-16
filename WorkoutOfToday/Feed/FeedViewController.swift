@@ -24,9 +24,13 @@ class FeedViewController: UIViewController {
     
     // MARK: View Life Cycle
     
+    override func loadView() {
+        super.loadView()
+        self.setup()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setup()
         self.configureCollectionView()
 //        self.addObserverToNotificationCenter(.WorkoutDidAddedNotification,
 //                                             selector: #selector(fetchAllWorkoutsOfDays(_:)))
@@ -48,11 +52,20 @@ class FeedViewController: UIViewController {
             navigationBar.shadowImage = UIImage()
         }
         
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 8
-        layout.minimumLineSpacing = 8
+//        let layout = UICollectionViewFlowLayout()
+//        layout.minimumInteritemSpacing = 3
+//        layout.minimumLineSpacing = 8
+//        layout.scrollDirection = .vertical
+//        layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+//
+//        self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        let layout = FeedCollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        layout.sectionHeadersPinToVisibleBounds = true
+        layout.headerReferenceSize = CGSize(width: 0,
+                                            height: 80)
+        
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         self.collectionView.backgroundColor = .white
@@ -134,19 +147,21 @@ extension FeedViewController: UICollectionViewDataSource {
         let header = collectionView
             .dequeueReusableSupplementaryHeaderView(FeedCollectionReusableView.self,
                                                     for: indexPath)
+        let workoutsOfDay = self.workoutsOfDays?[indexPath.section]
+        header.dateLabel.text = DateFormatter.shared.string(from: workoutsOfDay?.createdDateTime ?? Date.now)
         
-//        header.dateLabel.text = DateFormatter.shared.dateString(from: workoutsOfDay.createdDateTime)
         return header
     }
 }
 
 // MARK: CollectionView Delegate
+
 extension FeedViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let workoutsOfDay = self.workoutsOfDays?[indexPath.section] else { return }
         let workout = workoutsOfDay.workouts[indexPath.item]
         let vc = WorkoutAddViewController()
-        vc.workout = workout
+        vc.tempWorkout = workout
         self.present(vc, animated: true, completion: nil)
     }
 }
@@ -160,16 +175,17 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
         
         let workout = workoutsOfDay.workouts[indexPath.item]
         let workoutName = workout.name
-        let itemSize = workoutName.size(withAttributes: [
-            NSAttributedString.Key.font : UIFont.boldTitle
-        ])
-
-        return CGSize(width: itemSize.width + 25, height: 40)
-    }
-
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: self.view.bounds.width
-            , height: 80)
+        let fontAtttribute = [NSAttributedString.Key.font: UIFont.smallBoldTitle]
+        let size = workoutName.size(withAttributes: fontAtttribute)
+        
+        let extraSpace: CGFloat = 22
+        let width = size.width + extraSpace
+        
+        let insetHorizontal: CGFloat = 30
+        let maximumWidth = self.collectionView.bounds.width - insetHorizontal
+        if width > maximumWidth {
+            return CGSize(width: maximumWidth, height: 40)
+        }
+        return CGSize(width: width, height: 40)
     }
 }

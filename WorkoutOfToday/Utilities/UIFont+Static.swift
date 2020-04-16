@@ -37,11 +37,12 @@ extension UIFont {
             UIFont.boldSystemFont(ofSize: fontSize)
     }
     
-    static var smallTitle: UIFont {
+    static var smallBoldTitle: UIFont {
         let font = UIFont.preferredFont(forTextStyle: .title2)
         let fontSize = font.pointSize
-        return UIFont(name: "AppleSDGothicNeo-Regular", size: fontSize) ??
-            UIFont.systemFont(ofSize: fontSize, weight: .regular)
+        return UIFont(name: "AppleSDGothicNeo-Bold", size: fontSize) ??
+//            UIFont.systemFont(ofSize: fontSize, weight: .regular)
+        UIFont.boldSystemFont(ofSize: fontSize)
     }
     
     static var body: UIFont {

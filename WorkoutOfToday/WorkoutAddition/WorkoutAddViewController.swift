@@ -23,45 +23,46 @@ final class WorkoutAddViewController: UIViewController {
         }
     }
     
-    var workout: Workout? {
-        didSet {
-            self.view.setNeedsDisplay()
-        }
-    }
+    var tempWorkout: Workout?
     
     var workoutId: String?
     
     var workoutsOfDayId: String!
 
-    
     // MARK: View
     
     private var navigationBar: UINavigationBar = {
         let bar = UINavigationBar()
         bar.barTintColor = .white
-        let barItem = UINavigationItem()
-        barItem.title = "운동"
         
-        let leftBarButton = UIBarButtonItem()
-        leftBarButton.title = "취소"
-        leftBarButton.tintColor = .tintColor
-        leftBarButton.action = #selector(dismiss(_:))
-        barItem.leftBarButtonItem = leftBarButton
-//
-//        let rightBarButton = UIBarButtonItem()
-//        rightBarButton.title = "확인"
-//        rightBarButton.tintColor = .tintColor
-//        rightBarButton.action = #selector(addWorkout(_:))
-//        barItem.rightBarButtonItem = rightBarButton
-//
-        bar.items = [barItem]
+        let handleView = UIView()
+        handleView.backgroundColor = .lightGray
         
+        bar.addSubview(handleView)
+        handleView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(10)
+            make.height.equalTo(5)
+            make.width.equalTo(40)
+        }
+        handleView.clipsToBounds = true
+        handleView.layer.cornerRadius = 3
+//        let barItem = UINavigationItem()
+//        barItem.title = "운동"
+
+//        let leftBarButton = UIBarButtonItem()
+//        leftBarButton.title = "취소"
+//        leftBarButton.tintColor = .tintColor
+//        leftBarButton.action = #selector(dismiss(_:))
+//        barItem.leftBarButtonItem = leftBarButton
+//        bar.items = [barItem]
+
         // Delete bottom border of nav bar
         bar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         bar.shadowImage = UIImage()
         return bar
     }()
-    
+
     var workoutAddButton: UIButton!
     
     var buttonBottomConstraint: ConstraintItem!
@@ -88,16 +89,13 @@ final class WorkoutAddViewController: UIViewController {
         self.addObserverForKeyboard()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.headerView.workoutNameTextField.becomeFirstResponder()
     }
     
-    
-    // 여기서 workout과 엮인 뷰에 관한 코드를 모두 써줌이따가 할게
     override func viewWillLayoutSubviews() {
-        guard let workout = self.workout else { return }
-        self.headerView.workoutNameTextField.text = workout.name
+        guard let workout = self.tempWorkout else { return }
         self.headerView.workoutPartButton.partRawValue = workout.part
         self.tableView.reloadData()
     }
@@ -113,7 +111,7 @@ extension WorkoutAddViewController {
         self.view.backgroundColor = .white
         
         self.headerView = WorkoutAddHeaderView()
-        self.headerView.frame.size.height = 100
+        self.headerView.frame.size.height = 150
         self.headerView.workoutNameTextField.delegate = self
         
         self.footerView = WorkoutAddFooterView()
@@ -123,20 +121,22 @@ extension WorkoutAddViewController {
         self.tableView.tableHeaderView = self.headerView
         self.tableView.tableFooterView = footerView
         self.tableView.separatorColor = .clear
-        self.tableView.allowsSelection = false
+//        self.tableView.allowsSelection = false
         self.tableView.keyboardDismissMode = .interactive
         
         self.workoutAddButton = UIButton()
         self.workoutAddButton.setBackgroundColor(.tintColor, for: .normal)
+        self.workoutAddButton.setBackgroundColor(UIColor.tintColor.withAlphaComponent(0.7),
+                                                 for: .highlighted)
         self.workoutAddButton.setBackgroundColor(.lightGray, for: .disabled)
-        self.workoutAddButton.setTitle("확인", for: .normal)
+        self.workoutAddButton.setTitle("완료", for: .normal)
         self.workoutAddButton.titleLabel?.textAlignment = .center
-        self.workoutAddButton.isEnabled = false
+        self.workoutAddButton.titleLabel?.font = .smallBoldTitle
         
         self.view.addSubview(self.navigationBar)
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.workoutAddButton)
-        
+
         self.navigationBar.snp.makeConstraints { (make) in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.top.equalToSuperview()
@@ -146,7 +146,7 @@ extension WorkoutAddViewController {
         self.workoutAddButton.snp.makeConstraints { make in
             make.bottom.equalTo(self.view.layoutMarginsGuide.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(45)
+            make.height.equalTo(Size.addButtonHeight)
         }
         self.buttonBottomConstraint = self.workoutAddButton.snp.bottom
         
@@ -163,13 +163,19 @@ extension WorkoutAddViewController {
         self.tableView.register(WorkoutSetTableViewCell.self)
     }
     
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: true)
+        tableView.setEditing(editing, animated: true)
+    }
+    
     private func setupModel() {
         if let workoutId = self.workoutId,
             let object = DBHandler.shared.fetchObject(ofType: Workout.self, forPrimaryKey: workoutId) {
-            self.workout = object.copy() as? Workout
+            self.tempWorkout = object.copy() as? Workout
+            self.headerView.workoutNameTextField.text = self.tempWorkout?.name
         } else {
             let newWorkout = Workout()
-            self.workout = newWorkout
+            self.tempWorkout = newWorkout
         }
     }
     
@@ -193,7 +199,8 @@ extension WorkoutAddViewController {
 extension WorkoutAddViewController {
     
     @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
-        self.view.endEditing(true)
+        self.headerView.workoutNameTextField.resignFirstResponder()
+        //TODO: set resignFirstResponder?
     }
     
     @objc func dismiss(_ sender: UIBarButtonItem) {
@@ -202,7 +209,7 @@ extension WorkoutAddViewController {
     
     @objc func addWorkout(_ sender: UIBarButtonItem) {
         textFieldDidEndEditing(self.headerView.workoutNameTextField)
-        guard let workout = self.workout else { return }
+        guard let workout = self.tempWorkout else { return }
         if workout.name == "" {
             return
         }
@@ -227,9 +234,9 @@ extension WorkoutAddViewController {
     }
     
     @objc func workoutSetDidAdded(_ sender: UIButton? = nil) {
-        guard let workout = self.workout else { return }
+        guard let workout = self.tempWorkout else { return }
         let newWorkoutSet = WorkoutSet()
-        self.workout?.sets.append(newWorkoutSet)
+        self.tempWorkout?.sets.append(newWorkoutSet)
         let targetIndexPath = IndexPath(row: workout.numberOfSets - 1, section: 0)
         self.tableView.insertRows(at: [targetIndexPath], with: .automatic)
     }
@@ -262,7 +269,7 @@ extension WorkoutAddViewController {
     
     private func setWorkoutPart(rawValue part: Part.RawValue) {
         // MARK: 더 좋은 방법이 없을 까...?!
-        self.workout?.part = part
+        self.tempWorkout?.part = part
         self.headerView.workoutPartButton.partRawValue = part
     }
 }
@@ -283,10 +290,10 @@ extension WorkoutAddViewController {
                             self.workoutAddButton.snp.remakeConstraints { make in
                                 make.bottom.equalToSuperview().offset(-height)
                                 make.leading.trailing.equalToSuperview()
-                                make.height.equalTo(65)
+                                make.height.equalTo(Size.addButtonHeight)
                             }
                             
-                            UIView.animate(withDuration: 0.7) {
+                            UIView.animate(withDuration: 0.5) {
                                 self.view.layoutIfNeeded()
                             }
         }
@@ -299,9 +306,9 @@ extension WorkoutAddViewController {
                             self.workoutAddButton.snp.remakeConstraints { make in
                                 make.bottom.equalTo(self.view.layoutMarginsGuide.snp.bottom)
                                 make.leading.trailing.equalToSuperview()
-                                make.height.equalTo(65)
+                                make.height.equalTo(Size.addButtonHeight)
                             }
-                            UIView.animate(withDuration: 0.7) {
+                            UIView.animate(withDuration: 0.5) {
                                 self.view.layoutIfNeeded()
                             }
         }
@@ -314,16 +321,18 @@ extension WorkoutAddViewController {
 extension WorkoutAddViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.workout?.numberOfSets ?? 0
+        return self.tempWorkout?.numberOfSets ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let workout = self.workout else { fatalError() }
+        guard let workout = self.tempWorkout else { fatalError() }
         let cell = tableView.dequeueReusableCell(WorkoutSetTableViewCell.self, for: indexPath)
         let workoutSet = workout.sets[indexPath.row]
         
         cell.workoutSet = workoutSet
         cell.setCountLabel.text = "\(indexPath.row + 1)"
+        cell.degreeCircleView.clipsToBounds = true
+        cell.degreeCircleView.layer.cornerRadius = cell.degreeCircleView.frame.height / 2
         
         return cell
     }
@@ -335,7 +344,7 @@ extension WorkoutAddViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
             case .delete:
-                self.workout?.sets.remove(at: indexPath.row)
+                self.tempWorkout?.sets.remove(at: indexPath.row)
                 tableView.beginUpdates()
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 tableView.endUpdates()
@@ -359,21 +368,23 @@ extension WorkoutAddViewController: UITableViewDelegate {
 // MARK: TextField Delegate
 
 extension WorkoutAddViewController: UITextFieldDelegate {
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = textField.text else { return false }
-        if !string.isEmpty {
-            self.workoutAddButton.isEnabled = true
-        } else if string.isEmpty && text.count <= 1 {
-            self.workoutAddButton.isEnabled = false
-        }
-        return true
-    }
+//
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        guard let text = textField.text else { return false }
+//        if !string.isEmpty {
+//            self.workoutAddButton.isEnabled = true
+//        } else if string.isEmpty && text.count <= 1 {
+//            self.workoutAddButton.isEnabled = false
+//        }
+//        return true
+//    }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
+        
+        // have to write in Realm transaction
         DBHandler.shared.write {
-            self.workout?.name = text
+            self.tempWorkout?.name = text
         }
     }
     
@@ -381,7 +392,7 @@ extension WorkoutAddViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         
         // If there is no cells, add new cell automatically
-        if self.workout?.numberOfSets == 0 {
+        if self.tempWorkout?.numberOfSets == 0 {
             workoutSetDidAdded()
         }
         return true

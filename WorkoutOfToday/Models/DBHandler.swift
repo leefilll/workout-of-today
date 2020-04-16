@@ -68,7 +68,8 @@ class DBHandler {
         return self.realm.objects(type)
     }
     
-//    func deleteListObjects<T: Object>(of) {
-//        self.realm.delete(<#T##objects: List<Element>##List<Element>#>)
-//    }
+    func fetchRecentObjects<T: Object>(ofType type: T.Type) -> Results<T> {
+        let objects = self.realm.objects(type).sorted(byKeyPath: "createdDateTime", ascending: false)
+        return objects
+    }
 }

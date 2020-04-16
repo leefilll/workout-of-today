@@ -28,6 +28,7 @@ final class WorkoutAddFooterView: UIView {
         self.workoutSetAddButton = UIButton()
         self.workoutSetAddButton.setTitle("세트 추가", for: .normal)
         self.workoutSetAddButton.setTitleColor(UIColor.tintColor, for: .normal)
+        self.workoutSetAddButton.titleLabel?.font = .boldBody
         self.workoutSetAddButton.backgroundColor = UIColor.tintColor.withAlphaComponent(0.1)
         self.workoutSetAddButton.clipsToBounds = true
         self.workoutSetAddButton.layer.cornerRadius = 10

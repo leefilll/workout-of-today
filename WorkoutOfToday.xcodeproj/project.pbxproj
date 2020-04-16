@@ -13,6 +13,8 @@
 		BB12C88C2447343D007DFBC1 /* Pods_WorkoutOfToday.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1649F6C72DC0D20F9053D785 /* Pods_WorkoutOfToday.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BB12C8A82447441E007DFBC1 /* TodayWorkoutTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB12C8A72447441E007DFBC1 /* TodayWorkoutTableHeaderView.swift */; };
 		BB2E75422447752E006108F5 /* UIButton+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2E75412447752E006108F5 /* UIButton+Color.swift */; };
+		BB2E7545244828C5006108F5 /* RecentWorkoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2E7544244828C5006108F5 /* RecentWorkoutCollectionViewCell.swift */; };
+		BB2E754724486CCF006108F5 /* FeedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2E754624486CCF006108F5 /* FeedCollectionViewFlowLayout.swift */; };
 		BB5A05132441AFF900AB1604 /* WorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5A05122441AFF900AB1604 /* WorkoutTableViewCell.swift */; };
 		BB5C515C243DA34200A1CD9C /* UIView+CornerRadii.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C515B243DA34200A1CD9C /* UIView+CornerRadii.swift */; };
 		BB5C515F243DADB600A1CD9C /* Date+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C515E243DADB600A1CD9C /* Date+Calendar.swift */; };
@@ -103,6 +105,9 @@
 		BB12C8A024473CAE007DFBC1 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB12C8A72447441E007DFBC1 /* TodayWorkoutTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWorkoutTableHeaderView.swift; sourceTree = "<group>"; };
 		BB2E75412447752E006108F5 /* UIButton+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Color.swift"; sourceTree = "<group>"; };
+		BB2E7543244826FF006108F5 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		BB2E7544244828C5006108F5 /* RecentWorkoutCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWorkoutCollectionViewCell.swift; sourceTree = "<group>"; };
+		BB2E754624486CCF006108F5 /* FeedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		BB5A05122441AFF900AB1604 /* WorkoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewCell.swift; sourceTree = "<group>"; };
 		BB5C515B243DA34200A1CD9C /* UIView+CornerRadii.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CornerRadii.swift"; sourceTree = "<group>"; };
 		BB5C515D243DA7ED00A1CD9C /* Test.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Test.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -225,6 +230,7 @@
 				BB91CD0F2444842D00342CFC /* WorkoutAddFooterView.swift */,
 				BB91CD09244464C100342CFC /* WorkoutAddHeaderView.swift */,
 				BB5C518E243DDD3000A1CD9C /* WorkoutSetTableViewCell.swift */,
+				BB2E7544244828C5006108F5 /* RecentWorkoutCollectionViewCell.swift */,
 			);
 			path = WorkoutAddition;
 			sourceTree = "<group>";
@@ -313,6 +319,7 @@
 				BB8BB792243CBDFF00774EA9 /* FeedViewController.swift */,
 				BB96FD632444B99300E8DE10 /* FeedCollectionViewCell.swift */,
 				BB96FD652444BF5600E8DE10 /* FeedCollectionReusableView.swift */,
+				BB2E754624486CCF006108F5 /* FeedCollectionViewFlowLayout.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -453,6 +460,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = BB8BB753243CBA0200774EA9;
 			productRefGroup = BB8BB75D243CBA0200774EA9 /* Products */;
@@ -609,6 +617,7 @@
 				BB5C5163243DB7C900A1CD9C /* UIView+DropShadow.swift in Sources */,
 				BB91CD102444842D00342CFC /* WorkoutAddFooterView.swift in Sources */,
 				BB91CD0A244464C100342CFC /* WorkoutAddHeaderView.swift in Sources */,
+				BB2E754724486CCF006108F5 /* FeedCollectionViewFlowLayout.swift in Sources */,
 				BB8BB764243CBA0200774EA9 /* TodayWorkoutViewController.swift in Sources */,
 				BB5C5167243DBA6B00A1CD9C /* WorkoutSetView.swift in Sources */,
 				BB5C5193243EED1B00A1CD9C /* UIFont+Static.swift in Sources */,
@@ -626,6 +635,7 @@
 				BB8BB7A0243CBFBD00774EA9 /* WorkoutsOfDay.swift in Sources */,
 				BB12C8A82447441E007DFBC1 /* TodayWorkoutTableHeaderView.swift in Sources */,
 				BB96FD642444B99300E8DE10 /* FeedCollectionViewCell.swift in Sources */,
+				BB2E7545244828C5006108F5 /* RecentWorkoutCollectionViewCell.swift in Sources */,
 				BB96FD662444BF5600E8DE10 /* FeedCollectionReusableView.swift in Sources */,
 				BB8BB79E243CBEE700774EA9 /* Workout.swift in Sources */,
 				BB8BB760243CBA0200774EA9 /* AppDelegate.swift in Sources */,
@@ -677,6 +687,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				BB8BB76B243CBA0400774EA9 /* Base */,
+				BB2E7543244826FF006108F5 /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -688,6 +699,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -748,6 +760,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

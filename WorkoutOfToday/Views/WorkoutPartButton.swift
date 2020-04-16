@@ -18,7 +18,8 @@ final class WorkoutPartButton: UIButton {
     
     private var part: Part? = Part.none {
         didSet {
-            self.backgroundColor = self.part?.color
+            self.backgroundColor = self.part?.color.withAlphaComponent(0.1)
+            self.setTitleColor(self.part?.color, for: .normal)
             self.setTitle(self.part?.description, for: .normal)
         }
     }
@@ -37,13 +38,13 @@ final class WorkoutPartButton: UIButton {
         self.part = Part.none
         
         self.setTitle("파트", for: .normal)
-        self.setTitleColor(.white, for: .normal)
-        self.titleLabel?.font = .subheadline
+//        self.setTitleColor(.white, for: .normal)
+        self.titleLabel?.font = .description
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         self.clipsToBounds = true
-        self.layer.cornerRadius = 6
+        self.layer.cornerRadius = 10
     }
 }

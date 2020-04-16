@@ -23,9 +23,10 @@ class TodayWorkoutTableHeaderView: UIView {
     }
     
     private func setup() {
-        self.backgroundColor = .white
+//        self.backgroundColor = .white
+        self.backgroundColor = .groupTableViewBackground
         self.dateLabel = UILabel()
-        self.dateLabel.font = .boldBody
+        self.dateLabel.font = .smallBoldTitle
         
         self.addSubview(self.dateLabel)
         self.dateLabel.snp.makeConstraints { make in

@@ -36,11 +36,11 @@ final class WorkoutSetTableViewCell: UITableViewCell {
     
     @IBOutlet weak var weightTextField: UITextField!
     
-    @IBOutlet weak var weightUnitLabel: UILabel!
+//    @IBOutlet weak var weightUnitLabel: UILabel!
     
     @IBOutlet weak var repsTextField: UITextField!
     
-    @IBOutlet weak var repsUnitLabel: UILabel!
+//    @IBOutlet weak var repsUnitLabel: UILabel!
     
     @IBOutlet weak var degreeCircleView: UIView!
     
@@ -66,31 +66,25 @@ final class WorkoutSetTableViewCell: UITableViewCell {
     }
     
     private func setup() {
-        
-        self.weightUnitLabel.font = .description
-        self.weightUnitLabel.text = "kg"
-//        self.weightUnitLabel.textColor = .lightGray
-        
-        self.repsUnitLabel.font = .description
-        self.repsUnitLabel.text = "rep"
-//        self.repsUnitLabel.textColor = .lightGray
+        self.setCountLabel.font = .smallBoldTitle
+        self.setCountLabel.textColor = .lightGray
         
         self.weightTextField.backgroundColor = .concaveColor
+        self.weightTextField.keyboardType = .numberPad
         self.weightTextField.layer.cornerRadius = 10
         self.weightTextField.delegate = self
-        self.weightTextField.font = .boldTitle
+        self.weightTextField.font = .smallBoldTitle
         self.weightTextField.text = "\(self.workoutSet?.weight ?? 0)"
                
         self.repsTextField.backgroundColor = .concaveColor
+        self.repsTextField.keyboardType = .numberPad
         self.repsTextField.layer.cornerRadius = 10
         self.repsTextField.delegate = self
-        self.repsTextField.font = .boldTitle
+        self.repsTextField.font = .smallBoldTitle
         self.repsTextField.text = "\(self.workoutSet?.reps ?? 0)"
+
+        self.degreeCircleView.backgroundColor = .tintColor
         
-//        self.degreeCircleView.frame = CGRect(origin: .zero, size: CGSize(width: 20, height: 20))
-        self.degreeCircleView.backgroundColor = .blue
-        self.degreeCircleView.layer.cornerRadius = self.frame.height / 2
-        self.degreeCircleView.clipsToBounds = true
         
         self.weightTextField.addToolbar(onDone: (target: self,
                                                  title: "다음",
@@ -101,7 +95,11 @@ final class WorkoutSetTableViewCell: UITableViewCell {
 
     }
     
-    
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        self.degreeCircleView.clipsToBounds = true
+//        self.degreeCircleView.layer.cornerRadius = self.frame.height / 2
+//    }
 }
 
 

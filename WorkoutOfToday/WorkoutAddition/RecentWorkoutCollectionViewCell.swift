@@ -1,21 +1,22 @@
 //
-//  FeedCollectionViewCell.swift
+//  RecentWorkoutCollectionViewCell.swift
 //  WorkoutOfToday
 //
-//  Created by Lee on 2020/04/14.
+//  Created by Lee on 2020/04/16.
 //  Copyright © 2020 Lee. All rights reserved.
 //
 
 import UIKit
 
-class FeedCollectionViewCell: UICollectionViewCell {
+class RecentWorkoutCollectionViewCell: UICollectionViewCell {
     
     // MARK: Model
     
     var workout: Workout? {
         didSet {
             self.nameLabel.text = self.workout?.name
-            self.backgroundColor = UIColor.partColor(self.workout?.part ?? 0)
+            self.nameLabel.textColor = UIColor.partColor(self.workout?.part ?? 0)
+            self.nameLabel.backgroundColor = UIColor.partColor(self.workout?.part ?? 0).withAlphaComponent(0.1)
             self.setNeedsLayout()
         }
     }
@@ -35,25 +36,26 @@ class FeedCollectionViewCell: UICollectionViewCell {
     }
     
     private func setup() {
-        self.clipsToBounds = true
-        
         self.nameLabel = UILabel()
-        self.nameLabel.font = .smallBoldTitle
-        self.nameLabel.textColor = .white
+        self.nameLabel.font = .boldBody
         self.nameLabel.textAlignment = .center
-        self.nameLabel.numberOfLines = 1
-//        self.nameLabel.lineBreakMode = 
+//        self.nameLabel.layer.borderWidth = 1
+        self.nameLabel.clipsToBounds = true
         
+        self.nameLabel.textColor = .lightGray
+    
         self.addSubview(self.nameLabel)
     }
     
     override func layoutSubviews() {
-        self.layer.cornerRadius = bounds.size.height * 0.20
         self.nameLabel.sizeToFit()
         self.nameLabel.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(10)
-            make.trailing.equalToSuperview().offset(-10)
+            make.trailing.equalToSuperview().offset(-5)
+            make.top.equalToSuperview().offset(10)
+            make.bottom.equalToSuperview().offset(-10)
         }
+        
+        self.nameLabel.layer.cornerRadius = bounds.size.height * 0.30
     }
 }

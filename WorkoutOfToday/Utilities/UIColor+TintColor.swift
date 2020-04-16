@@ -20,7 +20,7 @@ extension UIColor {
                        alpha: CGFloat(alpha))
     }
 
-    static var tintColor = UIColor.colorWithRGBHex(hex: 0x5DA7EF)
+    static var tintColor = UIColor.colorWithRGBHex(hex: 0x507df6)
     
     static var concaveColor = UIColor.colorWithRGBHex(hex: 0xe5e6e8).withAlphaComponent(0.5)
     

@@ -16,8 +16,6 @@ final class TodayWorkoutViewController: UIViewController {
     
     var workoutsOfDay: WorkoutsOfDay!
     
-//    var workoutsOfDayId: String!
-    
     // MARK: View
     
     var tableView: UITableView!
@@ -35,28 +33,30 @@ final class TodayWorkoutViewController: UIViewController {
         self.addObserverToNotificationCenter(.WorkoutDidAddedNotification,
                                              selector: #selector(reloadTableView(_:)))
         
-//        var c = 0
-//        print("REALM")
-//        let WOD = DBHandler.shared.realm.objects(WorkoutsOfDay.self)
-//        print("WOD---------")
-//        for wod in WOD {
-//            print("\(wod.id)")
-//            for workout in wod.workouts {
-//                print("\(workout.name) - \(workout.numberOfSets)")
-//                for (idx,set) in workout.sets.enumerated() {
-//                    c += 1
-//                    print("\(idx+1): \(set.weight) - \(set.reps)")
-//                }
-//            }
-//        }
-//        print("TOTAL COUNT: \(c)")
+        // MARK: Checking memory alloc
+        var c = 0
+        var d = 0
+        let WOD = DBHandler.shared.realm.objects(WorkoutsOfDay.self)
+        for wod in WOD {
+            for workout in wod.workouts {
+                d += 1
+                for _ in workout.sets {
+                    c += 1
+                }
+            }
+        }
+        print("TOTAL SET COUNT: \(c)")
         
-//
-//        let wholeSets = DBHandler.shared.realm.objects(WorkoutSet.self)
-//        wholeSets.forEach{ set in
-//            print("\(set.weight) - \(set.reps)")
-//        }
-//        print("TOTAL COUNT: \(wholeSets.count)")
+        let wholeSets = DBHandler.shared.realm.objects(WorkoutSet.self)
+        wholeSets.forEach{ set in
+            print("\(set.weight) - \(set.reps)")
+        }
+        print("TOTAL SET COUNT: \(wholeSets.count)")
+        print("TOTAL WORKOUT COUNT: \(d)")
+        let wholeWorkouts = DBHandler.shared.realm.objects(Workout.self)
+        print("TOTAL WORKOUT COUNT: \(wholeWorkouts.count)")
+        
+        
     }
     
     deinit {
@@ -68,11 +68,13 @@ final class TodayWorkoutViewController: UIViewController {
 
 extension TodayWorkoutViewController {
     private func setup() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .groupTableViewBackground
+//        self.view.backgroundColor = .white
         
         self.title = "오늘의 운동"
         if let navigationBar = self.navigationController?.navigationBar {
             navigationBar.prefersLargeTitles = true
+            navigationBar.backgroundColor = .groupTableViewBackground
             navigationBar.barTintColor = .groupTableViewBackground
             navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
             navigationBar.shadowImage = UIImage()
@@ -89,11 +91,12 @@ extension TodayWorkoutViewController {
     }
     
     private func configureTableView() {
-        self.tableView.backgroundColor = .clear
+        self.tableView.backgroundColor = .groupTableViewBackground
+//        self.tableView.backgroundColor = .clear
         self.tableView.separatorColor = .clear
         self.tableView.delegate = self
         self.tableView.dataSource = self
-//        self.tableView.delaysContentTouches = false
+        self.tableView.delaysContentTouches = false
         self.tableView.register(WorkoutTableViewCell.self)
     }
 }
@@ -125,7 +128,6 @@ extension TodayWorkoutViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(WorkoutTableViewCell.self, for: indexPath)
         let workout = self.workoutsOfDay.workouts[indexPath.row]
         cell.workout = workout
-        cell.isAccessibilityElement = false
         return cell
     }
 }
@@ -148,7 +150,8 @@ extension TodayWorkoutViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? WorkoutTableViewCell
             else { return }
-        cell.containerView.backgroundColor = UIColor.partColor(cell.workout?.part ?? 0)
+        cell.containerView.backgroundColor = .white
+//        cell.containerView.backgroundColor = UIColor.partColor(cell.workout?.part ?? 0)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -158,7 +161,6 @@ extension TodayWorkoutViewController: UITableViewDelegate {
         vc.workoutId = workout.id
         self.present(vc, animated: true, completion: nil)
     }
-    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UITableView.automaticDimension

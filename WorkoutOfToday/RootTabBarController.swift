@@ -14,6 +14,7 @@ class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBar.tintColor = .tintColor
         delegate = self
         
         let keyFromDate = DateFormatter.shared.keyStringFromDate
@@ -31,10 +32,11 @@ class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
         
         let todayWorkoutViewController = todayWorkoutNavigationController.children.first as! TodayWorkoutViewController
         todayWorkoutViewController.workoutsOfDay = self.workoutsOfDay
-        
         let addWorkoutViewController = WorkoutAddViewController()
         let feedViewController = UINavigationController(rootViewController: FeedViewController())
-        let tabBarControllers = [todayWorkoutNavigationController, addWorkoutViewController, feedViewController]
+        let tabBarControllers = [todayWorkoutNavigationController,
+                                 addWorkoutViewController,
+                                 feedViewController]
         self.viewControllers = tabBarControllers
         
         
