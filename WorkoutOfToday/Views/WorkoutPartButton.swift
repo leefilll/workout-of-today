@@ -39,7 +39,7 @@ final class WorkoutPartButton: UIButton {
         
         self.setTitle("파트", for: .normal)
 //        self.setTitleColor(.white, for: .normal)
-        self.titleLabel?.font = .description
+        self.titleLabel?.font = .subheadline
     }
     
     override func layoutSubviews() {
