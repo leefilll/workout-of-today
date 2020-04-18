@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -52,29 +52,29 @@
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SBB-fC-UOt" customClass="WorkoutPartButton" customModule="WorkoutOfToday" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="40" height="30"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
                                             <constraints>
+                                                <constraint firstAttribute="width" constant="80" id="56T-5F-0ZA"/>
                                                 <constraint firstAttribute="height" constant="30" id="RmC-B3-v84"/>
-                                                <constraint firstAttribute="width" constant="40" id="oBG-Ix-f8n"/>
                                             </constraints>
                                             <state key="normal" title="Button"/>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7M3-VZ-oTQ" customClass="WorkoutPartButton" customModule="WorkoutOfToday" customModuleProvider="target">
-                                            <rect key="frame" x="50" y="0.0" width="40" height="30"/>
+                                            <rect key="frame" x="90" y="0.0" width="80" height="30"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="40" id="4Mh-lK-JL4"/>
+                                                <constraint firstAttribute="width" constant="80" id="bSI-9d-SK8"/>
                                                 <constraint firstAttribute="height" constant="30" id="w1g-LI-el1"/>
                                             </constraints>
                                             <state key="normal" title="Button"/>
                                         </button>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="dYe-UU-0nD">
-                                            <rect key="frame" x="100" y="0.0" width="274" height="30"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="xot-4W-X0W">
+                                            <rect key="frame" x="180" y="0.0" width="194" height="30"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fEB-qQ-Z4a">
-                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="60" id="7zn-uD-8yw"/>
+                                                        <constraint firstAttribute="width" constant="100" id="7lE-OX-E0g"/>
                                                         <constraint firstAttribute="height" constant="30" id="aVg-zg-guO"/>
                                                     </constraints>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -87,7 +87,7 @@
                                         </stackView>
                                     </subviews>
                                 </stackView>
-                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="nmG-9W-O4e">
+                                <collectionView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="nmG-9W-O4e">
                                     <rect key="frame" x="0.0" y="27.5" width="374" height="50"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>

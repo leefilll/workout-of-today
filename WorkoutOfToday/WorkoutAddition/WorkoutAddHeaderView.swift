@@ -10,11 +10,16 @@ import UIKit
 
 import RealmSwift
 
-final class WorkoutAddHeaderView: UIView {
+final class WorkoutAddHeaderView: BaseView, NibLoadable {
     
     // MARK: Model
     
-    var recentWorkouts: Results<Workout>!
+    var workout: Workout? {
+        didSet {
+            nameTextField.text = workout?.name
+            partButton.part = workout?.part
+        }
+    }
     
     // MARK: View
     
@@ -36,41 +41,16 @@ final class WorkoutAddHeaderView: UIView {
     
     @IBOutlet weak var degreeUnitLabel: UILabel!
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.commonInit()
-        self.setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.commonInit()
-        self.setup()
-    }
-    
     deinit {
         print("vc deinit - AddHeaderViewDeinited")
         print("vc deinit - AddHeaderViewDeinited")
         print("vc deinit - AddHeaderViewDeinited")
         print("vc deinit - AddHeaderViewDeinited")
     }
-        
-    private func commonInit(){
-        let name = String(describing: type(of: self))
-        guard let loadedNib = Bundle.main.loadNibNamed(name, owner: self, options: nil) else { return }
-        guard let view = loadedNib.first as? UIView else { return }
-        view.frame = self.bounds
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.addSubview(view)
-    }
     
-    private func setup() {
-        self.recentWorkouts = DBHandler.shared.fetchRecentObjects(ofType: Workout.self)
+    override func setup() {
+        self.commonInit()
         
-        print("In addVC")
-        for w in recentWorkouts {
-            print("\(w.name) - \(w.id)")
-        }
         self.setUnitLabel.font = .description
         self.weightUnitLabel.font = .description
         self.repsUnitLabel.font = .description
@@ -99,9 +79,6 @@ final class WorkoutAddHeaderView: UIView {
         
         self.recentWorkoutCollectionView.isHidden = true
         self.recentWorkoutCollectionView.backgroundColor = .clear
-        self.recentWorkoutCollectionView.delegate = self
-        self.recentWorkoutCollectionView.dataSource = self
-        self.recentWorkoutCollectionView.register(RecentWorkoutCollectionViewCell.self)
     }
 }
 
@@ -122,47 +99,38 @@ extension WorkoutAddHeaderView {
         self.degreeUnitLabel.isHidden = sender.isSelected
     }
 }
-
-// MARK: Recent CollectionView Delegate
-
-extension WorkoutAddHeaderView: UICollectionViewDelegate {
-    
-}
-
-// MARK: Recent CollectionView DataSource
-
-extension WorkoutAddHeaderView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.recentWorkouts.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(RecentWorkoutCollectionViewCell.self, for: indexPath)
-        let workout = self.recentWorkouts[indexPath.item]
-        cell.workout = workout
-        return cell
-    }
-}
-
-
-extension WorkoutAddHeaderView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let workout = self.recentWorkouts[indexPath.item]
-        let workoutName = workout.name
-        let itemSize = workoutName.size(withAttributes: [
-            NSAttributedString.Key.font : UIFont.boldBody
-        ])
-
-        return CGSize(width: itemSize.width + 25, height: self.recentWorkoutCollectionView.bounds.height)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
-    }
-
-}
+//
+//// MARK: Recent CollectionView Delegate
+//
+//extension WorkoutAddHeaderView: UICollectionViewDelegate {
+//
+//}
+//
+//// MARK: Recent CollectionView DataSource
+//
+//extension WorkoutAddHeaderView: UICollectionViewDataSource {
+//
+//}
+//
+//
+//extension WorkoutAddHeaderView: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//        let workout = self.recentWorkouts[indexPath.item]
+//        let workoutName = workout.name
+//        let itemSize = workoutName.size(withAttributes: [
+//            NSAttributedString.Key.font : UIFont.boldBody
+//        ])
+//
+//        return CGSize(width: itemSize.width + 25, height: self.recentWorkoutCollectionView.bounds.height)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return 0
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return 5
+//    }
+//
+//}

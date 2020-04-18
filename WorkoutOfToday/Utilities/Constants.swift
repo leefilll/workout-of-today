@@ -29,20 +29,22 @@ enum Size {
         static let footerHeight: CGFloat = 40
     }
     static let addButtonHeight: CGFloat = 55
+    static let recentCollectionViewHeight: CGFloat = 50
 }
 
 enum Part: Int, CustomStringConvertible, CaseIterable {
-    case none = 0
     case chest
     case shoulder
     case back
     case legs
-    case abdominal
+    case core
     case arms
     case cardio
+    case body
+    case none
     
     var color: UIColor {
-        return UIColor.partColor(self.rawValue)
+        return UIColor.part(self)
     }
     
     var description: String {
@@ -52,20 +54,21 @@ enum Part: Int, CustomStringConvertible, CaseIterable {
             case .shoulder: return "어깨"
             case .back: return "등"
             case .legs: return "다리"
-            case .abdominal: return "복근"
+            case .core: return "코어"
             case .arms: return "팔"
             case .cardio: return "유산소"
+            case .body: return "전신"
         }
     }
 }
 
 enum Equipment: Int, CustomStringConvertible, CaseIterable {
-    case none = 0
     case babel
     case dumbell
     case kettlebell
     case machine
     case other
+    case none
     
     var description: String {
         switch self {
@@ -80,9 +83,9 @@ enum Equipment: Int, CustomStringConvertible, CaseIterable {
 }
 
 enum Degree: Int {
-    case none = 0
     case fail
     case hard
     case medium
     case easy
+    case none
 }

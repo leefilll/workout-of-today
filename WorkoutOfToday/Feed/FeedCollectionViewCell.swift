@@ -14,8 +14,8 @@ class FeedCollectionViewCell: UICollectionViewCell {
     
     var workout: Workout? {
         didSet {
-            self.nameLabel.text = self.workout?.name
-            self.contentView.backgroundColor = UIColor.partColor(self.workout?.part ?? 0)
+            self.nameLabel.text = workout?.name
+            self.contentView.backgroundColor = workout?.part.color
             self.setNeedsLayout()
         }
     }
@@ -27,9 +27,9 @@ class FeedCollectionViewCell: UICollectionViewCell {
     override var isHighlighted: Bool {
         willSet {
             if newValue == true {
-                self.contentView.backgroundColor = UIColor.partColor(self.workout?.part ?? 0).withAlphaComponent(0.5)
+                self.contentView.backgroundColor = workout?.part.color.withAlphaComponent(0.5)
             } else {
-                self.contentView.backgroundColor = UIColor.partColor(self.workout?.part ?? 0)
+                self.contentView.backgroundColor = workout?.part.color
             }
         }
     }
@@ -45,7 +45,6 @@ class FeedCollectionViewCell: UICollectionViewCell {
     }
     
     private func setup() {
-
         self.nameLabel = UILabel()
         self.nameLabel.font = .smallBoldTitle
         self.nameLabel.textColor = .white

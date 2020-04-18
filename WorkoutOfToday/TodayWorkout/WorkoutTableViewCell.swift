@@ -20,7 +20,7 @@ final class WorkoutTableViewCell: UITableViewCell {
             self.backgroundColor = .groupTableViewBackground
             self.containerView.backgroundColor = .white
             self.nameLabel.text = self.workout?.name
-            self.workoutPartButton.partRawValue = self.workout?.part
+            self.workoutPartButton.part = self.workout?.part
             self.totalVolumeLabel.text = "\(self.workout?.totalVolume ?? 0) kg"
             self.totalSetLabel.text = "\(self.workout?.numberOfSets ?? 0)"
             if let workout = self.workout, let bestSet = workout.bestSet {

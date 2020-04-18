@@ -11,24 +11,17 @@ import UIKit
 import SnapKit
 import RealmSwift
 
-final class TodayWorkoutViewController: UIViewController {
+final class TodayWorkoutViewController: BaseViewController {
     
     // MARK: Model
     
     var workoutsOfDay: WorkoutsOfDay!
-    
-    var token: NotificationToken?
     
     // MARK: View
     
     weak var tableView: UITableView!
     
     // MARK: View Life Cycle
-    
-    override func loadView() {
-        super.loadView()
-        self.setup()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,15 +48,7 @@ final class TodayWorkoutViewController: UIViewController {
         print("TOTAL WORKOUT COUNT: \(wholeWorkouts.count)")
     }
     
-    deinit {
-        self.token?.invalidate()
-    }
-}
-
-// MARK: Setup
-
-extension TodayWorkoutViewController {
-    private func setup() {
+    override func setup() {
         view.backgroundColor = .groupTableViewBackground
         title = "오늘의 운동"
         
@@ -85,6 +70,17 @@ extension TodayWorkoutViewController {
             make.bottom.equalTo(view.layoutMarginsGuide.snp.bottom)
         }
     }
+    
+    deinit {
+        self.token?.invalidate()
+    }
+}
+
+// MARK: Setup
+
+extension TodayWorkoutViewController {
+    
+    
     
     private func configureTableView() {
         tableView.backgroundColor = .groupTableViewBackground
@@ -183,7 +179,8 @@ extension TodayWorkoutViewController: UITableViewDelegate {
         guard let workoutsOfToday = self.workoutsOfDay else { return }
         let vc = WorkoutAddViewController()
         let workout = workoutsOfToday.workouts[indexPath.row]
-        vc.workoutId = workout.id
+        vc.workout = workout
+//        vc.workoutId = workout.id
         DispatchQueue.main.async{
             self.present(vc, animated: true, completion: nil)
         }

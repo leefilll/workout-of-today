@@ -7,6 +7,8 @@ target 'WorkoutOfToday' do
   pod 'RealmSwift'
   pod 'SnapKit'
   pod 'EasyTipView'
+  pod 'FSCalendar'
+  pod 'Charts'
 
   # Pods for WorkoutOfToday
 

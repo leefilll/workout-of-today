@@ -8,17 +8,17 @@
 
 import UIKit
 
+import RealmSwift
+
 // MARK: Base ViewController for all of the controllers
 
 class BaseViewController: UIViewController {
     
+    public var token: NotificationToken? = nil
+    
     override func loadView() {
         super.loadView()
         setup()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
     }
     
     public func setup() {
@@ -55,10 +55,26 @@ class BaseViewController: UIViewController {
     }
 }
 
-
-
 // MARK: ModalDidDismissedNotification
 
 extension NSNotification.Name {
     static let WorkoutDidModifiedNotification = NSNotification.Name(rawValue: "WorkoutDidModifiedNotification")
+}
+
+// MARK: Width for string
+
+extension String {
+    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
+
+        return ceil(boundingBox.height)
+    }
+
+    func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
+
+        return ceil(boundingBox.width)
+    }
 }

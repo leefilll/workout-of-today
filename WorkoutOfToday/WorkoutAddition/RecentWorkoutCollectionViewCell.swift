@@ -15,15 +15,21 @@ class RecentWorkoutCollectionViewCell: UICollectionViewCell {
     var workout: Workout? {
         didSet {
             self.nameLabel.text = self.workout?.name
-            self.nameLabel.textColor = UIColor.partColor(self.workout?.part ?? 0)
-            self.nameLabel.backgroundColor = UIColor.partColor(self.workout?.part ?? 0).withAlphaComponent(0.1)
+            self.nameLabel.textColor = workout?.part.color
+            self.nameLabel.backgroundColor = workout?.part.color.withAlphaComponent(0.1)
             self.setNeedsLayout()
+        }
+    }
+    
+    override var isHighlighted: Bool {
+        willSet {
+            animate(newValue)
         }
     }
     
     // MARK: View
     
-    var nameLabel: UILabel!
+    let nameLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,15 +42,27 @@ class RecentWorkoutCollectionViewCell: UICollectionViewCell {
     }
     
     private func setup() {
-        self.nameLabel = UILabel()
-        self.nameLabel.font = .boldBody
-        self.nameLabel.textAlignment = .center
-//        self.nameLabel.layer.borderWidth = 1
-        self.nameLabel.clipsToBounds = true
-        
-        self.nameLabel.textColor = .lightGray
+        nameLabel.font = .boldBody
+        nameLabel.textAlignment = .center
+        nameLabel.clipsToBounds = true
     
-        self.addSubview(self.nameLabel)
+        contentView.addSubview(self.nameLabel)
+    }
+    
+    private func animate(_ newValue: Bool) {
+        UIView.animate(withDuration: 0.3,
+        delay: 0,
+        usingSpringWithDamping: 0.4,
+        initialSpringVelocity: 0.55,
+        options: .curveEaseIn,
+        animations: {
+            if newValue == true {
+                self.nameLabel.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            } else {
+                self.nameLabel.transform = .identity
+            }
+        },
+        completion: nil)
     }
     
     override func layoutSubviews() {

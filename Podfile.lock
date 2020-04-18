@@ -1,5 +1,9 @@
 PODS:
+  - Charts (3.5.0):
+    - Charts/Core (= 3.5.0)
+  - Charts/Core (3.5.0)
   - EasyTipView (2.0.4)
+  - FSCalendar (2.8.1)
   - Realm (4.4.0):
     - Realm/Headers (= 4.4.0)
   - Realm/Headers (4.4.0)
@@ -8,23 +12,29 @@ PODS:
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
+  - Charts
   - EasyTipView
+  - FSCalendar
   - RealmSwift
   - SnapKit
 
 SPEC REPOS:
   trunk:
+    - Charts
     - EasyTipView
+    - FSCalendar
     - Realm
     - RealmSwift
     - SnapKit
 
 SPEC CHECKSUMS:
+  Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
   EasyTipView: 4f8beae0a82db2ca4a9b5fd658785fc5f61d296b
+  FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
   Realm: e125f464884cda953ebefe70c671b75b03b81b9b
   RealmSwift: 33656a42bd300959a081fc13347376bc478071af
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 45707fc04e8b6c6048fc1e7c0b8be8603d3214e1
+PODFILE CHECKSUM: 21e7fd186ceb6d89e30cf2c3334115e161eb4f64
 
 COCOAPODS: 1.8.4

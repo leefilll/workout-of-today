@@ -23,22 +23,11 @@ extension UIColor {
     static var tintColor = UIColor.colorWithRGBHex(hex: 0x507df6)
     
     static var concaveColor = UIColor.colorWithRGBHex(hex: 0xe5e6e8).withAlphaComponent(0.5)
-    
-    enum PartColor: Int {
-        case none = 0
-        case chest
-        case shoulder
-        case back
-        case legs
-        case arms
-        case abdominal
-        case cardio
-    }
-    
-    class func partColor(_ rawValue: Int) -> UIColor {
-        switch rawValue {
+        
+    class func part(_ part: Part) -> UIColor {
+        switch part {
 //            case 0: return UIColor.colorWithRGBHex(hex: 0xC4C4C4)
-            case 0: return UIColor.lightGray
+            case .none: return UIColor.lightGray
 //            case 1: return UIColor.colorWithRGBHex(hex: 0xE75A2B)
 //            case 2: return UIColor.colorWithRGBHex(hex: 0xF7CC45)
 //            case 3: return UIColor.colorWithRGBHex(hex: 0x87D05E)
@@ -52,14 +41,14 @@ extension UIColor {
 //            case 5: return UIColor.colorWithRGBHex(hex: 0x5aa764)
 //            case 6: return UIColor.colorWithRGBHex(hex: 0x294eca)
 //            case 7: return UIColor.colorWithRGBHex(hex: 0x000000)
-            case 1: return UIColor.colorWithRGBHex(hex: 0xED5565)
-            case 2: return UIColor.colorWithRGBHex(hex: 0xAC92EC)
-            case 3: return UIColor.colorWithRGBHex(hex: 0xFFCE54)
-            case 4: return UIColor.colorWithRGBHex(hex: 0xA0D468)
-            case 5: return UIColor.colorWithRGBHex(hex: 0x48CFAD)
-            case 6: return UIColor.colorWithRGBHex(hex: 0x4FC1E9)
-            case 7: return UIColor.colorWithRGBHex(hex: 0x5D9CEC)
-            default: return .lightGray
+            case .chest: return UIColor.colorWithRGBHex(hex: 0xED5565)
+            case .shoulder: return UIColor.colorWithRGBHex(hex: 0xAC92EC)
+            case .back: return UIColor.colorWithRGBHex(hex: 0xFFCE54)
+            case .legs: return UIColor.colorWithRGBHex(hex: 0xA0D468)
+            case .arms: return UIColor.colorWithRGBHex(hex: 0x48CFAD)
+            case .core: return UIColor.colorWithRGBHex(hex: 0x4FC1E9)
+            case .cardio: return UIColor.colorWithRGBHex(hex: 0x5D9CEC)
+            case .body: return UIColor.colorWithRGBHex(hex: 0xF09A37)
         }
     }
 }
