@@ -36,11 +36,7 @@ final class WorkoutSetTableViewCell: UITableViewCell {
     
     @IBOutlet weak var weightTextField: UITextField!
     
-//    @IBOutlet weak var weightUnitLabel: UILabel!
-    
     @IBOutlet weak var repsTextField: UITextField!
-    
-//    @IBOutlet weak var repsUnitLabel: UILabel!
     
     @IBOutlet weak var degreeCircleView: UIView!
     
@@ -56,31 +52,24 @@ final class WorkoutSetTableViewCell: UITableViewCell {
         self.setup()
     }
     
-    private func commonInit() {
-        let name = String(describing: type(of: self))
-        guard let loadedNib = Bundle.main.loadNibNamed(name, owner: self, options: nil) else { return }
-        guard let view = loadedNib.first as? UIView else { return }
-        view.frame = self.bounds
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.addSubview(view)
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(false, animated: false)
     }
-    
+
     private func setup() {
         self.setCountLabel.font = .smallBoldTitle
         self.setCountLabel.textColor = .lightGray
         
         self.weightTextField.backgroundColor = .concaveColor
-//        self.weightTextField.keyboardType = .numberPad
         self.weightTextField.layer.cornerRadius = 10
         self.weightTextField.delegate = self
-        self.weightTextField.font = .smallBoldTitle
+        self.weightTextField.font = .boldBody
         self.weightTextField.text = "\(self.workoutSet?.weight ?? 0)"
                
         self.repsTextField.backgroundColor = .concaveColor
-//        self.repsTextField.keyboardType = .numberPad
         self.repsTextField.layer.cornerRadius = 10
         self.repsTextField.delegate = self
-        self.repsTextField.font = .smallBoldTitle
+        self.repsTextField.font = .boldBody
         self.repsTextField.text = "\(self.workoutSet?.reps ?? 0)"
 
         self.degreeCircleView.backgroundColor = .tintColor

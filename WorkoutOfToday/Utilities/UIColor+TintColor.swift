@@ -45,14 +45,31 @@ extension UIColor {
 //            case 4: return UIColor.colorWithRGBHex(hex: 0x5DA7EF)
 //            case 5: return UIColor.colorWithRGBHex(hex: 0x73D2E6)
 //            case 6: return UIColor.colorWithRGBHex(hex: 0xF09A37)
-            case 1: return UIColor.colorWithRGBHex(hex: 0xda6e6a)
-            case 2: return UIColor.colorWithRGBHex(hex: 0x749af7)
-            case 3: return UIColor.colorWithRGBHex(hex: 0x7d60f5)
-            case 4: return UIColor.colorWithRGBHex(hex: 0xea9945)
-            case 5: return UIColor.colorWithRGBHex(hex: 0x5aa764)
-            case 6: return UIColor.colorWithRGBHex(hex: 0x294eca)
-            case 7: return UIColor.colorWithRGBHex(hex: 0x000000)
+//            case 1: return UIColor.colorWithRGBHex(hex: 0xda6e6a)
+//            case 2: return UIColor.colorWithRGBHex(hex: 0x749af7)
+//            case 3: return UIColor.colorWithRGBHex(hex: 0x7d60f5)
+//            case 4: return UIColor.colorWithRGBHex(hex: 0xea9945)
+//            case 5: return UIColor.colorWithRGBHex(hex: 0x5aa764)
+//            case 6: return UIColor.colorWithRGBHex(hex: 0x294eca)
+//            case 7: return UIColor.colorWithRGBHex(hex: 0x000000)
+            case 1: return UIColor.colorWithRGBHex(hex: 0xED5565)
+            case 2: return UIColor.colorWithRGBHex(hex: 0xAC92EC)
+            case 3: return UIColor.colorWithRGBHex(hex: 0xFFCE54)
+            case 4: return UIColor.colorWithRGBHex(hex: 0xA0D468)
+            case 5: return UIColor.colorWithRGBHex(hex: 0x48CFAD)
+            case 6: return UIColor.colorWithRGBHex(hex: 0x4FC1E9)
+            case 7: return UIColor.colorWithRGBHex(hex: 0x5D9CEC)
             default: return .lightGray
         }
     }
 }
+
+
+/*
+ 
+ 0xAC92EC
+ 0xEC87C0
+ 
+ 
+ 
+ */

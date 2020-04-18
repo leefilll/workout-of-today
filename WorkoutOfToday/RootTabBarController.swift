@@ -8,10 +8,10 @@
 
 import UIKit
 
-class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
+final class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
     
-    var workoutsOfDay: WorkoutsOfDay!
-
+    private var workoutsOfDay: WorkoutsOfDay!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBar.tintColor = .tintColor
@@ -24,21 +24,19 @@ class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
         } else {
             let newWorkoutsOfDay = WorkoutsOfDay()
             self.workoutsOfDay = newWorkoutsOfDay
+            
             DBHandler.shared.create(object: newWorkoutsOfDay)
         }
-        
         
         let todayWorkoutNavigationController = UINavigationController(rootViewController: TodayWorkoutViewController())
         
         let todayWorkoutViewController = todayWorkoutNavigationController.children.first as! TodayWorkoutViewController
         todayWorkoutViewController.workoutsOfDay = self.workoutsOfDay
-        let addWorkoutViewController = WorkoutAddViewController()
         let feedViewController = UINavigationController(rootViewController: FeedViewController())
         let tabBarControllers = [todayWorkoutNavigationController,
-                                 addWorkoutViewController,
+                                 UIViewController(),
                                  feedViewController]
         self.viewControllers = tabBarControllers
-        
         
         if let items = self.tabBar.items {
             items[0].title = "오늘의 운동"
@@ -48,9 +46,9 @@ class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
     }
 
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        if viewController is WorkoutAddViewController {
+        
+        if viewController == tabBarController.viewControllers?[1] {
             let vc = WorkoutAddViewController()
-//            vc.presentationController?.delegate = self
             vc.workoutsOfDayId = self.workoutsOfDay.id
             self.present(vc, animated: true, completion: nil)
             return false
@@ -58,9 +56,3 @@ class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
         return true
     }
 }
-//
-//extension RootTabBarController: UIAdaptivePresentationControllerDelegate {
-//    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
-//
-//    }
-//}

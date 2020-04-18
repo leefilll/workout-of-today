@@ -12,7 +12,15 @@ import SnapKit
 
 final class WorkoutAddFooterView: UIView {
     
-    var workoutSetAddButton: UIButton!
+    deinit {
+        print("vc deinit - footerView")
+        print("vc deinit - footerView")
+        print("vc deinit - footerView")
+        print("vc deinit - footerView")
+        print("vc deinit - footerView")
+    }
+    
+    weak var workoutSetAddButton: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,15 +33,17 @@ final class WorkoutAddFooterView: UIView {
     }
     
     private func setup() {
-        self.workoutSetAddButton = UIButton()
-        self.workoutSetAddButton.setTitle("세트 추가", for: .normal)
-        self.workoutSetAddButton.setTitleColor(UIColor.tintColor, for: .normal)
-        self.workoutSetAddButton.titleLabel?.font = .boldBody
-        self.workoutSetAddButton.backgroundColor = UIColor.tintColor.withAlphaComponent(0.1)
-        self.workoutSetAddButton.clipsToBounds = true
-        self.workoutSetAddButton.layer.cornerRadius = 10
+        let workoutSetAddButton = UIButton()
+        workoutSetAddButton.setTitle("세트 추가", for: .normal)
+        workoutSetAddButton.setTitleColor(UIColor.tintColor, for: .normal)
+        workoutSetAddButton.titleLabel?.font = .boldBody
+        workoutSetAddButton.backgroundColor = UIColor.tintColor.withAlphaComponent(0.1)
+        workoutSetAddButton.clipsToBounds = true
+        workoutSetAddButton.layer.cornerRadius = 10
         
-        self.addSubview(self.workoutSetAddButton)
+        self.workoutSetAddButton = workoutSetAddButton
+        
+        addSubview(self.workoutSetAddButton)
         
         self.workoutSetAddButton.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()

@@ -13,19 +13,24 @@ final class WorkoutSet: Object, NSCopying {
     
     @objc dynamic var weight: Int = 0
     @objc dynamic var reps: Int = 0
-    @objc dynamic var degree: Degree.RawValue = 0
+    @objc private dynamic var _degree: Degree.RawValue = Degree.none.rawValue
     @objc dynamic var id = UUID().uuidString
     let workout = LinkingObjects(fromType: Workout.self, property: "sets")
     
-    var volume: Int {
-        if self.weight == 0 {
-            return self.reps
-        } else {
-            return self.weight * self.reps
+    public var degree: Degree {
+        get {
+            return Degree(rawValue: _degree) ?? .none
+        }
+        set(degree) {
+            _degree = degree.rawValue
         }
     }
     
-    func copy(with zone: NSZone? = nil) -> Any {
+    public var volume: Int {
+            return self.weight * self.reps
+    }
+    
+    public func copy(with zone: NSZone? = nil) -> Any {
         let copy = WorkoutSet()
         copy.weight = self.weight
         copy.reps = self.reps

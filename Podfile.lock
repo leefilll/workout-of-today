@@ -1,4 +1,5 @@
 PODS:
+  - EasyTipView (2.0.4)
   - Realm (4.4.0):
     - Realm/Headers (= 4.4.0)
   - Realm/Headers (4.4.0)
@@ -7,20 +8,23 @@ PODS:
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
+  - EasyTipView
   - RealmSwift
   - SnapKit
 
 SPEC REPOS:
   trunk:
+    - EasyTipView
     - Realm
     - RealmSwift
     - SnapKit
 
 SPEC CHECKSUMS:
+  EasyTipView: 4f8beae0a82db2ca4a9b5fd658785fc5f61d296b
   Realm: e125f464884cda953ebefe70c671b75b03b81b9b
   RealmSwift: 33656a42bd300959a081fc13347376bc478071af
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 605fb938eb79a2c4748b230ab51857d9c2a88150
+PODFILE CHECKSUM: 45707fc04e8b6c6048fc1e7c0b8be8603d3214e1
 
 COCOAPODS: 1.8.4

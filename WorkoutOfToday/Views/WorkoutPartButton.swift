@@ -10,19 +10,20 @@ import UIKit
 
 final class WorkoutPartButton: UIButton {
     
-    public var partRawValue: Part.RawValue? {
-        didSet {
-            self.part = Part(rawValue: self.partRawValue ?? 0)
-        }
-    }
+//    public var partRawValue: Part.RawValue? {
+//        didSet {
+//            self.part = Part(rawValue: self.partRawValue ?? 0)
+//        }
+//    }
     
-    private var part: Part? = Part.none {
+    var part: Part? = Part.none {
         didSet {
             self.backgroundColor = self.part?.color.withAlphaComponent(0.2)
             self.setTitleColor(self.part?.color, for: .normal)
             self.setTitle(self.part?.description, for: .normal)
         }
     }
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)

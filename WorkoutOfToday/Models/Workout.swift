@@ -10,16 +10,33 @@ import Foundation
 import RealmSwift
 
 final class Workout: Object, NSCopying {
-   
     
     @objc dynamic var name: String = ""
     @objc dynamic var createdDateTime: Date = Date()
     @objc dynamic var id = UUID().uuidString
-    @objc dynamic var part: Int = Part.none.rawValue
-    @objc dynamic var equipment: Int = Equipment.none.rawValue
-    @objc dynamic var note: String = ""
+    @objc private dynamic var _part: Int = Part.none.rawValue
+    @objc private dynamic var _equipment: Int = Equipment.none.rawValue
+    
     let sets = List<WorkoutSet>()
     let day = LinkingObjects(fromType: WorkoutsOfDay.self, property: "workouts")
+    
+    public var part: Part {
+        get {
+            return Part(rawValue: _part) ?? .none
+        }
+        set(part) {
+            _part = part.rawValue
+        }
+    }
+    
+    public var equipment: Equipment {
+        get {
+            return Equipment(rawValue: _equipment) ?? .none
+        }
+        set(equipment) {
+            _equipment = equipment.rawValue
+        }
+    }
     
     public var numberOfSets: Int {
         return sets.count
@@ -50,7 +67,6 @@ final class Workout: Object, NSCopying {
         copy.name = self.name
         copy.part = self.part
         copy.equipment = self.equipment
-        copy.note = self.note
         for set in self.sets {
             let newSet = set.copy() as! WorkoutSet
             copy.sets.append(newSet)
@@ -62,7 +78,6 @@ final class Workout: Object, NSCopying {
         self.name = workout.name
         self.part = workout.part
         self.equipment = workout.equipment
-        self.note = workout.note
         // TODO: Have to delete all origin set for mermory management
         DBHandler.shared.realm.delete(self.sets)
         self.sets.removeAll()

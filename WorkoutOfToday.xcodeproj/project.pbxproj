@@ -53,8 +53,8 @@
 		BB96FD662444BF5600E8DE10 /* FeedCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB96FD652444BF5600E8DE10 /* FeedCollectionReusableView.swift */; };
 		BBA582DC24440996001FD978 /* UILabel+WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA582DB24440996001FD978 /* UILabel+WorkoutCell.swift */; };
 		BBA582DE24441ABB001FD978 /* WorkoutPartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA582DD24441ABB001FD978 /* WorkoutPartButton.swift */; };
-		BBB3597A24457D2800E8B2F2 /* UIViewController+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB3597924457D2800E8B2F2 /* UIViewController+Notification.swift */; };
 		BBB3597C2445F19F00E8B2F2 /* DBHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB3597B2445F19F00E8B2F2 /* DBHandler.swift */; };
+		BBB5D7B6244AF9BD00F89A68 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB5D7B5244AF9BD00F89A68 /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,11 +153,11 @@
 		BB96FD652444BF5600E8DE10 /* FeedCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionReusableView.swift; sourceTree = "<group>"; };
 		BBA582DB24440996001FD978 /* UILabel+WorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+WorkoutCell.swift"; sourceTree = "<group>"; };
 		BBA582DD24441ABB001FD978 /* WorkoutPartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPartButton.swift; sourceTree = "<group>"; };
-		BBB3597924457D2800E8B2F2 /* UIViewController+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Notification.swift"; sourceTree = "<group>"; };
 		BBB3597B2445F19F00E8B2F2 /* DBHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHandler.swift; sourceTree = "<group>"; };
 		BBB3597F24472D1900E8B2F2 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBB3598024472D1900E8B2F2 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBB3598124472D1900E8B2F2 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBB5D7B5244AF9BD00F89A68 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		E8DC11B87D8E17E3A036D0F5 /* Pods-WorkoutOfToday-WorkoutOfTodayUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorkoutOfToday-WorkoutOfTodayUITests.release.xcconfig"; path = "Target Support Files/Pods-WorkoutOfToday-WorkoutOfTodayUITests/Pods-WorkoutOfToday-WorkoutOfTodayUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -269,6 +269,7 @@
 				BB8BB78F243CBCC100774EA9 /* Supporting Files */,
 				BB8BB790243CBD3300774EA9 /* RootTabBarController.swift */,
 				BB8BB76D243CBA0400774EA9 /* Info.plist */,
+				BBB5D7B5244AF9BD00F89A68 /* BaseViewController.swift */,
 			);
 			path = WorkoutOfToday;
 			sourceTree = "<group>";
@@ -359,7 +360,6 @@
 				BBA582DB24440996001FD978 /* UILabel+WorkoutCell.swift */,
 				BB5C5192243EED1B00A1CD9C /* UIFont+Static.swift */,
 				BB8BB7A8243CCEBA00774EA9 /* Version.swift */,
-				BBB3597924457D2800E8B2F2 /* UIViewController+Notification.swift */,
 				BB5C5194243EEF0D00A1CD9C /* UIStackView+Configure.swift */,
 				BB5C5196243EF8FE00A1CD9C /* Constants.swift */,
 				BB5C515D243DA7ED00A1CD9C /* Test.playground */,
@@ -622,7 +622,6 @@
 				BB5C5167243DBA6B00A1CD9C /* WorkoutSetView.swift in Sources */,
 				BB5C5193243EED1B00A1CD9C /* UIFont+Static.swift in Sources */,
 				BB8BB791243CBD3300774EA9 /* RootTabBarController.swift in Sources */,
-				BBB3597A24457D2800E8B2F2 /* UIViewController+Notification.swift in Sources */,
 				BB2E75422447752E006108F5 /* UIButton+Color.swift in Sources */,
 				BB8BB793243CBDFF00774EA9 /* FeedViewController.swift in Sources */,
 				BB5C5199243F0BD400A1CD9C /* UITextField+Toolbar.swift in Sources */,
@@ -634,6 +633,7 @@
 				BB5C515F243DADB600A1CD9C /* Date+Calendar.swift in Sources */,
 				BB8BB7A0243CBFBD00774EA9 /* WorkoutsOfDay.swift in Sources */,
 				BB12C8A82447441E007DFBC1 /* TodayWorkoutTableHeaderView.swift in Sources */,
+				BBB5D7B6244AF9BD00F89A68 /* BaseViewController.swift in Sources */,
 				BB96FD642444B99300E8DE10 /* FeedCollectionViewCell.swift in Sources */,
 				BB2E7545244828C5006108F5 /* RecentWorkoutCollectionViewCell.swift in Sources */,
 				BB96FD662444BF5600E8DE10 /* FeedCollectionReusableView.swift in Sources */,

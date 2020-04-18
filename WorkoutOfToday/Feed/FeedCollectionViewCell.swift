@@ -15,7 +15,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
     var workout: Workout? {
         didSet {
             self.nameLabel.text = self.workout?.name
-            self.backgroundColor = UIColor.partColor(self.workout?.part ?? 0)
+            self.contentView.backgroundColor = UIColor.partColor(self.workout?.part ?? 0)
             self.setNeedsLayout()
         }
     }
@@ -23,6 +23,16 @@ class FeedCollectionViewCell: UICollectionViewCell {
     // MARK: View
     
     var nameLabel: UILabel!
+    
+    override var isHighlighted: Bool {
+        willSet {
+            if newValue == true {
+                self.contentView.backgroundColor = UIColor.partColor(self.workout?.part ?? 0).withAlphaComponent(0.5)
+            } else {
+                self.contentView.backgroundColor = UIColor.partColor(self.workout?.part ?? 0)
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,20 +45,20 @@ class FeedCollectionViewCell: UICollectionViewCell {
     }
     
     private func setup() {
-        self.clipsToBounds = true
-        
+
         self.nameLabel = UILabel()
         self.nameLabel.font = .smallBoldTitle
         self.nameLabel.textColor = .white
         self.nameLabel.textAlignment = .center
         self.nameLabel.numberOfLines = 1
-//        self.nameLabel.lineBreakMode = 
-        
-        self.addSubview(self.nameLabel)
+        self.nameLabel.lineBreakMode = .byTruncatingTail
+    
+        self.contentView.addSubview(self.nameLabel)
     }
     
     override func layoutSubviews() {
-        self.layer.cornerRadius = bounds.size.height * 0.20
+        self.contentView.clipsToBounds = true
+        self.contentView.layer.cornerRadius = bounds.size.height * 0.20
         self.nameLabel.sizeToFit()
         self.nameLabel.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()

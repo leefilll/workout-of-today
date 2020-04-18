@@ -16,23 +16,24 @@ class DBHandler {
     
     static let shared = DBHandler()
     
-    var realm: Realm {
+    private var _realm: Realm {
         do {
             return try Realm()
-
         } catch let error as NSError {
             // TODO: Error Handling
             fatalError("Error: \(error)")
         }
     }
     
-//    var realm = try! Realm()
+    var realm: Realm {
+        return _realm
+    }
     
     private init() { }
     
     func write(_ execution: (() -> Void)) {
         do {
-            try self.realm.write {
+            try _realm.write {
                 execution()
             }
         } catch let error as NSError {
@@ -42,8 +43,8 @@ class DBHandler {
     
     func create(object: Object) {
         do {
-            try self.realm.write {
-                self.realm.add(object)
+            try _realm.write {
+                _realm.add(object)
             }
         } catch let error as NSError {
             fatalError("Error: \(error)")
@@ -52,24 +53,57 @@ class DBHandler {
     
     func createOrUpdate(object: Object) {
         do {
-            try self.realm.write {
-                self.realm.add(object, update: .all)
+            try _realm.write {
+                _realm.add(object, update: .all)
             }
         } catch let error as NSError {
             fatalError("Error: \(error)")
         }
     }
-        
+    
+    func delete(object: Object) {
+        do {
+            try _realm.write {
+                _realm.delete(object)
+            }
+        } catch let error as NSError {
+            fatalError("Error: \(error)")
+        }
+    }
+    
+    func deleteWorkout(workout: Workout) {
+        do {
+            try _realm.write {
+                _realm.delete(workout.sets)
+                _realm.delete(workout)
+            }
+        } catch let error as NSError {
+            fatalError("Error: \(error)")
+        }
+    }
+    
+    func deleteWorkoutsOfDay(workoutsOfDay: WorkoutsOfDay) {
+        do {
+            try _realm.write {
+                for workout in workoutsOfDay.workouts {
+                    deleteWorkout(workout: workout)
+                }
+                _realm.delete(workoutsOfDay)
+            }
+        } catch let error as NSError {
+            fatalError("Error: \(error)")
+        }
+    }
+    
     func fetchObject<T: Object>(ofType type: T.Type, forPrimaryKey primaryKey: String) -> T? {
-        return self.realm.object(ofType: type, forPrimaryKey: primaryKey)
+        return _realm.object(ofType: type, forPrimaryKey: primaryKey)
     }
     
     func fetchObjects<T: Object>(ofType type: T.Type) -> Results<T> {
-        return self.realm.objects(type)
+        return _realm.objects(type)
     }
     
     func fetchRecentObjects<T: Object>(ofType type: T.Type) -> Results<T> {
-        let objects = self.realm.objects(type).sorted(byKeyPath: "createdDateTime", ascending: false)
-        return objects
+        return _realm.objects(type).sorted(byKeyPath: "createdDateTime", ascending: false)
     }
 }

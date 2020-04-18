@@ -23,8 +23,7 @@ class TodayWorkoutTableHeaderView: UIView {
     }
     
     private func setup() {
-//        self.backgroundColor = .white
-        self.backgroundColor = .groupTableViewBackground
+        self.backgroundColor = .clear
         self.dateLabel = UILabel()
         self.dateLabel.font = .smallBoldTitle
         
@@ -32,7 +31,7 @@ class TodayWorkoutTableHeaderView: UIView {
         self.dateLabel.snp.makeConstraints { make in
             make.leading.equalTo(Inset.Cell.horizontalInset)
             make.bottom.equalToSuperview().offset(-5)
-            make.top.greaterThanOrEqualTo(5)
+            make.top.equalToSuperview().offset(20)
         }
     }
 }

@@ -9,6 +9,7 @@
 import UIKit
 
 import SnapKit
+import RealmSwift
 
 final class TodayWorkoutViewController: UIViewController {
     
@@ -16,9 +17,11 @@ final class TodayWorkoutViewController: UIViewController {
     
     var workoutsOfDay: WorkoutsOfDay!
     
+    var token: NotificationToken?
+    
     // MARK: View
     
-    var tableView: UITableView!
+    weak var tableView: UITableView!
     
     // MARK: View Life Cycle
     
@@ -29,9 +32,8 @@ final class TodayWorkoutViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureTableView()
-        self.addObserverToNotificationCenter(.WorkoutDidAddedNotification,
-                                             selector: #selector(reloadTableView(_:)))
+        configureTableView()
+        addNotificationBlock()
         
         // MARK: Checking memory alloc
         var c = 0
@@ -46,21 +48,15 @@ final class TodayWorkoutViewController: UIViewController {
             }
         }
         print("TOTAL SET COUNT: \(c)")
-        
         let wholeSets = DBHandler.shared.realm.objects(WorkoutSet.self)
-        wholeSets.forEach{ set in
-            print("\(set.weight) - \(set.reps)")
-        }
         print("TOTAL SET COUNT: \(wholeSets.count)")
         print("TOTAL WORKOUT COUNT: \(d)")
         let wholeWorkouts = DBHandler.shared.realm.objects(Workout.self)
         print("TOTAL WORKOUT COUNT: \(wholeWorkouts.count)")
-        
-        
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
+        self.token?.invalidate()
     }
 }
 
@@ -68,11 +64,10 @@ final class TodayWorkoutViewController: UIViewController {
 
 extension TodayWorkoutViewController {
     private func setup() {
-        self.view.backgroundColor = .groupTableViewBackground
-//        self.view.backgroundColor = .white
+        view.backgroundColor = .groupTableViewBackground
+        title = "오늘의 운동"
         
-        self.title = "오늘의 운동"
-        if let navigationBar = self.navigationController?.navigationBar {
+        if let navigationBar = navigationController?.navigationBar {
             navigationBar.prefersLargeTitles = true
             navigationBar.backgroundColor = .groupTableViewBackground
             navigationBar.barTintColor = .groupTableViewBackground
@@ -80,24 +75,53 @@ extension TodayWorkoutViewController {
             navigationBar.shadowImage = UIImage()
         }
         
-        self.tableView = UITableView(frame: .zero, style: .grouped)
-        self.view.addSubview(self.tableView)
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        self.tableView = tableView
         
+        view.addSubview(self.tableView)
         self.tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view.layoutMarginsGuide.snp.top).offset(5)
+            make.top.equalTo(view.layoutMarginsGuide.snp.top).offset(5)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(self.view.layoutMarginsGuide.snp.bottom)
+            make.bottom.equalTo(view.layoutMarginsGuide.snp.bottom)
         }
     }
     
     private func configureTableView() {
-        self.tableView.backgroundColor = .groupTableViewBackground
-//        self.tableView.backgroundColor = .clear
-        self.tableView.separatorColor = .clear
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.delaysContentTouches = false
-        self.tableView.register(WorkoutTableViewCell.self)
+        tableView.backgroundColor = .groupTableViewBackground
+        tableView.separatorColor = .clear
+        tableView.rowHeight = 100
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.delaysContentTouches = false
+        tableView.register(WorkoutTableViewCell.self)
+    }
+
+    private func addNotificationBlock() {
+        let workouts = workoutsOfDay.workouts
+        token = workouts.observe { [weak self] (changes: RealmCollectionChange) in
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+                case .initial:
+                    tableView.reloadData()
+                case .update(_, let deletions, let insertions, let modifications):
+                    tableView.beginUpdates()
+                    tableView.deleteRows(
+                        at: deletions.map { IndexPath(row: $0, section: 0)},
+                        with: .automatic
+                    )
+                    tableView.insertRows(
+                        at: insertions.map{ IndexPath(row: $0, section: 0)},
+                        with: .automatic
+                    )
+                    tableView.reloadRows(
+                        at: modifications.map{ IndexPath(row: $0, section: 0)},
+                        with: .automatic
+                    )
+                    tableView.endUpdates()
+                case .error(let error):
+                    fatalError("\(error)")
+            }
+        }
     }
 }
 
@@ -106,7 +130,7 @@ extension TodayWorkoutViewController {
 extension TodayWorkoutViewController {
     
     @objc func reloadTableView(_ notification: Notification) {
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
 }
 
@@ -115,20 +139,35 @@ extension TodayWorkoutViewController {
 extension TodayWorkoutViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.workoutsOfDay.numberOfWorkouts
+        return workoutsOfDay.numberOfWorkouts
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = TodayWorkoutTableHeaderView()
-        headerView.dateLabel.text = DateFormatter.shared.string(from: self.workoutsOfDay.createdDateTime)
+        headerView.dateLabel.text = DateFormatter.shared.string(from: workoutsOfDay.createdDateTime)
         return headerView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(WorkoutTableViewCell.self, for: indexPath)
-        let workout = self.workoutsOfDay.workouts[indexPath.row]
+        let workout = workoutsOfDay.workouts[indexPath.row]
         cell.workout = workout
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+            case .delete:
+                let workoutToDelete = workoutsOfDay.workouts[indexPath.row]
+                DBHandler.shared.deleteWorkout(workout: workoutToDelete)
+                break
+            default:
+                break
+        }
     }
 }
 
@@ -136,34 +175,22 @@ extension TodayWorkoutViewController: UITableViewDataSource {
 
 extension TodayWorkoutViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
     }
-    
-    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? WorkoutTableViewCell
-            else { return }
-        let currentColor = cell.containerView.backgroundColor
-        cell.containerView.backgroundColor = currentColor?.withAlphaComponent(0.6)
-    }
-    
-    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? WorkoutTableViewCell
-            else { return }
-        cell.containerView.backgroundColor = .white
-//        cell.containerView.backgroundColor = UIColor.partColor(cell.workout?.part ?? 0)
-    }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let workoutsOfToday = self.workoutsOfDay else { return }
         let vc = WorkoutAddViewController()
         let workout = workoutsOfToday.workouts[indexPath.row]
         vc.workoutId = workout.id
-        self.present(vc, animated: true, completion: nil)
+        DispatchQueue.main.async{
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UITableView.automaticDimension
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
     }
 }
 // TODO:- If there is workout here, the add vc make the fields filled

@@ -10,73 +10,74 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WorkoutSetTableViewCell" customModule="WorkoutOfToday" customModuleProvider="target">
             <connections>
-                <outlet property="degreeCircleView" destination="xff-eb-Piq" id="h88-Zc-C4I"/>
-                <outlet property="repsTextField" destination="Doc-Ri-Jta" id="lwW-TB-e92"/>
-                <outlet property="setCountLabel" destination="dC8-oP-uBF" id="aAf-wH-eic"/>
-                <outlet property="weightTextField" destination="YCK-23-JxW" id="G4t-e6-x29"/>
+                <outlet property="degreeCircleView" destination="qwK-OS-56k" id="RIh-ID-JWP"/>
+                <outlet property="repsTextField" destination="HLw-vJ-Tas" id="dZr-m3-OQI"/>
+                <outlet property="setCountLabel" destination="UNi-P6-7XA" id="7aX-XJ-Zdz"/>
+                <outlet property="weightTextField" destination="Q2X-m5-2jV" id="9L7-4N-qUb"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Ib7-aX-wHL">
-                    <rect key="frame" x="20" y="12.5" width="374" height="30"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dC8-oP-uBF">
-                            <rect key="frame" x="0.0" y="5" width="30" height="20.5"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="30" id="9h9-Np-jPH"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JcV-eb-A2X">
-                            <rect key="frame" x="50" y="0.0" width="264" height="30"/>
-                            <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YCK-23-JxW">
-                                    <rect key="frame" x="0.0" y="0.0" width="127" height="30"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="HBf-8b-x9l"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </textField>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Doc-Ri-Jta">
-                                    <rect key="frame" x="137" y="0.0" width="127" height="30"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="sZD-ya-Vak"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </textField>
-                            </subviews>
-                        </stackView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xff-eb-Piq">
-                            <rect key="frame" x="334" y="7.5" width="40" height="15"/>
-                            <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="15" id="NN4-R5-PcM"/>
-                                <constraint firstAttribute="width" constant="40" id="TOT-US-fp7"/>
-                            </constraints>
-                            <viewLayoutGuide key="safeArea" id="mov-Mb-7Lu"/>
-                        </view>
-                    </subviews>
-                </stackView>
-            </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="Ib7-aX-wHL" secondAttribute="trailing" constant="20" id="gzI-cG-msa"/>
-                <constraint firstItem="Ib7-aX-wHL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="nWl-8l-02A"/>
-                <constraint firstItem="Ib7-aX-wHL" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="on3-Yh-Iod"/>
-            </constraints>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="137.68115942028987" y="-118.86160714285714"/>
-        </view>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="A6Y-8Q-9QA">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A6Y-8Q-9QA" id="wc0-Qh-ntF">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="OcX-d5-gBa">
+                        <rect key="frame" x="20" y="7" width="374" height="30"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNi-P6-7XA">
+                                <rect key="frame" x="0.0" y="5" width="30" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="7ek-No-0Jl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Q8I-DA-kdz">
+                                <rect key="frame" x="50" y="0.0" width="264" height="30"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q2X-m5-2jV">
+                                        <rect key="frame" x="0.0" y="0.0" width="127" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="APw-zg-I8s"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HLw-vJ-Tas">
+                                        <rect key="frame" x="137" y="0.0" width="127" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="EcD-Hh-tr2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qwK-OS-56k">
+                                <rect key="frame" x="334" y="7.5" width="40" height="15"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="ThL-88-Tp5"/>
+                                    <constraint firstAttribute="height" constant="15" id="lb1-aC-XkD"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="Ocv-Lx-SsI"/>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="OcX-d5-gBa" secondAttribute="trailing" constant="20" id="34B-cF-xiU"/>
+                    <constraint firstItem="OcX-d5-gBa" firstAttribute="leading" secondItem="wc0-Qh-ntF" secondAttribute="leading" constant="20" id="B07-AU-BRy"/>
+                    <constraint firstItem="OcX-d5-gBa" firstAttribute="centerY" secondItem="wc0-Qh-ntF" secondAttribute="centerY" id="sh2-sj-DUB"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="-17" y="-374"/>
+        </tableViewCell>
     </objects>
 </document>

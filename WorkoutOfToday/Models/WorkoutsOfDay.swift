@@ -10,7 +10,8 @@ import Foundation
 import RealmSwift
 
 final class WorkoutsOfDay: Object {
-    @objc dynamic var createdDateTime = Date.now
+    @objc dynamic var createdDateTime: Date = Date()
+    @objc dynamic var note: String = ""
     
     // format: year-month-day
     @objc dynamic var id: String  = DateFormatter.shared.keyStringFromDate

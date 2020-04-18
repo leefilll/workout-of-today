@@ -39,11 +39,11 @@ final class WorkoutTableViewCell: UITableViewCell {
     
     @IBOutlet weak var totalVolumeLabel: UILabel!
     
+    @IBOutlet weak var bestSetLabel: UILabel!
+    
     @IBOutlet weak var totalSetLabel: UILabel!
     
     @IBOutlet weak var setLabel: UILabel!
-    
-    @IBOutlet weak var bestSetLabel: UILabel!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -57,14 +57,14 @@ final class WorkoutTableViewCell: UITableViewCell {
         self.setup()
     }
     
-     private func commonInit() {
-           let name = String(describing: type(of: self))
-           guard let loadedNib = Bundle.main.loadNibNamed(name, owner: self, options: nil) else { return }
-           guard let view = loadedNib.first as? UIView else { return }
-           view.frame = self.bounds
-           view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-           self.addSubview(view)
-       }
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        if highlighted {
+            self.containerView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
+        } else {
+            self.containerView.backgroundColor = UIColor.white
+        }
+    }
     
     private func setup() {
         self.isAccessibilityElement = false
@@ -78,6 +78,7 @@ final class WorkoutTableViewCell: UITableViewCell {
         self.nameLabel.numberOfLines = 1
         
         self.totalVolumeLabel.font = .description
+        self.totalVolumeLabel.textColor = .lightGray
         
         self.totalSetLabel.font = .veryLargeTitle
         self.totalSetLabel.sizeToFit()

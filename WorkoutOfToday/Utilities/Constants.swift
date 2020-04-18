@@ -18,6 +18,9 @@ enum Inset {
     static let workoutCellVerticalInset = 7
     static let paddingHorizontal = 15
     static let paddingVertical = 10
+    
+    static let scrollViewTopInset: CGFloat = 10
+    static let scrollViewBottomInset: CGFloat = 20
 }
 
 enum Size {
@@ -25,7 +28,7 @@ enum Size {
         static let height: CGFloat = 40
         static let footerHeight: CGFloat = 40
     }
-    static let addButtonHeight: CGFloat = 50
+    static let addButtonHeight: CGFloat = 55
 }
 
 enum Part: Int, CustomStringConvertible, CaseIterable {
@@ -38,7 +41,6 @@ enum Part: Int, CustomStringConvertible, CaseIterable {
     case arms
     case cardio
     
-
     var color: UIColor {
         return UIColor.partColor(self.rawValue)
     }

@@ -11,13 +11,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WorkoutAddHeaderView" customModule="WorkoutOfToday" customModuleProvider="target">
             <connections>
                 <outlet property="degreeUnitLabel" destination="zl5-US-Pm1" id="s1Y-UV-tsZ"/>
+                <outlet property="equipmentButton" destination="7M3-VZ-oTQ" id="PLM-lP-gcS"/>
+                <outlet property="nameTextField" destination="AIP-RB-qSq" id="8Xr-0H-oFs"/>
+                <outlet property="partButton" destination="SBB-fC-UOt" id="sbJ-oJ-Yoq"/>
                 <outlet property="recentWorkoutCollectionView" destination="nmG-9W-O4e" id="jQB-56-eLb"/>
                 <outlet property="recentWorkoutHeaderButton" destination="fEB-qQ-Z4a" id="5oC-nO-9Er"/>
                 <outlet property="repsUnitLabel" destination="152-hv-w6S" id="q8Q-Tl-uS7"/>
                 <outlet property="setUnitLabel" destination="pVA-8o-skP" id="ya8-Nv-0iD"/>
                 <outlet property="weightUnitLabel" destination="Lrx-a5-iq3" id="kO5-Wg-QBI"/>
-                <outlet property="workoutNameTextField" destination="AIP-RB-qSq" id="8Xr-0H-oFs"/>
-                <outlet property="workoutPartButton" destination="SBB-fC-UOt" id="sbJ-oJ-Yoq"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -25,10 +26,18 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="198"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <view autoresizesSubviews="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0LK-qv-h0l" userLabel="BottomLine">
+                    <rect key="frame" x="0.0" y="197.5" width="414" height="0.5"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="V2q-na-8Gf"/>
+                    </constraints>
+                </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="PnZ-L2-gRj">
                     <rect key="frame" x="20" y="10" width="374" height="187.5"/>
                     <subviews>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" placeholder="ㄴㅇㄹㄴㅁㅇㄹ" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AIP-RB-qSq">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" placeholder="ㄴㅇㄹㄴㅁㅇㄹ" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AIP-RB-qSq">
                             <rect key="frame" x="0.0" y="0.0" width="374" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="60" id="BN1-g4-WXF"/>
@@ -50,8 +59,16 @@
                                             </constraints>
                                             <state key="normal" title="Button"/>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7M3-VZ-oTQ" customClass="WorkoutPartButton" customModule="WorkoutOfToday" customModuleProvider="target">
+                                            <rect key="frame" x="50" y="0.0" width="40" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="4Mh-lK-JL4"/>
+                                                <constraint firstAttribute="height" constant="30" id="w1g-LI-el1"/>
+                                            </constraints>
+                                            <state key="normal" title="Button"/>
+                                        </button>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="dYe-UU-0nD">
-                                            <rect key="frame" x="50" y="0.0" width="324" height="30"/>
+                                            <rect key="frame" x="100" y="0.0" width="274" height="30"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fEB-qQ-Z4a">
                                                     <rect key="frame" x="0.0" y="0.0" width="60" height="30"/>
@@ -133,9 +150,12 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="0LK-qv-h0l" firstAttribute="leading" secondItem="bbd-64-eEv" secondAttribute="leading" id="4y8-lO-MQd"/>
                 <constraint firstItem="PnZ-L2-gRj" firstAttribute="top" secondItem="bbd-64-eEv" secondAttribute="top" constant="10" id="KWr-f6-cJg"/>
                 <constraint firstItem="PnZ-L2-gRj" firstAttribute="leading" secondItem="bbd-64-eEv" secondAttribute="leading" constant="20" id="Ntg-rG-mc3"/>
+                <constraint firstItem="94N-8u-NBV" firstAttribute="trailing" secondItem="0LK-qv-h0l" secondAttribute="trailing" id="PDL-Vx-rT3"/>
                 <constraint firstAttribute="trailing" secondItem="PnZ-L2-gRj" secondAttribute="trailing" constant="20" id="sA1-i4-47L"/>
+                <constraint firstAttribute="bottom" secondItem="0LK-qv-h0l" secondAttribute="bottom" id="ss3-V9-9Ib"/>
             </constraints>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
