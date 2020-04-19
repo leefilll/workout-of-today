@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FeedCollectionViewCell: UICollectionViewCell {
+class DailyCollectionViewCell: UICollectionViewCell {
     
     // MARK: Model
     
@@ -53,16 +53,20 @@ class FeedCollectionViewCell: UICollectionViewCell {
         self.nameLabel.lineBreakMode = .byTruncatingTail
     
         self.contentView.addSubview(self.nameLabel)
+        self.contentView.snp.makeConstraints { make in
+            make.bottom.top.leading.trailing.equalToSuperview()
+        }
+        
+        self.nameLabel.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(10)
+            make.trailing.equalToSuperview().offset(-10)
+        }
     }
     
     override func layoutSubviews() {
         self.contentView.clipsToBounds = true
         self.contentView.layer.cornerRadius = bounds.size.height * 0.20
         self.nameLabel.sizeToFit()
-        self.nameLabel.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(10)
-            make.trailing.equalToSuperview().offset(-10)
-        }
     }
 }

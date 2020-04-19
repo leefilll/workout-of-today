@@ -11,16 +11,21 @@ import UIKit
 class FeedCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
     let cellSpacing: CGFloat = 5
-    
+//
+//    override func layoutAttributesForDecorationView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+//        let attribute = super.layoutAttributesForDecorationView(ofKind: elementKind, at: indexPath)
+//        return attribute!
+//    }
+
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         self.minimumLineSpacing = 8.0
         self.sectionInset = UIEdgeInsets(top:0, left: 15, bottom: 0, right: 15)
         let attributes = super.layoutAttributesForElements(in: rect)
         var attributesCopy = [UICollectionViewLayoutAttributes]()
         
-        for itemAttributes in attributes! {
-            let itemAttributesCopy = itemAttributes.copy() as! UICollectionViewLayoutAttributes
-            // manipulate itemAttributesCopy
+        for attribute in attributes! {
+//            let decoratedAttributes = FeedCollectionViewLayoutAttributes(forSupplementaryViewOfKind: "sectionBackground", with: attribute.indexPath)
+            let itemAttributesCopy = attribute.copy() as! UICollectionViewLayoutAttributes
             attributesCopy.append(itemAttributesCopy)
         }
         

@@ -27,6 +27,7 @@ final class WorkoutAddHeaderView: BaseView, NibLoadable {
 
     @IBOutlet weak var partButton: WorkoutPartButton!
     
+    
     @IBOutlet weak var equipmentButton: WorkoutPartButton!
     
     @IBOutlet weak var recentWorkoutHeaderButton: UIButton!

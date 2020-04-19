@@ -24,9 +24,10 @@ class DailyCollectionViewController: BaseViewController {
         let layout = FeedCollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.headerReferenceSize = CGSize(width: 0, height: 80)
+//        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .clear
         collectionView.contentInset.bottom = 20
         view.addSubview(collectionView)
         
@@ -37,7 +38,6 @@ class DailyCollectionViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .red
         configureCollectionView()
         addNotificationBlock()
     }
@@ -45,8 +45,8 @@ class DailyCollectionViewController: BaseViewController {
     private func configureCollectionView() {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        self.collectionView.register(FeedCollectionViewCell.self)
-        self.collectionView.registerForHeaderView(FeedCollectionReusableView.self)
+        self.collectionView.register(DailyCollectionViewCell.self)
+        self.collectionView.registerForHeaderView(DailyCollectionHeaderView.self)
     }
     
     private func addNotificationBlock() {
@@ -78,15 +78,16 @@ extension DailyCollectionViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(FeedCollectionViewCell.self, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(DailyCollectionViewCell.self, for: indexPath)
         let workoutsOfDay = self.workoutsOfDays[indexPath.section]
         let workout = workoutsOfDay.workouts[indexPath.item]
         cell.workout = workout
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView
-            .dequeueReusableSupplementaryHeaderView(FeedCollectionReusableView.self, for: indexPath)
+            .dequeueReusableSupplementaryHeaderView(DailyCollectionHeaderView.self, for: indexPath)
         let workoutsOfDay = self.workoutsOfDays[indexPath.section]
         header.dateLabel.text = DateFormatter.shared.string(from: workoutsOfDay.createdDateTime)
 
@@ -129,3 +130,4 @@ extension DailyCollectionViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: width, height: 40)
     }
 }
+

@@ -32,7 +32,7 @@ final class RootTabBarController: UITabBarController, UITabBarControllerDelegate
         
         let todayWorkoutViewController = todayWorkoutNavigationController.children.first as! TodayWorkoutViewController
         todayWorkoutViewController.workoutsOfDay = self.workoutsOfDay
-        let feedViewController = UINavigationController(rootViewController: FeedViewController())
+        let feedViewController = UINavigationController(rootViewController: FeedMasterViewController())
         let tabBarControllers = [todayWorkoutNavigationController,
                                  UIViewController(),
                                  feedViewController]
@@ -50,7 +50,10 @@ final class RootTabBarController: UITabBarController, UITabBarControllerDelegate
         if viewController == tabBarController.viewControllers?[1] {
             let vc = WorkoutAddViewController()
             vc.workoutsOfDayId = self.workoutsOfDay.id
-            self.present(vc, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                self.present(vc, animated: true, completion: nil)
+            }
+            
             return false
         }
         return true

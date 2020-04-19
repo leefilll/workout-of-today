@@ -25,19 +25,27 @@ class FeedMasterViewController: BaseViewController {
     
     private lazy var dailyCollectionViewController: DailyCollectionViewController = {[weak self] in
         let dailyCollectionViewController = DailyCollectionViewController()
+        self?.add(asChildViewController: dailyCollectionViewController)
         dailyCollectionViewController.workoutsOfDays = self?.workoutsOfDays
         return dailyCollectionViewController
+        }()
+    
+    private lazy var calendarViewController: CalendarViewController = {[weak self] in
+        let calendarViewController = CalendarViewController()
+        self?.add(asChildViewController: calendarViewController)
+        calendarViewController.workoutsOfDays = self?.workoutsOfDays
+        return calendarViewController
         }()
     
     
     // MARK: View Life Cycle
     override func setup() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .groupTableViewBackground
         
         self.title = "이력"
         if let navigationBar = navigationController?.navigationBar {
             navigationBar.prefersLargeTitles = true
-            navigationBar.barTintColor = .white
+            navigationBar.barTintColor = .groupTableViewBackground
             navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
             navigationBar.shadowImage = UIImage()
         }
@@ -66,7 +74,7 @@ class FeedMasterViewController: BaseViewController {
     
     
     private func configureSegmentedControll() {
-        let items = ["일별", "월별", "차트"]
+        let items = ["일별", "월별", "차트", "프로필"]
         
         self.segmentedControl = UISegmentedControl(items: items)
         self.segmentedControl.selectedSegmentIndex = 0
@@ -74,7 +82,7 @@ class FeedMasterViewController: BaseViewController {
         self.segmentedControl.backgroundColor = UIColor.tintColor.withAlphaComponent(0.1)
         self.segmentedControl.setBackgroundColor(.tintColor, for: .selected)
         self.segmentedControl.tintColor = .tintColor
-        self.segmentedControl.addTarget(self, action: #selector(selectionDidChange(_:)), for: .touchDown)
+        self.segmentedControl.addTarget(self, action: #selector(selectionDidChange(_:)), for: .valueChanged)
         
         // TODO: change to all versions
         if #available(iOS 13.0, *) {
@@ -100,15 +108,14 @@ class FeedMasterViewController: BaseViewController {
             make.leading.equalToSuperview().offset(Inset.paddingHorizontal)
             make.trailing.equalToSuperview().offset(-Inset.paddingHorizontal)
         }
-        
     }
     
     private func configureContentView() {
         self.contentView = UIView()
-        contentView.backgroundColor = .blue
+        self.contentView.backgroundColor = .groupTableViewBackground
         self.view.addSubview(contentView)
         self.contentView.snp.makeConstraints { make in
-            make.top.equalTo(segmentedControl.snp.bottom).offset(10)
+            make.top.equalTo(segmentedControl.snp.bottom).offset(15)
             make.bottom.leading.trailing.equalToSuperview()
         }
     }
@@ -122,7 +129,7 @@ class FeedMasterViewController: BaseViewController {
         
         // Configure Child View
         viewController.view.frame = contentView.bounds
-        //        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         // Notify Child View Controller
         viewController.didMove(toParent: self)
@@ -142,18 +149,21 @@ class FeedMasterViewController: BaseViewController {
     private func updateView() {
         switch segmentedControl.selectedSegmentIndex {
             case 0:
-                
+                remove(asChildViewController: calendarViewController)
+                add(asChildViewController: dailyCollectionViewController)
                 break
             case 1:
+                remove(asChildViewController: dailyCollectionViewController)
+                add(asChildViewController: calendarViewController)
                 break
             case 2:
                 break
             default:
                 break
         }
-        if segmentedControl.selectedSegmentIndex == 0 {
-            add(asChildViewController: dailyCollectionViewController)
-        }
+//        if segmentedControl.selectedSegmentIndex == 0 {
+//            add(asChildViewController: dailyCollectionViewController)
+//        }
         //        if segmentedControl.selectedSegmentIndex == 0 {
         //            remove(asChildViewController: sessionsViewController)
         //            add(asChildViewController: summaryViewController)

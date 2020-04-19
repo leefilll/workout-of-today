@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FeedCollectionReusableView: UICollectionReusableView {
+class DailyCollectionHeaderView: UICollectionReusableView {
     
     var dateLabel: UILabel!
     
