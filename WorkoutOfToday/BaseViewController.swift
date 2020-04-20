@@ -16,6 +16,10 @@ class BaseViewController: UIViewController {
     
     public var token: NotificationToken? = nil
     
+    public var navigationBarTitle: String {
+        return ""
+    }
+    
     override func loadView() {
         super.loadView()
         setup()
@@ -23,6 +27,21 @@ class BaseViewController: UIViewController {
     
     public func setup() {
         // setup subViews and layout
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = .defaultBackgroundColor
+        configureNavigationBar()
+    }
+    
+    public func configureNavigationBar() {
+        if let navigationBar = self.navigationController?.navigationBar {
+            navigationBar.prefersLargeTitles = true
+            navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+            navigationBar.shadowImage = UIImage()
+            title = self.navigationBarTitle
+        }
     }
     
     public func showBasicAlert(title: String?, message: String?) {

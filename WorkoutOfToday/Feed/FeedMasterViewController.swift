@@ -17,6 +17,10 @@ class FeedMasterViewController: BaseViewController {
     
     private let workoutsOfDays = DBHandler.shared.fetchObjects(ofType: WorkoutsOfDay.self)
     
+    override var navigationBarTitle: String {
+        return "이력"
+    }
+    
     // MARK: View
     
     var segmentedControl: UISegmentedControl!
@@ -40,16 +44,6 @@ class FeedMasterViewController: BaseViewController {
     
     // MARK: View Life Cycle
     override func setup() {
-        self.view.backgroundColor = .groupTableViewBackground
-        
-        self.title = "이력"
-        if let navigationBar = navigationController?.navigationBar {
-            navigationBar.prefersLargeTitles = true
-            navigationBar.barTintColor = .groupTableViewBackground
-            navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-            navigationBar.shadowImage = UIImage()
-        }
-        
         configureSegmentedControll()
         configureContentView()
     }
@@ -70,11 +64,12 @@ class FeedMasterViewController: BaseViewController {
     
     deinit {
         self.token?.invalidate()
+        print(String(describing: self) + " " + #function)
     }
     
     
     private func configureSegmentedControll() {
-        let items = ["일별", "월별", "차트", "프로필"]
+        let items = ["일별", "월별", "차트"]
         
         self.segmentedControl = UISegmentedControl(items: items)
         self.segmentedControl.selectedSegmentIndex = 0

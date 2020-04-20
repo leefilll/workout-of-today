@@ -22,6 +22,8 @@ extension UIColor {
 
     static var tintColor = UIColor.colorWithRGBHex(hex: 0x507df6)
     
+    static var defaultBackgroundColor = UIColor.groupTableViewBackground
+    
     static var concaveColor = UIColor.colorWithRGBHex(hex: 0xe5e6e8).withAlphaComponent(0.5)
         
     class func part(_ part: Part) -> UIColor {

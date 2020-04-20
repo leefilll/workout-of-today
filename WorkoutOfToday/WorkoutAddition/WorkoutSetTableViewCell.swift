@@ -10,7 +10,7 @@ import UIKit
 
 import RealmSwift
 
-final class WorkoutSetTableViewCell: UITableViewCell {
+final class WorkoutSetTableViewCell: UITableViewCell, NibLoadable {
     
     // MARK: Model
     

@@ -17,9 +17,15 @@ final class TodayWorkoutViewController: BaseViewController {
     
     var workoutsOfDay: WorkoutsOfDay!
     
+    override var navigationBarTitle: String {
+        return "오늘의 운동"
+    }
+    
     // MARK: View
     
     weak var tableView: UITableView!
+    
+    weak var workoutAddButton: UIButton!
     
     // MARK: View Life Cycle
     
@@ -49,25 +55,38 @@ final class TodayWorkoutViewController: BaseViewController {
     }
     
     override func setup() {
-        view.backgroundColor = .groupTableViewBackground
-        title = "오늘의 운동"
-        
-        if let navigationBar = navigationController?.navigationBar {
-            navigationBar.prefersLargeTitles = true
-            navigationBar.backgroundColor = .groupTableViewBackground
-            navigationBar.barTintColor = .groupTableViewBackground
-            navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-            navigationBar.shadowImage = UIImage()
-        }
-        
         let tableView = UITableView(frame: .zero, style: .grouped)
-        self.tableView = tableView
+        tableView.contentInset.bottom = Size.addButtonHeight + 10
         
-        view.addSubview(self.tableView)
+        
+        let workoutAddButton = UIButton()
+        workoutAddButton.setBackgroundColor(.tintColor, for: .normal)
+        workoutAddButton.setBackgroundColor(UIColor.tintColor.withAlphaComponent(0.7),
+                                            for: .highlighted)
+        workoutAddButton.setBackgroundColor(.lightGray, for: .disabled)
+        workoutAddButton.setTitle("운동 추가", for: .normal)
+        workoutAddButton.titleLabel?.textAlignment = .center
+        workoutAddButton.titleLabel?.font = .smallBoldTitle
+        workoutAddButton.clipsToBounds = true
+        workoutAddButton.layer.cornerRadius = 10
+        
+        self.tableView = tableView
+        self.workoutAddButton = workoutAddButton
+        
+        view.addSubview(tableView)
+        view.addSubview(workoutAddButton)
+        
         self.tableView.snp.makeConstraints { (make) in
             make.top.equalTo(view.layoutMarginsGuide.snp.top).offset(5)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.layoutMarginsGuide.snp.bottom)
+        }
+        
+        self.workoutAddButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(Inset.paddingHorizontal)
+            make.trailing.equalToSuperview().offset(-Inset.paddingHorizontal)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-10)
+            make.height.equalTo(Size.addButtonHeight)
         }
     }
     
@@ -79,8 +98,6 @@ final class TodayWorkoutViewController: BaseViewController {
 // MARK: Setup
 
 extension TodayWorkoutViewController {
-    
-    
     
     private func configureTableView() {
         tableView.backgroundColor = .groupTableViewBackground
@@ -135,12 +152,19 @@ extension TodayWorkoutViewController {
 extension TodayWorkoutViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return workoutsOfDay.numberOfWorkouts
+        let workout = workoutsOfDay.workouts[section]
+        return workout.numberOfSets
+//        return workoutsOfDay.numberOfWorkouts
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = TodayWorkoutTableHeaderView()
-        headerView.dateLabel.text = DateFormatter.shared.string(from: workoutsOfDay.createdDateTime)
+        let workout = workoutsOfDay.workouts[section]
+        
+        let headerView = WorkoutHeaderView()
+        headerView.workout = workout
+
+//        let headerView = TableHeaderView()
+//        headerView.label.text = DateFormatter.shared.string(from: workoutsOfDay.createdDateTime)
         return headerView
     }
     
@@ -172,7 +196,8 @@ extension TodayWorkoutViewController: UITableViewDataSource {
 extension TodayWorkoutViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UITableView.automaticDimension
+//        return UITableView.automaticDimension
+        return 80
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

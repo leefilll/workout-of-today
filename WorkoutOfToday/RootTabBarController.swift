@@ -28,34 +28,38 @@ final class RootTabBarController: UITabBarController, UITabBarControllerDelegate
             DBHandler.shared.create(object: newWorkoutsOfDay)
         }
         
-        let todayWorkoutNavigationController = UINavigationController(rootViewController: TodayWorkoutViewController())
+        let profileNavigationController = UINavigationController(rootViewController: ProfileViewController())
         
-        let todayWorkoutViewController = todayWorkoutNavigationController.children.first as! TodayWorkoutViewController
+        let todayWorkoutViewController = TodayWorkoutViewController()
         todayWorkoutViewController.workoutsOfDay = self.workoutsOfDay
+        let todayWorkoutNavigationController = UINavigationController(rootViewController: todayWorkoutViewController)
+        
         let feedViewController = UINavigationController(rootViewController: FeedMasterViewController())
-        let tabBarControllers = [todayWorkoutNavigationController,
-                                 UIViewController(),
+        
+        
+        let tabBarControllers = [profileNavigationController,
+                                 todayWorkoutNavigationController,
                                  feedViewController]
         self.viewControllers = tabBarControllers
         
         if let items = self.tabBar.items {
-            items[0].title = "오늘의 운동"
-            items[1].title = "운동 추가"
+            items[0].title = "프로필"
+            items[1].title = "오늘의 운동"
             items[2].title = "이력"
         }
     }
 
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        
-        if viewController == tabBarController.viewControllers?[1] {
-            let vc = WorkoutAddViewController()
-            vc.workoutsOfDayId = self.workoutsOfDay.id
-            DispatchQueue.main.async {
-                self.present(vc, animated: true, completion: nil)
-            }
-            
-            return false
-        }
+//
+//        if viewController == tabBarController.viewControllers?[1] {
+//            let vc = WorkoutAddViewController()
+//            vc.workoutsOfDayId = self.workoutsOfDay.id
+//            DispatchQueue.main.async {
+//                self.present(vc, animated: true, completion: nil)
+//            }
+//
+//            return false
+//        }
         return true
     }
 }

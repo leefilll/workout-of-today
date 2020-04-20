@@ -16,10 +16,10 @@ extension UIView {
         roundedRect.fill()
     }
     
-    func configureRoundedRect(withCorners corners: UIRectCorner, usingRadii radii: CGSize) {
+    func configureRoundedRect(withCorners corners: UIRectCorner, usingRadii radii: CGFloat) {
         let roundedRectWithCorners = UIBezierPath(roundedRect: bounds,
                                      byRoundingCorners: corners,
-                                     cornerRadii: radii)
+                                     cornerRadii: CGSize(width: radii, height: radii))
         roundedRectWithCorners.addClip()
         UIColor.white.setFill()
         roundedRectWithCorners.fill()
