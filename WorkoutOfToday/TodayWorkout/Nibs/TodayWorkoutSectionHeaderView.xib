@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TodayWorkoutSectionHeaderView" customModule="WorkoutOfToday" customModuleProvider="target">
+            <connections>
+                <outlet property="containerView" destination="hJB-8c-H2H" id="yOi-RY-24D"/>
+                <outlet property="workoutNameLabel" destination="9aa-Ue-OTT" id="sW3-bd-MlF"/>
+                <outlet property="workoutPartButton" destination="UUM-TN-DBH" id="esT-zJ-5k0"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="ykQ-X5-Nf5">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="170"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hJB-8c-H2H" userLabel="ContainerView">
+                    <rect key="frame" x="15" y="0.0" width="384" height="170"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9aa-Ue-OTT">
+                            <rect key="frame" x="15" y="15" width="42" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6QP-Dj-6ca">
+                            <rect key="frame" x="62" y="14.5" width="85" height="22"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UUM-TN-DBH" customClass="WorkoutPartButton" customModule="WorkoutOfToday" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="40" height="22"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="7Fk-Xp-7hz"/>
+                                        <constraint firstAttribute="height" constant="22" id="X6z-E4-25u"/>
+                                    </constraints>
+                                    <state key="normal" title="Button"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dRE-aX-kkQ" customClass="WorkoutPartButton" customModule="WorkoutOfToday" customModuleProvider="target">
+                                    <rect key="frame" x="45" y="0.0" width="40" height="22"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="22" id="5CE-v4-61H"/>
+                                        <constraint firstAttribute="width" constant="40" id="ODh-hw-8uq"/>
+                                    </constraints>
+                                    <state key="normal" title="Button"/>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="9aa-Ue-OTT" firstAttribute="leading" secondItem="hJB-8c-H2H" secondAttribute="leading" constant="15" id="7af-rx-R5M"/>
+                        <constraint firstItem="9aa-Ue-OTT" firstAttribute="top" secondItem="hJB-8c-H2H" secondAttribute="top" constant="15" id="RJC-Ca-Zd2"/>
+                        <constraint firstItem="6QP-Dj-6ca" firstAttribute="leading" secondItem="9aa-Ue-OTT" secondAttribute="trailing" constant="5" id="TWf-nT-ehR"/>
+                        <constraint firstItem="6QP-Dj-6ca" firstAttribute="centerY" secondItem="9aa-Ue-OTT" secondAttribute="centerY" id="pqe-55-Zzr"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="XYL-AY-EJ8" firstAttribute="trailing" secondItem="hJB-8c-H2H" secondAttribute="trailing" constant="15" id="AEQ-9Q-9bl"/>
+                <constraint firstItem="hJB-8c-H2H" firstAttribute="leading" secondItem="XYL-AY-EJ8" secondAttribute="leading" constant="15" id="UO9-24-bHQ"/>
+                <constraint firstItem="hJB-8c-H2H" firstAttribute="top" secondItem="ykQ-X5-Nf5" secondAttribute="top" id="Y3u-8K-ygI"/>
+                <constraint firstItem="XYL-AY-EJ8" firstAttribute="bottom" secondItem="hJB-8c-H2H" secondAttribute="bottom" id="t38-3w-nfk"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="XYL-AY-EJ8"/>
+            <point key="canvasLocation" x="-7.2463768115942031" y="381.02678571428572"/>
+        </view>
+    </objects>
+</document>

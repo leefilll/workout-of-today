@@ -8,12 +8,12 @@
 
 import UIKit
 
-class TableHeaderView: UIView {
+class BasicSectionHeaderView: UITableViewHeaderFooterView {
     
     var label: UILabel!
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         self.setup()
     }
     
@@ -23,7 +23,7 @@ class TableHeaderView: UIView {
     }
     
     private func setup() {
-        self.backgroundColor = .clear
+        
         self.label = UILabel()
         self.label.font = .smallBoldTitle
         

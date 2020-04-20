@@ -31,6 +31,7 @@ final class WorkoutSetTableViewCell: UITableViewCell, NibLoadable {
     }
     
     // MARK: View
+    @IBOutlet weak var containerView: UIView!
     
     @IBOutlet weak var setCountLabel: UILabel!
     
@@ -51,28 +52,27 @@ final class WorkoutSetTableViewCell: UITableViewCell, NibLoadable {
         self.commonInit()
         self.setup()
     }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(false, animated: false)
-    }
 
     private func setup() {
-        self.setCountLabel.font = .smallBoldTitle
-        self.setCountLabel.textColor = .lightGray
+        backgroundColor = .clear
+        selectionStyle = .none
         
-        self.weightTextField.backgroundColor = .concaveColor
-        self.weightTextField.layer.cornerRadius = 10
-        self.weightTextField.delegate = self
-        self.weightTextField.font = .boldBody
-        self.weightTextField.text = "\(self.workoutSet?.weight ?? 0)"
-               
-        self.repsTextField.backgroundColor = .concaveColor
-        self.repsTextField.layer.cornerRadius = 10
-        self.repsTextField.delegate = self
-        self.repsTextField.font = .boldBody
-        self.repsTextField.text = "\(self.workoutSet?.reps ?? 0)"
-
-        self.degreeCircleView.backgroundColor = .tintColor
+        containerView.backgroundColor = .white
+        
+        setCountLabel.font = .smallBoldTitle
+        setCountLabel.textColor = .lightGray
+        
+        weightTextField.backgroundColor = .concaveColor
+        weightTextField.layer.cornerRadius = 10
+        weightTextField.delegate = self
+        weightTextField.font = .body
+        
+        repsTextField.backgroundColor = .concaveColor
+        repsTextField.layer.cornerRadius = 10
+        repsTextField.delegate = self
+        repsTextField.font = .body
+        
+        degreeCircleView.backgroundColor = .tintColor
         
         
         self.weightTextField.addToolbar(onDone: (target: self,

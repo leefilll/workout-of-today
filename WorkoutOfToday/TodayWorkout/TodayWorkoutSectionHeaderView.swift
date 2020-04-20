@@ -14,7 +14,7 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
         didSet {
             self.workoutNameLabel.text = workout?.name
             self.workoutPartButton.part = workout?.part
-            self.workoutSetLabel.text = "\(workout?.numberOfSets ?? 0) set"
+//            self.workoutSetLabel.text = "\(workout?.numberOfSets ?? 0) set"
         }
     }
 
@@ -24,7 +24,7 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
 
     @IBOutlet weak var workoutPartButton: WorkoutPartButton!
 
-    @IBOutlet weak var workoutSetLabel: UILabel!
+//    @IBOutlet weak var workoutSetLabel: UILabel!
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -47,7 +47,7 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
         
         workoutPartButton.isEnabled = false
         
-        workoutSetLabel.font = .boldTitle
+//        workoutSetLabel.font = .boldTitle
     }
     
     override func draw(_ rect: CGRect) {

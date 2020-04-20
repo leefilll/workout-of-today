@@ -14,24 +14,22 @@ extension UITableView {
                       forCellReuseIdentifier: String(describing: T.self))
     }
     
+    func register<T: UITableViewHeaderFooterView>(_ aclass: T.Type) {
+        self.register(T.self, forHeaderFooterViewReuseIdentifier: String(describing: T.self))
+    }
+    
     func dequeueReusableCell<T: UITableViewCell>(_ cellClass: T.Type,
                                                  for indexPath: IndexPath) -> T {
         let cell = self.dequeueReusableCell(withIdentifier: String(describing: T.self),
                                             for: indexPath) as! T
         return cell
     }
+    
+    func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(_ aclass: T.Type) -> T {
+        let view = self.dequeueReusableHeaderFooterView(withIdentifier: String(describing: T.self)) as! T
+        return view
+    }
 }
-//
-//extension UITableViewCell {
-//    func commonInit() {
-//        let name = String(describing: type(of: self))
-//        guard let loadedNib = Bundle.main.loadNibNamed(name, owner: self, options: nil) else { return }
-//        guard let view = loadedNib.first as? UIView else { return }
-//        view.frame = self.bounds
-//        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        self.contentView.addSubview(view)
-//    }
-//}
 
 extension UICollectionView {
     func register<T: UICollectionViewCell>(_ cellClass: T.Type) {

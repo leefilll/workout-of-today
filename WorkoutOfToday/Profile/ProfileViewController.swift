@@ -68,6 +68,7 @@ class ProfileViewController: BaseViewController {
         tableView.dataSource = self
         tableView.register(SummaryTableViewCell.self)
         tableView.register(HighlightsTableViewCell.self)
+        tableView.register(BasicSectionHeaderView.self)
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -137,7 +138,11 @@ extension ProfileViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = TableHeaderView()
+        let headerView = tableView.dequeueReusableHeaderFooterView(BasicSectionHeaderView.self)
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .clear
+        headerView.backgroundView = backgroundView
+        
         switch section {
             case Section.summary:
                 headerView.label.text = "요약"

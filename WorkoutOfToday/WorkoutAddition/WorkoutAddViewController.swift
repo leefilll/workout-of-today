@@ -75,7 +75,7 @@ final class WorkoutAddViewController: BaseViewController {
     
     let tableView = UITableView()
     
-    let footerView = WorkoutAddFooterView()
+    let footerView = WorkoutSetAddFooterView()
     
     let workoutAddButton = UIButton()
     
@@ -181,7 +181,7 @@ extension WorkoutAddViewController {
     private func configureTableView() {
         tableView.contentInset.top = Inset.scrollViewTopInset
         tableView.contentInset.bottom = Inset.scrollViewBottomInset
-        tableView.rowHeight = Size.Cell.height
+        tableView.rowHeight = Size.Cell.rowHeight
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(WorkoutSetTableViewCell.self)
