@@ -9,6 +9,8 @@ target 'WorkoutOfToday' do
   pod 'EasyTipView'
   pod 'FSCalendar'
   pod 'Charts'
+  pod 'ChartsRealm'
+  pod 'Presentr'
 
   # Pods for WorkoutOfToday
 

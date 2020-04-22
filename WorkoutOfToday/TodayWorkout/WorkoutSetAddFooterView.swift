@@ -8,21 +8,14 @@
 
 import UIKit
 
-import SnapKit
-
-final class WorkoutSetAddFooterView: UITableViewHeaderFooterView, NibLoadable {
+final class WorkoutSetAddFooterView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var containerView: UIView!
     
     @IBOutlet weak var workoutSetAddButton: UIButton!
     
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    override func awakeFromNib() {
+        super.awakeFromNib()
         setup()
     }
     
@@ -35,8 +28,6 @@ final class WorkoutSetAddFooterView: UITableViewHeaderFooterView, NibLoadable {
     }
     
     private func setup() {
-        commonInit()
-        
         containerView.backgroundColor = .white
         
         workoutSetAddButton.setTitle("세트 추가", for: .normal)

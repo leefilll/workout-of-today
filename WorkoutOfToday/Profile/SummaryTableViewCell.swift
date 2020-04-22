@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SummaryTableViewCell: UITableViewCell, NibLoadable {
+class SummaryTableViewCell: BaseTableViewCell {
     
     @IBOutlet private var containerView: UIView!
     
@@ -25,19 +25,7 @@ class SummaryTableViewCell: UITableViewCell, NibLoadable {
         }
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        commonInit()
-        setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
-        setup()
-    }
-    
-    private func setup() {
+    override func setup() {
         backgroundColor = .clear
         selectionStyle = .none
         
@@ -50,6 +38,4 @@ class SummaryTableViewCell: UITableViewCell, NibLoadable {
         
         titleLabel.font = .boldTitle
     }
-    
-    
 }

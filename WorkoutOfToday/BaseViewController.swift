@@ -23,6 +23,7 @@ class BaseViewController: UIViewController {
     override func loadView() {
         super.loadView()
         setup()
+        configureNavigationBar()
     }
     
     public func setup() {
@@ -32,7 +33,7 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .defaultBackgroundColor
-        configureNavigationBar()
+        
     }
     
     public func configureNavigationBar() {
@@ -42,6 +43,7 @@ class BaseViewController: UIViewController {
             navigationBar.shadowImage = UIImage()
             title = self.navigationBarTitle
         }
+
     }
     
     public func showBasicAlert(title: String?, message: String?) {

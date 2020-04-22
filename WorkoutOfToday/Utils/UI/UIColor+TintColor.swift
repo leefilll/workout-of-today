@@ -22,27 +22,15 @@ extension UIColor {
 
     static var tintColor = UIColor.colorWithRGBHex(hex: 0x507df6)
     
+    static var weakTintColor = UIColor.colorWithRGBHex(hex: 0xecf0fc)
+    
     static var defaultBackgroundColor = UIColor.groupTableViewBackground
     
     static var concaveColor = UIColor.colorWithRGBHex(hex: 0xe5e6e8).withAlphaComponent(0.5)
         
     class func part(_ part: Part) -> UIColor {
         switch part {
-//            case 0: return UIColor.colorWithRGBHex(hex: 0xC4C4C4)
             case .none: return UIColor.lightGray
-//            case 1: return UIColor.colorWithRGBHex(hex: 0xE75A2B)
-//            case 2: return UIColor.colorWithRGBHex(hex: 0xF7CC45)
-//            case 3: return UIColor.colorWithRGBHex(hex: 0x87D05E)
-//            case 4: return UIColor.colorWithRGBHex(hex: 0x5DA7EF)
-//            case 5: return UIColor.colorWithRGBHex(hex: 0x73D2E6)
-//            case 6: return UIColor.colorWithRGBHex(hex: 0xF09A37)
-//            case 1: return UIColor.colorWithRGBHex(hex: 0xda6e6a)
-//            case 2: return UIColor.colorWithRGBHex(hex: 0x749af7)
-//            case 3: return UIColor.colorWithRGBHex(hex: 0x7d60f5)
-//            case 4: return UIColor.colorWithRGBHex(hex: 0xea9945)
-//            case 5: return UIColor.colorWithRGBHex(hex: 0x5aa764)
-//            case 6: return UIColor.colorWithRGBHex(hex: 0x294eca)
-//            case 7: return UIColor.colorWithRGBHex(hex: 0x000000)
             case .chest: return UIColor.colorWithRGBHex(hex: 0xED5565)
             case .shoulder: return UIColor.colorWithRGBHex(hex: 0xAC92EC)
             case .back: return UIColor.colorWithRGBHex(hex: 0xFFCE54)
@@ -54,13 +42,3 @@ extension UIColor {
         }
     }
 }
-
-
-/*
- 
- 0xAC92EC
- 0xEC87C0
- 
- 
- 
- */

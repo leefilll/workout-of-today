@@ -34,143 +34,118 @@ extension PopupAnimationController: UIViewControllerAnimatedTransitioning {
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView
         
-        let dimmingView = UIView()
-        dimmingView.backgroundColor = .black
-        dimmingView.frame = containerView.bounds
-        
         
         switch animationType {
+            
+            // MARK: PRESENT
+            
             case .present:
                 guard let toVC = transitionContext.viewController(forKey: .to) as? TodayAddWorkoutViewController,
-                    
-                    let fromVC = transitionContext.viewController(forKey: .from)?.children[1].children.first as? TodayWorkoutViewController else {
+                    let fromVC = transitionContext.viewController(forKey: .from)?.children[1].children.first as? TodayWorkoutViewController,
+                    let toView = toVC.view,
+                    let fromButton = fromVC.workoutAddButton,
+                    let toButton = toVC.workoutAddButton
+                    else {
                         transitionContext.completeTransition(false)
                         return
                 }
                 
-                guard let fromButton = fromVC.workoutAddButton,
-                    let toButton = toVC.workoutAddButton,
-                    let toContainerView = toVC.containerView
-                    else { return }
+                let dimmingView = UIView()
+                dimmingView.backgroundColor = .black
+                dimmingView.frame = containerView.bounds
+                dimmingView.alpha = 0.0
                 
                 let tap = UITapGestureRecognizer(target: toVC, action: #selector(toVC.dismiss(_:)))
                 dimmingView.addGestureRecognizer(tap)
                 
-                dimmingView.alpha = 0.0
-                
                 containerView.insertSubview(dimmingView, at: 0)
+                containerView.addSubview(toView)
+                containerView.addSubview(toButton)
                 
-                let startFrameForButton = fromButton.frame
-//                let startFrameForContainerView = CGRect(origin: containerView.center,
-//                                                        size: .zero)
-                
-                
-                
-                
-                
-                
-                let containerViewMinY = containerView.bounds.height / 5
-                let containerViewHeight = containerView.bounds.height * 0.5
-                
-                let containerViewSize = CGSize(width: containerView.bounds.width,
-                                               height: containerViewHeight)
-                let containerVierStartPoint = CGPoint(x: 0,
-                                                      y: -containerViewHeight)
+                let startPoint = CGPoint(x: 0, y: -toView.bounds.height)
+                let finalWidth: CGFloat = fromButton.bounds.width
+                let finalHeightt: CGFloat = 300
+                let finalSize = CGSize(width: finalWidth, height: finalHeightt)
                 
                 
-                let startFrameForContainerView = CGRect(origin: containerVierStartPoint,
-                                                        size: containerViewSize)
-                
-                
-                let finalFrameForContainerView = CGRect(x: 0,
-                                                        y: containerViewMinY,
-                                                        width: containerView.bounds.width,
-                                                        height: containerViewHeight)
-                
-                
+                let startFrame = CGRect(origin: startPoint, size: finalSize)
+//                let finalPoint = CGPoint(x: fromButton.frame.minX,
+//                                         y: containerView.bounds.height / 5)
+//                let finalPoint = containerView.center
+//                var finalFrame = CGRect(origin: finalPoint, size: finalSize)
+
                 // below containerView
-                let posY = finalFrameForContainerView.height
-                    + finalFrameForContainerView.minY
+                let posY = containerView.center.y
+                    + finalSize.height / 2
                     + 10
                 
+                let startFrameForButton = fromButton.frame
                 let finalFrameForButtton = CGRect(x: startFrameForButton.minX,
                                                   y: posY,
                                                   width: startFrameForButton.width,
                                                   height: startFrameForButton.height)
-                
-                
-                toContainerView.frame = startFrameForContainerView
+
+                fromButton.alpha = 0.0
+                toView.frame = startFrame
                 toButton.frame = startFrameForButton
-                
-                containerView.addSubview(toContainerView)
-                containerView.addSubview(toButton)
                 
                 UIView.animate(withDuration: animationDuration,
                                delay: 0,
-                               usingSpringWithDamping: 0.5,
-                               initialSpringVelocity: 0.55,
-                               options: .curveEaseInOut,
+                               usingSpringWithDamping: 0.75,
+                               initialSpringVelocity: 0.85,
+                               options: .curveLinear,
                                animations: {
-                                 toContainerView.frame = finalFrameForContainerView
+                                toView.center = containerView.center
+//                                toView.frame = finalFrame
                                 toButton.frame = finalFrameForButtton
                                 dimmingView.alpha = 0.5
-                                fromButton.alpha = 0.0
+
                 }) { (finished) in
                     transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 }
                 break
             
+            
+            // MARK: DISMISS
+            
             case .dismiss:
                 guard let fromVC = transitionContext.viewController(forKey: .from) as? TodayAddWorkoutViewController,
                     let toVC = transitionContext.viewController(forKey: .to)?.children[1].children.first as? TodayWorkoutViewController,
-                    let fromContainerView = fromVC.containerView,
+                    let fromView = fromVC.view,
                     let fromButton = fromVC.workoutAddButton,
                     let toButton = toVC.workoutAddButton else {
                         transitionContext.completeTransition(false)
                         return
                 }
                 
-                dimmingView.alpha = 0.5
-                
+                let dimmingView = containerView.subviews.first!
+                containerView.insertSubview(dimmingView, at: 0)
+                containerView.addSubview(fromView)
+                containerView.addSubview(fromButton)
+
                 let startFrameForButton = fromButton.frame
                 let finalFrameForButton = toButton.frame
-                let finalFrameForContainerView = CGRect(origin: containerView.center, size: .zero)
                 
+                let finalPoint = fromView.center
+                let finalFrame = CGRect(origin: finalPoint, size: .zero)
+
                 fromButton.frame = startFrameForButton
+                fromView.translatesAutoresizingMaskIntoConstraints = true
                 
-                containerView.insertSubview(dimmingView, at: 0)
-                containerView.addSubview(fromContainerView)
-                containerView.addSubview(fromButton)
-                
-                
-//                UIView.animate(withDuration: animationDuration,
-//                               animations: {
-//                               fromContainerView.frame = finalFrameForContainerView
-//                                fromButton.frame = finalFrameForButton
-//                                dimmingView.alpha = 0
-//                }) { (finished) in
-//                    toButton.alpha = 1.0
-//
-//                                       fromContainerView.removeFromSuperview()
-//
-//                                       transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-//                }
-//
                 UIView.animate(withDuration: animationDuration,
                                delay: 0,
-                               usingSpringWithDamping: 0.55,
-                               initialSpringVelocity: 0.5,
+                               usingSpringWithDamping: 0.85,
+                               initialSpringVelocity: 0.88,
                                options: .curveEaseInOut,
                                animations: {
                                 dimmingView.alpha = 0
-                                fromContainerView.frame = finalFrameForContainerView
+                                fromView.frame = finalFrame
                                 fromButton.frame = finalFrameForButton
 
                 }) { (finished) in
                     toButton.alpha = 1.0
                     dimmingView.removeFromSuperview()
-                    fromContainerView.removeFromSuperview()
-
+                    fromView.removeFromSuperview()
                     transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 }
                 break

@@ -26,7 +26,7 @@ enum Inset {
 enum Size {
     enum Cell {
         static let rowHeight: CGFloat = 40
-        static let headerHeight: CGFloat = 60
+        static let headerHeight: CGFloat = 65
         static let footerHeight: CGFloat = 70
     }
     static let addButtonHeight: CGFloat = 50
@@ -71,14 +71,19 @@ enum Equipment: Int, CustomStringConvertible, CaseIterable {
     case other
     case none
     
+    var color: UIColor {
+        if self == .none { return .lightGray }
+        return .tintColor
+    }
+    
     var description: String {
         switch self {
-            case .none: return "없음"
             case .babel: return "바벨"
             case .dumbell: return "덤벨"
             case .kettlebell: return "케틀벨"
             case .machine: return "머신"
             case .other: return "기타"
+            case .none: return "없음"
         }
     }
 }

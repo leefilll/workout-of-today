@@ -38,8 +38,8 @@ extension NibLoadable {
         let name = String(describing: type(of: self))
         guard let loadedNib = Bundle.main.loadNibNamed(name, owner: self, options: nil) else { return }
         guard let view = loadedNib.first as? UIView else { return }
-        view.frame = self.bounds
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.frame = self.bounds
         self.addSubview(view)
     }
 }

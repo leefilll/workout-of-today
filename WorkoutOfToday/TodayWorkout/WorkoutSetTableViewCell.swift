@@ -10,7 +10,7 @@ import UIKit
 
 import RealmSwift
 
-final class WorkoutSetTableViewCell: UITableViewCell, NibLoadable {
+final class WorkoutSetTableViewCell: BaseTableViewCell {
     
     // MARK: Model
     
@@ -39,21 +39,16 @@ final class WorkoutSetTableViewCell: UITableViewCell, NibLoadable {
     
     @IBOutlet weak var repsTextField: UITextField!
     
-    @IBOutlet weak var degreeCircleView: UIView!
+    @IBOutlet weak var completeButton: BaseButton!
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.commonInit()
-        self.setup()
-    }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.commonInit()
-        self.setup()
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        weightTextField.text = nil
+        repsTextField.text = nil
     }
 
-    private func setup() {
+    override func setup() {
         backgroundColor = .clear
         selectionStyle = .none
         
@@ -72,7 +67,9 @@ final class WorkoutSetTableViewCell: UITableViewCell, NibLoadable {
         repsTextField.delegate = self
         repsTextField.font = .body
         
-        degreeCircleView.backgroundColor = .tintColor
+        completeButton.backgroundColor = UIColor.tintColor.withAlphaComponent(0.1)
+        completeButton.setTitle("완료", for: .normal)
+        completeButton.setTitle("취소", for: .selected)
         
         
         self.weightTextField.addToolbar(onDone: (target: self,
@@ -83,12 +80,6 @@ final class WorkoutSetTableViewCell: UITableViewCell, NibLoadable {
                                                action: #selector(doneDidTapped(_:))))
 
     }
-    
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        self.degreeCircleView.clipsToBounds = true
-//        self.degreeCircleView.layer.cornerRadius = self.frame.height / 2
-//    }
 }
 
 

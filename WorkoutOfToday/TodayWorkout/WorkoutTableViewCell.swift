@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-final class WorkoutTableViewCell: UITableViewCell, NibLoadable {
+final class WorkoutTableViewCell: BaseTableViewCell {
     
     // MARK: Model
     
@@ -45,18 +45,6 @@ final class WorkoutTableViewCell: UITableViewCell, NibLoadable {
     
     @IBOutlet weak var setLabel: UILabel!
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.commonInit()
-        self.setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.commonInit()
-        self.setup()
-    }
-    
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
         if highlighted {
@@ -66,7 +54,7 @@ final class WorkoutTableViewCell: UITableViewCell, NibLoadable {
         }
     }
     
-    private func setup() {
+    override func setup() {
         self.isAccessibilityElement = false
         self.selectionStyle = .none
 

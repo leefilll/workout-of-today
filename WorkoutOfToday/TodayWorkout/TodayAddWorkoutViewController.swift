@@ -10,30 +10,37 @@ import UIKit
 
 class TodayAddWorkoutViewController: BaseViewController {
     
+    // MARK: Model
+    
+    var workoutsOfDay: WorkoutsOfDay!
+    
+    // MARK: View
+    
     weak var workoutAddButton: UIButton!
     
-    weak var containerView: UIView!
+    @IBOutlet weak var nameTextField: UITextField!
     
-    override func setup() {
-        view.backgroundColor = .clear
-        setupContainerView()
-        setupWorkoutAddButton()
+    @IBOutlet weak var partButton: WorkoutPartButton!
+    
+    @IBOutlet weak var equipmentButton: WorkoutEquipmentButton!
+    
+    @IBOutlet weak var recentButton: BaseButton!
+    
+    
+    deinit {
+        print(#function + " " + String(describing: type(of: self)))
+        print(#function + " " + String(describing: type(of: self)))
+        print(#function + " " + String(describing: type(of: self)))
+        print(#function + " " + String(describing: type(of: self)))
     }
     
-    fileprivate func setupContainerView() {
-        view.backgroundColor = .clear
+    override func setup() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(containerViewDidTapped(_:)))
+        view.addGestureRecognizer(tapGestureRecognizer)
         
-        let containerView = TodayWorkoutAddView()
-        containerView.backgroundColor = .red
-        containerView.clipsToBounds = true
-        containerView.layer.cornerRadius = 10
-        
-        containerView.closeButton.addTarget(self,
-                                            action: #selector(dismiss(_:)),
-                                            for: .touchUpInside)
-        
-        view.addSubview(containerView)
-        self.containerView = containerView
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        setupWorkoutAddButton()
     }
     
     fileprivate func setupWorkoutAddButton() {
@@ -47,31 +54,79 @@ class TodayAddWorkoutViewController: BaseViewController {
         workoutAddButton.titleLabel?.font = .smallBoldTitle
         workoutAddButton.clipsToBounds = true
         workoutAddButton.layer.cornerRadius = 10
-        
+
         workoutAddButton.addTarget(self,
                                    action: #selector(workoutAddButtonDidTapped(_:)),
                                    for: .touchUpInside)
-        
-        containerView.addSubview(workoutAddButton)
+
+//        containerView.addSubview(workoutAddButton)
+        view.addSubview(workoutAddButton)
         self.workoutAddButton = workoutAddButton
+    }
+    
+    fileprivate func setupTextField() {
+        nameTextField.clipsToBounds = true
+        nameTextField.layer.cornerRadius = 10
+        
+        nameTextField.font = .boldTitle
+        nameTextField.placeholder = "운동 이름"
+        nameTextField.minimumFontSize = UIFont.boldTitle.pointSize
+        nameTextField.backgroundColor = .concaveColor
+    }
+    
+    fileprivate func setupButtons() {
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
+        setupTextField()
+        setupButtons()
         addObserverForKeyboard()
     }
 }
 
 extension TodayAddWorkoutViewController {
     @objc
-    func workoutAddButtonDidTapped(_ sender: UIButton) {
-        print(#function)
+    func containerViewDidTapped(_ sender: UITapGestureRecognizer) {
+        nameTextField.resignFirstResponder()
     }
     
     @objc
-    func dismiss(_ sender: UITapGestureRecognizer) {
+    func workoutAddButtonDidTapped(_ sender: UIButton) {
+        guard let text = nameTextField.text else { return }
+        if text == "" {
+            showBasicAlert(title: "운동 이름을 입력해주세요", message: nil)
+            return
+        }
+        
+        let name = text
+        let part = partButton.part ?? .none
+        let equipment = equipmentButton.equipment ?? .none
+        
+        let newWorout = Workout()
+        newWorout.name = name
+        newWorout.part = part
+        newWorout.equipment = equipment
+        
+        DBHandler.shared.write {
+            self.workoutsOfDay.workouts.append(newWorout)
+        }
+        
+        dismiss(nil)
+    }
+    
+    @objc
+    func dismiss(_ sender: UITapGestureRecognizer?) {
         dismiss(animated: true, completion: nil)
     }
+}
+
+// MARK: TextField Delegate
+
+extension TodayAddWorkoutViewController: UITextFieldDelegate {
+    
 }
 
 // MARK: Notification for Keyboard
@@ -87,17 +142,12 @@ extension TodayAddWorkoutViewController {
                             guard let userInfo = noti.userInfo else { return }
                             guard let bounds = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
                             
-                            let height = bounds.height
-                            let currentMaxY = self.workoutAddButton.frame.maxY
-                            let heightForButton = self.view.bounds.height - currentMaxY
-                            let extraHeight: CGFloat = 5
-                            let heightToMove = height - heightForButton + extraHeight
+                            let buttonTargetY = bounds.minY - self.workoutAddButton.bounds.height - 10
+                            let viewTargetY = bounds.minY - self.view.bounds.height - 20
                             
-                            print("heightToMove: \(heightToMove)")
-                            print("KEYOBOARD")
-                            UIView.animate(withDuration: 0.5) {
-                                self.workoutAddButton.frame.origin.y -= heightToMove
-                                
+                            UIView.animate(withDuration: 0.3) {
+                                self.view.frame.origin.y = viewTargetY
+                                self.workoutAddButton.frame.origin.y = buttonTargetY
                             }
         }
         
@@ -107,13 +157,13 @@ extension TodayAddWorkoutViewController {
                          object: nil,
                          queue: OperationQueue.main) { [weak self] noti in
                             guard let self = self else { return }
-                            self.workoutAddButton.snp.remakeConstraints { make in
-                                make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
-                                make.leading.trailing.equalToSuperview()
-                                make.height.equalTo(Size.addButtonHeight)
-                            }
-                            UIView.animate(withDuration: 0.5) {
-                                self.view.layoutIfNeeded()
+                            
+                            var targetFrame = self.workoutAddButton.frame
+                            targetFrame.origin.y = self.view.frame.maxY + 10
+                            
+                            UIView.animate(withDuration: 0.3) {
+                                self.view.center = self.view.center
+                                self.workoutAddButton.frame = targetFrame
                             }
         }
     }

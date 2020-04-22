@@ -16,11 +16,7 @@ class TodayWorkoutTableHeaderView: BaseView, NibLoadable {
     
     override func setup() {
         commonInit()
-        
-        let today = DateFormatter.shared.string(from: Date.now)
-        
+        self.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = .smallBoldTitle
-        titleLabel.text = "\(today)"
     }
-
 }

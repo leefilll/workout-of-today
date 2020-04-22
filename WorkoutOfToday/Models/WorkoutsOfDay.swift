@@ -14,7 +14,7 @@ final class WorkoutsOfDay: Object {
     @objc dynamic var note: String = ""
     
     // format: year-month-day
-    @objc dynamic var id: String  = DateFormatter.shared.keyStringFromDate
+    @objc dynamic var id: String  = DateFormatter.shared.keyStringFromNow
     
     let workouts = List<Workout>()
     

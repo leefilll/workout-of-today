@@ -17,7 +17,7 @@ final class RootTabBarController: UITabBarController, UITabBarControllerDelegate
         self.tabBar.tintColor = .tintColor
         delegate = self
         
-        let keyFromDate = DateFormatter.shared.keyStringFromDate
+        let keyFromDate = DateFormatter.shared.keyStringFromNow
         if let workoutsOfDay = DBHandler.shared.fetchObject(ofType: WorkoutsOfDay.self,
                                                             forPrimaryKey: keyFromDate) {
             self.workoutsOfDay = workoutsOfDay
@@ -41,25 +41,12 @@ final class RootTabBarController: UITabBarController, UITabBarControllerDelegate
                                  todayWorkoutNavigationController,
                                  feedViewController]
         self.viewControllers = tabBarControllers
+        self.selectedIndex = 1
         
         if let items = self.tabBar.items {
             items[0].title = "프로필"
             items[1].title = "오늘의 운동"
             items[2].title = "이력"
         }
-    }
-
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-//
-//        if viewController == tabBarController.viewControllers?[1] {
-//            let vc = WorkoutAddViewController()
-//            vc.workoutsOfDayId = self.workoutsOfDay.id
-//            DispatchQueue.main.async {
-//                self.present(vc, animated: true, completion: nil)
-//            }
-//
-//            return false
-//        }
-        return true
     }
 }

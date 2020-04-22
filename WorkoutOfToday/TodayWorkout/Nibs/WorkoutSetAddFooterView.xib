@@ -8,44 +8,45 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WorkoutSetAddFooterView" customModule="WorkoutOfToday" customModuleProvider="target">
-            <connections>
-                <outlet property="containerView" destination="hve-MI-3PU" id="DXz-jv-DDJ"/>
-                <outlet property="workoutSetAddButton" destination="NrZ-f5-bWD" id="BdY-GH-8cj"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="eN3-XY-nhE">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="113"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+        <view contentMode="scaleToFill" id="eN3-XY-nhE" customClass="WorkoutSetAddFooterView" customModule="WorkoutOfToday" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hve-MI-3PU">
-                    <rect key="frame" x="15" y="0.0" width="384" height="93"/>
+                    <rect key="frame" x="15" y="0.0" width="384" height="50"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NrZ-f5-bWD">
-                            <rect key="frame" x="15" y="10" width="354" height="68"/>
+                            <rect key="frame" x="15" y="10" width="354" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="otb-pK-CGh"/>
+                            </constraints>
                             <state key="normal" title="Button"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
-                        <constraint firstItem="NrZ-f5-bWD" firstAttribute="top" secondItem="hve-MI-3PU" secondAttribute="top" constant="10" id="Exz-YE-lIY"/>
-                        <constraint firstAttribute="trailing" secondItem="NrZ-f5-bWD" secondAttribute="trailing" constant="15" id="eqJ-qu-ACN"/>
-                        <constraint firstAttribute="bottom" secondItem="NrZ-f5-bWD" secondAttribute="bottom" constant="15" id="gJb-Ht-nfS"/>
-                        <constraint firstItem="NrZ-f5-bWD" firstAttribute="leading" secondItem="hve-MI-3PU" secondAttribute="leading" constant="15" id="sRO-kI-CAj"/>
+                        <constraint firstItem="NrZ-f5-bWD" firstAttribute="top" secondItem="hve-MI-3PU" secondAttribute="top" constant="10" identifier="TTTT" id="Exz-YE-lIY"/>
+                        <constraint firstAttribute="trailing" secondItem="NrZ-f5-bWD" secondAttribute="trailing" constant="15" identifier="TTTT" id="eqJ-qu-ACN"/>
+                        <constraint firstAttribute="bottom" secondItem="NrZ-f5-bWD" secondAttribute="bottom" constant="15" identifier="BBBB" id="gJb-Ht-nfS"/>
+                        <constraint firstAttribute="height" constant="50" id="lb9-ra-np7"/>
+                        <constraint firstItem="NrZ-f5-bWD" firstAttribute="leading" secondItem="hve-MI-3PU" secondAttribute="leading" constant="15" identifier="LLLL" id="sRO-kI-CAj"/>
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="hve-MI-3PU" firstAttribute="top" secondItem="eN3-XY-nhE" secondAttribute="top" id="2dS-3v-dJ1"/>
-                <constraint firstItem="nPQ-3T-53N" firstAttribute="bottom" secondItem="hve-MI-3PU" secondAttribute="bottom" constant="20" id="F6x-JB-PlK"/>
-                <constraint firstItem="nPQ-3T-53N" firstAttribute="trailing" secondItem="hve-MI-3PU" secondAttribute="trailing" constant="15" id="GP3-8l-Oh6"/>
-                <constraint firstItem="hve-MI-3PU" firstAttribute="leading" secondItem="nPQ-3T-53N" secondAttribute="leading" constant="15" id="iSa-rP-Hup"/>
+                <constraint firstAttribute="trailing" secondItem="hve-MI-3PU" secondAttribute="trailing" constant="15" identifier="TTV" id="GP3-8l-Oh6"/>
+                <constraint firstItem="hve-MI-3PU" firstAttribute="leading" secondItem="eN3-XY-nhE" secondAttribute="leading" constant="15" identifier="LLV" id="iSa-rP-Hup"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="nPQ-3T-53N"/>
-            <point key="canvasLocation" x="47.826086956521742" y="297.65625"/>
+            <connections>
+                <outlet property="containerView" destination="hve-MI-3PU" id="ji7-fb-519"/>
+                <outlet property="workoutSetAddButton" destination="NrZ-f5-bWD" id="oa6-3x-BQU"/>
+            </connections>
+            <point key="canvasLocation" x="47.826086956521742" y="584.59821428571422"/>
         </view>
     </objects>
 </document>

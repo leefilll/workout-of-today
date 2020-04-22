@@ -66,8 +66,8 @@ class ProfileViewController: BaseViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(SummaryTableViewCell.self)
-        tableView.register(HighlightsTableViewCell.self)
+        tableView.registerByNib(SummaryTableViewCell.self)
+        tableView.registerByNib(HighlightsTableViewCell.self)
         tableView.register(BasicSectionHeaderView.self)
         
         view.addSubview(tableView)

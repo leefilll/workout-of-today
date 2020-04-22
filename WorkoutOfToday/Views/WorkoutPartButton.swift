@@ -8,44 +8,38 @@
 
 import UIKit
 
-final class WorkoutPartButton: UIButton {
+final class WorkoutPartButton: BaseButton {
     
-//    public var partRawValue: Part.RawValue? {
-//        didSet {
-//            self.part = Part(rawValue: self.partRawValue ?? 0)
-//        }
-//    }
-    
-    var part: Part? = Part.none {
+    var part: Part? {
         didSet {
             self.backgroundColor = self.part?.color.withAlphaComponent(0.2)
             self.setTitleColor(self.part?.color, for: .normal)
             self.setTitle(self.part?.description, for: .normal)
         }
     }
-    
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.setup()
-    }
-    
-    private func setup() {
-        self.sizeToFit()
-        self.part = Part.none
         
+    override func setup() {
+        super.setup()
+        self.part = Part.none
         self.setTitle("파트", for: .normal)
-        self.titleLabel?.font = .subheadline
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.clipsToBounds = true
-        self.layer.cornerRadius = 10
     }
 }
+
+final class WorkoutEquipmentButton: BaseButton {
+    
+    var equipment: Equipment? {
+        didSet {
+            self.backgroundColor = self.equipment?.color.withAlphaComponent(0.2)
+            self.setTitleColor(self.equipment?.color, for: .normal)
+            self.setTitle(self.equipment?.description, for: .normal)
+        }
+    }
+        
+    override func setup() {
+        super.setup()
+        self.equipment = Equipment.none
+        self.setTitle("도구", for: .normal)
+    }
+}
+
+

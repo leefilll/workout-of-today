@@ -1,40 +1,50 @@
 PODS:
-  - Charts (3.5.0):
-    - Charts/Core (= 3.5.0)
-  - Charts/Core (3.5.0)
+  - Charts (3.4.0):
+    - Charts/Core (= 3.4.0)
+  - Charts/Core (3.4.0)
+  - ChartsRealm (3.4.0):
+    - Charts (~> 3.4.0)
+    - RealmSwift (~> 3.18.0)
   - EasyTipView (2.0.4)
   - FSCalendar (2.8.1)
-  - Realm (4.4.0):
-    - Realm/Headers (= 4.4.0)
-  - Realm/Headers (4.4.0)
-  - RealmSwift (4.4.0):
-    - Realm (= 4.4.0)
+  - Presentr (1.9)
+  - Realm (3.18.0):
+    - Realm/Headers (= 3.18.0)
+  - Realm/Headers (3.18.0)
+  - RealmSwift (3.18.0):
+    - Realm (= 3.18.0)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - Charts
+  - ChartsRealm
   - EasyTipView
   - FSCalendar
+  - Presentr
   - RealmSwift
   - SnapKit
 
 SPEC REPOS:
   trunk:
     - Charts
+    - ChartsRealm
     - EasyTipView
     - FSCalendar
+    - Presentr
     - Realm
     - RealmSwift
     - SnapKit
 
 SPEC CHECKSUMS:
-  Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
+  Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
+  ChartsRealm: 2ae8bf478211a94b3b6dd20738db0b9b132eb66b
   EasyTipView: 4f8beae0a82db2ca4a9b5fd658785fc5f61d296b
   FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
-  Realm: e125f464884cda953ebefe70c671b75b03b81b9b
-  RealmSwift: 33656a42bd300959a081fc13347376bc478071af
+  Presentr: 7078d7eb5d1661ebeaae60c9e42a1e534de1b993
+  Realm: 7b3d04740facf45e958a514b466a32b04f1113d6
+  RealmSwift: c817b5f374668cf08f649afb05f55d92a787649c
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 21e7fd186ceb6d89e30cf2c3334115e161eb4f64
+PODFILE CHECKSUM: b62d94f341b3b75d6d3bce19bc2b85394bc4e417
 
 COCOAPODS: 1.8.4

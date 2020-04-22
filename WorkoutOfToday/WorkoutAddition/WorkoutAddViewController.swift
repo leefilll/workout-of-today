@@ -365,8 +365,6 @@ extension WorkoutAddViewController: UITableViewDataSource {
         
         cell.workoutSet = workoutSet
         cell.setCountLabel.text = "\(indexPath.row + 1)"
-        cell.degreeCircleView.clipsToBounds = true
-        cell.degreeCircleView.layer.cornerRadius = cell.degreeCircleView.frame.height / 2
         
         return cell
     }

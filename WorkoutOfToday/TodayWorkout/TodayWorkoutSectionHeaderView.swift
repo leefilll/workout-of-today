@@ -13,7 +13,7 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
     var workout: Workout? {
         didSet {
             self.workoutNameLabel.text = workout?.name
-            self.workoutPartButton.part = workout?.part
+//            self.workoutPartButton.part = workout?.part
 //            self.workoutSetLabel.text = "\(workout?.numberOfSets ?? 0) set"
         }
     }
@@ -23,21 +23,22 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
     @IBOutlet weak var workoutNameLabel: UILabel!
 
     @IBOutlet weak var workoutPartButton: WorkoutPartButton!
-
+    
+//    @IBOutlet var unitLabels: [UILabel]!
+    
 //    @IBOutlet weak var workoutSetLabel: UILabel!
-
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
         setup()
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.workout = nil
     }
     
     private func setup() {
-        commonInit()
         
         containerView.backgroundColor = .white
         
@@ -47,7 +48,12 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
         
         workoutPartButton.isEnabled = false
         
-//        workoutSetLabel.font = .boldTitle
+//
+//        unitLabels.forEach { label in
+//            label.font = .description
+//            label.textColor = .lightGray
+//        }
+        
     }
     
     override func draw(_ rect: CGRect) {
@@ -55,5 +61,4 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
         containerView.setRoundedCorners(corners: [.topLeft, .topRight], radius: 10)
 
     }
-
 }

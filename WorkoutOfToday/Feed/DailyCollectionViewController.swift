@@ -10,7 +10,7 @@ import UIKit
 
 import RealmSwift
 
-class DailyCollectionViewController: BaseViewController {
+class DailyCollectionViewController: BaseViewController, Childable {
     
     // MARK: Model
     

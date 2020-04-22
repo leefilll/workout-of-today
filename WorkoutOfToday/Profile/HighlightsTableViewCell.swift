@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HighlightsTableViewCell: UITableViewCell, NibLoadable {
+class HighlightsTableViewCell: BaseTableViewCell {
     
     @IBOutlet weak var containerView: UIView!
     
@@ -23,19 +23,7 @@ class HighlightsTableViewCell: UITableViewCell, NibLoadable {
         }
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        commonInit()
-        setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
-        setup()
-    }
-    
-    private func setup() {
+    override func setup() {
         backgroundColor = .clear
         selectionStyle = .none
         

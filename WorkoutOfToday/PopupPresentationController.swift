@@ -40,6 +40,16 @@ class PopupPresentationController: UIPresentationController {
     }
     
     override func presentationTransitionDidEnd(_ completed: Bool) {
+        guard let containerView = containerView else { return }
         
+        dimmingView.alpha = 0.0
+        dimmingView.frame = containerView.bounds
+        containerView.insertSubview(dimmingView, at: 0)
+        
+        guard let coordinator = presentedViewController.transitionCoordinator else { return }
+        coordinator.animate(alongsideTransition: { context in
+            self.dimmingView.alpha = 1.0
+
+        }, completion: nil)
     }
 }

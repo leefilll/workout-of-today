@@ -10,6 +10,7 @@ import UIKit
 
 import SnapKit
 import RealmSwift
+import Presentr
 
 final class TodayWorkoutViewController: BaseViewController {
     
@@ -29,6 +30,25 @@ final class TodayWorkoutViewController: BaseViewController {
     
     weak var tableHeaderView: TodayWorkoutTableHeaderView!
     
+    // MARK: Presenter
+    
+     let presenter: Presentr = {
+           let width = ModalSize.full
+           let height = ModalSize.fluid(percentage: 0.20)
+           let center = ModalCenterPosition.customOrigin(origin: CGPoint(x: 0, y: 0))
+           let customType = PresentationType.custom(width: width, height: height, center: center)
+
+           let customPresenter = Presentr(presentationType: customType)
+           customPresenter.transitionType = .coverVerticalFromTop
+           customPresenter.dismissTransitionType = .crossDissolve
+           customPresenter.roundCorners = false
+           customPresenter.backgroundColor = .green
+           customPresenter.backgroundOpacity = 0.5
+           customPresenter.dismissOnSwipe = true
+           customPresenter.dismissOnSwipeDirection = .top
+           return customPresenter
+       }()
+    
     // MARK: View Life Cycle
     
     deinit {
@@ -40,6 +60,7 @@ final class TodayWorkoutViewController: BaseViewController {
         super.viewDidLoad()
         configureTableView()
         configureWorkoutAddButton()
+        addNotificationBlock()
         
         // MARK: Checking memory alloc
         var c = 0
@@ -64,20 +85,36 @@ final class TodayWorkoutViewController: BaseViewController {
     override func setup() {
         setupTableView()
         setupWorkoutAddButton()
-        setupConstraint()
     }
+    
+    
     
     fileprivate func setupTableView() {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.contentInset.bottom = Size.addButtonHeight + 10
         
-        let tableHeaderView = TodayWorkoutTableHeaderView()
-        tableHeaderView.frame.size.height = 40
-        tableView.tableHeaderView = tableHeaderView
         
-        self.tableHeaderView = tableHeaderView
+        // FIXME: TableHeaderView
+        
+        
+//        let tableHeaderView = TodayWorkoutTableHeaderView()
+//        tableHeaderView.titleLabel.text = workoutsOfDay.dateAndWeekdayString
+//        tableView.tableHeaderView = tableHeaderView
+//        tableHeaderView.snp.makeConstraints { make in
+//            make.width.equalToSuperview()
+//            make.height.equalTo(50)
+//        }
+//
+//        self.tableHeaderView = tableHeaderView
+        
+//        view.addSubview(self.tableView)
+        view.insertSubview(tableView, at: 0)
         self.tableView = tableView
-        view.addSubview(self.tableView)
+        self.tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.layoutMarginsGuide.snp.bottom)
+        }
     }
     
     fileprivate func setupWorkoutAddButton() {
@@ -94,14 +131,6 @@ final class TodayWorkoutViewController: BaseViewController {
 
         self.workoutAddButton = workoutAddButton
         view.addSubview(self.workoutAddButton)
-    }
-    
-    fileprivate func setupConstraint() {
-        self.tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(view.layoutMarginsGuide.snp.top).offset(5)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(view.layoutMarginsGuide.snp.bottom)
-        }
         
         self.workoutAddButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(Inset.paddingHorizontal)
@@ -123,16 +152,47 @@ final class TodayWorkoutViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.register(WorkoutSetTableViewCell.self)
-        tableView.register(TodayWorkoutSectionHeaderView.self)
-        tableView.register(WorkoutSetAddFooterView.self)
+        tableView.registerByNib(WorkoutSetTableViewCell.self)
+        tableView.registerByNib(TodayWorkoutSectionHeaderView.self)
+        tableView.registerByNib(WorkoutSetAddFooterView.self)
     }
-    
     
     private func configureWorkoutAddButton() {
         workoutAddButton.addTarget(self,
                                    action: #selector(workoutAddButtonDidTapped(_:)),
                                    for: .touchUpInside)
+    }
+    
+    private func addNotificationBlock() {
+        self.token = workoutsOfDay.observe { [weak self] changes in
+            guard let self = self else { return }
+            switch changes {
+                case .change:
+                    let targetSection = self.workoutsOfDay.numberOfWorkouts - 1
+                    print("targetSection:  \(targetSection)")
+                    print("targetSection:  \(targetSection)")
+                    print("targetSection:  \(targetSection)")
+                    print("targetSection:  \(targetSection)")
+                    
+                    let targetIndexPath = IndexPath(row: NSNotFound, section: targetSection)
+                    self.tableView.beginUpdates()
+                    self.tableView.insertSections([targetSection],
+                                                  with: .automatic)
+                    
+                    self.tableView.endUpdates()
+                    self.tableView.scrollToRow(at: targetIndexPath,
+                                               at: .top,
+                                               animated: true)
+//                    let sectionRect = self.tableView.rect(forSection: targetSection)
+//                    self.tableView.scrollRectToVisible(sectionRect, animated: true)
+                    
+                case .error(let error):
+                    print("An error occurred: \(error)")
+                case .deleted:
+                    print("The object was deleted.")
+                    self.tableView.reloadData()
+            }
+        }
     }
 }
 
@@ -149,17 +209,31 @@ extension TodayWorkoutViewController {
         DBHandler.shared.write {
             workout.sets.append(newWorkoutSet)
         }
-        tableView.insertRows(at: [targetIndexPath], with: .automatic)
+        self.tableView.insertRows(at: [targetIndexPath], with: .automatic)
+        tableView.setNeedsUpdateConstraints()
     }
     
     // MARK: Present WorkoutAdd VC
     
     @objc
     fileprivate func workoutAddButtonDidTapped(_ sender: UIButton) {
-        let vc = TodayAddWorkoutViewController()
+        let vc = TodayAddWorkoutViewController(nibName: "TodayAddWorkoutViewController",
+                                               bundle: nil)
+//        customPresentViewController(presenter, viewController: vc, animated: true, completion: nil)
+        vc.workoutsOfDay = workoutsOfDay
         vc.modalPresentationStyle = .custom
         vc.transitioningDelegate = self
         present(vc, animated: true, completion: nil)
+    }
+    
+    @objc
+    fileprivate func workoutSectionHeaderDidTapped(_ sender: UITapGestureRecognizer) {
+        // MARK: using tag for knowing sections
+        if let section = sender.view?.tag {
+            print("section: \(section)")
+            print("section: \(section)")
+            print("section: \(section)")
+        }
     }
 }
 
@@ -174,17 +248,23 @@ extension TodayWorkoutViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let workout = workoutsOfDay.workouts[section]
         return workout.numberOfSets
-//        return workoutsOfDay.numberOfWorkouts
     }
-    
-  
     
     // MARK: Header
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let workout = workoutsOfDay.workouts[section]
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(workoutSectionHeaderDidTapped(_:)))
+        
         let headerView = tableView.dequeueReusableHeaderFooterView(TodayWorkoutSectionHeaderView.self)
+        headerView.tag = section
         headerView.workout = workout
+        headerView.addGestureRecognizer(tapGestureRecognizer)
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .clear
+        headerView.backgroundView = backgroundView
+        
         return headerView
     }
     
@@ -195,9 +275,15 @@ extension TodayWorkoutViewController: UITableViewDataSource {
         let footerView = tableView.dequeueReusableHeaderFooterView(WorkoutSetAddFooterView.self)
         
         footerView.workoutSetAddButton.tag = section
-        footerView.workoutSetAddButton.addTarget(self,
-                                                 action: #selector(workoutSetAddButtonDidTapped(_:)),
-                                                 for: .touchUpInside)
+        footerView.workoutSetAddButton.addTarget(
+            self,
+            action: #selector(workoutSetAddButtonDidTapped(_:)),
+            for: .touchUpInside
+        )
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .clear
+        footerView.backgroundView = backgroundView
         
         return footerView
     }
@@ -219,14 +305,19 @@ extension TodayWorkoutViewController: UITableViewDataSource {
                 let workout = workoutsOfDay.workouts[indexPath.section]
                 let setToDelete = workout.sets[indexPath.row]
                 DBHandler.shared.delete(object: setToDelete)
-                tableView.beginUpdates()
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                tableView.endUpdates()
-                tableView.reloadSections([indexPath.section], with: .none)
-                break
+                
+                tableView.deleteRows(at: [indexPath], with: .none)
+                self.perform(#selector(reloadData), with: nil, afterDelay: 0.1)
+                //TODO: reloadSection animation
+                tableView.setNeedsUpdateConstraints()
             default:
                 break
         }
+    }
+    
+    @objc
+    func reloadData() {
+        tableView.reloadData()
     }
 }
 
@@ -250,16 +341,18 @@ extension TodayWorkoutViewController: UITableViewDelegate {
 }
 // TODO:- If there is workout here, the add vc make the fields filled
 
-
+// MARK: Animation Delegate
+//
 extension TodayWorkoutViewController: UIViewControllerTransitioningDelegate {
 //    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
 //        return PopupPresentationController(presentedViewController: presented, presenting: presenting)
 //    }
+
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return PopupAnimationController(animationDuration: 0.5, animationType: .present)
+        return PopupAnimationController(animationDuration: 0.35, animationType: .present)
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return PopupAnimationController(animationDuration: 0.5, animationType: .dismiss)
+        return PopupAnimationController(animationDuration: 0.3, animationType: .dismiss)
     }
 }

@@ -107,3 +107,18 @@ class DBHandler {
         return _realm.objects(type).sorted(byKeyPath: "createdDateTime", ascending: false)
     }
 }
+
+// MARK: functions with calculate
+
+extension DBHandler {
+    func fetcthMostFrequentWorkouts(workouts: Results<Workout>) -> [Dictionary<String, Int>.Element] {
+        let counts = workouts.reduce(into: [:]) { $0[$1.name, default: 0] += 1}
+        var sortedCounts = counts.sorted { $0.value > $1.value }
+        var mostFrequentWorkouts = [(String, Int)]()
+        for _ in 0..<5 {
+            let popped = sortedCounts.removeFirst()
+            mostFrequentWorkouts.append(popped)
+        }
+        return mostFrequentWorkouts
+    }
+}

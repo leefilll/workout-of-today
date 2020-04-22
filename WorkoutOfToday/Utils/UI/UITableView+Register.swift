@@ -18,6 +18,18 @@ extension UITableView {
         self.register(T.self, forHeaderFooterViewReuseIdentifier: String(describing: T.self))
     }
     
+    func registerByNib<T: UITableViewCell>(_ cellClass: T.Type) {
+        let nibName = String(describing: T.self)
+        let reuseIdentifier = String(describing: T.self)
+        self.register(UINib(nibName: nibName, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+    }
+    
+    func registerByNib<T: UITableViewHeaderFooterView>(_ aClass: T.Type) {
+        let nibName = String(describing: T.self)
+        let reuseIdentifier = String(describing: T.self)
+        self.register(UINib(nibName: nibName, bundle: nil), forHeaderFooterViewReuseIdentifier: reuseIdentifier)
+    }
+    
     func dequeueReusableCell<T: UITableViewCell>(_ cellClass: T.Type,
                                                  for indexPath: IndexPath) -> T {
         let cell = self.dequeueReusableCell(withIdentifier: String(describing: T.self),
@@ -35,6 +47,12 @@ extension UICollectionView {
     func register<T: UICollectionViewCell>(_ cellClass: T.Type) {
         self.register(T.self,
                       forCellWithReuseIdentifier: String(describing: T.self))
+    }
+    
+    func registerByNib<T: UITableViewCell>(_ cellClass: T.Type) {
+        let nibName = String(describing: type(of: self))
+        let reuseIdentifier = String(describing: T.self)
+        self.register(UINib(nibName: nibName, bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
     }
     
     func dequeueReusableCell<T: UICollectionViewCell>(_ cellClass: T.Type,
