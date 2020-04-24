@@ -40,6 +40,7 @@ class CalendarHeaderView: BaseView {
         calendar.appearance.titleFont = .body
         calendar.appearance.selectionColor = .tintColor
         calendar.appearance.eventDefaultColor = .tintColor
+        calendar.appearance.todayColor = nil
         
         addSubview(calendar)
         calendar.snp.makeConstraints { make in

@@ -42,11 +42,21 @@ class RecentWorkoutCollectionViewCell: UICollectionViewCell {
     }
     
     private func setup() {
+        nameLabel.sizeToFit()
         nameLabel.font = .boldBody
         nameLabel.textAlignment = .center
         nameLabel.clipsToBounds = true
     
         contentView.addSubview(self.nameLabel)
+        
+        self.nameLabel.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-5)
+            make.top.equalToSuperview().offset(10)
+            make.bottom.equalToSuperview().offset(-10)
+        }
+        
+        self.nameLabel.layer.cornerRadius = bounds.size.height * 0.30
     }
     
     private func animate(_ newValue: Bool) {
@@ -65,15 +75,6 @@ class RecentWorkoutCollectionViewCell: UICollectionViewCell {
         completion: nil)
     }
     
-    override func layoutSubviews() {
-        self.nameLabel.sizeToFit()
-        self.nameLabel.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-5)
-            make.top.equalToSuperview().offset(10)
-            make.bottom.equalToSuperview().offset(-10)
-        }
-        
-        self.nameLabel.layer.cornerRadius = bounds.size.height * 0.30
-    }
+//    override func layoutSubviews() {
+     
 }

@@ -100,10 +100,10 @@ extension DailyCollectionViewController: UICollectionViewDataSource {
 extension DailyCollectionViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let workoutsOfDay = self.workoutsOfDays[indexPath.section]
-        let workout = workoutsOfDay.workouts[indexPath.item]
-        let vc = WorkoutAddViewController()
-        vc.tempWorkout = workout
+//        let workoutsOfDay = self.workoutsOfDays[indexPath.section]
+//        let workout = workoutsOfDay.workouts[indexPath.item]
+//        let vc = WorkoutAddViewController()
+//        vc.tempWorkout = workout
         //        self.present(vc, animated: true, completion: nil)
     }
 }

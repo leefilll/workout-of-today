@@ -39,6 +39,7 @@ class CalendarViewController: BaseViewController, Childable {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .clear
         tableView.rowHeight = 50
+        tableView.showsVerticalScrollIndicator = false
         
         let calendarHeaderView = CalendarHeaderView()
         calendarHeaderView.frame.size.height = 360

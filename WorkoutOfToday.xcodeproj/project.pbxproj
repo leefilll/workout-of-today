@@ -29,6 +29,11 @@
 		BB5C5193243EED1B00A1CD9C /* UIFont+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C5192243EED1B00A1CD9C /* UIFont+Static.swift */; };
 		BB5C5197243EF8FE00A1CD9C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C5196243EF8FE00A1CD9C /* Constants.swift */; };
 		BB5C5199243F0BD400A1CD9C /* UITextField+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C5198243F0BD400A1CD9C /* UITextField+Toolbar.swift */; };
+		BB77E9952451621900C7C4B5 /* WorkoutPartChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E9942451621900C7C4B5 /* WorkoutPartChartView.swift */; };
+		BB77E9BB2451662500C7C4B5 /* ChartsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB77E9BA2451662500C7C4B5 /* ChartsViewController.xib */; };
+		BB77E9BD24516BBC00C7C4B5 /* BaseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E9BC24516BBC00C7C4B5 /* BaseCardView.swift */; };
+		BB77E9C22452EA0F00C7C4B5 /* WorkoutVolumeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E9C12452EA0F00C7C4B5 /* WorkoutVolumeChartView.swift */; };
+		BB77E9C42452EB4E00C7C4B5 /* WorkoutOnermChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E9C32452EB4E00C7C4B5 /* WorkoutOnermChartView.swift */; };
 		BB8BB760243CBA0200774EA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8BB75F243CBA0200774EA9 /* AppDelegate.swift */; };
 		BB8BB762243CBA0200774EA9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8BB761243CBA0200774EA9 /* SceneDelegate.swift */; };
 		BB8BB764243CBA0200774EA9 /* TodayWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8BB763243CBA0200774EA9 /* TodayWorkoutViewController.swift */; };
@@ -144,6 +149,11 @@
 		BB5C5192243EED1B00A1CD9C /* UIFont+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Static.swift"; sourceTree = "<group>"; };
 		BB5C5196243EF8FE00A1CD9C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BB5C5198243F0BD400A1CD9C /* UITextField+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Toolbar.swift"; sourceTree = "<group>"; };
+		BB77E9942451621900C7C4B5 /* WorkoutPartChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPartChartView.swift; sourceTree = "<group>"; };
+		BB77E9BA2451662500C7C4B5 /* ChartsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartsViewController.xib; sourceTree = "<group>"; };
+		BB77E9BC24516BBC00C7C4B5 /* BaseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCardView.swift; sourceTree = "<group>"; };
+		BB77E9C12452EA0F00C7C4B5 /* WorkoutVolumeChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutVolumeChartView.swift; sourceTree = "<group>"; };
+		BB77E9C32452EB4E00C7C4B5 /* WorkoutOnermChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutOnermChartView.swift; sourceTree = "<group>"; };
 		BB8BB75C243CBA0200774EA9 /* WorkoutOfToday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutOfToday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB8BB75F243CBA0200774EA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB8BB761243CBA0200774EA9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -375,6 +385,10 @@
 				BBF68244244B4D01009EC0EA /* CalendarViewController.swift */,
 				BBC65CB5244EFAE2006F0ADB /* CalendarHeaderView.swift */,
 				BBC65CB8244F1583006F0ADB /* ChartsViewController.swift */,
+				BB77E9BA2451662500C7C4B5 /* ChartsViewController.xib */,
+				BB77E9942451621900C7C4B5 /* WorkoutPartChartView.swift */,
+				BB77E9C12452EA0F00C7C4B5 /* WorkoutVolumeChartView.swift */,
+				BB77E9C32452EB4E00C7C4B5 /* WorkoutOnermChartView.swift */,
 				BBC65CBD244F27F9006F0ADB /* TopWorkoutChartCell.swift */,
 				BBC65CBF244F2815006F0ADB /* TopWorkoutChartCell.xib */,
 				BB2E754624486CCF006108F5 /* FeedCollectionViewFlowLayout.swift */,
@@ -389,6 +403,7 @@
 				BB12C8A72447441E007DFBC1 /* BasicSectionHeaderView.swift */,
 				BBA582DD24441ABB001FD978 /* WorkoutPartButton.swift */,
 				BBC65CB3244EA915006F0ADB /* BaseButton.swift */,
+				BB77E9BC24516BBC00C7C4B5 /* BaseCardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -589,6 +604,7 @@
 				BBC65C9B244DA2D7006F0ADB /* WorkoutSetAddFooterView.xib in Resources */,
 				BBD5FE41244D7B0200E5C8E7 /* SummaryTableViewCell.xib in Resources */,
 				BBD5FE45244D8C4500E5C8E7 /* TodayWorkoutSectionHeaderView3.xib in Resources */,
+				BB77E9BB2451662500C7C4B5 /* ChartsViewController.xib in Resources */,
 				BBD5FE43244D7D4300E5C8E7 /* HighlightsTableViewCell.xib in Resources */,
 				BB8BB769243CBA0400774EA9 /* Assets.xcassets in Resources */,
 			);
@@ -738,6 +754,7 @@
 				BB5C5199243F0BD400A1CD9C /* UITextField+Toolbar.swift in Sources */,
 				BB5C518F243DDD3000A1CD9C /* WorkoutSetTableViewCell.swift in Sources */,
 				BBD5FE47244D8C6900E5C8E7 /* TodayWorkoutSectionHeaderView.swift in Sources */,
+				BB77E9952451621900C7C4B5 /* WorkoutPartChartView.swift in Sources */,
 				BBF68251244C2D23009EC0EA /* FeedCollectionViewLayoutAttributes.swift in Sources */,
 				BBF68247244B4D11009EC0EA /* BaseView.swift in Sources */,
 				BBF68245244B4D01009EC0EA /* CalendarViewController.swift in Sources */,
@@ -758,8 +775,11 @@
 				BB96FD622444AE1B00E8DE10 /* UITableView+Register.swift in Sources */,
 				BBC65C9D244DBED2006F0ADB /* TodayWorkoutTableHeaderView.swift in Sources */,
 				BBC65CA6244DDA43006F0ADB /* PopupAnimationController.swift in Sources */,
+				BB77E9C42452EB4E00C7C4B5 /* WorkoutOnermChartView.swift in Sources */,
+				BB77E9BD24516BBC00C7C4B5 /* BaseCardView.swift in Sources */,
 				BBC65CA4244DD5E4006F0ADB /* TodayAddWorkoutViewController.swift in Sources */,
 				BB5A05132441AFF900AB1604 /* WorkoutTableViewCell.swift in Sources */,
+				BB77E9C22452EA0F00C7C4B5 /* WorkoutVolumeChartView.swift in Sources */,
 				BB8BB762243CBA0200774EA9 /* SceneDelegate.swift in Sources */,
 				BB8BB7A9243CCEBA00774EA9 /* Version.swift in Sources */,
 				BB206FA02450776600057CDB /* PopupPresentationController.swift in Sources */,

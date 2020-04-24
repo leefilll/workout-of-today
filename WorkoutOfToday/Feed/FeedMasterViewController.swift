@@ -40,7 +40,7 @@ class FeedMasterViewController: BaseViewController {
         }()
     
     private lazy var chartsViewController: ChartsViewController = {[weak self] in
-           let chartsViewController = ChartsViewController()
+           let chartsViewController = ChartsViewController(nibName: "ChartsViewController", bundle: nil)
            self?.add(asChildViewController: chartsViewController)
            return chartsViewController
            }()
@@ -70,7 +70,7 @@ class FeedMasterViewController: BaseViewController {
         segmentedControl.backgroundColor = .weakTintColor
         segmentedControl.setBackgroundColor(.tintColor, for: .selected)
         segmentedControl.tintColor = .tintColor
-        segmentedControl.addTarget(self, action: #selector(selectionDidChange(_:)), for: .valueChanged)
+        segmentedControl.addTarget(self, action: #selector(selectionDidChanged(_:)), for: .valueChanged)
         
         // TODO: change to all versions
         if #available(iOS 13.0, *) {
@@ -166,7 +166,7 @@ class FeedMasterViewController: BaseViewController {
 // MARK: objc functions
 
 extension FeedMasterViewController {
-    @objc func selectionDidChange(_ segmentedControl: UISegmentedControl) {
+    @objc func selectionDidChanged(_ segmentedControl: UISegmentedControl) {
         updateView()
     }
 }

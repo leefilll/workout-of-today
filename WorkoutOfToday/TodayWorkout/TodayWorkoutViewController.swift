@@ -62,6 +62,7 @@ final class TodayWorkoutViewController: BaseViewController {
         configureWorkoutAddButton()
         addNotificationBlock()
         
+        
         // MARK: Checking memory alloc
         var c = 0
         var d = 0
@@ -164,7 +165,7 @@ final class TodayWorkoutViewController: BaseViewController {
     }
     
     private func addNotificationBlock() {
-        self.token = workoutsOfDay.observe { [weak self] changes in
+        token = workoutsOfDay.observe { [weak self] changes in
             guard let self = self else { return }
             switch changes {
                 case .change:
@@ -177,15 +178,11 @@ final class TodayWorkoutViewController: BaseViewController {
                     let targetIndexPath = IndexPath(row: NSNotFound, section: targetSection)
                     self.tableView.beginUpdates()
                     self.tableView.insertSections([targetSection],
-                                                  with: .automatic)
-                    
+                                                  with: .fade)
                     self.tableView.endUpdates()
                     self.tableView.scrollToRow(at: targetIndexPath,
                                                at: .top,
                                                animated: true)
-//                    let sectionRect = self.tableView.rect(forSection: targetSection)
-//                    self.tableView.scrollRectToVisible(sectionRect, animated: true)
-                    
                 case .error(let error):
                     print("An error occurred: \(error)")
                 case .deleted:

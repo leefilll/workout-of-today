@@ -19,83 +19,96 @@ class ChartsViewController: BaseViewController, Childable {
     
     // MARK: View
     
-    fileprivate weak var containerTableView: UITableView!
+//    @IBOutlet weak var scrollView: UIScrollView!
+//    weak var scrollView: UIScrollView!
+    
+//    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var workoutPartLabel: UILabel!
+    
+    @IBOutlet weak var partChartView: WorkoutPartChartView!
+    
+    @IBOutlet weak var periodSegmentedControl: UISegmentedControl!
+    
+    @IBOutlet weak var volumeChartView: WorkoutVolumeChartView!
+    
+    @IBOutlet weak var onermChartView: WorkoutOnermChartView!
+    
+    @IBOutlet weak var workoutLabel: UILabel!
+    
+    @IBOutlet weak var workoutSelectButton: BaseButton!
     
     override func setup() {
-        configureContainerTableView()
+        setupLabels()
+        setupButton()
+        setupSegmentedControl()
     }
     
-    fileprivate func configureContainerTableView() {
-        let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.backgroundColor = .clear
-        tableView.separatorStyle = .none
-        tableView.rowHeight = 300
+    fileprivate func setupLabels() {
+        workoutPartLabel.text = "종목별"
+        workoutLabel.text = "운동별"
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(TopWorkoutChartCell.self)
-        tableView.register(UITableViewCell.self)
+        workoutPartLabel.font = .smallBoldTitle
+        workoutLabel.font = .smallBoldTitle
+    }
+    
+    fileprivate func setupButton() {
+        workoutSelectButton.setTitle("운동 선택", for: .normal)
+        workoutSelectButton.backgroundColor = .tintColor
+        workoutSelectButton.setTitleColor(.white, for: .normal)
+    }
+    
+    fileprivate func setupSegmentedControl() {
+        periodSegmentedControl.setTitle("한달", forSegmentAt: 0)
+        periodSegmentedControl.setTitle("두달", forSegmentAt: 1)
+        periodSegmentedControl.setTitle("전체", forSegmentAt: 2)
         
-        view.insertSubview(tableView, at: 0)
-        self.containerTableView = tableView
+        periodSegmentedControl.selectedSegmentIndex = 0
+        periodSegmentedControl.layer.cornerRadius = 5.0
+        periodSegmentedControl.backgroundColor = .weakTintColor
+        periodSegmentedControl.setBackgroundColor(.tintColor, for: .selected)
+        periodSegmentedControl.tintColor = .tintColor
+        periodSegmentedControl.addTarget(self, action: #selector(selectionDidChanged(_:)), for: .valueChanged)
         
-        self.containerTableView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview().offset(Inset.paddingHorizontal)
-            make.trailing.equalToSuperview().offset(-Inset.paddingHorizontal)
-            make.bottom.equalToSuperview()
+        // TODO: change to all versions
+        if #available(iOS 13.0, *) {
+            periodSegmentedControl.selectedSegmentTintColor = .tintColor
+            periodSegmentedControl.setTitleTextAttributes(
+                [
+                    NSAttributedString.Key.foregroundColor: UIColor.white
+                ],
+                for: .selected
+            )
+            periodSegmentedControl.setTitleTextAttributes(
+                [
+                    NSAttributedString.Key.foregroundColor: UIColor.tintColor,
+                    NSAttributedString.Key.font: UIFont.subheadline
+                ],
+                for: .normal
+            )
         }
     }
-//
-//    fileprivate func configureTopWorkoutChartView() {
-//        let chartView = TopWorkoutChartView()
-//
-//        view.addSubview(chartView)
-//
-//    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        animateCharts()
+    }
+    
+    fileprivate func animateCharts() {
+        partChartView.animateChart()
+    }
+}
+
+// MARK: objc functions
+
+extension ChartsViewController {
+    @objc
+    func selectionDidChanged(_ sender: UISegmentedControl) {
         
     }
-
 }
 
-// MARK: TableView Delegate
-
-extension ChartsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 250
-        }
-        return 250
-    }
-}
-
-// MARK: TableView DataSource
-
-extension ChartsViewController: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(TopWorkoutChartCell.self, for: indexPath)
-//            cell.axisFormatDelegate = self
-//            cell.totalWorkouts =
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(UITableViewCell.self, for: indexPath)
-            
-            cell.textLabel?.text = "\(indexPath.section)"
-            return cell
-        }
-    }
-}

@@ -13,7 +13,8 @@
                 <outlet property="equipmentButton" destination="S4m-dq-YP8" id="Uki-33-xne"/>
                 <outlet property="nameTextField" destination="avl-XK-qh5" id="cxV-4c-9L5"/>
                 <outlet property="partButton" destination="iDo-nv-3db" id="rO8-p5-8zY"/>
-                <outlet property="recentButton" destination="YQX-Ng-KWy" id="Udv-Yx-7ee"/>
+                <outlet property="recentCollectionView" destination="BIB-UB-i8f" id="YZY-GE-WLy"/>
+                <outlet property="recentDescLabel" destination="x8w-Ea-kjv" id="IGm-Q6-t6y"/>
                 <outlet property="view" destination="kQS-dL-rTk" id="WgS-ZV-IYG"/>
             </connections>
         </placeholder>
@@ -23,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="AOw-pJ-nUX">
-                    <rect key="frame" x="25" y="118" width="364" height="130"/>
+                    <rect key="frame" x="25" y="118" width="364" height="185.5"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" placeholder="운동 이름" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="avl-XK-qh5">
                             <rect key="frame" x="0.0" y="0.0" width="364" height="45"/>
@@ -34,7 +35,7 @@
                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                         </textField>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yUy-I4-NQ8">
-                            <rect key="frame" x="0.0" y="60" width="364" height="70"/>
+                            <rect key="frame" x="0.0" y="60" width="364" height="30"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="oBN-P8-TjV">
                                     <rect key="frame" x="0.0" y="0.0" width="364" height="30"/>
@@ -55,13 +56,30 @@
                                         </button>
                                     </subviews>
                                 </stackView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQX-Ng-KWy" customClass="BaseButton" customModule="WorkoutOfToday" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="40" width="364" height="30"/>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Dqd-Nc-zyp">
+                            <rect key="frame" x="0.0" y="105" width="364" height="80.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x8w-Ea-kjv">
+                                    <rect key="frame" x="0.0" y="0.0" width="364" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="BIB-UB-i8f">
+                                    <rect key="frame" x="0.0" y="20.5" width="364" height="60"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="MGA-uf-BZN"/>
+                                        <constraint firstAttribute="height" constant="60" id="h7A-za-z4C"/>
                                     </constraints>
-                                    <state key="normal" title="Button"/>
-                                </button>
+                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="3Pe-Yd-YnN">
+                                        <size key="itemSize" width="128" height="128"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                </collectionView>
                             </subviews>
                         </stackView>
                     </subviews>

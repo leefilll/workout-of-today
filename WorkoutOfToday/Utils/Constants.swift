@@ -61,6 +61,10 @@ enum Part: Int, CustomStringConvertible, CaseIterable {
             case .body: return "전신"
         }
     }
+    
+    static func string(from rawValue: Int) -> String? {
+        return Part(rawValue: rawValue)?.description
+    }
 }
 
 enum Equipment: Int, CustomStringConvertible, CaseIterable {

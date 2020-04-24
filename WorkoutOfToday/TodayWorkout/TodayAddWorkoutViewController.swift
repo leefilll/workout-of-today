@@ -8,11 +8,24 @@
 
 import UIKit
 
+import RealmSwift
+
 class TodayAddWorkoutViewController: BaseViewController {
     
     // MARK: Model
     
-    var workoutsOfDay: WorkoutsOfDay!
+    var tempWorkout: Workout! {         // temporary workout for settings
+        didSet {
+            equipmentButton.equipment = tempWorkout.equipment
+            nameTextField.text = tempWorkout.name
+            partButton.part = tempWorkout.part
+            view.layoutIfNeeded()
+        }
+    }
+    
+    var workoutsOfDay: WorkoutsOfDay!   // passed by TodayVC
+    
+    var recentWorkouts: [Workout]?      // recent Objects for collectionView
     
     // MARK: View
     
@@ -24,8 +37,9 @@ class TodayAddWorkoutViewController: BaseViewController {
     
     @IBOutlet weak var equipmentButton: WorkoutEquipmentButton!
     
-    @IBOutlet weak var recentButton: BaseButton!
+    @IBOutlet weak var recentDescLabel: UILabel!
     
+    @IBOutlet weak var recentCollectionView: UICollectionView!
     
     deinit {
         print(#function + " " + String(describing: type(of: self)))
@@ -35,12 +49,23 @@ class TodayAddWorkoutViewController: BaseViewController {
     }
     
     override func setup() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(containerViewDidTapped(_:)))
-        view.addGestureRecognizer(tapGestureRecognizer)
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(containerViewDidTapped(_:)))
+//        view.addGestureRecognizer(tapGestureRecognizer)
         
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
+        tempWorkout = Workout()
+        
         setupWorkoutAddButton()
+        setupTextField()
+        setupButtons()
+        setupCollectionView()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        addObserverForKeyboard()
     }
     
     fileprivate func setupWorkoutAddButton() {
@@ -59,7 +84,6 @@ class TodayAddWorkoutViewController: BaseViewController {
                                    action: #selector(workoutAddButtonDidTapped(_:)),
                                    for: .touchUpInside)
 
-//        containerView.addSubview(workoutAddButton)
         view.addSubview(workoutAddButton)
         self.workoutAddButton = workoutAddButton
     }
@@ -75,16 +99,23 @@ class TodayAddWorkoutViewController: BaseViewController {
     }
     
     fileprivate func setupButtons() {
-        
+        // Connect with tempWorkout
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        setupTextField()
-        setupButtons()
-        addObserverForKeyboard()
+    fileprivate func setupCollectionView() {
+        recentWorkouts = DBHandler.shared.fetchRecentObjects(ofType: Workout.self)
+        
+        recentDescLabel.font = .description
+        recentDescLabel.textColor = .lightGray
+        recentDescLabel.text = "최근 운동"
+        
+        recentCollectionView.delegate = self
+        recentCollectionView.dataSource = self
+        recentCollectionView.register(RecentWorkoutCollectionViewCell.self)
+        recentCollectionView.delaysContentTouches = false
+        
     }
+
 }
 
 extension TodayAddWorkoutViewController {
@@ -100,18 +131,8 @@ extension TodayAddWorkoutViewController {
             showBasicAlert(title: "운동 이름을 입력해주세요", message: nil)
             return
         }
-        
-        let name = text
-        let part = partButton.part ?? .none
-        let equipment = equipmentButton.equipment ?? .none
-        
-        let newWorout = Workout()
-        newWorout.name = name
-        newWorout.part = part
-        newWorout.equipment = equipment
-        
         DBHandler.shared.write {
-            self.workoutsOfDay.workouts.append(newWorout)
+            self.workoutsOfDay.workouts.append(tempWorkout)
         }
         
         dismiss(nil)
@@ -123,10 +144,81 @@ extension TodayAddWorkoutViewController {
     }
 }
 
+// MARK: CollectionView Delegate
+
+extension TodayAddWorkoutViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(#function)
+        print(#function)
+        print(#function)
+        print(#function)
+        guard let selectedWorkout = recentWorkouts?[indexPath.item] else {
+            print("Return")
+            print("Return")
+            print("Return")
+            print("Return")
+            print("Return")
+            return
+            
+        }
+        tempWorkout = selectedWorkout.copy() as? Workout
+        print(tempWorkout.name)
+        print(tempWorkout.name)
+        print(tempWorkout.name)
+        print(tempWorkout.name)
+    }
+}
+
+// MARK: CollectionView DataSourec
+
+extension TodayAddWorkoutViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return recentWorkouts?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(RecentWorkoutCollectionViewCell.self,
+                                                      for: indexPath)
+        let workout = recentWorkouts?[indexPath.row]
+        cell.workout = workout
+        
+        return cell
+    }
+}
+
+// MARK: CollectionView Delegate Flow Layout
+
+extension TodayAddWorkoutViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        guard let workout = recentWorkouts?[indexPath.item] else { return .zero }
+
+        let workoutName = workout.name
+        let itemSize = workoutName.size(withAttributes: [
+            NSAttributedString.Key.font : UIFont.boldBody
+        ])
+
+        let extraWidth: CGFloat = 30
+
+        return CGSize(width: itemSize.width + extraWidth,
+                      height: Size.recentCollectionViewHeight)
+    }
+}
+
+
 // MARK: TextField Delegate
 
 extension TodayAddWorkoutViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        tempWorkout?.name = text
+    }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
 
 // MARK: Notification for Keyboard

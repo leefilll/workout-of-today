@@ -103,8 +103,16 @@ class DBHandler {
         return _realm.objects(type)
     }
     
-    func fetchRecentObjects<T: Object>(ofType type: T.Type) -> Results<T> {
-        return _realm.objects(type).sorted(byKeyPath: "createdDateTime", ascending: false)
+    func fetchRecentObjects<T: Object>(ofType type: T.Type) -> [T] {
+        let sortedObjects = _realm.objects(type).sorted(byKeyPath: "createdDateTime", ascending: false)
+        
+        var recentObjects: [T] = []
+        for i in 0...20 {
+            let object = sortedObjects[i]
+            recentObjects.append(object)
+        }
+        
+        return recentObjects
     }
 }
 
@@ -121,4 +129,38 @@ extension DBHandler {
         }
         return mostFrequentWorkouts
     }
+    
+    fileprivate func fetcthMostFrequentParts(workouts: Results<Workout>) -> [Int] {
+        let numberOfPart = Part.allCases.count
+        var mostFrequentParts = [Int](repeating: 0, count: numberOfPart)
+        
+        workouts.forEach {
+            mostFrequentParts[$0.part.rawValue] += 1
+        }
+        
+        return mostFrequentParts
+    }
+    
+    /// Note that index of this array means Part.rawValue
+    func fetchPercentageOfWorkoutPart() -> [Int] {
+        let totalWorkouts = DBHandler.shared.fetchObjects(ofType: Workout.self)
+        
+        let mostFrequentParts = fetcthMostFrequentParts(workouts: totalWorkouts)
+        let numberOfWorkouts = totalWorkouts.count
+        
+        var percentagesOfWorkoutPart = [Int](repeating: 0, count: mostFrequentParts.count)
+        for (i, numberOfPart) in mostFrequentParts.enumerated() {
+            percentagesOfWorkoutPart[i] = (numberOfPart * 100) / numberOfWorkouts
+        }
+
+        return percentagesOfWorkoutPart
+    }
+    
+    func fetch(workoutName: String) {
+        let totalWorkouts = DBHandler.shared.fetchObjects(ofType: Workout.self).filter("name == %@", workoutName)
+        
+        let sortedWorkouts = totalWorkouts.sorted(byKeyPath: "createdDateTime")
+        
+    }
+    
 }
