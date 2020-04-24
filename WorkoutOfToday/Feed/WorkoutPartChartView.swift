@@ -49,7 +49,7 @@ class WorkoutPartChartView: BaseCardView {
     }
     
     fileprivate func updateChartWithData() {
-        mostFrequentParts = DBHandler.shared.fetchPercentageOfWorkoutPart()
+        mostFrequentParts = DBHandler.shared.fetchWorkoutPartInPercentage()
         let entries = mostFrequentParts.enumerated().map { idx, count -> PieChartDataEntry in
             return PieChartDataEntry(value: Double(count),
                                      label: Part.string(from: idx))}

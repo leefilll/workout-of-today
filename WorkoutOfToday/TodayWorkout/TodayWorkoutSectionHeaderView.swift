@@ -13,7 +13,8 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
     var workout: Workout? {
         didSet {
             self.workoutNameLabel.text = workout?.name
-//            self.workoutPartButton.part = workout?.part
+            self.workoutPartButton.part = workout?.part
+            self.workoutEquipmentButton.equipment = workout?.equipment
 //            self.workoutSetLabel.text = "\(workout?.numberOfSets ?? 0) set"
         }
     }
@@ -24,7 +25,9 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
 
     @IBOutlet weak var workoutPartButton: WorkoutPartButton!
     
-//    @IBOutlet var unitLabels: [UILabel]!
+    @IBOutlet weak var workoutEquipmentButton: WorkoutEquipmentButton!
+    
+    @IBOutlet var unitLabels: [UILabel]!
     
 //    @IBOutlet weak var workoutSetLabel: UILabel!
     
@@ -48,11 +51,11 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
         
         workoutPartButton.isEnabled = false
         
-//
-//        unitLabels.forEach { label in
-//            label.font = .description
-//            label.textColor = .lightGray
-//        }
+
+        unitLabels.forEach { label in
+            label.font = .description
+            label.textColor = .lightGray
+        }
         
     }
     

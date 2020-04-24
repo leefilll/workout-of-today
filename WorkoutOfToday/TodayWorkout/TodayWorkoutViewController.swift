@@ -170,11 +170,6 @@ final class TodayWorkoutViewController: BaseViewController {
             switch changes {
                 case .change:
                     let targetSection = self.workoutsOfDay.numberOfWorkouts - 1
-                    print("targetSection:  \(targetSection)")
-                    print("targetSection:  \(targetSection)")
-                    print("targetSection:  \(targetSection)")
-                    print("targetSection:  \(targetSection)")
-                    
                     let targetIndexPath = IndexPath(row: NSNotFound, section: targetSection)
                     self.tableView.beginUpdates()
                     self.tableView.insertSections([targetSection],
@@ -184,7 +179,7 @@ final class TodayWorkoutViewController: BaseViewController {
                                                at: .top,
                                                animated: true)
                 case .error(let error):
-                    print("An error occurred: \(error)")
+                    fatalError("\(error)")
                 case .deleted:
                     print("The object was deleted.")
                     self.tableView.reloadData()
@@ -287,8 +282,11 @@ extension TodayWorkoutViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(WorkoutSetTableViewCell.self, for: indexPath)
+        let workout = workoutsOfDay.workouts[indexPath.section]
+        let workoutSet = workout.sets[indexPath.row]
         let setCount = indexPath.row + 1
         cell.setCountLabel.text = "\(setCount)"
+        cell.workoutSet = workoutSet
         return cell
     }
     

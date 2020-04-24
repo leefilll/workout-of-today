@@ -11,7 +11,7 @@ import UIKit
 import RealmSwift
 import Charts
 
-class ChartsViewController: BaseViewController, Childable {
+final class ChartsViewController: BaseViewController, Childable {
     
     // MARK: Model
     
@@ -19,10 +19,6 @@ class ChartsViewController: BaseViewController, Childable {
     
     // MARK: View
     
-//    @IBOutlet weak var scrollView: UIScrollView!
-//    weak var scrollView: UIScrollView!
-    
-//    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var workoutPartLabel: UILabel!
     
     @IBOutlet weak var partChartView: WorkoutPartChartView!
@@ -30,8 +26,6 @@ class ChartsViewController: BaseViewController, Childable {
     @IBOutlet weak var periodSegmentedControl: UISegmentedControl!
     
     @IBOutlet weak var volumeChartView: WorkoutVolumeChartView!
-    
-    @IBOutlet weak var onermChartView: WorkoutOnermChartView!
     
     @IBOutlet weak var workoutLabel: UILabel!
     
@@ -58,9 +52,9 @@ class ChartsViewController: BaseViewController, Childable {
     }
     
     fileprivate func setupSegmentedControl() {
-        periodSegmentedControl.setTitle("한달", forSegmentAt: 0)
-        periodSegmentedControl.setTitle("두달", forSegmentAt: 1)
-        periodSegmentedControl.setTitle("전체", forSegmentAt: 2)
+        periodSegmentedControl.setTitle(Period.oneMonth.description, forSegmentAt: 0)
+        periodSegmentedControl.setTitle(Period.threeMonths.description, forSegmentAt: 1)
+        periodSegmentedControl.setTitle(Period.entire.description, forSegmentAt: 2)
         
         periodSegmentedControl.selectedSegmentIndex = 0
         periodSegmentedControl.layer.cornerRadius = 5.0
@@ -69,23 +63,22 @@ class ChartsViewController: BaseViewController, Childable {
         periodSegmentedControl.tintColor = .tintColor
         periodSegmentedControl.addTarget(self, action: #selector(selectionDidChanged(_:)), for: .valueChanged)
         
-        // TODO: change to all versions
-        if #available(iOS 13.0, *) {
-            periodSegmentedControl.selectedSegmentTintColor = .tintColor
-            periodSegmentedControl.setTitleTextAttributes(
-                [
-                    NSAttributedString.Key.foregroundColor: UIColor.white
-                ],
-                for: .selected
-            )
-            periodSegmentedControl.setTitleTextAttributes(
-                [
-                    NSAttributedString.Key.foregroundColor: UIColor.tintColor,
-                    NSAttributedString.Key.font: UIFont.subheadline
-                ],
-                for: .normal
-            )
-        }
+        periodSegmentedControl.backgroundColor = .white
+        periodSegmentedControl.tintColor = .weakTintColor
+        periodSegmentedControl.setTitleTextAttributes(
+            [
+                NSAttributedString.Key.foregroundColor: UIColor.tintColor,
+                NSAttributedString.Key.font: UIFont.subheadline,
+            ],
+            for: .selected
+        )
+        periodSegmentedControl.setTitleTextAttributes(
+            [
+                NSAttributedString.Key.foregroundColor: UIColor.lightGray,
+                NSAttributedString.Key.font: UIFont.subheadline,
+            ],
+            for: .normal
+        )
     }
     
 
@@ -108,7 +101,25 @@ class ChartsViewController: BaseViewController, Childable {
 extension ChartsViewController {
     @objc
     func selectionDidChanged(_ sender: UISegmentedControl) {
-        
+        guard let period = Period(rawValue: sender.selectedSegmentIndex) else { fatalError() }
+        volumeChartView.period = period
     }
 }
+
+// MARK: enum - Period
+
+enum Period: Int, CustomStringConvertible {
+    case oneMonth
+    case threeMonths
+    case entire
+    
+    var description: String {
+        switch self {
+            case .oneMonth: return "한달"
+            case .threeMonths: return "세달"
+            case .entire: return "전체"
+        }
+    }
+}
+
 

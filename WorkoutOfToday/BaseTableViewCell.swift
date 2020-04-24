@@ -9,17 +9,7 @@
 import UIKit
 
 class BaseTableViewCell: UITableViewCell {
-//
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        setup()
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//        setup()
-//    }
-//
+    
     override func awakeFromNib() {
         setup()
     }

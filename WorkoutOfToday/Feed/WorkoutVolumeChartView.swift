@@ -14,12 +14,21 @@ import Charts
 class WorkoutVolumeChartView: BaseCardView {
     // MARK: Model
     
-    var workoutName: String = "" {
+    fileprivate var volumesByDate: [(date: Date, volume: Int)]?
+    
+    fileprivate var valueFormatter: IValueFormatter?
+    
+    var workoutName: String = "데드리프트" {
         didSet {
-            workoutDidChanged()
+            setNeedsDisplay()
         }
     }
     
+    var period: Period = .oneMonth {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
     
     // MARK: View
     
@@ -39,53 +48,83 @@ class WorkoutVolumeChartView: BaseCardView {
         lineChartView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview().offset(-10)
-            make.bottom.equalToSuperview().offset(10)
+            make.top.equalToSuperview().offset(10)
         }
+        valueFormatter = self
+        lineChartView.delegate = self
         
         self.lineChartView = lineChartView
     }
     
     fileprivate func updateChartWithData() {
-//
-//
-//
-//        let values = (0..<count).map { (i) -> ChartDataEntry in
-//            let val = Double(arc4random_uniform(range) + 3)
-//            return ChartDataEntry(x: Double(i), y: val, icon: #imageLiteral(resourceName: "icon"))
-//        }
-//
-//        let set1 = LineChartDataSet(entries: values, label: "DataSet 1")
-//        set1.drawIconsEnabled = false
-//
-//        set1.lineDashLengths = [5, 2.5]
-//        set1.highlightLineDashLengths = [5, 2.5]
-//        set1.setColor(.black)
-//        set1.setCircleColor(.black)
-//        set1.lineWidth = 1
-//        set1.circleRadius = 3
-//        set1.drawCircleHoleEnabled = false
-//        set1.valueFont = .systemFont(ofSize: 9)
-//        set1.formLineDashLengths = [5, 2.5]
-//        set1.formLineWidth = 1
-//        set1.formSize = 15
-//
-//        let gradientColors = [ChartColorTemplates.colorFromString("#00ff0000").cgColor,
-//                              ChartColorTemplates.colorFromString("#ffff0000").cgColor]
-//        let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
-//
-//        set1.fillAlpha = 1
-//        set1.fill = Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
-//        set1.drawFilledEnabled = true
-//
-//        let data = LineChartData(dataSet: set1)
-//
-//        chartView.data = data
+        
+        volumesByDate = DBHandler.shared.fechWorkoutVolumeByPeriod(workoutName: workoutName, period: period)
+        guard let volumesByDate = volumesByDate else { fatalError() }
+        print(volumesByDate)
+
+        // MARK: note that x value used for index
+        let entries = volumesByDate.enumerated().map { idx, value -> ChartDataEntry in
+            let volume = value.volume
+            print("volume: \(volume)")
+            return ChartDataEntry(x: Double(idx), y: Double(volume))
+        }
+        
+        let set1 = LineChartDataSet(entries: entries)
+        set1.drawIconsEnabled = false
+        set1.lineDashLengths = [5, 2.5]
+        set1.highlightLineDashLengths = [5, 2.5]
+        set1.setColor(.black)
+        set1.setCircleColor(.black)
+        set1.lineWidth = 1
+        set1.circleRadius = 3
+        set1.drawCircleHoleEnabled = false
+        set1.valueFont = .systemFont(ofSize: 9)
+        set1.formLineDashLengths = [5, 2.5]
+        set1.formLineWidth = 1
+        set1.formSize = 15
+        
+        set1.drawFilledEnabled = true
+        
+        let data = LineChartData(dataSet: set1)
+        data.setValueFormatter(valueFormatter!)
+//        data.setvalu
+        
+        lineChartView.data = data
+        
+        lineChartView.chartDescription?.enabled = false
+        lineChartView.dragEnabled = false
+        lineChartView.setScaleEnabled(false)
+        lineChartView.pinchZoomEnabled = false
+        lineChartView.rightAxis.enabled = false
+        
+        let xAxis = lineChartView.xAxis
+        xAxis.labelPosition = .bottom
+        xAxis.labelFont = .systemFont(ofSize: 10)
+        xAxis.granularity = 1
+        xAxis.labelCount = 7
     }
     
     func animateChart() {
     }
     
-    func workoutDidChanged() {
-        lineChartView.setNeedsDisplay()
+}
+
+extension WorkoutVolumeChartView: ChartViewDelegate {
+    
+}
+
+extension WorkoutVolumeChartView: IValueFormatter {
+    func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
+
+        let pFormatter = NumberFormatter()
+        pFormatter.numberStyle = .none
+        pFormatter.multiplier = 1
+        pFormatter.groupingSeparator = ","
+        
+        guard let formattedString = pFormatter.string(from: NSNumber(value: value)) else {
+            return ""
+        }
+        
+        return formattedString + " kg"
     }
 }

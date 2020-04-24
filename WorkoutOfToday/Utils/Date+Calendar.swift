@@ -13,6 +13,10 @@ extension Date {
         return Calendar.current.date(byAdding: .day, value: days, to: self)!
     }
     
+    func dateFromMonths(_ months: Int) -> Date {
+        return Calendar.current.date(byAdding: .month, value: months, to: self)!
+    }
+    
     var startOfDay: Date? {
         let components = Calendar.current.dateComponents([.year, .month, .day], from: self)
         let date = Calendar.current.date(from: components)

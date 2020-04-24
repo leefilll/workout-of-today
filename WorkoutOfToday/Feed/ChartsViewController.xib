@@ -10,7 +10,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChartsViewController" customModule="WorkoutOfToday" customModuleProvider="target">
             <connections>
-                <outlet property="onermChartView" destination="mFC-nx-hQ9" id="ukE-ul-W0g"/>
                 <outlet property="partChartView" destination="RqG-Cv-w5m" id="7wb-g6-87H"/>
                 <outlet property="periodSegmentedControl" destination="eHF-N8-eID" id="sjZ-MB-Prj"/>
                 <outlet property="view" destination="9hK-nY-OwF" id="gfJ-uR-tfx"/>
@@ -32,7 +31,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="384" height="850"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Pma-1q-S3m">
-                                    <rect key="frame" x="0.0" y="0.0" width="384" height="205.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384" height="225.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXT-LO-KfN">
                                             <rect key="frame" x="0.0" y="0.0" width="384" height="20.5"/>
@@ -41,16 +40,16 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RqG-Cv-w5m" customClass="WorkoutPartChartView" customModule="WorkoutOfToday" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="25.5" width="384" height="180"/>
+                                            <rect key="frame" x="0.0" y="25.5" width="384" height="200"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="180" id="Wzr-TD-HGS"/>
+                                                <constraint firstAttribute="height" constant="200" id="Wzr-TD-HGS"/>
                                             </constraints>
                                         </view>
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="x9y-LF-n04">
-                                    <rect key="frame" x="0.0" y="225.5" width="384" height="444"/>
+                                    <rect key="frame" x="0.0" y="245.5" width="384" height="274"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="oNd-0g-73S">
                                             <rect key="frame" x="0.0" y="0.0" width="384" height="28"/>
@@ -69,7 +68,7 @@
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VP4-1Z-N8U">
-                                            <rect key="frame" x="0.0" y="33" width="384" height="411"/>
+                                            <rect key="frame" x="0.0" y="33" width="384" height="241"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="eHF-N8-eID">
                                                     <rect key="frame" x="0.0" y="0.0" width="384" height="32"/>
@@ -80,17 +79,10 @@
                                                     </segments>
                                                 </segmentedControl>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1rl-GJ-3Xt" customClass="WorkoutVolumeChartView" customModule="WorkoutOfToday" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="41" width="384" height="180"/>
+                                                    <rect key="frame" x="0.0" y="41" width="384" height="200"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="180" id="IXj-KM-cWq"/>
-                                                    </constraints>
-                                                </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mFC-nx-hQ9" customClass="WorkoutOnermChartView" customModule="WorkoutOfToday" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="231" width="384" height="180"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="180" id="YEM-U3-Se4"/>
+                                                        <constraint firstAttribute="height" constant="200" id="IXj-KM-cWq"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>

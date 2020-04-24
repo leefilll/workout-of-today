@@ -12,7 +12,7 @@
 		BB12C88B2447343D007DFBC1 /* Pods_WorkoutOfToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1649F6C72DC0D20F9053D785 /* Pods_WorkoutOfToday.framework */; };
 		BB12C88C2447343D007DFBC1 /* Pods_WorkoutOfToday.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1649F6C72DC0D20F9053D785 /* Pods_WorkoutOfToday.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BB12C8A82447441E007DFBC1 /* BasicSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB12C8A72447441E007DFBC1 /* BasicSectionHeaderView.swift */; };
-		BB206F9C24503F8500057CDB /* TodayWorkoutSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB206F9B24503F8500057CDB /* TodayWorkoutSectionHeaderView.xib */; };
+		BB206F9C24503F8500057CDB /* TodayWorkoutSectionHeaderView1.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB206F9B24503F8500057CDB /* TodayWorkoutSectionHeaderView1.xib */; };
 		BB206FA02450776600057CDB /* PopupPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB206F9F2450776600057CDB /* PopupPresentationController.swift */; };
 		BB206FC624508D9600057CDB /* TodayAddWorkoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB206FC524508D9600057CDB /* TodayAddWorkoutViewController.xib */; };
 		BB2E75422447752E006108F5 /* UIButton+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2E75412447752E006108F5 /* UIButton+Color.swift */; };
@@ -76,7 +76,7 @@
 		BBD5FE3F244D77C700E5C8E7 /* HighlightsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD5FE3E244D77C700E5C8E7 /* HighlightsTableViewCell.swift */; };
 		BBD5FE41244D7B0200E5C8E7 /* SummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD5FE40244D7B0200E5C8E7 /* SummaryTableViewCell.xib */; };
 		BBD5FE43244D7D4300E5C8E7 /* HighlightsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD5FE42244D7D4300E5C8E7 /* HighlightsTableViewCell.xib */; };
-		BBD5FE45244D8C4500E5C8E7 /* TodayWorkoutSectionHeaderView3.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD5FE44244D8C4500E5C8E7 /* TodayWorkoutSectionHeaderView3.xib */; };
+		BBD5FE45244D8C4500E5C8E7 /* TodayWorkoutSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBD5FE44244D8C4500E5C8E7 /* TodayWorkoutSectionHeaderView.xib */; };
 		BBD5FE47244D8C6900E5C8E7 /* TodayWorkoutSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD5FE46244D8C6900E5C8E7 /* TodayWorkoutSectionHeaderView.swift */; };
 		BBF68245244B4D01009EC0EA /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF68244244B4D01009EC0EA /* CalendarViewController.swift */; };
 		BBF68247244B4D11009EC0EA /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF68246244B4D11009EC0EA /* BaseView.swift */; };
@@ -131,7 +131,7 @@
 		BB12C89F24473CAE007DFBC1 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB12C8A024473CAE007DFBC1 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB12C8A72447441E007DFBC1 /* BasicSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSectionHeaderView.swift; sourceTree = "<group>"; };
-		BB206F9B24503F8500057CDB /* TodayWorkoutSectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayWorkoutSectionHeaderView.xib; sourceTree = "<group>"; };
+		BB206F9B24503F8500057CDB /* TodayWorkoutSectionHeaderView1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayWorkoutSectionHeaderView1.xib; sourceTree = "<group>"; };
 		BB206F9F2450776600057CDB /* PopupPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupPresentationController.swift; sourceTree = "<group>"; };
 		BB206FC524508D9600057CDB /* TodayAddWorkoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayAddWorkoutViewController.xib; sourceTree = "<group>"; };
 		BB2E75412447752E006108F5 /* UIButton+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Color.swift"; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 		BBD5FE3E244D77C700E5C8E7 /* HighlightsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsTableViewCell.swift; sourceTree = "<group>"; };
 		BBD5FE40244D7B0200E5C8E7 /* SummaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SummaryTableViewCell.xib; sourceTree = "<group>"; };
 		BBD5FE42244D7D4300E5C8E7 /* HighlightsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HighlightsTableViewCell.xib; sourceTree = "<group>"; };
-		BBD5FE44244D8C4500E5C8E7 /* TodayWorkoutSectionHeaderView3.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayWorkoutSectionHeaderView3.xib; sourceTree = "<group>"; };
+		BBD5FE44244D8C4500E5C8E7 /* TodayWorkoutSectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayWorkoutSectionHeaderView.xib; sourceTree = "<group>"; };
 		BBD5FE46244D8C6900E5C8E7 /* TodayWorkoutSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWorkoutSectionHeaderView.swift; sourceTree = "<group>"; };
 		BBF68244244B4D01009EC0EA /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		BBF68246244B4D11009EC0EA /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
@@ -435,8 +435,8 @@
 		BBC65CA0244DCB0F006F0ADB /* Nibs */ = {
 			isa = PBXGroup;
 			children = (
-				BBD5FE44244D8C4500E5C8E7 /* TodayWorkoutSectionHeaderView3.xib */,
-				BB206F9B24503F8500057CDB /* TodayWorkoutSectionHeaderView.xib */,
+				BBD5FE44244D8C4500E5C8E7 /* TodayWorkoutSectionHeaderView.xib */,
+				BB206F9B24503F8500057CDB /* TodayWorkoutSectionHeaderView1.xib */,
 				BB96FD5F2444981200E8DE10 /* WorkoutTableViewCell.xib */,
 				BB91CD1124448B0900342CFC /* WorkoutSetTableViewCell.xib */,
 				BBC65C9A244DA2D7006F0ADB /* WorkoutSetAddFooterView.xib */,
@@ -592,7 +592,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB206F9C24503F8500057CDB /* TodayWorkoutSectionHeaderView.xib in Resources */,
+				BB206F9C24503F8500057CDB /* TodayWorkoutSectionHeaderView1.xib in Resources */,
 				BB96FD602444981200E8DE10 /* WorkoutTableViewCell.xib in Resources */,
 				BB206FC624508D9600057CDB /* TodayAddWorkoutViewController.xib in Resources */,
 				BB91CD0624445DA800342CFC /* WorkoutAddHeaderView.xib in Resources */,
@@ -603,7 +603,7 @@
 				BB91CD1224448B0900342CFC /* WorkoutSetTableViewCell.xib in Resources */,
 				BBC65C9B244DA2D7006F0ADB /* WorkoutSetAddFooterView.xib in Resources */,
 				BBD5FE41244D7B0200E5C8E7 /* SummaryTableViewCell.xib in Resources */,
-				BBD5FE45244D8C4500E5C8E7 /* TodayWorkoutSectionHeaderView3.xib in Resources */,
+				BBD5FE45244D8C4500E5C8E7 /* TodayWorkoutSectionHeaderView.xib in Resources */,
 				BB77E9BB2451662500C7C4B5 /* ChartsViewController.xib in Resources */,
 				BBD5FE43244D7D4300E5C8E7 /* HighlightsTableViewCell.xib in Resources */,
 				BB8BB769243CBA0400774EA9 /* Assets.xcassets in Resources */,

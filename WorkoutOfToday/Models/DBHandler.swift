@@ -130,7 +130,7 @@ extension DBHandler {
         return mostFrequentWorkouts
     }
     
-    fileprivate func fetcthMostFrequentParts(workouts: Results<Workout>) -> [Int] {
+    fileprivate func fetcthPartsByCount(workouts: Results<Workout>) -> [Int] {
         let numberOfPart = Part.allCases.count
         var mostFrequentParts = [Int](repeating: 0, count: numberOfPart)
         
@@ -142,10 +142,10 @@ extension DBHandler {
     }
     
     /// Note that index of this array means Part.rawValue
-    func fetchPercentageOfWorkoutPart() -> [Int] {
+    func fetchWorkoutPartInPercentage() -> [Int] {
         let totalWorkouts = DBHandler.shared.fetchObjects(ofType: Workout.self)
         
-        let mostFrequentParts = fetcthMostFrequentParts(workouts: totalWorkouts)
+        let mostFrequentParts = fetcthPartsByCount(workouts: totalWorkouts)
         let numberOfWorkouts = totalWorkouts.count
         
         var percentagesOfWorkoutPart = [Int](repeating: 0, count: mostFrequentParts.count)
@@ -156,11 +156,40 @@ extension DBHandler {
         return percentagesOfWorkoutPart
     }
     
-    func fetch(workoutName: String) {
-        let totalWorkouts = DBHandler.shared.fetchObjects(ofType: Workout.self).filter("name == %@", workoutName)
+    /// fetch all workouts after period.rawvalue months before today
+    fileprivate func fetchWorkoutsByPeriod(workoutName: String, period: Period) -> Results<Workout> {
+        let beginningDate = period == .entire ?
+            Date(timeIntervalSince1970: 0) : Date.now.dateFromMonths(-period.rawValue)
+        let workouts = DBHandler.shared.fetchObjects(ofType: Workout.self).filter("name == %@ AND createdDateTime <= %@", workoutName, beginningDate)
+        let sortedWorkouts = workouts.sorted(byKeyPath: "createdDateTime")
         
-        let sortedWorkouts = totalWorkouts.sorted(byKeyPath: "createdDateTime")
-        
+        return sortedWorkouts
     }
     
+    func fechWorkoutVolumeByPeriod(workoutName: String, period: Period) -> [(date: Date, volume: Int)] {
+        let sortedWorkout = fetchWorkoutsByPeriod(workoutName: workoutName, period: period)
+        
+        var volumesByDate: [(date: Date, volume: Int)] = []
+        sortedWorkout.forEach {
+            let dateWithVolume = (date: $0.createdDateTime, volume: $0.totalVolume)
+            volumesByDate.append(dateWithVolume)
+        }
+        
+        return volumesByDate
+    }
+    
+    // MARK: TODO - Onerm Calulator
+//
+//    func fetchWorkoutOnermByPeriod(workoutName: String, period: Period) -> [(date: Date, volume: Int)] {
+//        let sortedWorkout = fetchWorkoutsByPeriod(workoutName: workoutName, period: period)
+//
+//        var onermByDate: [(date: Date, volume: Int)] = []
+//        sortedWorkout.forEach {
+//            let dateWithVolume = (date: $0.createdDateTime, volume: $0.totalVolume)
+//            volumesByDate.append(dateWithVolume)
+//        }
+//
+//        return volumesByDate
+//
+//    }
 }

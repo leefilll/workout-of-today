@@ -16,17 +16,14 @@ final class WorkoutSetTableViewCell: BaseTableViewCell {
     
     var workoutSet: WorkoutSet? {
         didSet {
+            fillTextField()
             setNeedsDisplay()
         }
     }
     
     var isCompleted: Bool = false {
         didSet {
-            if self.isCompleted {
-                self.contentView.alpha = 1.0
-            } else {
-                self.contentView.alpha = 0.7
-            }
+            updateButton()
         }
     }
     
@@ -60,25 +57,71 @@ final class WorkoutSetTableViewCell: BaseTableViewCell {
         weightTextField.backgroundColor = .concaveColor
         weightTextField.layer.cornerRadius = 10
         weightTextField.delegate = self
-        weightTextField.font = .body
+        weightTextField.font = .boldBody
         
         repsTextField.backgroundColor = .concaveColor
         repsTextField.layer.cornerRadius = 10
         repsTextField.delegate = self
-        repsTextField.font = .body
+        repsTextField.font = .boldBody
         
-        completeButton.backgroundColor = UIColor.tintColor.withAlphaComponent(0.1)
         completeButton.setTitle("완료", for: .normal)
+        completeButton.setTitleColor(.tintColor, for: .normal)
         completeButton.setTitle("취소", for: .selected)
+        completeButton.setTitleColor(.white, for: .selected)
         
+        completeButton.addTarget(self, action: #selector(completeButtonDidTapped(_:)), for: .touchUpInside)
         
-        self.weightTextField.addToolbar(onDone: (target: self,
-                                                 title: "다음",
-                                                 action: #selector(nextDidTapped(_:))))
-        self.repsTextField.addToolbar(onDone: (target: self,
-                                               title: "확인",
-                                               action: #selector(doneDidTapped(_:))))
+        fillTextField()
+        
+        weightTextField.addToolbar(onDone: (target: self,
+                                            title: "다음",
+                                            action: #selector(nextDidTapped(_:))))
+        repsTextField.addToolbar(onDone: (target: self,
+                                          title: "확인",
+                                          action: #selector(doneDidTapped(_:))))
 
+    }
+    
+    fileprivate func fillTextField() {
+        if let workoutSet = workoutSet {
+            let weight = workoutSet.weight
+            let reps = workoutSet.reps
+            weightTextField.text = weight != 0 ? "\(workoutSet.weight)" : nil
+            repsTextField.text = reps != 0 ? "\(workoutSet.reps)" : nil
+        }
+    }
+}
+
+// MARK: objc functions
+
+extension WorkoutSetTableViewCell {
+    @objc func nextDidTapped(_ sender: UIBarButtonItem) {
+        repsTextField.becomeFirstResponder()
+    }
+    
+    @objc func doneDidTapped(_ sender: UIBarButtonItem) {
+        repsTextField.resignFirstResponder()
+        
+        if repsTextField.text == nil {
+            return
+        }
+        
+        isCompleted = true
+    }
+    
+    @objc func completeButtonDidTapped(_ sender: UIButton) {
+        isCompleted = !isCompleted
+    }
+    
+    fileprivate func updateButton() {
+        completeButton.isSelected = !completeButton.isSelected
+        if isCompleted {
+            completeButton.backgroundColor = .tintColor
+            weightTextField.textColor = .lightGray
+            repsTextField.textColor = .lightGray
+        } else {
+            completeButton.backgroundColor = .weakTintColor
+        }
     }
 }
 
@@ -86,36 +129,30 @@ final class WorkoutSetTableViewCell: BaseTableViewCell {
 // MARK: TextField Delegate
 
 extension WorkoutSetTableViewCell: UITextFieldDelegate {
-    @objc func nextDidTapped(_ sender: UIBarButtonItem) {
-        self.repsTextField.becomeFirstResponder()
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+
+        switch textField {
+            case weightTextField:
+                if let weight = Int(text) {
+                    DBHandler.shared.write {
+                        workoutSet?.weight = weight
+                    }
+                }
+            break
+            case repsTextField:
+                if let reps = Int(text) {
+                    DBHandler.shared.write {
+                        workoutSet?.reps = reps
+                    }
+                }
+            break
+            default:
+            break
+        }
     }
-    
-    @objc func doneDidTapped(_ sender: UIBarButtonItem) {
-        self.repsTextField.resignFirstResponder()
-        self.isCompleted = true
-    }
-//
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        guard let text = textField.text else { return }
-//
-//        switch textField {
-//            case weightTextField:
-//                if let weight = Int(text), let indexPath = self.indexPath {
-//                    delegate?.workoutSetCellDidEndEditingIn(indexPath: indexPath,
-//                                                            toWeight: weight)
-//                }
-//            break
-//            case repsTextField:
-//                if let reps = Int(text), let indexPath = self.indexPath {
-//                    delegate?.workoutSetCellDidEndEditingIn(indexPath: indexPath,
-//                                                            toReps: reps)
-//                }
-//            break
-//            default:
-//            break
-//        }
-//    }
-//
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let charSet = CharacterSet(charactersIn: "0123456789.").inverted
         if let _ = string.rangeOfCharacter(from: charSet) {
