@@ -32,8 +32,8 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .defaultBackgroundColor
-        
+        addObserverForKeyboard()
+        view.backgroundColor = .defaultBackgroundColor
     }
     
     public func configureNavigationBar() {
@@ -43,7 +43,6 @@ class BaseViewController: UIViewController {
             navigationBar.shadowImage = UIImage()
             title = self.navigationBarTitle
         }
-
     }
     
     public func showBasicAlert(title: String?, message: String?) {
@@ -74,12 +73,36 @@ class BaseViewController: UIViewController {
     public func postNotification(_ NotificationName: NSNotification.Name) {
         NotificationCenter.default .post(name: NotificationName, object: nil)
     }
-}
-
-// MARK: ModalDidDismissedNotification
-
-extension NSNotification.Name {
-    static let WorkoutDidModifiedNotification = NSNotification.Name(rawValue: "WorkoutDidModifiedNotification")
+    
+    // MARK: Notification for Keyboard
+    
+    public func addObserverForKeyboard() {
+           NotificationCenter
+               .default
+               .addObserver(forName: UIResponder.keyboardWillShowNotification,
+                            object: nil,
+                            queue: OperationQueue.main) { [weak self] noti in
+                               guard let userInfo = noti.userInfo else { return }
+                               guard let bounds = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+                               
+                                self?.keyboardWillShow(bounds: bounds)
+           }
+           
+           NotificationCenter
+               .default
+               .addObserver(forName: UIResponder.keyboardWillHideNotification,
+                            object: nil,
+                            queue: OperationQueue.main) { [weak self] noti in
+                                self?.keyboardWillHide()
+           }
+       }
+    
+    public func keyboardWillShow(bounds: CGRect? = nil) {
+    }
+    
+    public func keyboardWillHide() {
+        
+    }
 }
 
 // MARK: Width for string

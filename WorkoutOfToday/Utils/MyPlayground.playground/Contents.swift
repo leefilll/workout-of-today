@@ -4,6 +4,6 @@ import Foundation
 
 
 
+var a = "3423.34"
 
-let c = Calendar.current
-print(c.date(byAdding: .month, value: -3, to: Date()))
+print(Double(a))

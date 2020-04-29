@@ -49,8 +49,8 @@ extension UICollectionView {
                       forCellWithReuseIdentifier: String(describing: T.self))
     }
     
-    func registerByNib<T: UITableViewCell>(_ cellClass: T.Type) {
-        let nibName = String(describing: type(of: self))
+    func registerByNib<T: UICollectionViewCell>(_ cellClass: T.Type) {
+        let nibName = String(describing: T.self)
         let reuseIdentifier = String(describing: T.self)
         self.register(UINib(nibName: nibName, bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
     }

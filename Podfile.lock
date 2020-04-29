@@ -5,9 +5,10 @@ PODS:
   - ChartsRealm (3.4.0):
     - Charts (~> 3.4.0)
     - RealmSwift (~> 3.18.0)
+  - DZNEmptyDataSet (1.8.1)
   - EasyTipView (2.0.4)
   - FSCalendar (2.8.1)
-  - Presentr (1.9)
+  - IHKeyboardAvoiding (4.7)
   - Realm (3.18.0):
     - Realm/Headers (= 3.18.0)
   - Realm/Headers (3.18.0)
@@ -18,9 +19,10 @@ PODS:
 DEPENDENCIES:
   - Charts
   - ChartsRealm
+  - DZNEmptyDataSet
   - EasyTipView
   - FSCalendar
-  - Presentr
+  - IHKeyboardAvoiding
   - RealmSwift
   - SnapKit
 
@@ -28,9 +30,10 @@ SPEC REPOS:
   trunk:
     - Charts
     - ChartsRealm
+    - DZNEmptyDataSet
     - EasyTipView
     - FSCalendar
-    - Presentr
+    - IHKeyboardAvoiding
     - Realm
     - RealmSwift
     - SnapKit
@@ -38,13 +41,14 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   ChartsRealm: 2ae8bf478211a94b3b6dd20738db0b9b132eb66b
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   EasyTipView: 4f8beae0a82db2ca4a9b5fd658785fc5f61d296b
   FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
-  Presentr: 7078d7eb5d1661ebeaae60c9e42a1e534de1b993
+  IHKeyboardAvoiding: 4cae0880c3975feffa278495df894c5166e71ad0
   Realm: 7b3d04740facf45e958a514b466a32b04f1113d6
   RealmSwift: c817b5f374668cf08f649afb05f55d92a787649c
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: b62d94f341b3b75d6d3bce19bc2b85394bc4e417
+PODFILE CHECKSUM: 865164d342902c43e99afc156d85eea9de3eba2e
 
 COCOAPODS: 1.8.4

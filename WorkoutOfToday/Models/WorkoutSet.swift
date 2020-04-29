@@ -11,7 +11,7 @@ import RealmSwift
 
 final class WorkoutSet: Object, NSCopying {
     
-    @objc dynamic var weight: Int = 0
+    @objc dynamic var weight: Double = 0
     @objc dynamic var reps: Int = 0
     @objc private dynamic var _degree: Degree.RawValue = Degree.none.rawValue
     @objc dynamic var id = UUID().uuidString
@@ -26,8 +26,13 @@ final class WorkoutSet: Object, NSCopying {
         }
     }
     
-    public var volume: Int {
-            return self.weight * self.reps
+    public var rm: Double {
+        // MARK: 1RM = W×(1+R/30) - Epley formal
+        return weight * (1 + Double(reps) / 30)
+    }
+    
+    public var volume: Double {
+        return self.weight * Double(self.reps)
     }
     
     public func copy(with zone: NSZone? = nil) -> Any {

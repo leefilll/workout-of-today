@@ -10,7 +10,10 @@ target 'WorkoutOfToday' do
   pod 'FSCalendar'
   pod 'Charts'
   pod 'ChartsRealm'
-  pod 'Presentr'
+  pod 'DZNEmptyDataSet'
+  pod 'IHKeyboardAvoiding'
+#pod 'Presentr'
+#pod 'ExpandableCell'
 
   # Pods for WorkoutOfToday
 

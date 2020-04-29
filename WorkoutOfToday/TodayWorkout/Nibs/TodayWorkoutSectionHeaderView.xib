@@ -23,7 +23,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="354" height="35"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9aa-Ue-OTT" userLabel="NameLabel">
-                                            <rect key="frame" x="0.0" y="0.0" width="264" height="35"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="309" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="35" id="CmP-C5-8TU"/>
                                             </constraints>
@@ -32,7 +32,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6QP-Dj-6ca" userLabel="ButtonsStackView">
-                                            <rect key="frame" x="269" y="6.5" width="85" height="22"/>
+                                            <rect key="frame" x="314" y="6.5" width="40" height="22"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UUM-TN-DBH" customClass="WorkoutPartButton" customModule="WorkoutOfToday" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="40" height="22"/>
@@ -43,8 +43,8 @@
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                     <state key="normal" title="Button"/>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dRE-aX-kkQ" customClass="WorkoutEquipmentButton" customModule="WorkoutOfToday" customModuleProvider="target">
-                                                    <rect key="frame" x="45" y="0.0" width="40" height="22"/>
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dRE-aX-kkQ" customClass="WorkoutEquipmentButton" customModule="WorkoutOfToday" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="5CE-v4-61H"/>
                                                         <constraint firstAttribute="width" constant="40" id="ODh-hw-8uq"/>
@@ -72,16 +72,16 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EGY-QC-Gqp">
-                                            <rect key="frame" x="50" y="0.0" width="244" height="20"/>
+                                            <rect key="frame" x="50" y="0.0" width="269" height="20"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="kg" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fhc-vA-lew">
-                                                    <rect key="frame" x="0.0" y="0.0" width="117" height="20"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="129.5" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="reps" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4IC-h2-OuT">
-                                                    <rect key="frame" x="127" y="0.0" width="117" height="20"/>
+                                                    <rect key="frame" x="139.5" y="0.0" width="129.5" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -89,9 +89,9 @@
                                             </subviews>
                                         </stackView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bku-oQ-nYn">
-                                            <rect key="frame" x="314" y="0.0" width="40" height="20"/>
+                                            <rect key="frame" x="339" y="0.0" width="15" height="20"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="40" id="PdL-BM-0XQ"/>
+                                                <constraint firstAttribute="width" constant="15" id="PdL-BM-0XQ"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -114,7 +114,6 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="hJB-8c-H2H" firstAttribute="leading" secondItem="ykQ-X5-Nf5" secondAttribute="leading" constant="15" id="Ty8-LR-9he"/>
                 <constraint firstAttribute="trailing" secondItem="hJB-8c-H2H" secondAttribute="trailing" constant="15" id="ZC5-pS-su9"/>

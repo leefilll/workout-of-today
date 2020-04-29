@@ -26,8 +26,7 @@ class WorkoutPartChartView: BaseCardView {
     
     fileprivate weak var pieChartView: PieChartView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func setup() {
         setupChartView()
         updateChartWithData()
     }
@@ -68,7 +67,6 @@ class WorkoutPartChartView: BaseCardView {
         data.setValueFont(valueFont)
         data.setValueTextColor(.white)
         
-        
         let l = pieChartView.legend
         l.horizontalAlignment = .right
         l.verticalAlignment = .center
@@ -80,14 +78,13 @@ class WorkoutPartChartView: BaseCardView {
         pieChartView.data = data
         pieChartView.highlightValues(nil)
         pieChartView.sizeToFit()
-//        pieChartView.drawHoleEnabled = false
         pieChartView.drawEntryLabelsEnabled = false
         pieChartView.chartDescription?.enabled = false
         pieChartView.notifyDataSetChanged()
     }
     
     func animateChart() {
-        pieChartView.animate(yAxisDuration: 0.7)
+        pieChartView.animate(yAxisDuration: 0.8)
     }
 }
 
@@ -105,8 +102,6 @@ extension WorkoutPartChartView: IValueFormatter {
         pFormatter.maximumFractionDigits = 1
         pFormatter.multiplier = 1
         pFormatter.percentSymbol = " %"
-        
-        
         
         let formattedString = pFormatter.string(from: NSNumber(value: value))
         return formattedString ?? ""

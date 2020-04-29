@@ -14,133 +14,198 @@ class TodayAddWorkoutViewController: BaseViewController {
     
     // MARK: Model
     
+    fileprivate var dummyData: [Workout] = {
+        var lst = [Workout]()
+        
+        let workout1 = Workout()
+        workout1.part = Part.back
+        workout1.name = "존나긴 데드리프트"
+        
+        let workout2 = Workout()
+        workout2.part = Part.chest
+        workout2.name = "평범한 벤치프"
+        
+        let workout3 = Workout()
+        workout3.part = Part.legs
+        workout3.name = "Squat"
+        
+        let workout4 = Workout()
+        workout4.part = Part.core
+        workout4.name = "Squatdfsf"
+        
+        let workout5 = Workout()
+        workout5.part = Part.chest
+        workout5.name = "dfsdfsfs"
+        
+        let workout6 = Workout()
+        workout6.part = Part.shoulder
+        workout6.name = "Mlirary Press"
+        
+        let workout7 = Workout()
+        workout7.part = Part.body
+        workout7.name = "Squatdfsf"
+        
+        lst.append(workout1)
+        lst.append(workout2)
+        lst.append(workout3)
+        lst.append(workout4)
+        lst.append(workout5)
+        lst.append(workout6)
+        lst.append(workout7)
+        
+        return lst
+    }()
+    
     var tempWorkout: Workout! {         // temporary workout for settings
         didSet {
-            equipmentButton.equipment = tempWorkout.equipment
-            nameTextField.text = tempWorkout.name
-            partButton.part = tempWorkout.part
             view.layoutIfNeeded()
         }
     }
     
-    var workoutsOfDay: WorkoutsOfDay!   // passed by TodayVC
+    var workoutsOfDay: WorkoutsOfDay?   // passed from TodayVC
     
     var recentWorkouts: [Workout]?      // recent Objects for collectionView
     
+    fileprivate var tapGestureRecognizer: UITapGestureRecognizer!
+
+    fileprivate var panGestureRecognizer: UIPanGestureRecognizer!
+    
+    fileprivate var originMinY: CGFloat!
+    
+    fileprivate var originMaxY: CGFloat!
+    
+    fileprivate var minimumVelocityToHide: CGFloat = 1200
+    
+    fileprivate var minimumScreenRatioToHide: CGFloat = 0.3
+    
+    fileprivate var animationDuration: TimeInterval = 0.2
+    
     // MARK: View
     
-    weak var workoutAddButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
     
-    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var closeButton: BaseButton!
     
-    @IBOutlet weak var partButton: WorkoutPartButton!
-    
-    @IBOutlet weak var equipmentButton: WorkoutEquipmentButton!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var recentDescLabel: UILabel!
     
     @IBOutlet weak var recentCollectionView: UICollectionView!
     
-    deinit {
-        print(#function + " " + String(describing: type(of: self)))
-        print(#function + " " + String(describing: type(of: self)))
-        print(#function + " " + String(describing: type(of: self)))
-        print(#function + " " + String(describing: type(of: self)))
-    }
+    @IBOutlet weak var handleView: UIView!
     
     override func setup() {
-//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(containerViewDidTapped(_:)))
+        tapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                      action: #selector(containerViewDidTapped(_:)))
 //        view.addGestureRecognizer(tapGestureRecognizer)
         
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
+        handleView.backgroundColor = .lightGray
+        handleView.clipsToBounds = true
+        handleView.layer.cornerRadius = 3.5
         tempWorkout = Workout()
         
-        setupWorkoutAddButton()
-        setupTextField()
-        setupButtons()
+        setupLabels()
+        setupCloseButton()
         setupCollectionView()
+        setupPanGestureRecognizer()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        addObserverForKeyboard()
     }
     
-    fileprivate func setupWorkoutAddButton() {
-        let workoutAddButton = UIButton()
-        workoutAddButton.setBackgroundColor(.tintColor, for: .normal)
-        workoutAddButton.setBackgroundColor(UIColor.tintColor.withAlphaComponent(0.7),
-                                            for: .highlighted)
-        workoutAddButton.setBackgroundColor(.lightGray, for: .disabled)
-        workoutAddButton.setTitle("운동 추가", for: .normal)
-        workoutAddButton.titleLabel?.textAlignment = .center
-        workoutAddButton.titleLabel?.font = .smallBoldTitle
-        workoutAddButton.clipsToBounds = true
-        workoutAddButton.layer.cornerRadius = 10
-
-        workoutAddButton.addTarget(self,
-                                   action: #selector(workoutAddButtonDidTapped(_:)),
-                                   for: .touchUpInside)
-
-        view.addSubview(workoutAddButton)
-        self.workoutAddButton = workoutAddButton
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        originMinY = view.frame.minY
+        originMaxY = view.frame.maxY
     }
     
-    fileprivate func setupTextField() {
-        nameTextField.clipsToBounds = true
-        nameTextField.layer.cornerRadius = 10
-        
-        nameTextField.font = .boldTitle
-        nameTextField.placeholder = "운동 이름"
-        nameTextField.minimumFontSize = UIFont.boldTitle.pointSize
-        nameTextField.backgroundColor = .concaveColor
-    }
-    
-    fileprivate func setupButtons() {
-        // Connect with tempWorkout
-    }
-    
-    fileprivate func setupCollectionView() {
-        recentWorkouts = DBHandler.shared.fetchRecentObjects(ofType: Workout.self)
+    fileprivate func setupLabels() {
+        titleLabel.font = .boldTitle
+        titleLabel.text = "운동 추가"
         
         recentDescLabel.font = .description
         recentDescLabel.textColor = .lightGray
         recentDescLabel.text = "최근 운동"
+    }
+    
+    fileprivate func setupCloseButton() {
+        closeButton.setTitle("닫기" , for: .normal)
+        closeButton.addTarget(self, action: #selector(dismiss(_:)), for: .touchUpInside)
+    }
+    
+    fileprivate func setupCollectionView() {
+//        recentWorkouts = DBHandler.shared.fetchRecentObjects(ofType: Workout.self)
         
+        if let layout = recentCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.minimumLineSpacing = 0
+            layout.minimumInteritemSpacing = 0
+            layout.itemSize = CGSize(width: 105, height: 130)
+        }
         recentCollectionView.delegate = self
         recentCollectionView.dataSource = self
-        recentCollectionView.register(RecentWorkoutCollectionViewCell.self)
         recentCollectionView.delaysContentTouches = false
-        
+        recentCollectionView.registerByNib(TodayWorkoutAddCollectionViewCell.self)
+    }
+    
+    fileprivate func setupPanGestureRecognizer() {
+        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureDidTapped(_:)))
+        view.addGestureRecognizer(panGestureRecognizer)
     }
 
 }
 
+// MARK: objc functions
+
 extension TodayAddWorkoutViewController {
     @objc
     func containerViewDidTapped(_ sender: UITapGestureRecognizer) {
-        nameTextField.resignFirstResponder()
-    }
-    
-    @objc
-    func workoutAddButtonDidTapped(_ sender: UIButton) {
-        guard let text = nameTextField.text else { return }
-        if text == "" {
-            showBasicAlert(title: "운동 이름을 입력해주세요", message: nil)
-            return
-        }
-        DBHandler.shared.write {
-            self.workoutsOfDay.workouts.append(tempWorkout)
-        }
-        
-        dismiss(nil)
+        view.endEditing(true)
     }
     
     @objc
     func dismiss(_ sender: UITapGestureRecognizer?) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc
+    func panGestureDidTapped(_ sender: UIPanGestureRecognizer) {
+        func slideViewVerticallyTo(_ y: CGFloat) {
+            view.frame.origin = CGPoint(x: 0, y: y)
+        }
+        
+        switch sender.state {
+            case .began, .changed:
+                let translation = sender.translation(in: view)
+                let y = max(originMinY, originMinY + translation.y)
+                slideViewVerticallyTo(y)
+            case .ended:
+                let translation = sender.translation(in: view)
+                let velocity = sender.velocity(in: view)
+                let closing = (translation.y > view.frame.height * minimumScreenRatioToHide) ||
+                    (velocity.y > minimumVelocityToHide)
+                
+                if closing {
+                    UIView.animate(withDuration: animationDuration, animations: {
+                        slideViewVerticallyTo(self.originMaxY)
+                    }, completion: { (isCompleted) in
+                        if isCompleted {
+                            self.dismiss(animated: false, completion: nil)
+                        }
+                    })
+                } else {
+                    UIView.animate(withDuration: animationDuration, animations: {
+                        slideViewVerticallyTo(self.originMinY)
+                    })
+            }
+            default:
+                UIView.animate(withDuration: animationDuration, animations: {
+                    slideViewVerticallyTo(self.originMinY)
+                })
+        }
     }
 }
 
@@ -148,24 +213,22 @@ extension TodayAddWorkoutViewController {
 
 extension TodayAddWorkoutViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(#function)
-        print(#function)
-        print(#function)
-        print(#function)
-        guard let selectedWorkout = recentWorkouts?[indexPath.item] else {
-            print("Return")
-            print("Return")
-            print("Return")
-            print("Return")
-            print("Return")
-            return
-            
+        let selectedWorkout = dummyData[indexPath.item]
+        guard let newWorkout = selectedWorkout.copy() as? Workout else { return }
+        if let workoutsOfDay = workoutsOfDay {
+            // if WOD already exists
+            DBHandler.shared.write {
+                workoutsOfDay.workouts.append(newWorkout)
+            }
+        } else {
+            let newWorkoutsOfDay = WorkoutsOfDay()
+            DBHandler.shared.create(object: newWorkoutsOfDay)
+            DBHandler.shared.write {
+                newWorkoutsOfDay.workouts.append(newWorkout)
+            }
+            // MARK: Should fix this
         }
-        tempWorkout = selectedWorkout.copy() as? Workout
-        print(tempWorkout.name)
-        print(tempWorkout.name)
-        print(tempWorkout.name)
-        print(tempWorkout.name)
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -173,15 +236,14 @@ extension TodayAddWorkoutViewController: UICollectionViewDelegate {
 
 extension TodayAddWorkoutViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recentWorkouts?.count ?? 0
+        return dummyData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(RecentWorkoutCollectionViewCell.self,
+        let cell = collectionView.dequeueReusableCell(TodayWorkoutAddCollectionViewCell.self,
                                                       for: indexPath)
-        let workout = recentWorkouts?[indexPath.row]
-        cell.workout = workout
         
+        cell.workout = dummyData[indexPath.item]
         return cell
     }
 }
@@ -190,20 +252,21 @@ extension TodayAddWorkoutViewController: UICollectionViewDataSource {
 
 extension TodayAddWorkoutViewController: UICollectionViewDelegateFlowLayout {
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        guard let workout = recentWorkouts?[indexPath.item] else { return .zero }
-
-        let workoutName = workout.name
-        let itemSize = workoutName.size(withAttributes: [
-            NSAttributedString.Key.font : UIFont.boldBody
-        ])
-
-        let extraWidth: CGFloat = 30
-
-        return CGSize(width: itemSize.width + extraWidth,
-                      height: Size.recentCollectionViewHeight)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+////        guard let workout = recentWorkouts?[indexPath.item] else { return .zero }
+//        let workout = dummyData[indexPath.item]
+//
+//        let workoutName = workout.name
+//        let itemSize = workoutName.size(withAttributes: [
+//            NSAttributedString.Key.font : UIFont.smallBoldTitle
+//        ])
+//
+//        let extraWidth: CGFloat = 65
+//
+//        return CGSize(width: itemSize.width + extraWidth,
+//                      height: Size.AddCollectionViewHeight)
+//    }
 }
 
 
@@ -218,45 +281,5 @@ extension TodayAddWorkoutViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-}
-
-// MARK: Notification for Keyboard
-
-extension TodayAddWorkoutViewController {
-    func addObserverForKeyboard() {
-        NotificationCenter
-            .default
-            .addObserver(forName: UIResponder.keyboardWillShowNotification,
-                         object: nil,
-                         queue: OperationQueue.main) { [weak self] noti in
-                            guard let self = self else { return }
-                            guard let userInfo = noti.userInfo else { return }
-                            guard let bounds = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-                            
-                            let buttonTargetY = bounds.minY - self.workoutAddButton.bounds.height - 10
-                            let viewTargetY = bounds.minY - self.view.bounds.height - 20
-                            
-                            UIView.animate(withDuration: 0.3) {
-                                self.view.frame.origin.y = viewTargetY
-                                self.workoutAddButton.frame.origin.y = buttonTargetY
-                            }
-        }
-        
-        NotificationCenter
-            .default
-            .addObserver(forName: UIResponder.keyboardWillHideNotification,
-                         object: nil,
-                         queue: OperationQueue.main) { [weak self] noti in
-                            guard let self = self else { return }
-                            
-                            var targetFrame = self.workoutAddButton.frame
-                            targetFrame.origin.y = self.view.frame.maxY + 10
-                            
-                            UIView.animate(withDuration: 0.3) {
-                                self.view.center = self.view.center
-                                self.workoutAddButton.frame = targetFrame
-                            }
-        }
     }
 }

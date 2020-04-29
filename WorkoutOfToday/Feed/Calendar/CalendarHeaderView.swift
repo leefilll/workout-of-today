@@ -44,7 +44,8 @@ class CalendarHeaderView: BaseView {
         
         addSubview(calendar)
         calendar.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
+            make.leading.equalToSuperview().offset(Inset.paddingHorizontal)
+            make.trailing.equalToSuperview().offset(-Inset.paddingHorizontal)
             make.top.equalToSuperview().offset(30)
             make.bottom.equalToSuperview().offset(-15)
         }
@@ -66,7 +67,7 @@ class CalendarHeaderView: BaseView {
         
         addSubview(button)
         button.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-Inset.paddingHorizontal)
             make.width.equalTo(55)
             make.height.equalTo(25)
             make.bottom.equalTo(calendar.snp.top).offset(-5)

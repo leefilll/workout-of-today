@@ -12,16 +12,25 @@ final class WorkoutPartButton: BaseButton {
     
     var part: Part? {
         didSet {
-            self.backgroundColor = self.part?.color.withAlphaComponent(0.2)
-            self.setTitleColor(self.part?.color, for: .normal)
-            self.setTitle(self.part?.description, for: .normal)
+            partDidUpdated()
+//            setNeedsDisplay()
         }
     }
         
     override func setup() {
         super.setup()
-        self.part = Part.none
-        self.setTitle("파트", for: .normal)
+        part = Part.none
+        setTitle("파트", for: .normal)
+    }
+    
+    fileprivate func partDidUpdated() {
+        if part == Part.none {
+            backgroundColor = part?.color.withAlphaComponent(0.2)
+        } else {
+            backgroundColor = part?.color.withAlphaComponent(0.9)
+        }
+        setTitleColor(.white, for: .normal)
+        setTitle(part?.description, for: .normal)
     }
 }
 
@@ -29,16 +38,21 @@ final class WorkoutEquipmentButton: BaseButton {
     
     var equipment: Equipment? {
         didSet {
-            self.backgroundColor = self.equipment?.color.withAlphaComponent(0.2)
-            self.setTitleColor(self.equipment?.color, for: .normal)
-            self.setTitle(self.equipment?.description, for: .normal)
+            equipmentDidUpdated()
+            setNeedsDisplay()
         }
     }
         
     override func setup() {
         super.setup()
-        self.equipment = Equipment.none
-        self.setTitle("도구", for: .normal)
+        equipment = Equipment.none
+        setTitle("도구", for: .normal)
+    }
+    
+    fileprivate func equipmentDidUpdated() {
+        backgroundColor = equipment?.color.withAlphaComponent(0.2)
+        setTitleColor(equipment?.color, for: .normal)
+        setTitle(equipment?.description, for: .normal)
     }
 }
 

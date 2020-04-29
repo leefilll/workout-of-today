@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileEditViewController" customModule="WorkoutOfToday" customModuleProvider="target">
+            <connections>
+                <outlet property="bmiLabel" destination="RoV-X8-GQ7" id="YrB-JP-5md"/>
+                <outlet property="bmiResultLabel" destination="AXn-BW-gM3" id="fr1-iX-MeE"/>
+                <outlet property="editProfileButton" destination="RSf-uX-DYF" id="SOj-ht-4gR"/>
+                <outlet property="heightTextField" destination="TKD-mQ-GNa" id="dOv-ge-rv8"/>
+                <outlet property="nameTextField" destination="iQk-m9-bbb" id="q3p-pG-jUd"/>
+                <outlet property="titleNavigationBar" destination="TU9-Wd-WaN" id="bhk-gS-R5s"/>
+                <outlet property="view" destination="iN0-l3-epB" id="bWD-PD-BFY"/>
+                <outlet property="weightTextField" destination="wHK-jz-psN" id="h0Y-pp-4Zs"/>
+                <outletCollection property="subtitleLabels" destination="7VN-tn-Dx3" collectionClass="NSMutableArray" id="PVa-b1-qU4"/>
+                <outletCollection property="subtitleLabels" destination="sNF-TM-7cv" collectionClass="NSMutableArray" id="PZh-dT-pB4"/>
+                <outletCollection property="subtitleLabels" destination="m2f-Ko-deg" collectionClass="NSMutableArray" id="J5g-X1-hrI"/>
+                <outletCollection property="textFields" destination="iQk-m9-bbb" collectionClass="NSMutableArray" id="CV5-Bu-ELm"/>
+                <outletCollection property="textFields" destination="TKD-mQ-GNa" collectionClass="NSMutableArray" id="HEY-sB-Hgb"/>
+                <outletCollection property="textFields" destination="wHK-jz-psN" collectionClass="NSMutableArray" id="JBh-hA-tBY"/>
+                <outletCollection property="unitLabels" destination="ELl-2r-gRF" collectionClass="NSMutableArray" id="a9L-nI-uah"/>
+                <outletCollection property="unitLabels" destination="WIV-NU-OrA" collectionClass="NSMutableArray" id="ggh-3n-3kr"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="613"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5nM-Nw-uUW">
+                    <rect key="frame" x="20" y="108" width="374" height="110"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZBa-JU-yE7">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7VN-tn-Dx3">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="50" id="y5C-kW-bfI"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iQk-m9-bbb" customClass="FormTextField" customModule="WorkoutOfToday" customModuleProvider="target">
+                                    <rect key="frame" x="60" y="0.0" width="274" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="4id-Jz-0Vo"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdB-L1-AGO">
+                                    <rect key="frame" x="344" y="0.0" width="30" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="OsS-59-yNo"/>
+                                        <constraint firstAttribute="width" constant="30" id="Vvh-yl-gHe"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cXd-TN-lLp">
+                            <rect key="frame" x="0.0" y="40" width="374" height="30"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNF-TM-7cv">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="50" id="NSy-J3-MmW"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TKD-mQ-GNa" customClass="FormTextField" customModule="WorkoutOfToday" customModuleProvider="target">
+                                    <rect key="frame" x="60" y="0.0" width="274" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="fKy-S3-O8N"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ELl-2r-gRF">
+                                    <rect key="frame" x="344" y="0.0" width="30" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="30" id="H0l-5b-bNK"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="t5c-eC-VhB">
+                            <rect key="frame" x="0.0" y="80" width="374" height="30"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m2f-Ko-deg">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="50" id="inP-KR-Lll"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wHK-jz-psN" customClass="FormTextField" customModule="WorkoutOfToday" customModuleProvider="target">
+                                    <rect key="frame" x="60" y="0.0" width="274" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="gV8-1f-kmn"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WIV-NU-OrA">
+                                    <rect key="frame" x="344" y="0.0" width="30" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="30" id="TU4-Ps-sSi"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RSf-uX-DYF">
+                    <rect key="frame" x="10" y="548" width="394" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="jbO-F1-tqk"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RoV-X8-GQ7">
+                    <rect key="frame" x="352" y="228" width="42" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AXn-BW-gM3">
+                    <rect key="frame" x="352" y="253.5" width="42" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TU9-Wd-WaN">
+                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <items>
+                        <navigationItem title="Title" id="F0I-rv-LJF"/>
+                    </items>
+                </navigationBar>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="AXn-BW-gM3" firstAttribute="trailing" secondItem="RoV-X8-GQ7" secondAttribute="trailing" id="14d-lM-Vtd"/>
+                <constraint firstItem="RoV-X8-GQ7" firstAttribute="top" secondItem="5nM-Nw-uUW" secondAttribute="bottom" constant="10" id="3dT-v8-3eC"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="RSf-uX-DYF" secondAttribute="bottom" constant="15" id="9VP-2l-jAQ"/>
+                <constraint firstItem="TU9-Wd-WaN" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Ech-9j-Lff"/>
+                <constraint firstItem="TU9-Wd-WaN" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="FMi-Fj-BM9"/>
+                <constraint firstItem="AXn-BW-gM3" firstAttribute="top" secondItem="RoV-X8-GQ7" secondAttribute="bottom" constant="5" id="NI6-DD-l5A"/>
+                <constraint firstItem="5nM-Nw-uUW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Nza-NZ-ZBV"/>
+                <constraint firstItem="RSf-uX-DYF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="AXn-BW-gM3" secondAttribute="bottom" constant="10" id="Sqa-VZ-S0E"/>
+                <constraint firstItem="TU9-Wd-WaN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="V1k-lP-m8o"/>
+                <constraint firstItem="RSf-uX-DYF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="aX0-ki-9TA"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RoV-X8-GQ7" secondAttribute="trailing" constant="20" id="avi-kc-LSk"/>
+                <constraint firstItem="5nM-Nw-uUW" firstAttribute="top" secondItem="TU9-Wd-WaN" secondAttribute="bottom" constant="20" id="bNV-nX-so4"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RSf-uX-DYF" secondAttribute="trailing" constant="10" id="tnf-Vv-HTJ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5nM-Nw-uUW" secondAttribute="trailing" constant="20" id="wbn-h1-YeF"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="134.78260869565219" y="247.43303571428569"/>
+        </view>
+    </objects>
+</document>

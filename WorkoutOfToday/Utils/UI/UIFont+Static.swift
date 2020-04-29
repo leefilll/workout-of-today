@@ -55,9 +55,9 @@ extension UIFont {
     static var boldBody: UIFont {
         let font = UIFont.preferredFont(forTextStyle: .body)
         let fontSize = font.pointSize
-        return UIFont.boldSystemFont(ofSize: fontSize)
-//        return UIFont(name: "AppleSDGothicNeo-Bold", size: fontSize) ??
-//            UIFont.boldSystemFont(ofSize: fontSize)
+//        return UIFont.boldSystemFont(ofSize: fontSize)
+        return UIFont(name: "AppleSDGothicNeo-Bold", size: fontSize) ??
+            UIFont.boldSystemFont(ofSize: fontSize)
     }
     
     static var subheadline: UIFont {

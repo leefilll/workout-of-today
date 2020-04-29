@@ -148,6 +148,10 @@ extension DBHandler {
         let mostFrequentParts = fetcthPartsByCount(workouts: totalWorkouts)
         let numberOfWorkouts = totalWorkouts.count
         
+        if numberOfWorkouts == 0 {
+            return [0]
+        }
+        
         var percentagesOfWorkoutPart = [Int](repeating: 0, count: mostFrequentParts.count)
         for (i, numberOfPart) in mostFrequentParts.enumerated() {
             percentagesOfWorkoutPart[i] = (numberOfPart * 100) / numberOfWorkouts
@@ -166,10 +170,10 @@ extension DBHandler {
         return sortedWorkouts
     }
     
-    func fechWorkoutVolumeByPeriod(workoutName: String, period: Period) -> [(date: Date, volume: Int)] {
+    func fechWorkoutVolumeByPeriod(workoutName: String, period: Period) -> [(date: Date, volume: Double)] {
         let sortedWorkout = fetchWorkoutsByPeriod(workoutName: workoutName, period: period)
         
-        var volumesByDate: [(date: Date, volume: Int)] = []
+        var volumesByDate: [(date: Date, volume: Double)] = []
         sortedWorkout.forEach {
             let dateWithVolume = (date: $0.createdDateTime, volume: $0.totalVolume)
             volumesByDate.append(dateWithVolume)

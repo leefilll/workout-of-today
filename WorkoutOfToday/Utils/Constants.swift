@@ -29,8 +29,9 @@ enum Size {
         static let headerHeight: CGFloat = 65
         static let footerHeight: CGFloat = 70
     }
+    static let cornerRadius: CGFloat = 9
     static let addButtonHeight: CGFloat = 50
-    static let recentCollectionViewHeight: CGFloat = 50
+    static let AddCollectionViewHeight: CGFloat = 60
 }
 
 enum Part: Int, CustomStringConvertible, CaseIterable {
@@ -50,7 +51,7 @@ enum Part: Int, CustomStringConvertible, CaseIterable {
     
     var description: String {
         switch self {
-            case .none: return "없음"
+            case .none: return " - "
             case .chest: return "가슴"
             case .shoulder: return "어깨"
             case .back: return "등"
@@ -87,7 +88,7 @@ enum Equipment: Int, CustomStringConvertible, CaseIterable {
             case .kettlebell: return "케틀벨"
             case .machine: return "머신"
             case .other: return "기타"
-            case .none: return "없음"
+            case .none: return " - "
         }
     }
 }
@@ -99,3 +100,4 @@ enum Degree: Int {
     case easy
     case none
 }
+

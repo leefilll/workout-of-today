@@ -14,9 +14,11 @@ import Charts
 class WorkoutVolumeChartView: BaseCardView {
     // MARK: Model
     
-    fileprivate var volumesByDate: [(date: Date, volume: Int)]?
+    fileprivate var volumesByDate: [(date: Date, volume: Double)]?
     
     fileprivate var valueFormatter: IValueFormatter?
+    
+    fileprivate var xAxisFormatter: IAxisValueFormatter?
     
     var workoutName: String = "데드리프트" {
         didSet {
@@ -34,8 +36,7 @@ class WorkoutVolumeChartView: BaseCardView {
     
     fileprivate var lineChartView: LineChartView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func setup() {
         setupChartView()
         updateChartWithData()
     }
@@ -51,80 +52,104 @@ class WorkoutVolumeChartView: BaseCardView {
             make.top.equalToSuperview().offset(10)
         }
         valueFormatter = self
+        xAxisFormatter = self
         lineChartView.delegate = self
         
         self.lineChartView = lineChartView
     }
     
     fileprivate func updateChartWithData() {
-        
         volumesByDate = DBHandler.shared.fechWorkoutVolumeByPeriod(workoutName: workoutName, period: period)
+        print("update: \(period.description)")
         guard let volumesByDate = volumesByDate else { fatalError() }
-        print(volumesByDate)
-
+        
         // MARK: note that x value used for index
         let entries = volumesByDate.enumerated().map { idx, value -> ChartDataEntry in
             let volume = value.volume
-            print("volume: \(volume)")
             return ChartDataEntry(x: Double(idx), y: Double(volume))
         }
         
-        let set1 = LineChartDataSet(entries: entries)
-        set1.drawIconsEnabled = false
-        set1.lineDashLengths = [5, 2.5]
-        set1.highlightLineDashLengths = [5, 2.5]
-        set1.setColor(.black)
-        set1.setCircleColor(.black)
-        set1.lineWidth = 1
-        set1.circleRadius = 3
-        set1.drawCircleHoleEnabled = false
-        set1.valueFont = .systemFont(ofSize: 9)
-        set1.formLineDashLengths = [5, 2.5]
-        set1.formLineWidth = 1
-        set1.formSize = 15
+        let set = LineChartDataSet(entries: entries)
+        set.drawIconsEnabled = false
+        set.highlightLineDashLengths = [5, 2.5]
+        set.setColor(.tintColor)
+        set.setCircleColor(.tintColor)
+        set.circleHoleColor = .weakTintColor
+        set.lineWidth = 2
+        set.circleRadius = 4
+        set.circleHoleRadius = 2
+        set.drawCircleHoleEnabled = true
+        set.valueFont = .subheadline
+        set.formLineDashLengths = [5, 2.5]
+        set.formLineWidth = 1
+        set.formSize = 15
+        set.drawFilledEnabled = false
         
-        set1.drawFilledEnabled = true
-        
-        let data = LineChartData(dataSet: set1)
+        let data = LineChartData(dataSet: set)
         data.setValueFormatter(valueFormatter!)
-//        data.setvalu
         
         lineChartView.data = data
-        
         lineChartView.chartDescription?.enabled = false
+        lineChartView.legend.enabled = false
         lineChartView.dragEnabled = false
         lineChartView.setScaleEnabled(false)
         lineChartView.pinchZoomEnabled = false
         lineChartView.rightAxis.enabled = false
+        lineChartView.extraRightOffset = 30
+        lineChartView.extraLeftOffset = 30
         
         let xAxis = lineChartView.xAxis
         xAxis.labelPosition = .bottom
+        xAxis.gridLineWidth = 0
         xAxis.labelFont = .systemFont(ofSize: 10)
-        xAxis.granularity = 1
+        xAxis.granularity = 2
         xAxis.labelCount = 7
+        xAxis.valueFormatter = xAxisFormatter
+        
+        lineChartView.leftAxis.enabled = false
+        //        lineChartView.leftAxis
+        
     }
     
     func animateChart() {
+        lineChartView.animate(xAxisDuration: 0.8)
     }
     
 }
 
 extension WorkoutVolumeChartView: ChartViewDelegate {
-    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        print(entry)
+    }
 }
 
 extension WorkoutVolumeChartView: IValueFormatter {
     func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
+        return ""
+        //        if value == 0 {
+        //            return ""
+        //        }
+        //
+        //        let pFormatter = NumberFormatter()
+        //        pFormatter.numberStyle = .none
+        //        pFormatter.multiplier = 1
+        //
+        //        guard let formattedString = pFormatter.string(from: NSNumber(value: value)) else {
+        //            return ""
+        //        }
+        //        return formattedString + " kg"
+    }
+}
 
-        let pFormatter = NumberFormatter()
-        pFormatter.numberStyle = .none
-        pFormatter.multiplier = 1
-        pFormatter.groupingSeparator = ","
+
+extension WorkoutVolumeChartView: IAxisValueFormatter {
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        guard let volumesByDate = volumesByDate else { return "" }
+        let date = volumesByDate[Int(value)].date
         
-        guard let formattedString = pFormatter.string(from: NSNumber(value: value)) else {
-            return ""
-        }
-        
-        return formattedString + " kg"
+        let formatter = DateFormatter.shared
+        formatter.setLocalizedDateFormatFromTemplate("MMMM-d")
+        let dateString = formatter.string(from: date)
+        return dateString
     }
 }

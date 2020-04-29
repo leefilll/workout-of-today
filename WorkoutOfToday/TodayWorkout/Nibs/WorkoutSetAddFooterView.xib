@@ -30,7 +30,6 @@
                         <constraint firstItem="NrZ-f5-bWD" firstAttribute="top" secondItem="hve-MI-3PU" secondAttribute="top" constant="10" identifier="TTTT" id="Exz-YE-lIY"/>
                         <constraint firstAttribute="trailing" secondItem="NrZ-f5-bWD" secondAttribute="trailing" constant="15" identifier="TTTT" id="eqJ-qu-ACN"/>
                         <constraint firstAttribute="bottom" secondItem="NrZ-f5-bWD" secondAttribute="bottom" constant="15" identifier="BBBB" id="gJb-Ht-nfS"/>
-                        <constraint firstAttribute="height" constant="50" id="lb9-ra-np7"/>
                         <constraint firstItem="NrZ-f5-bWD" firstAttribute="leading" secondItem="hve-MI-3PU" secondAttribute="leading" constant="15" identifier="LLLL" id="sRO-kI-CAj"/>
                     </constraints>
                 </view>

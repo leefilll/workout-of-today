@@ -93,6 +93,7 @@ final class ChartsViewController: BaseViewController, Childable {
     
     fileprivate func animateCharts() {
         partChartView.animateChart()
+        volumeChartView.animateChart()
     }
 }
 

@@ -38,12 +38,22 @@ final class Workout: Object, NSCopying {
         }
     }
     
+    public var rm: Double {
+        var rm: Double = 0
+        sets.forEach {
+            if rm < $0.rm {
+                rm = $0.rm
+            }
+        }
+        return rm
+    }
+    
     public var numberOfSets: Int {
         return sets.count
     }
     
-    public var totalVolume: Int {
-        var total = 0
+    public var totalVolume: Double {
+        var total = 0.0
         self.sets.forEach { set in
             total += set.volume
         }
@@ -51,7 +61,7 @@ final class Workout: Object, NSCopying {
     }
     
     public var bestSet: WorkoutSet? {
-        var volume = 0
+        var volume = 0.0
         var bestSet: WorkoutSet?
         self.sets.forEach { set in
             if set.volume > volume {

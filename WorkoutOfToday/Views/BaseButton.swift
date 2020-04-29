@@ -26,19 +26,16 @@ class BaseButton: UIButton {
     }
 
     public func setup() {
-        self.setTitleColor(.lightGray, for: .normal)
-        self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+        setTitle("", for: .normal)
+        setTitleColor(.lightGray, for: .normal)
+        titleLabel?.font = .subheadline
+        backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
     }
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        self.clipsToBounds = true
-        self.layer.cornerRadius = 10
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.titleLabel?.font = .description
+        clipsToBounds = true
+        layer.cornerRadius = 10
     }
 }
 

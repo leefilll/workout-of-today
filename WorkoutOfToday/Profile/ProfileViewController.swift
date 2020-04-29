@@ -25,134 +25,58 @@ class ProfileViewController: BaseViewController {
     
     // MARK: Model
     
-    fileprivate var summaries: [String] = [
-        "키", "몸무게", "평균 운동 시간"
-    ]
+    fileprivate let popupTransitioningDelegate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.4)
     
-    enum Section {
-        static let summary = 0
-        static let highlights = 1
-    }
     
     // MARK: View
     
-    private weak var tableView: UITableView!
+    @IBOutlet weak var summaryTitleLabel: UILabel!
+    
+    @IBOutlet weak var summaryEditButton: BaseButton!
+    
+    @IBOutlet weak var summaryInfoView: SummaryView!
+    
+    @IBOutlet weak var summaryWorkoutView: SummaryView!
+    
+    @IBOutlet weak var highlightTitleLabel: UILabel!
     
     override var navigationBarTitle: String {
         return "프로필"
     }
     
-    
     override func setup() {
-        configureTableView()
+        setupSummaries()
+        setupHighlights()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    override func configureNavigationBar() {
-        super.configureNavigationBar()
-        let profileBarItem = UIBarButtonItem(barButtonSystemItem: .compose,
-                                             target: self,
-                                             action: #selector(profileDidSeleted(_:)))
-        navigationItem.rightBarButtonItem = profileBarItem
+    fileprivate func setupSummaries() {
+        summaryTitleLabel.font = .smallBoldTitle
+        summaryTitleLabel.text = "요약"
+        
+        summaryEditButton.setTitle("편집", for: .normal)
+        summaryEditButton.backgroundColor = .weakTintColor
+        summaryEditButton.setTitleColor(.tintColor, for: .normal)
+        summaryEditButton.addTarget(self, action: #selector(summaryEditButtonDidTapped(_:)), for: .touchUpInside)
     }
     
-    private func configureTableView() {
-        let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.backgroundColor = .clear
-        tableView.separatorColor = .clear
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.registerByNib(SummaryTableViewCell.self)
-        tableView.registerByNib(HighlightsTableViewCell.self)
-        tableView.register(BasicSectionHeaderView.self)
-        
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-        }
-        self.tableView = tableView
+    fileprivate func setupHighlights() {
+        highlightTitleLabel.font = .smallBoldTitle
+        highlightTitleLabel.text = "하이라이트"
     }
-    
 }
 
 // MARK: objc functions
 
 extension ProfileViewController {
-    
     @objc
-    private func profileDidSeleted(_ sender: UIButton) {
-        
-    }
-}
-
-// MARK: TableView DataSource
-
-extension ProfileViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-            case Section.summary:
-                return summaries.count
-            case Section.highlights:
-                return 4
-            default:
-                return 0
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let section = indexPath.section
-        if section == Section.summary {
-            let cell = tableView.dequeueReusableCell(SummaryTableViewCell.self,
-                                                     for: indexPath)
-            cell.subtitleLabel.text = summaries[indexPath.row]
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(HighlightsTableViewCell.self,
-                                                     for: indexPath)
-            
-            return cell
-        }
-    }
-}
-
-// MARK: TableView Delegate
-
-extension ProfileViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let section = indexPath.section
-        if section == Section.summary {
-            return 80
-        } else {
-            return 300
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterView(BasicSectionHeaderView.self)
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = .clear
-        headerView.backgroundView = backgroundView
-        
-        switch section {
-            case Section.summary:
-                headerView.label.text = "요약"
-                break
-            case Section.highlights:
-                headerView.label.text = "하이라이트"
-                break
-            default:
-                break
-        }
-        return headerView
+    fileprivate func summaryEditButtonDidTapped(_ sender: UIButton) {
+        let editVC = ProfileEditViewController(nibName: "ProfileEditViewController", bundle: nil)
+        editVC.transitioningDelegate = popupTransitioningDelegate
+        editVC.modalPresentationStyle = .custom
+        present(editVC, animated: true, completion: nil)
     }
 }

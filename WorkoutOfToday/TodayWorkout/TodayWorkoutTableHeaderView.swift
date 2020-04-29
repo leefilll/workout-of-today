@@ -12,11 +12,13 @@ class TodayWorkoutTableHeaderView: BaseView, NibLoadable {
     
     @IBOutlet weak var titleLabel: UILabel!
     
-    @IBOutlet weak var workoutTimeButton: WorkoutPartButton!
+    @IBOutlet weak var workoutNoteButton: BaseButton!
     
     override func setup() {
         commonInit()
-        self.translatesAutoresizingMaskIntoConstraints = false
+//        self.translatesAutoresizingMaskIntoConstraints = false
+        
         titleLabel.font = .smallBoldTitle
+        workoutNoteButton.backgroundColor = .weakTintColor
     }
 }

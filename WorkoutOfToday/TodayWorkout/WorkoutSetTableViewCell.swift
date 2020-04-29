@@ -30,7 +30,7 @@ final class WorkoutSetTableViewCell: BaseTableViewCell {
     // MARK: View
     @IBOutlet weak var containerView: UIView!
     
-    @IBOutlet weak var setCountLabel: UILabel!
+    @IBOutlet weak var countLabel: UILabel!
     
     @IBOutlet weak var weightTextField: UITextField!
     
@@ -51,8 +51,8 @@ final class WorkoutSetTableViewCell: BaseTableViewCell {
         
         containerView.backgroundColor = .white
         
-        setCountLabel.font = .smallBoldTitle
-        setCountLabel.textColor = .lightGray
+        countLabel.font = .smallBoldTitle
+        countLabel.textColor = .lightGray
         
         weightTextField.backgroundColor = .concaveColor
         weightTextField.layer.cornerRadius = 10
@@ -135,7 +135,7 @@ extension WorkoutSetTableViewCell: UITextFieldDelegate {
 
         switch textField {
             case weightTextField:
-                if let weight = Int(text) {
+                if let weight = Double(text) {
                     DBHandler.shared.write {
                         workoutSet?.weight = weight
                     }

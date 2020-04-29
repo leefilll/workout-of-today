@@ -28,7 +28,8 @@ final class RootTabBarController: UITabBarController, UITabBarControllerDelegate
             DBHandler.shared.create(object: newWorkoutsOfDay)
         }
         
-        let profileNavigationController = UINavigationController(rootViewController: ProfileViewController())
+        let profileViewController = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
+        let profileNavigationController = UINavigationController(rootViewController: profileViewController)
         
         let todayWorkoutViewController = TodayWorkoutViewController()
         todayWorkoutViewController.workoutsOfDay = self.workoutsOfDay

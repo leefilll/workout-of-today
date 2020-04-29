@@ -20,15 +20,15 @@ extension UIColor {
                        alpha: CGFloat(alpha))
     }
 
-    static var tintColor = UIColor.colorWithRGBHex(hex: 0x507df6)
+    static var tintColor = UIColor.colorWithRGBHex(hex: 0x6C91F3)
     
-    static var weakTintColor = UIColor.colorWithRGBHex(hex: 0xecf0fc)
+    static var weakTintColor = UIColor.colorWithRGBHex(hex: 0xe2e9fd)
     
     static var defaultBackgroundColor = UIColor.groupTableViewBackground
     
     static var concaveColor = UIColor.colorWithRGBHex(hex: 0xe5e6e8).withAlphaComponent(0.5)
         
-    class func part(_ part: Part) -> UIColor {
+    static func part(_ part: Part) -> UIColor {
         switch part {
             case .none: return UIColor.lightGray
             case .chest: return UIColor.colorWithRGBHex(hex: 0xED5565)

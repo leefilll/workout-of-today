@@ -19,14 +19,6 @@ final class WorkoutSetAddFooterView: UITableViewHeaderFooterView {
         setup()
     }
     
-    deinit {
-        print("vc deinit - footerView")
-        print("vc deinit - footerView")
-        print("vc deinit - footerView")
-        print("vc deinit - footerView")
-        print("vc deinit - footerView")
-    }
-    
     private func setup() {
         containerView.backgroundColor = .white
         

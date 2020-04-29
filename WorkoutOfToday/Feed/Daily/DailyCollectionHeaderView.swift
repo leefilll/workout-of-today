@@ -24,7 +24,7 @@ class DailyCollectionHeaderView: UICollectionReusableView {
     
     private func setup() {
         self.dateLabel = UILabel()
-        self.dateLabel.font = .boldTitle
+        self.dateLabel.font = .smallBoldTitle
         
         self.addSubview(self.dateLabel)
         self.dateLabel.snp.makeConstraints { make in

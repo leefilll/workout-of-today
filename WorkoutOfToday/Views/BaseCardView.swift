@@ -14,6 +14,11 @@ class BaseCardView: UIView {
         backgroundColor = .white
         
         clipsToBounds = true
-        layer.cornerRadius = 10
+        layer.cornerRadius = Size.cornerRadius
+        setup()
+    }
+    
+    func setup() {
+//        fatalError("Setup functions did not overriden")
     }
 }

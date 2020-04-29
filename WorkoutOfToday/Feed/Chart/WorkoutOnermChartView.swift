@@ -14,9 +14,7 @@ class WorkoutOnermChartView: BaseCardView {
     
     // MARK: View
     
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func setup() {
         setupChartView()
         updateChartWithData()
     }

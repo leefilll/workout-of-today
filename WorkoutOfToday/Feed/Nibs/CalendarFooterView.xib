@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="BNK-2d-odM" customClass="CalendarFooterView" customModule="WorkoutOfToday" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SVY-Q7-EqP">
+                    <rect key="frame" x="15" y="0.0" width="384" height="20"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="n4b-M2-ZiL"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="SVY-Q7-EqP" secondAttribute="trailing" constant="15" identifier="TTV" id="WLZ-pb-Bdg"/>
+                <constraint firstItem="SVY-Q7-EqP" firstAttribute="leading" secondItem="BNK-2d-odM" secondAttribute="leading" constant="15" identifier="LLV" id="d6R-CO-eIr"/>
+                <constraint firstItem="SVY-Q7-EqP" firstAttribute="top" secondItem="BNK-2d-odM" secondAttribute="top" id="pWV-si-Zfn"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="MnU-N1-Qo5"/>
+            <connections>
+                <outlet property="containerView" destination="SVY-Q7-EqP" id="Qsl-jJ-Yo7"/>
+            </connections>
+            <point key="canvasLocation" x="47.826086956521742" y="584.59821428571422"/>
+        </view>
+    </objects>
+</document>
