@@ -17,26 +17,13 @@ final class Workout: Object, NSCopying {
     @objc private dynamic var _part: Int = Part.none.rawValue
     @objc private dynamic var _equipment: Int = Equipment.none.rawValue
     
+    
     let sets = List<WorkoutSet>()
+    
+    let template = LinkingObjects(fromType: WorkoutTemplate.self, property: "workouts")
     let day = LinkingObjects(fromType: WorkoutsOfDay.self, property: "workouts")
     
-    public var part: Part {
-        get {
-            return Part(rawValue: _part) ?? .none
-        }
-        set(part) {
-            _part = part.rawValue
-        }
-    }
     
-    public var equipment: Equipment {
-        get {
-            return Equipment(rawValue: _equipment) ?? .none
-        }
-        set(equipment) {
-            _equipment = equipment.rawValue
-        }
-    }
     
     public var rm: Double {
         var rm: Double = 0

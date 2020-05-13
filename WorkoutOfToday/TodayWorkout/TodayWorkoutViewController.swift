@@ -49,17 +49,6 @@ final class TodayWorkoutViewController: BaseViewController {
         addNotificationBlock()
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        let heightRatio: CGFloat = 0.4
-//        let maxYOfButton = workoutAddButton.frame.maxY
-//        let heightOfPresentedView = view.bounds.height * heightRatio
-//        let minY = maxYOfButton - heightOfPresentedView
-//        popupTransitioningDelegate = PopupTransitioningDelegate(widthRatio: 0.95,
-//                                                                heightRatio: heightRatio,
-//                                                                minY: minY)
-//    }
-    
     override func setup() {
         setupTableView()
         setupWorkoutAddButton()

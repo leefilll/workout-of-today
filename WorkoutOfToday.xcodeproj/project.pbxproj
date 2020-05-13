@@ -28,6 +28,8 @@
 		BB5C5193243EED1B00A1CD9C /* UIFont+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C5192243EED1B00A1CD9C /* UIFont+Static.swift */; };
 		BB5C5197243EF8FE00A1CD9C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C5196243EF8FE00A1CD9C /* Constants.swift */; };
 		BB5C5199243F0BD400A1CD9C /* UITextField+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C5198243F0BD400A1CD9C /* UITextField+Toolbar.swift */; };
+		BB6D27752469B41A0011DB2D /* HighlightsWeekChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6D27742469B41A0011DB2D /* HighlightsWeekChartView.swift */; };
+		BB6D2777246C49770011DB2D /* WorkoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6D2776246C49770011DB2D /* WorkoutTemplate.swift */; };
 		BB77E9952451621900C7C4B5 /* WorkoutPartChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E9942451621900C7C4B5 /* WorkoutPartChartView.swift */; };
 		BB77E9BB2451662500C7C4B5 /* ChartsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB77E9BA2451662500C7C4B5 /* ChartsViewController.xib */; };
 		BB77E9BD24516BBC00C7C4B5 /* BaseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E9BC24516BBC00C7C4B5 /* BaseCardView.swift */; };
@@ -165,6 +167,8 @@
 		BB5C5192243EED1B00A1CD9C /* UIFont+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Static.swift"; sourceTree = "<group>"; };
 		BB5C5196243EF8FE00A1CD9C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BB5C5198243F0BD400A1CD9C /* UITextField+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Toolbar.swift"; sourceTree = "<group>"; };
+		BB6D27742469B41A0011DB2D /* HighlightsWeekChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsWeekChartView.swift; sourceTree = "<group>"; };
+		BB6D2776246C49770011DB2D /* WorkoutTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplate.swift; sourceTree = "<group>"; };
 		BB77E9942451621900C7C4B5 /* WorkoutPartChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPartChartView.swift; sourceTree = "<group>"; };
 		BB77E9BA2451662500C7C4B5 /* ChartsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartsViewController.xib; sourceTree = "<group>"; };
 		BB77E9BC24516BBC00C7C4B5 /* BaseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCardView.swift; sourceTree = "<group>"; };
@@ -489,6 +493,7 @@
 				BB8BB79D243CBEE700774EA9 /* Workout.swift */,
 				BB5C518A243DD8D300A1CD9C /* WorkoutSet.swift */,
 				BBE15F1C2455E3BE005600B3 /* Profile.swift */,
+				BB6D2776246C49770011DB2D /* WorkoutTemplate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -553,6 +558,7 @@
 				BBD5FE38244D653E00E5C8E7 /* ProfileViewController.swift */,
 				BBE15F142455C777005600B3 /* ProfileEditViewController.swift */,
 				BBE15F102455C345005600B3 /* HighlightsView.swift */,
+				BB6D27742469B41A0011DB2D /* HighlightsWeekChartView.swift */,
 				BBE15F0C2455C283005600B3 /* SummaryView.swift */,
 				BBC65CA1244DCB1C006F0ADB /* Nibs */,
 			);
@@ -885,6 +891,8 @@
 				BBE15F1B2455DC9B005600B3 /* PopupAnimator.swift in Sources */,
 				BBE15F112455C345005600B3 /* HighlightsView.swift in Sources */,
 				BB5C515F243DADB600A1CD9C /* Date+Calendar.swift in Sources */,
+				BB6D2777246C49770011DB2D /* WorkoutTemplate.swift in Sources */,
+				BB6D27752469B41A0011DB2D /* HighlightsWeekChartView.swift in Sources */,
 				BB8BB7A0243CBFBD00774EA9 /* WorkoutsOfDay.swift in Sources */,
 				BB12C8A82447441E007DFBC1 /* BasicSectionHeaderView.swift in Sources */,
 				BBB5D7B6244AF9BD00F89A68 /* BaseViewController.swift in Sources */,

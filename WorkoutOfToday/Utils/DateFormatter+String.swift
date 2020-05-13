@@ -48,6 +48,13 @@ extension DateFormatter {
         let calendar = Calendar.current
         return "\(calendar.component(component, from: date))"
     }
+    
+    func string(from date: Date, type: String) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale.current
+        formatter.setLocalizedDateFormatFromTemplate(type)
+        return formatter.string(from: date)
+    }
 }
 
 extension Date {

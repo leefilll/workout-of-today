@@ -60,7 +60,6 @@ class WorkoutVolumeChartView: BaseCardView {
     
     fileprivate func updateChartWithData() {
         volumesByDate = DBHandler.shared.fechWorkoutVolumeByPeriod(workoutName: workoutName, period: period)
-        print("update: \(period.description)")
         guard let volumesByDate = volumesByDate else { fatalError() }
         
         // MARK: note that x value used for index
@@ -94,6 +93,7 @@ class WorkoutVolumeChartView: BaseCardView {
         lineChartView.dragEnabled = false
         lineChartView.setScaleEnabled(false)
         lineChartView.pinchZoomEnabled = false
+        lineChartView.leftAxis.enabled = false
         lineChartView.rightAxis.enabled = false
         lineChartView.extraRightOffset = 30
         lineChartView.extraLeftOffset = 30
@@ -105,10 +105,6 @@ class WorkoutVolumeChartView: BaseCardView {
         xAxis.granularity = 2
         xAxis.labelCount = 7
         xAxis.valueFormatter = xAxisFormatter
-        
-        lineChartView.leftAxis.enabled = false
-        //        lineChartView.leftAxis
-        
     }
     
     func animateChart() {
@@ -117,11 +113,15 @@ class WorkoutVolumeChartView: BaseCardView {
     
 }
 
+// MARK: ChartView Delegate
+
 extension WorkoutVolumeChartView: ChartViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         print(entry)
     }
 }
+
+// MARK: Value Formatter Delegate
 
 extension WorkoutVolumeChartView: IValueFormatter {
     func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
@@ -141,6 +141,7 @@ extension WorkoutVolumeChartView: IValueFormatter {
     }
 }
 
+// MARK: Axis Formatter Delegate
 
 extension WorkoutVolumeChartView: IAxisValueFormatter {
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {

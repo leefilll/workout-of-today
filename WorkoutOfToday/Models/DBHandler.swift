@@ -119,16 +119,18 @@ class DBHandler {
 // MARK: functions with calculate
 
 extension DBHandler {
-    func fetcthMostFrequentWorkouts(workouts: Results<Workout>) -> [Dictionary<String, Int>.Element] {
-        let counts = workouts.reduce(into: [:]) { $0[$1.name, default: 0] += 1}
-        var sortedCounts = counts.sorted { $0.value > $1.value }
-        var mostFrequentWorkouts = [(String, Int)]()
-        for _ in 0..<5 {
-            let popped = sortedCounts.removeFirst()
-            mostFrequentWorkouts.append(popped)
-        }
-        return mostFrequentWorkouts
-    }
+//    func fetcthMostFrequentWorkouts() -> [Dictionary<String, Int>.Element] {
+//        let totalWorkouts = DBHandler.shared.fetchObjects(ofType: Workout.self)
+//        
+//        let counts = workouts.reduce(into: [:]) { $0[$1.name, default: 0] += 1}
+//        var sortedCounts = counts.sorted { $0.value > $1.value }
+//        var mostFrequentWorkouts = [(String, Int)]()
+//        for _ in 0..<5 {
+//            let popped = sortedCounts.removeFirst()
+//            mostFrequentWorkouts.append(popped)
+//        }
+//        return mostFrequentWorkouts
+//    }
     
     fileprivate func fetcthPartsByCount(workouts: Results<Workout>) -> [Int] {
         let numberOfPart = Part.allCases.count
@@ -196,4 +198,17 @@ extension DBHandler {
 //        return volumesByDate
 //
 //    }
+    
+    /// Note that index 0 means Sunday, and 6 means Saturday
+    func fetchWorkoutsOfDaysByWeekDays() -> [Int] {
+        let totalWorkoutsOfDay = DBHandler.shared.fetchObjects(ofType: WorkoutsOfDay.self)
+        var weekdaysCounts = [Int](repeating: 0, count: 7)
+        totalWorkoutsOfDay.forEach { workoutsOfDay in
+            let dateTime = workoutsOfDay.createdDateTime
+            let weekday = Calendar.current.component(.weekday, from: dateTime)
+            weekdaysCounts[weekday - 1] += 1
+        }
+        
+        return weekdaysCounts
+    }
 }

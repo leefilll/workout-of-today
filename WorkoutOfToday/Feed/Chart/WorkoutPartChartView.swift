@@ -13,6 +13,10 @@ import Charts
 
 class WorkoutPartChartView: BaseCardView {
     
+    // MARK: View
+    
+    fileprivate weak var pieChartView: PieChartView!
+    
     // MARK: Model
     
     fileprivate let totalWorkouts: Results<Workout> =
@@ -21,10 +25,6 @@ class WorkoutPartChartView: BaseCardView {
     fileprivate var mostFrequentParts: [Int] = []
     
     fileprivate var chartFormatter: IValueFormatter?
-    
-    // MARK: View
-    
-    fileprivate weak var pieChartView: PieChartView!
     
     override func setup() {
         setupChartView()

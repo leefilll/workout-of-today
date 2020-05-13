@@ -24,7 +24,10 @@ extension UIColor {
     
     static var weakTintColor = UIColor.colorWithRGBHex(hex: 0xe2e9fd)
     
-    static var defaultBackgroundColor = UIColor.groupTableViewBackground
+//    static var defaultBackgroundColor = UIColor.groupTableViewBackground
+    static var defaultBackgroundColor = UIColor.colorWithRGBHex(hex: 0xf5f6f8)
+    
+    static var defaultTextColor = UIColor.colorWithRGBHex(hex: 0x444a4f)
     
     static var concaveColor = UIColor.colorWithRGBHex(hex: 0xe5e6e8).withAlphaComponent(0.5)
         

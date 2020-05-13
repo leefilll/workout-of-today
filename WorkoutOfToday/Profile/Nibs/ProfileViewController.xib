@@ -10,11 +10,17 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="WorkoutOfToday" customModuleProvider="target">
             <connections>
+                <outlet property="contentView" destination="s49-8b-70J" id="hfd-AW-qyf"/>
                 <outlet property="highlightTitleLabel" destination="hQ8-vL-ozx" id="kdm-hj-XcL"/>
+                <outlet property="highlightWeekChartView" destination="ZdB-lT-eoF" id="bDt-l7-Lfb"/>
+                <outlet property="highlightWorkoutChartView" destination="9g3-YM-onO" id="Fna-u3-HCC"/>
+                <outlet property="summaryBmiView" destination="hzh-Js-iwV" id="lgS-KV-0WX"/>
+                <outlet property="summaryBodyFatView" destination="q8y-uF-TAm" id="Pkk-FC-Qyq"/>
                 <outlet property="summaryEditButton" destination="Frg-nC-plh" id="W6b-D2-QsP"/>
-                <outlet property="summaryInfoView" destination="gb4-9s-qwM" id="Lvr-g4-X1j"/>
+                <outlet property="summaryHeightView" destination="gb4-9s-qwM" id="Lvr-g4-X1j"/>
+                <outlet property="summaryMuscleView" destination="UnO-Es-pVr" id="JCt-MW-2tj"/>
                 <outlet property="summaryTitleLabel" destination="fuN-Ex-zl6" id="4HU-P4-tOT"/>
-                <outlet property="summaryWorkoutView" destination="q8y-uF-TAm" id="Pkk-FC-Qyq"/>
+                <outlet property="summaryWeightView" destination="y1d-DI-8on" id="qS6-3Q-0hJ"/>
                 <outlet property="view" destination="yop-HO-VRr" id="lkA-4X-2Ag"/>
             </connections>
         </placeholder>
@@ -30,42 +36,74 @@
                             <rect key="frame" x="0.0" y="0.0" width="384" height="850"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="lastBaseline" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="AiW-r3-0jQ">
-                                    <rect key="frame" x="5" y="20" width="374" height="24"/>
+                                    <rect key="frame" x="5" y="20" width="374" height="22"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuN-Ex-zl6">
-                                            <rect key="frame" x="0.0" y="3.5" width="42" height="20.5"/>
+                                            <rect key="frame" x="0.0" y="1.5" width="42" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Frg-nC-plh" customClass="BaseButton" customModule="WorkoutOfToday" customModuleProvider="target">
-                                            <rect key="frame" x="308" y="0.0" width="66" height="28"/>
-                                            <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+                                            <rect key="frame" x="308" y="0.0" width="66" height="24"/>
+                                            <inset key="contentEdgeInsets" minX="10" minY="3" maxX="10" maxY="3"/>
                                             <state key="normal" title="Button"/>
                                         </button>
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="E4A-r3-rKZ">
-                                    <rect key="frame" x="0.0" y="54" width="384" height="170"/>
+                                    <rect key="frame" x="0.0" y="47" width="384" height="170"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gb4-9s-qwM" customClass="SummaryView" customModule="WorkoutOfToday" customModuleProvider="target">
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cr5-z9-Reo">
                                             <rect key="frame" x="0.0" y="0.0" width="384" height="80"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="80" id="giu-jZ-UPK"/>
-                                            </constraints>
-                                        </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q8y-uF-TAm" customClass="SummaryView" customModule="WorkoutOfToday" customModuleProvider="target">
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gb4-9s-qwM" customClass="SummaryView" customModule="WorkoutOfToday" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="234" height="80"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="80" id="giu-jZ-UPK"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y1d-DI-8on" customClass="SummaryView" customModule="WorkoutOfToday" customModuleProvider="target">
+                                                    <rect key="frame" x="244" y="0.0" width="140" height="80"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="140" id="BQJ-bG-HxE"/>
+                                                        <constraint firstAttribute="height" constant="80" id="uGs-nf-Xlj"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WAJ-oL-SGC">
                                             <rect key="frame" x="0.0" y="90" width="384" height="80"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="80" id="Srl-D4-F2y"/>
-                                            </constraints>
-                                        </view>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q8y-uF-TAm" customClass="SummaryView" customModule="WorkoutOfToday" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="121.5" height="80"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="80" id="Srl-D4-F2y"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UnO-Es-pVr" customClass="SummaryView" customModule="WorkoutOfToday" customModuleProvider="target">
+                                                    <rect key="frame" x="131.5" y="0.0" width="121" height="80"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="80" id="Yk3-8p-75n"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzh-Js-iwV" customClass="SummaryView" customModule="WorkoutOfToday" customModuleProvider="target">
+                                                    <rect key="frame" x="262.5" y="0.0" width="121.5" height="80"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="80" id="DMt-Dj-0e1"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="lastBaseline" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="kdl-tA-ifM">
-                                    <rect key="frame" x="5" y="244" width="374" height="24"/>
+                                    <rect key="frame" x="5" y="242" width="374" height="24"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQ8-vL-ozx">
                                             <rect key="frame" x="0.0" y="3.5" width="42" height="20.5"/>
@@ -81,9 +119,9 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="j6x-td-btk">
-                                    <rect key="frame" x="0.0" y="278" width="384" height="410"/>
+                                    <rect key="frame" x="0.0" y="271" width="384" height="410"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZdB-lT-eoF" customClass="HighlightsView" customModule="WorkoutOfToday" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZdB-lT-eoF" customClass="HighlightsWeekChartView" customModule="WorkoutOfToday" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="384" height="200"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
@@ -104,15 +142,15 @@
                                 <constraint firstItem="kdl-tA-ifM" firstAttribute="leading" secondItem="s49-8b-70J" secondAttribute="leading" constant="5" id="7OG-JQ-Pro"/>
                                 <constraint firstAttribute="height" constant="850" id="IEJ-e5-KBO"/>
                                 <constraint firstAttribute="trailing" secondItem="j6x-td-btk" secondAttribute="trailing" id="MHD-Kl-gpj"/>
-                                <constraint firstItem="E4A-r3-rKZ" firstAttribute="top" secondItem="AiW-r3-0jQ" secondAttribute="bottom" constant="10" id="Qs4-bE-Zo6"/>
+                                <constraint firstItem="E4A-r3-rKZ" firstAttribute="top" secondItem="AiW-r3-0jQ" secondAttribute="bottom" constant="5" id="Qs4-bE-Zo6"/>
                                 <constraint firstAttribute="trailing" secondItem="kdl-tA-ifM" secondAttribute="trailing" constant="5" id="VhQ-A3-LUJ"/>
                                 <constraint firstItem="AiW-r3-0jQ" firstAttribute="top" secondItem="s49-8b-70J" secondAttribute="top" constant="20" id="Zav-Ii-NIc"/>
-                                <constraint firstItem="kdl-tA-ifM" firstAttribute="top" secondItem="E4A-r3-rKZ" secondAttribute="bottom" constant="20" id="fSt-TJ-500"/>
+                                <constraint firstItem="kdl-tA-ifM" firstAttribute="top" secondItem="E4A-r3-rKZ" secondAttribute="bottom" constant="25" id="fSt-TJ-500"/>
                                 <constraint firstItem="E4A-r3-rKZ" firstAttribute="leading" secondItem="s49-8b-70J" secondAttribute="leading" id="gvD-m9-t1G"/>
                                 <constraint firstAttribute="trailing" secondItem="AiW-r3-0jQ" secondAttribute="trailing" constant="5" id="kVQ-zL-eGB"/>
                                 <constraint firstItem="AiW-r3-0jQ" firstAttribute="leading" secondItem="s49-8b-70J" secondAttribute="leading" constant="5" id="kYI-Kd-TBY"/>
                                 <constraint firstAttribute="trailing" secondItem="E4A-r3-rKZ" secondAttribute="trailing" id="l0S-IZ-URH"/>
-                                <constraint firstItem="j6x-td-btk" firstAttribute="top" secondItem="kdl-tA-ifM" secondAttribute="bottom" constant="10" id="lef-fr-D1e"/>
+                                <constraint firstItem="j6x-td-btk" firstAttribute="top" secondItem="kdl-tA-ifM" secondAttribute="bottom" constant="5" id="lef-fr-D1e"/>
                                 <constraint firstItem="j6x-td-btk" firstAttribute="leading" secondItem="s49-8b-70J" secondAttribute="leading" id="xrv-Vr-Ekd"/>
                             </constraints>
                         </view>

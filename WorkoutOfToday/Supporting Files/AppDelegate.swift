@@ -26,6 +26,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
+        print(#function)
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        let keyFromDate = DateFormatter.shared.keyStringFromNow
+        guard let workoutsOfDay = DBHandler.shared.fetchObject(ofType: WorkoutsOfDay.self,
+                                                                forPrimaryKey: keyFromDate) else { return }
+        if workoutsOfDay.numberOfWorkouts == 0 {
+            DBHandler.shared.deleteWorkoutsOfDay(workoutsOfDay: workoutsOfDay)
+            print("Empty Workout was deleted")
+        }
     }
     
     // MARK: UISceneSession Lifecycle
