@@ -31,7 +31,7 @@ enum Size {
     }
     static let cornerRadius: CGFloat = 9
     static let addButtonHeight: CGFloat = 50
-    static let AddCollectionViewHeight: CGFloat = 60
+    static let addCollectionViewHeight: CGFloat = 50
 }
 
 enum Part: Int, CustomStringConvertible, CaseIterable {
@@ -45,13 +45,17 @@ enum Part: Int, CustomStringConvertible, CaseIterable {
     case body
     case none
     
+    static let title: String = {
+        return "운동 파트"
+    }()
+    
     var color: UIColor {
         return UIColor.part(self)
     }
     
     var description: String {
         switch self {
-            case .none: return " - "
+            case .none: return "-"
             case .chest: return "가슴"
             case .shoulder: return "어깨"
             case .back: return "등"
@@ -76,6 +80,10 @@ enum Equipment: Int, CustomStringConvertible, CaseIterable {
     case other
     case none
     
+    static let title: String = {
+        return "도구"
+    }()
+    
     var color: UIColor {
         if self == .none { return .lightGray }
         return .tintColor
@@ -88,7 +96,29 @@ enum Equipment: Int, CustomStringConvertible, CaseIterable {
             case .kettlebell: return "케틀벨"
             case .machine: return "머신"
             case .other: return "기타"
-            case .none: return " - "
+            case .none: return "-"
+        }
+    }
+}
+
+enum Style: Int, CustomStringConvertible, CaseIterable {
+    case weightWithReps
+    case weight
+    case reps
+    case time
+    case none
+    
+    static let title: String = {
+        return "스타일"
+    }()
+    
+    var description: String {
+        switch self {
+            case .weightWithReps: return "무게 + 횟수"
+            case .weight: return "무게"
+            case .reps: return "횟수"
+            case .time: return "시간"
+            case .none: return "-"
         }
     }
 }
@@ -101,3 +131,39 @@ enum Degree: Int {
     case none
 }
 
+
+protocol Selectable {}
+
+extension Selectable {
+    var title: String {
+        if self is Part {
+            return Part.title
+        } else if self is Style {
+            return Style.title
+        }
+        return ""
+    }
+    
+    var name: String {
+        if self is Part {
+            if let part = self as? Part {
+                return part.description
+            }
+        } else if self is Style {
+            if let style = self as? Style {
+                return style.description
+            }
+        } else if self is Workout {
+            if let workout = self as? Workout {
+                return workout.name
+            }
+        }
+        return ""
+    }
+}
+
+extension Part: Selectable {}
+
+extension Style: Selectable {}
+
+extension Workout: Selectable {}

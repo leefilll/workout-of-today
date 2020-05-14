@@ -121,7 +121,7 @@ class DBHandler {
 extension DBHandler {
 //    func fetcthMostFrequentWorkouts() -> [Dictionary<String, Int>.Element] {
 //        let totalWorkouts = DBHandler.shared.fetchObjects(ofType: Workout.self)
-//        
+//
 //        let counts = workouts.reduce(into: [:]) { $0[$1.name, default: 0] += 1}
 //        var sortedCounts = counts.sorted { $0.value > $1.value }
 //        var mostFrequentWorkouts = [(String, Int)]()
@@ -208,7 +208,6 @@ extension DBHandler {
             let weekday = Calendar.current.component(.weekday, from: dateTime)
             weekdaysCounts[weekday - 1] += 1
         }
-        
         return weekdaysCounts
     }
 }

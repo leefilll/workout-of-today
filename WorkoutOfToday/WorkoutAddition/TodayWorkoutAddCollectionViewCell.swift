@@ -12,7 +12,7 @@ final class TodayWorkoutAddCollectionViewCell: UICollectionViewCell {
     
     // MARK: Model
     
-    var workout: Workout? {
+    var template: WorkoutTemplate? {
         didSet {
             updateView()
         }
@@ -30,7 +30,6 @@ final class TodayWorkoutAddCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     
-    @IBOutlet weak var partButton: WorkoutPartButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,20 +40,14 @@ final class TodayWorkoutAddCollectionViewCell: UICollectionViewCell {
         containerView.layer.cornerRadius = 15
         nameLabel.font = UIFont.boldSystemFont(ofSize: 17)
         nameLabel.textAlignment = .natural
-        
-        partButton.titleLabel?.font = .subheadline
-        partButton.isEnabled = false
     }
     
     fileprivate func updateView() {
-        containerView.backgroundColor = workout?.part.color
+        containerView.backgroundColor = template?.part.color
         
         nameLabel.sizeToFit()
         nameLabel.textColor = . white
-        nameLabel.text = workout?.name
-        
-//        partButton.setTitleColor(workout?.part.color, for: .normal)
-        partButton.part = workout?.part
+        nameLabel.text = template?.name
     }
     
     private func animate(_ newValue: Bool) {

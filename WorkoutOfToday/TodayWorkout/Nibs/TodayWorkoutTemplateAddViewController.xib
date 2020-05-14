@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TodayWorkoutTemplateAddViewController" customModule="WorkoutOfToday" customModuleProvider="target">
+            <connections>
+                <outlet property="templateAddButton" destination="oUH-bp-Zff" id="3R1-A3-f3O"/>
+                <outlet property="templateAttributesCollectionView" destination="bik-ur-RZa" id="mRB-ef-fpA"/>
+                <outlet property="templateNameLabel" destination="j0a-Et-Cjc" id="Efy-LC-As7"/>
+                <outlet property="templateNameTextField" destination="c9Z-wc-GUt" id="LCu-Bw-7mQ"/>
+                <outlet property="titleNavigationBar" destination="hxv-IS-7lG" id="2U7-qR-V9N"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="s17-lF-5yg">
+                    <rect key="frame" x="20" y="104" width="374" height="688"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="dhh-ce-0V7">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="65.5"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="EJi-lY-gpu">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0a-Et-Cjc">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="20.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="gGU-Gy-h6P"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c9Z-wc-GUt" customClass="FormTextField" customModule="WorkoutOfToday" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="25.5" width="374" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="rLm-nV-fUQ"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                            </subviews>
+                        </stackView>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bik-ur-RZa">
+                            <rect key="frame" x="0.0" y="70.5" width="374" height="617.5"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2lb-Fe-JGO">
+                                <size key="itemSize" width="128" height="128"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="6eZ-rp-GAV"/>
+                </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oUH-bp-Zff">
+                    <rect key="frame" x="10" y="807" width="394" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Tcm-4Y-Suo"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                </button>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxv-IS-7lG">
+                    <rect key="frame" x="0.0" y="44" width="414" height="55"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <items>
+                        <navigationItem title="Title" id="aLU-5H-sf6"/>
+                    </items>
+                </navigationBar>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="oUH-bp-Zff" secondAttribute="bottom" constant="15" id="2rg-fO-uqx"/>
+                <constraint firstItem="oUH-bp-Zff" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="I8s-Dk-oIL"/>
+                <constraint firstItem="hxv-IS-7lG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="MUK-Fg-Dcd"/>
+                <constraint firstItem="oUH-bp-Zff" firstAttribute="top" relation="greaterThanOrEqual" secondItem="s17-lF-5yg" secondAttribute="bottom" constant="5" id="OcR-wT-xi3"/>
+                <constraint firstItem="s17-lF-5yg" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Qg7-Ip-Q9R"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="s17-lF-5yg" secondAttribute="trailing" constant="20" id="XEu-eg-oLo"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="oUH-bp-Zff" secondAttribute="trailing" constant="10" id="Y1F-SN-7i5"/>
+                <constraint firstItem="s17-lF-5yg" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="YcZ-wW-896"/>
+                <constraint firstItem="hxv-IS-7lG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ch7-3U-mnD"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hxv-IS-7lG" secondAttribute="trailing" id="dtO-nn-j4f"/>
+                <constraint firstItem="s17-lF-5yg" firstAttribute="top" secondItem="hxv-IS-7lG" secondAttribute="bottom" constant="5" id="mnX-QN-d9q"/>
+                <constraint firstItem="s17-lF-5yg" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="oQv-3s-sSn"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="137.68115942028987" y="152.67857142857142"/>
+        </view>
+    </objects>
+</document>

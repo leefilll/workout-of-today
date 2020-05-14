@@ -11,11 +11,10 @@ import RealmSwift
 
 final class WorkoutTemplate: Object {
     @objc dynamic var name: String = ""
-    @objc dynamic var id = UUID().uuidString
     @objc private dynamic var _part: Int = Part.none.rawValue
+    @objc private dynamic var _style: Int = Style.none.rawValue
     @objc private dynamic var _equipment: Int = Equipment.none.rawValue
     let workouts = List<Workout>()
-    
     
     public var part: Part {
         get {
@@ -26,6 +25,15 @@ final class WorkoutTemplate: Object {
         }
     }
     
+    public var style: Style {
+        get {
+            return Style(rawValue: _style) ?? .none
+        }
+        set(style) {
+            _style = style.rawValue
+        }
+    }
+    
     public var equipment: Equipment {
         get {
             return Equipment(rawValue: _equipment) ?? .none
@@ -33,5 +41,9 @@ final class WorkoutTemplate: Object {
         set(equipment) {
             _equipment = equipment.rawValue
         }
+    }
+    
+    override static func primaryKey() -> String? {
+        return "name"
     }
 }

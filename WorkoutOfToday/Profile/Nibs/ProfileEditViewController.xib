@@ -133,9 +133,9 @@
                     </subviews>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RSf-uX-DYF">
-                    <rect key="frame" x="10" y="548" width="394" height="50"/>
+                    <rect key="frame" x="10" y="558" width="394" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="jbO-F1-tqk"/>
+                        <constraint firstAttribute="height" constant="40" id="jbO-F1-tqk"/>
                     </constraints>
                     <state key="normal" title="Button"/>
                 </button>

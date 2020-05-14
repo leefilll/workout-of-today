@@ -23,12 +23,11 @@ class BasicSectionHeaderView: UITableViewHeaderFooterView {
     }
     
     private func setup() {
+        label = UILabel()
+        label.font = .smallBoldTitle
         
-        self.label = UILabel()
-        self.label.font = .smallBoldTitle
-        
-        self.addSubview(self.label)
-        self.label.snp.makeConstraints { make in
+        addSubview(self.label)
+        label.snp.makeConstraints { make in
             make.leading.equalTo(Inset.Cell.horizontalInset)
             make.bottom.equalToSuperview().offset(-5)
             make.top.equalToSuperview().offset(20)

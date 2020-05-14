@@ -21,25 +21,21 @@
                         <rect key="frame" x="4" y="4" width="162" height="83"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="BGx-tE-fbT">
-                                <rect key="frame" x="10" y="15" width="142" height="53"/>
+                                <rect key="frame" x="10" y="7" width="142" height="69"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dXD-C9-3Kf">
-                                        <rect key="frame" x="0.0" y="0.0" width="42" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dXD-C9-3Kf">
+                                        <rect key="frame" x="0.0" y="0.0" width="42" height="69"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p1G-Nd-Ny1">
-                                        <rect key="frame" x="0.0" y="23" width="46" height="30"/>
-                                        <state key="normal" title="Button"/>
-                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BGx-tE-fbT" secondAttribute="bottom" constant="15" id="mCx-fj-eI9"/>
-                            <constraint firstItem="BGx-tE-fbT" firstAttribute="top" secondItem="SmU-PN-x0v" secondAttribute="top" constant="15" id="pDj-lj-NHq"/>
+                            <constraint firstAttribute="bottom" secondItem="BGx-tE-fbT" secondAttribute="bottom" constant="7" id="mCx-fj-eI9"/>
+                            <constraint firstItem="BGx-tE-fbT" firstAttribute="top" secondItem="SmU-PN-x0v" secondAttribute="top" constant="7" id="pDj-lj-NHq"/>
                             <constraint firstItem="BGx-tE-fbT" firstAttribute="leading" secondItem="SmU-PN-x0v" secondAttribute="leading" constant="10" id="rgM-eK-PKG"/>
                             <constraint firstAttribute="trailing" secondItem="BGx-tE-fbT" secondAttribute="trailing" constant="10" id="spj-bk-XDz"/>
                         </constraints>
@@ -56,7 +52,6 @@
             <connections>
                 <outlet property="containerView" destination="SmU-PN-x0v" id="ffN-u7-1Rn"/>
                 <outlet property="nameLabel" destination="dXD-C9-3Kf" id="gAB-Uv-Kfn"/>
-                <outlet property="partButton" destination="p1G-Nd-Ny1" id="0NM-aX-acq"/>
             </connections>
             <point key="canvasLocation" x="124.6376811594203" y="108.14732142857143"/>
         </collectionViewCell>

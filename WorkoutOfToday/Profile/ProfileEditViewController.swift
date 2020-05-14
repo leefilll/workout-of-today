@@ -10,9 +10,13 @@ import UIKit
 
 class ProfileEditViewController: BaseViewController {
     
+    // MARK: Model
+    
     fileprivate var tapGestureRecognize: UITapGestureRecognizer!
     
     fileprivate var moved: CGFloat?
+    
+    // MARK: View
 
     @IBOutlet weak var titleNavigationBar: UINavigationBar!
     
@@ -55,11 +59,7 @@ class ProfileEditViewController: BaseViewController {
         }
         
         textFields.forEach {
-            $0.font = .boldBody
-            $0.backgroundColor = .concaveColor
             $0.delegate = self
-            $0.clipsToBounds = true
-            $0.layer.cornerRadius = 10
         }
         
         unitLabels.forEach {

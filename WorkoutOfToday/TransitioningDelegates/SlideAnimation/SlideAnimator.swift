@@ -46,20 +46,21 @@ class SlideAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                 
                 UIView.animate(withDuration: animationDuration,
                                delay: 0,
-                               usingSpringWithDamping: 0.98,
-                               initialSpringVelocity: 0.67,
-                               options: .curveLinear,
+                               usingSpringWithDamping: 0.95,
+                               initialSpringVelocity: 0.5,
+                               options: .curveEaseOut,
                                animations: {
                     toVC.view.transform = .identity
                 }) { finished in
                     transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 }
-                
-//                UIView.animate(withDuration: animationDuration, animations: {
-//                    toVC.view.transform = .identity
-//                }, completion: { finished in
+//
+//                UIView.animate(withDuration: animationDuration,
+//                               animations: {
+//                                toVC.view.transform = .identity
+//                }) { finished in
 //                    transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-//                })
+//            }
             
             // MARK: Dismiss animation
             

@@ -11,15 +11,16 @@ import UIKit
 import SnapKit
 import RealmSwift
 import DZNEmptyDataSet
-import IHKeyboardAvoiding
 
 final class TodayWorkoutViewController: BaseViewController {
     
     // MARK: Model
     
-    fileprivate let slideTransitioningDelegate =  SlideTransitioningDelegate(heightRatio: 0.6)
+    fileprivate let slideTransitioningDelegate =  SlideTransitioningDelegate(heightRatio: 0.90)
     
     fileprivate let popupTransitioningDelegate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.35)
+    
+    fileprivate let popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.50)
     
     var workoutsOfDay: WorkoutsOfDay?
     
@@ -42,6 +43,11 @@ final class TodayWorkoutViewController: BaseViewController {
         print(String(describing: self) + " " + #function)
     }
     
+    override func setup() {
+        setupTableView()
+        setupWorkoutAddButton()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
@@ -49,9 +55,23 @@ final class TodayWorkoutViewController: BaseViewController {
         addNotificationBlock()
     }
     
-    override func setup() {
-        setupTableView()
-        setupWorkoutAddButton()
+    override func configureNavigationBar() {
+        super.configureNavigationBar()
+        let workoutTemplateAddButton = UIBarButtonItem(barButtonSystemItem: .organize,
+                                                       target: self,
+                                                       action: #selector(workoutTemplateAddButtonDidTapped(_:)))
+        workoutTemplateAddButton.setTitleTextAttributes(
+            [
+                .foregroundColor: UIColor.tintColor,
+                .font: UIFont.boldBody
+            ],
+            for: .normal)
+        workoutTemplateAddButton.setTitleTextAttributes(
+            [
+                .foregroundColor: UIColor.weakTintColor
+            ],
+            for: .highlighted)
+        navigationItem.rightBarButtonItems = [workoutTemplateAddButton]
     }
     
     fileprivate func setupTableView() {
@@ -78,7 +98,7 @@ final class TodayWorkoutViewController: BaseViewController {
         workoutAddButton.titleLabel?.font = .smallBoldTitle
         workoutAddButton.clipsToBounds = true
         workoutAddButton.layer.cornerRadius = Size.cornerRadius
-
+        
         self.workoutAddButton = workoutAddButton
         view.addSubview(self.workoutAddButton)
         
@@ -198,15 +218,21 @@ extension TodayWorkoutViewController {
     }
     
     @objc
+    fileprivate func workoutTemplateAddButtonDidTapped(_ sender: UIBarButtonItem){
+        let templateAddVC = TodayWorkoutTemplateAddViewController(nibName: "TodayWorkoutTemplateAddViewController", bundle: nil)
+        templateAddVC.modalPresentationStyle = .custom
+        templateAddVC.transitioningDelegate = popupTransitioningDelegateForTemplate
+        present(templateAddVC, animated: true, completion: nil)
+    }
+    
+    @objc
     fileprivate func workoutNoteButtonDidTapped(_ sender: UIButton) {
         guard let workoutsOfDay = workoutsOfDay else { return }
         
         let noteVC = TodayWorkoutNoteViewController(nibName: "TodayWorkoutNoteViewController", bundle: nil)
         noteVC.workoutsOfDay = workoutsOfDay
-        noteVC.transitioningDelegate = popupTransitioningDelegate
         noteVC.modalPresentationStyle = .custom
-        KeyboardAvoiding.avoidingView = noteVC.view
-        
+        noteVC.transitioningDelegate = popupTransitioningDelegate
         present(noteVC, animated: true, completion: nil)
     }
 }
@@ -252,13 +278,13 @@ extension TodayWorkoutViewController: UITableViewDataSource {
                 UIView.performWithoutAnimation {
                     self.tableView.reloadData()
                 }
-//                self.perform(#selector(reloadData), with: nil, afterDelay: 0.1)
+                //                self.perform(#selector(reloadData), with: nil, afterDelay: 0.1)
                 //TODO: reloadSection animation
-//                tableView.setNeedsUpdateConstraints()
+                //                tableView.setNeedsUpdateConstraints()
                 UIView.animate(withDuration: 0.2) {
                     self.view.layoutIfNeeded()
-                }
-                
+            }
+            
             default:
                 break
         }
@@ -314,13 +340,13 @@ extension TodayWorkoutViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let workoutsOfToday = self.workoutsOfDay else { return }
-//        let vc = WorkoutAddViewController()
-//        let workout = workoutsOfToday.workouts[indexPath.row]
-//        vc.workout = workout
-//        DispatchQueue.main.async{
-//            self.present(vc, animated: true, completion: nil)
-//        }
+        //        guard let workoutsOfToday = self.workoutsOfDay else { return }
+        //        let vc = WorkoutAddViewController()
+        //        let workout = workoutsOfToday.workouts[indexPath.row]
+        //        vc.workout = workout
+        //        DispatchQueue.main.async{
+        //            self.present(vc, animated: true, completion: nil)
+        //        }
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {

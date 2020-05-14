@@ -43,10 +43,10 @@ class DailyCollectionViewController: BaseViewController, Childable {
     }
     
     private func configureCollectionView() {
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        self.collectionView.register(DailyCollectionViewCell.self)
-        self.collectionView.registerForHeaderView(DailyCollectionHeaderView.self)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(LabelCollectionViewCell.self)
+        collectionView.registerForHeaderView(LabelCollectionHeaderView.self)
     }
     
     private func addNotificationBlock() {
@@ -78,18 +78,20 @@ extension DailyCollectionViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(DailyCollectionViewCell.self, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(LabelCollectionViewCell.self, for: indexPath)
         let workoutsOfDay = self.workoutsOfDays[indexPath.section]
         let workout = workoutsOfDay.workouts[indexPath.item]
-        cell.workout = workout
+        cell.content = workout
         return cell
     }
     
+    // MARK: Header View
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView
-            .dequeueReusableSupplementaryHeaderView(DailyCollectionHeaderView.self, for: indexPath)
+            .dequeueReusableSupplementaryHeaderView(LabelCollectionHeaderView.self, for: indexPath)
         let workoutsOfDay = self.workoutsOfDays[indexPath.section]
-        header.dateLabel.text = DateFormatter.shared.string(from: workoutsOfDay.createdDateTime)
+        header.titleLabel.text = DateFormatter.shared.string(from: workoutsOfDay.createdDateTime)
 
         return header
     }

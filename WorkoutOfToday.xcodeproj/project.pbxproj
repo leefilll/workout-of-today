@@ -30,6 +30,9 @@
 		BB5C5199243F0BD400A1CD9C /* UITextField+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C5198243F0BD400A1CD9C /* UITextField+Toolbar.swift */; };
 		BB6D27752469B41A0011DB2D /* HighlightsWeekChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6D27742469B41A0011DB2D /* HighlightsWeekChartView.swift */; };
 		BB6D2777246C49770011DB2D /* WorkoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6D2776246C49770011DB2D /* WorkoutTemplate.swift */; };
+		BB6D2779246C56860011DB2D /* TodayAddWorkoutCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6D2778246C56860011DB2D /* TodayAddWorkoutCollectionHeaderView.swift */; };
+		BB6D277E246D24CF0011DB2D /* TodayWorkoutTemplateAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6D277C246D24CF0011DB2D /* TodayWorkoutTemplateAddViewController.swift */; };
+		BB6D277F246D24CF0011DB2D /* TodayWorkoutTemplateAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB6D277D246D24CF0011DB2D /* TodayWorkoutTemplateAddViewController.xib */; };
 		BB77E9952451621900C7C4B5 /* WorkoutPartChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E9942451621900C7C4B5 /* WorkoutPartChartView.swift */; };
 		BB77E9BB2451662500C7C4B5 /* ChartsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB77E9BA2451662500C7C4B5 /* ChartsViewController.xib */; };
 		BB77E9BD24516BBC00C7C4B5 /* BaseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E9BC24516BBC00C7C4B5 /* BaseCardView.swift */; };
@@ -54,8 +57,8 @@
 		BB91CD1224448B0900342CFC /* WorkoutSetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB91CD1124448B0900342CFC /* WorkoutSetTableViewCell.xib */; };
 		BB96FD602444981200E8DE10 /* WorkoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB96FD5F2444981200E8DE10 /* WorkoutTableViewCell.xib */; };
 		BB96FD622444AE1B00E8DE10 /* UITableView+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB96FD612444AE1B00E8DE10 /* UITableView+Register.swift */; };
-		BB96FD642444B99300E8DE10 /* DailyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB96FD632444B99300E8DE10 /* DailyCollectionViewCell.swift */; };
-		BB96FD662444BF5600E8DE10 /* DailyCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB96FD652444BF5600E8DE10 /* DailyCollectionHeaderView.swift */; };
+		BB96FD642444B99300E8DE10 /* LabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB96FD632444B99300E8DE10 /* LabelCollectionViewCell.swift */; };
+		BB96FD662444BF5600E8DE10 /* LabelCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB96FD652444BF5600E8DE10 /* LabelCollectionHeaderView.swift */; };
 		BBA582DE24441ABB001FD978 /* WorkoutPartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA582DD24441ABB001FD978 /* WorkoutPartButton.swift */; };
 		BBB3597C2445F19F00E8B2F2 /* DBHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB3597B2445F19F00E8B2F2 /* DBHandler.swift */; };
 		BBB5D7B6244AF9BD00F89A68 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB5D7B5244AF9BD00F89A68 /* BaseViewController.swift */; };
@@ -169,6 +172,9 @@
 		BB5C5198243F0BD400A1CD9C /* UITextField+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Toolbar.swift"; sourceTree = "<group>"; };
 		BB6D27742469B41A0011DB2D /* HighlightsWeekChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsWeekChartView.swift; sourceTree = "<group>"; };
 		BB6D2776246C49770011DB2D /* WorkoutTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplate.swift; sourceTree = "<group>"; };
+		BB6D2778246C56860011DB2D /* TodayAddWorkoutCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayAddWorkoutCollectionHeaderView.swift; sourceTree = "<group>"; };
+		BB6D277C246D24CF0011DB2D /* TodayWorkoutTemplateAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWorkoutTemplateAddViewController.swift; sourceTree = "<group>"; };
+		BB6D277D246D24CF0011DB2D /* TodayWorkoutTemplateAddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayWorkoutTemplateAddViewController.xib; sourceTree = "<group>"; };
 		BB77E9942451621900C7C4B5 /* WorkoutPartChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPartChartView.swift; sourceTree = "<group>"; };
 		BB77E9BA2451662500C7C4B5 /* ChartsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartsViewController.xib; sourceTree = "<group>"; };
 		BB77E9BC24516BBC00C7C4B5 /* BaseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCardView.swift; sourceTree = "<group>"; };
@@ -199,8 +205,8 @@
 		BB91CD1124448B0900342CFC /* WorkoutSetTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutSetTableViewCell.xib; sourceTree = "<group>"; };
 		BB96FD5F2444981200E8DE10 /* WorkoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutTableViewCell.xib; sourceTree = "<group>"; };
 		BB96FD612444AE1B00E8DE10 /* UITableView+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Register.swift"; sourceTree = "<group>"; };
-		BB96FD632444B99300E8DE10 /* DailyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCollectionViewCell.swift; sourceTree = "<group>"; };
-		BB96FD652444BF5600E8DE10 /* DailyCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCollectionHeaderView.swift; sourceTree = "<group>"; };
+		BB96FD632444B99300E8DE10 /* LabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionViewCell.swift; sourceTree = "<group>"; };
+		BB96FD652444BF5600E8DE10 /* LabelCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionHeaderView.swift; sourceTree = "<group>"; };
 		BBA582DD24441ABB001FD978 /* WorkoutPartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPartButton.swift; sourceTree = "<group>"; };
 		BBB3597B2445F19F00E8B2F2 /* DBHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHandler.swift; sourceTree = "<group>"; };
 		BBB3597F24472D1900E8B2F2 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -351,8 +357,8 @@
 			isa = PBXGroup;
 			children = (
 				BBF68248244B505D009EC0EA /* DailyCollectionViewController.swift */,
-				BB96FD632444B99300E8DE10 /* DailyCollectionViewCell.swift */,
-				BB96FD652444BF5600E8DE10 /* DailyCollectionHeaderView.swift */,
+				BB96FD632444B99300E8DE10 /* LabelCollectionViewCell.swift */,
+				BB96FD652444BF5600E8DE10 /* LabelCollectionHeaderView.swift */,
 			);
 			path = Daily;
 			sourceTree = "<group>";
@@ -452,8 +458,10 @@
 				BBC65C9C244DBED2006F0ADB /* TodayWorkoutTableHeaderView.swift */,
 				BBC65CA3244DD5E4006F0ADB /* TodayAddWorkoutViewController.swift */,
 				BBC65CB1244E0128006F0ADB /* TodayWorkoutAddView.swift */,
-				BBC65CA0244DCB0F006F0ADB /* Nibs */,
 				BBE15F2D2458179E005600B3 /* TodayWorkoutNoteViewController.swift */,
+				BBC65CA0244DCB0F006F0ADB /* Nibs */,
+				BB6D2778246C56860011DB2D /* TodayAddWorkoutCollectionHeaderView.swift */,
+				BB6D277C246D24CF0011DB2D /* TodayWorkoutTemplateAddViewController.swift */,
 			);
 			path = TodayWorkout;
 			sourceTree = "<group>";
@@ -522,6 +530,7 @@
 				BBC65CAF244E0111006F0ADB /* TodayWorkoutAddView.xib */,
 				BB206FC524508D9600057CDB /* TodayAddWorkoutViewController.xib */,
 				BBE15F2924572E76005600B3 /* TodayWorkoutAddCollectionViewCell.xib */,
+				BB6D277D246D24CF0011DB2D /* TodayWorkoutTemplateAddViewController.xib */,
 				BBE15F2B24581779005600B3 /* TodayWorkoutNoteViewController.xib */,
 			);
 			path = Nibs;
@@ -705,6 +714,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB6D277F246D24CF0011DB2D /* TodayWorkoutTemplateAddViewController.xib in Resources */,
 				BBE15F092455BD0E005600B3 /* ProfileViewController.xib in Resources */,
 				BBE15F05245594EA005600B3 /* CalendarFooterView.xib in Resources */,
 				BB96FD602444981200E8DE10 /* WorkoutTableViewCell.xib in Resources */,
@@ -855,6 +865,7 @@
 				BB5C515C243DA34200A1CD9C /* UIView+CornerRadii.swift in Sources */,
 				BBE15F152455C777005600B3 /* ProfileEditViewController.swift in Sources */,
 				BBE15F192455D43B005600B3 /* PopupTransitioningDelegate.swift in Sources */,
+				BB6D2779246C56860011DB2D /* TodayAddWorkoutCollectionHeaderView.swift in Sources */,
 				BBE15F1F2455EFC0005600B3 /* FormTextField.swift in Sources */,
 				BBB3597C2445F19F00E8B2F2 /* DBHandler.swift in Sources */,
 				BBA582DE24441ABB001FD978 /* WorkoutPartButton.swift in Sources */,
@@ -896,15 +907,16 @@
 				BB8BB7A0243CBFBD00774EA9 /* WorkoutsOfDay.swift in Sources */,
 				BB12C8A82447441E007DFBC1 /* BasicSectionHeaderView.swift in Sources */,
 				BBB5D7B6244AF9BD00F89A68 /* BaseViewController.swift in Sources */,
-				BB96FD642444B99300E8DE10 /* DailyCollectionViewCell.swift in Sources */,
+				BB96FD642444B99300E8DE10 /* LabelCollectionViewCell.swift in Sources */,
 				BB2E7545244828C5006108F5 /* TodayWorkoutAddCollectionViewCell.swift in Sources */,
-				BB96FD662444BF5600E8DE10 /* DailyCollectionHeaderView.swift in Sources */,
+				BB96FD662444BF5600E8DE10 /* LabelCollectionHeaderView.swift in Sources */,
 				BB8BB79E243CBEE700774EA9 /* Workout.swift in Sources */,
 				BBC65CB4244EA915006F0ADB /* BaseButton.swift in Sources */,
 				BB8BB760243CBA0200774EA9 /* AppDelegate.swift in Sources */,
 				BBE15F30245818E8005600B3 /* CloseButton.swift in Sources */,
 				BB5C5191243DE4BB00A1CD9C /* UIColor+TintColor.swift in Sources */,
 				BB96FD622444AE1B00E8DE10 /* UITableView+Register.swift in Sources */,
+				BB6D277E246D24CF0011DB2D /* TodayWorkoutTemplateAddViewController.swift in Sources */,
 				BBC65C9D244DBED2006F0ADB /* TodayWorkoutTableHeaderView.swift in Sources */,
 				BBC65CA6244DDA43006F0ADB /* PopupAnimationController.swift in Sources */,
 				BB77E9C42452EB4E00C7C4B5 /* WorkoutOnermChartView.swift in Sources */,

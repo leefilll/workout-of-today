@@ -11,7 +11,6 @@ target 'WorkoutOfToday' do
   pod 'Charts'
   pod 'ChartsRealm'
   pod 'DZNEmptyDataSet'
-  pod 'IHKeyboardAvoiding'
 #pod 'Presentr'
 #pod 'ExpandableCell'
 

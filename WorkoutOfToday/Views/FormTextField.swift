@@ -12,6 +12,23 @@ class FormTextField: UITextField {
 
     @IBInspectable var inset: CGFloat = 15
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+    
+    fileprivate func setup() {
+        backgroundColor = .concaveColor
+        clipsToBounds = true
+        layer.cornerRadius = 10
+        font = .boldBody
+    }
+    
     //let padding = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
     
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
