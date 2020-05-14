@@ -92,7 +92,6 @@ class FeedMasterViewController: BaseViewController {
         
         view.addSubview(segmentedControl)
         segmentedControl.snp.makeConstraints { make in
-//            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.leading.equalToSuperview().offset(Inset.paddingHorizontal)
             make.trailing.equalToSuperview().offset(-Inset.paddingHorizontal)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-10)

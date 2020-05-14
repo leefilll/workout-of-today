@@ -63,7 +63,6 @@ class DailyCollectionViewController: BaseViewController, Childable {
     }
 }
 
-
 // MARK: CollectionView DataSource
 
 extension DailyCollectionViewController: UICollectionViewDataSource {

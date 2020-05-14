@@ -208,7 +208,7 @@ extension TodayAddWorkoutViewController: UICollectionViewDelegate {
             return .zero
         }
         
-        return CGSize(width: 0, height: 50)
+        return CGSize(width: 0, height: 40)
     }
 }
 
@@ -245,16 +245,13 @@ extension TodayAddWorkoutViewController: UICollectionViewDataSource {
 extension TodayAddWorkoutViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-//        guard let workout = recentWorkouts?[indexPath.item] else { return .zero }
-//        let workout = dummyData[indexPath.item]
-        let tempString = "\(indexPath.item * 241241)"
-
-        let workoutName = tempString
-        let itemSize = workoutName.size(withAttributes: [
+        let workoutTemplate = templates[indexPath.section][indexPath.item]
+        let templateString = workoutTemplate.name
+        let itemSize = templateString.size(withAttributes: [
             NSAttributedString.Key.font : UIFont.smallBoldTitle
         ])
 
-        let extraWidth: CGFloat = 65
+        let extraWidth: CGFloat = 30
 
         return CGSize(width: itemSize.width + extraWidth,
                       height: Size.addCollectionViewHeight)

@@ -38,7 +38,12 @@ class TodayWorkoutTemplateAddViewController: BaseViewController {
         
         templateNameLabel.text = "이름"
         templateNameLabel.font = .subheadline
-
+        
+        templateNameTextField.font = .smallBoldTitle
+        templateNameTextField.textAlignment = .left
+        templateNameTextField.placeholder = "운동 이름을 입력해주세요."
+        templateNameTextField.delegate = self
+        
         templateAddButton.setTitle("저장", for: .normal)
         templateAddButton.setTitleColor(.white, for: .normal)
         templateAddButton.titleLabel?.font = .boldBody
@@ -62,7 +67,7 @@ class TodayWorkoutTemplateAddViewController: BaseViewController {
         templateAttributesCollectionView.registerForHeaderView(LabelCollectionHeaderView.self)
         templateAttributesCollectionView.register(LabelCollectionViewCell.self)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
@@ -81,7 +86,34 @@ class TodayWorkoutTemplateAddViewController: BaseViewController {
 extension TodayWorkoutTemplateAddViewController {
     @objc
     fileprivate func templateAddButtonDidTapped(_ sender: UIButton) {
+        let newWorkoutTemplate = WorkoutTemplate()
         
+        guard let name = templateNameTextField.text else {
+            showBasicAlert(title: "알림", message: "탬플릿 이름을 입력해주세요.")
+            return
+        }
+        
+        guard let selectedIndex = templateAttributesCollectionView.indexPathsForSelectedItems else {
+            showBasicAlert(title: "알림", message: "파트와 스타일 모두 선택해주세요.")
+            return
+        }
+        
+        newWorkoutTemplate.name = name
+        print(name)
+        print(name)
+        print(name)
+        print(name)
+        print(name)
+        selectedIndex.forEach {
+            if $0.section == 0 {
+                newWorkoutTemplate.part = atttributes[$0.section][$0.item] as! Part
+            } else if $0.section == 1{
+                newWorkoutTemplate.style = atttributes[$0.section][$0.item] as! Style
+            }
+        }
+        
+        DBHandler.shared.create(object: newWorkoutTemplate)
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -95,7 +127,7 @@ extension TodayWorkoutTemplateAddViewController: UICollectionViewDelegate{
         guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
             return true
         }
-
+        
         let selectingSection = indexPath.section
         selectedIndexPaths.forEach {
             if $0.section == selectingSection {
@@ -147,11 +179,20 @@ extension TodayWorkoutTemplateAddViewController: UICollectionViewDelegateFlowLay
         
         let fontAtttribute = [NSAttributedString.Key.font: UIFont.boldBody]
         let size = attributeString.size(withAttributes: fontAtttribute)
-
+        
         let extraSpace: CGFloat = 20
         let width = size.width + extraSpace
         
         return CGSize(width: width, height: 35)
+    }
+}
+
+// MARK: TextField Delegate
+
+extension TodayWorkoutTemplateAddViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 

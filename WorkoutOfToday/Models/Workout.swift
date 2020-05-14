@@ -22,6 +22,9 @@ final class Workout: Object {
     }
     
     public var name: String {
+        print("##################################################")
+        print(_templates[0].name)
+        print("##################################################")
         return _templates[0].name
     }
     

@@ -38,7 +38,7 @@ final class TodayWorkoutAddCollectionViewCell: UICollectionViewCell {
     
     fileprivate func setup() {
         containerView.layer.cornerRadius = 15
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        nameLabel.font = .smallBoldTitle
         nameLabel.textAlignment = .natural
     }
     

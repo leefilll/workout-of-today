@@ -26,11 +26,12 @@ class TodayAddWorkoutCollectionHeaderView: UICollectionReusableView {
         titleLabel = UILabel()
         titleLabel.font = .subheadline
         titleLabel.textColor = .defaultTextColor
+        titleLabel.baselineAdjustment = .alignBaselines
         
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(10)
-            make.centerY.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-5)
         }
     }
 }
