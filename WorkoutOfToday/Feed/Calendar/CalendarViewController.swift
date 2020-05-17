@@ -36,6 +36,7 @@ class CalendarViewController: BaseViewController, Childable {
     fileprivate func configureContainerTableView() {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .clear
+        tableView.alwaysBounceVertical = true
         tableView.sectionHeaderHeight = Size.Cell.headerHeight
         tableView.sectionFooterHeight = 30
         tableView.rowHeight = Size.Cell.rowHeight

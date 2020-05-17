@@ -18,22 +18,23 @@ class DailyCollectionViewController: BaseViewController, Childable {
     
     // MARK: View
     
-    var collectionView: UICollectionView!
+    fileprivate weak var collectionView: UICollectionView!
     
     override func setup() {
         let layout = FeedCollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.headerReferenceSize = CGSize(width: 0, height: 80)
-//        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.contentInset.bottom = 20
+        collectionView.alwaysBounceVertical = true
         view.addSubview(collectionView)
         
         collectionView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
+        self.collectionView = collectionView
     }
     
     override func viewDidLoad() {

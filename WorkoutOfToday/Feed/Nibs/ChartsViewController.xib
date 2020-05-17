@@ -22,48 +22,57 @@
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="9hK-nY-OwF">
             <rect key="frame" x="0.0" y="0.0" width="414" height="1708"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qgq-SO-ybQ">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qgq-SO-ybQ">
                     <rect key="frame" x="15" y="0.0" width="384" height="1708"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pj8-ev-vRz" userLabel="Content View">
-                            <rect key="frame" x="0.0" y="0.0" width="384" height="850"/>
+                            <rect key="frame" x="0.0" y="0.0" width="384" height="570"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXT-LO-KfN">
-                                    <rect key="frame" x="5" y="0.0" width="374" height="20.5"/>
+                                    <rect key="frame" x="5" y="0.0" width="374" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="7Qt-cZ-94D"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RqG-Cv-w5m" customClass="WorkoutPartChartView" customModule="WorkoutOfToday" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="25.5" width="384" height="200"/>
+                                    <rect key="frame" x="0.0" y="40" width="384" height="200"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="200" id="Wzr-TD-HGS"/>
                                     </constraints>
                                 </view>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="oNd-0g-73S">
-                                    <rect key="frame" x="5" y="260.5" width="374" height="28"/>
+                                    <rect key="frame" x="5" y="275" width="374" height="35"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wa3-c6-K3c">
-                                            <rect key="frame" x="0.0" y="4" width="42" height="20.5"/>
+                                            <rect key="frame" x="0.0" y="7.5" width="42" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYT-h5-Azl" customClass="BaseButton" customModule="WorkoutOfToday" customModuleProvider="target">
-                                            <rect key="frame" x="308" y="0.0" width="66" height="28"/>
+                                            <rect key="frame" x="308" y="3.5" width="66" height="28"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                             <state key="normal" title="Button"/>
                                         </button>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="hyo-IC-0ei"/>
+                                    </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VP4-1Z-N8U">
-                                    <rect key="frame" x="0.0" y="293.5" width="384" height="241"/>
+                                    <rect key="frame" x="0.0" y="315" width="384" height="240"/>
                                     <subviews>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="eHF-N8-eID">
-                                            <rect key="frame" x="0.0" y="0.0" width="384" height="32"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="31"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="Vs9-ef-nsR"/>
+                                            </constraints>
                                             <segments>
                                                 <segment title=""/>
                                                 <segment title=""/>
@@ -71,7 +80,7 @@
                                             </segments>
                                         </segmentedControl>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1rl-GJ-3Xt" customClass="WorkoutVolumeChartView" customModule="WorkoutOfToday" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="41" width="384" height="200"/>
+                                            <rect key="frame" x="0.0" y="40" width="384" height="200"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="200" id="IXj-KM-cWq"/>
@@ -82,13 +91,13 @@
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="RqG-Cv-w5m" secondAttribute="trailing" id="03U-Mj-0gB"/>
+                                <constraint firstAttribute="bottom" secondItem="1rl-GJ-3Xt" secondAttribute="bottom" constant="15" id="Bzu-Hj-YNF"/>
                                 <constraint firstAttribute="trailing" secondItem="oNd-0g-73S" secondAttribute="trailing" constant="5" id="Jb8-7g-Z3v"/>
                                 <constraint firstItem="oNd-0g-73S" firstAttribute="leading" secondItem="Pj8-ev-vRz" secondAttribute="leading" constant="5" id="JsM-CF-9v6"/>
                                 <constraint firstAttribute="trailing" secondItem="VP4-1Z-N8U" secondAttribute="trailing" id="KsN-cp-o0W"/>
                                 <constraint firstItem="RqG-Cv-w5m" firstAttribute="top" secondItem="qXT-LO-KfN" secondAttribute="bottom" constant="5" id="Nt1-Db-RrA"/>
                                 <constraint firstItem="VP4-1Z-N8U" firstAttribute="top" secondItem="oNd-0g-73S" secondAttribute="bottom" constant="5" id="S9D-dV-LAh"/>
                                 <constraint firstAttribute="trailing" secondItem="qXT-LO-KfN" secondAttribute="trailing" constant="5" id="SpF-cm-3HA"/>
-                                <constraint firstAttribute="height" constant="850" id="Vac-y9-Ya7"/>
                                 <constraint firstItem="VP4-1Z-N8U" firstAttribute="leading" secondItem="Pj8-ev-vRz" secondAttribute="leading" id="d74-WA-UwL"/>
                                 <constraint firstItem="qXT-LO-KfN" firstAttribute="leading" secondItem="Pj8-ev-vRz" secondAttribute="leading" constant="5" id="enn-WK-Yix"/>
                                 <constraint firstItem="qXT-LO-KfN" firstAttribute="top" secondItem="Pj8-ev-vRz" secondAttribute="top" id="f1c-Nj-WiT"/>
@@ -113,12 +122,12 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="Qgq-SO-ybQ" firstAttribute="top" secondItem="9hK-nY-OwF" secondAttribute="top" id="J7s-q5-NUe"/>
-                <constraint firstItem="Qgq-SO-ybQ" firstAttribute="leading" secondItem="R8s-vk-XrS" secondAttribute="leading" constant="15" id="d91-QQ-ZTr"/>
+                <constraint firstItem="Qgq-SO-ybQ" firstAttribute="leading" secondItem="9hK-nY-OwF" secondAttribute="leading" constant="15" id="d91-QQ-ZTr"/>
                 <constraint firstAttribute="bottom" secondItem="Qgq-SO-ybQ" secondAttribute="bottom" id="rOu-3T-AeT"/>
-                <constraint firstItem="R8s-vk-XrS" firstAttribute="trailing" secondItem="Qgq-SO-ybQ" secondAttribute="trailing" constant="15" id="wgL-an-BH4"/>
+                <constraint firstAttribute="trailing" secondItem="Qgq-SO-ybQ" secondAttribute="trailing" constant="15" id="wgL-an-BH4"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="R8s-vk-XrS"/>
+            <viewLayoutGuide key="safeArea" id="Nmu-u4-RSF"/>
             <point key="canvasLocation" x="447.82608695652175" y="1397.5446428571429"/>
         </view>
     </objects>

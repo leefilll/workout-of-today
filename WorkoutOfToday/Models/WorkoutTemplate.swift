@@ -10,11 +10,21 @@ import Foundation
 import RealmSwift
 
 final class WorkoutTemplate: Object {
-    @objc dynamic var name: String = ""
+    @objc private dynamic var _id = UUID().uuidString
+    @objc private dynamic var _name: String = ""
     @objc private dynamic var _part: Int = Part.none.rawValue
     @objc private dynamic var _style: Int = Style.none.rawValue
     @objc private dynamic var _equipment: Int = Equipment.none.rawValue
     let workouts = List<Workout>()
+    
+    public var name: String {
+        get {
+            return _name
+        }
+        set(name) {
+            _name = name
+        }
+    }
     
     public var part: Part {
         get {
@@ -43,7 +53,11 @@ final class WorkoutTemplate: Object {
         }
     }
     
+    public var numberOfWorkout: Int {
+        return workouts.count
+    }
+    
     override static func primaryKey() -> String? {
-        return "name"
+        return "_id"
     }
 }

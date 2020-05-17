@@ -30,11 +30,11 @@ final class TodayWorkoutViewController: BaseViewController {
     
     // MARK: View
     
-    weak var tableView: UITableView!
+    fileprivate weak var tableView: UITableView!
     
-    weak var workoutAddButton: UIButton!
+    fileprivate weak var workoutAddButton: UIButton!
     
-    weak var tableHeaderView: TodayWorkoutTableHeaderView!
+    fileprivate weak var tableHeaderView: TodayWorkoutTableHeaderView!
     
     // MARK: View Life Cycle
     
@@ -77,14 +77,15 @@ final class TodayWorkoutViewController: BaseViewController {
     fileprivate func setupTableView() {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.contentInset.bottom = Size.addButtonHeight + 10
-        
+        tableView.alwaysBounceVertical = true
         view.insertSubview(tableView, at: 0)
-        self.tableView = tableView
-        self.tableView.snp.makeConstraints { (make) in
+        
+        tableView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.layoutMarginsGuide.snp.bottom)
         }
+        self.tableView = tableView
     }
     
     fileprivate func setupWorkoutAddButton() {

@@ -163,13 +163,12 @@ extension DBHandler {
     }
     
     /// fetch all workouts after period.rawvalue months before today
-    fileprivate func fetchWorkoutsByPeriod(workoutName: String, period: Period) -> Results<Workout> {
+    fileprivate func fetchWorkoutsByPeriod(workoutName: String, period: Period) -> [Workout] {
         let beginningDate = period == .entire ?
             Date(timeIntervalSince1970: 0) : Date.now.dateFromMonths(-period.rawValue)
-        let workouts = DBHandler.shared.fetchObjects(ofType: Workout.self).filter("name == %@ AND createdDateTime <= %@", workoutName, beginningDate)
-        let sortedWorkouts = workouts.sorted(byKeyPath: "createdDateTime")
-        
-        return sortedWorkouts
+        let workouts = DBHandler.shared.fetchObjects(ofType: Workout.self).filter("_createdDateTime <= %@", beginningDate)
+        let sortedWorkouts = workouts.sorted(byKeyPath: "_createdDateTime")
+        return sortedWorkouts.filter { $0.name == workoutName }
     }
     
     func fechWorkoutVolumeByPeriod(workoutName: String, period: Period) -> [(date: Date, volume: Double)] {
@@ -180,7 +179,6 @@ extension DBHandler {
             let dateWithVolume = (date: $0.createdDateTime, volume: $0.totalVolume)
             volumesByDate.append(dateWithVolume)
         }
-        
         return volumesByDate
     }
     

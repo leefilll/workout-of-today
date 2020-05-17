@@ -32,18 +32,18 @@ class FeedMasterViewController: BaseViewController {
         self?.add(asChildViewController: dailyCollectionViewController)
         return dailyCollectionViewController
         }()
-    
+
     private lazy var calendarViewController: CalendarViewController = {[weak self] in
         let calendarViewController = CalendarViewController()
         self?.add(asChildViewController: calendarViewController)
         return calendarViewController
         }()
-    
+
     private lazy var chartsViewController: ChartsViewController = {[weak self] in
-           let chartsViewController = ChartsViewController(nibName: "ChartsViewController", bundle: nil)
-           self?.add(asChildViewController: chartsViewController)
-           return chartsViewController
-           }()
+        let chartsViewController = ChartsViewController(nibName: "ChartsViewController", bundle: nil)
+        self?.add(asChildViewController: chartsViewController)
+        return chartsViewController
+        }()
     
     // MARK: View Life Cycle
     override func setup() {
@@ -99,7 +99,6 @@ class FeedMasterViewController: BaseViewController {
     }
     
     private func configureContentView() {
-        
         contentView = UIView()
         contentView.backgroundColor = .defaultBackgroundColor
         
@@ -121,11 +120,10 @@ class FeedMasterViewController: BaseViewController {
         // Configure Child View
         viewController.view.frame = contentView.bounds
         viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        viewController.workoutsOfDays = workoutsOfDays
         
         // Notify Child View Controller
         viewController.didMove(toParent: self)
-        
-        viewController.workoutsOfDays = workoutsOfDays
     }
     
     private func remove(asChildViewController viewController: UIViewController) {
@@ -146,6 +144,7 @@ class FeedMasterViewController: BaseViewController {
                 remove(asChildViewController: chartsViewController)
                 add(asChildViewController: dailyCollectionViewController)
                 break
+
             case 1:
                 remove(asChildViewController: dailyCollectionViewController)
                 remove(asChildViewController: chartsViewController)

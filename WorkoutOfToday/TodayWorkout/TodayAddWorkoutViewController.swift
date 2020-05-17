@@ -50,32 +50,26 @@ class TodayAddWorkoutViewController: BaseViewController {
     
     fileprivate var animationDuration: TimeInterval = 0.2
     
+    fileprivate let popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.50)
+    
     // MARK: View
     
-    @IBOutlet weak var titleLabel: UILabel!
-    
-    @IBOutlet weak var closeButton: BaseButton!
+    @IBOutlet weak var editTemplateButton: UIBarButtonItem!
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    @IBOutlet weak var recentCollectionView: UICollectionView!
+    @IBOutlet weak var templateCollectionView: UICollectionView!
     
-    @IBOutlet weak var handleView: UIView!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     override func setup() {
         tapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                       action: #selector(containerViewDidTapped(_:)))
-//        view.addGestureRecognizer(tapGestureRecognizer)
         
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
-        handleView.backgroundColor = .lightGray
-        handleView.clipsToBounds = true
-        handleView.layer.cornerRadius = 3.5
-//        tempWorkout = Workout()
         
-        setupLabels()
-        setupCloseButton()
+        setupEditTemplateButton()
         setupCollectionView()
         setupPanGestureRecognizer()
     }
@@ -91,30 +85,30 @@ class TodayAddWorkoutViewController: BaseViewController {
         originMaxY = view.frame.maxY
     }
     
-    fileprivate func setupLabels() {
-        titleLabel.font = .boldTitle
-        titleLabel.text = "운동 추가"
+    override func configureNavigationBar() {
+        navigationBar.topItem?.title = "운동 추가"
+        navigationBar.barTintColor = .white
+        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationBar.shadowImage = UIImage()
     }
     
-    fileprivate func setupCloseButton() {
-        closeButton.setTitle("X" , for: .normal)
-        closeButton.addTarget(self, action: #selector(dismiss(_:)), for: .touchUpInside)
+    fileprivate func setupEditTemplateButton() {
+        editTemplateButton.title = "템플릿"
+        editTemplateButton.action = #selector(editTemplateButtonDidTapped(_:))
     }
     
     fileprivate func setupCollectionView() {
         
-        if let layout = recentCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+        if let layout = templateCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.minimumLineSpacing = 0
             layout.minimumInteritemSpacing = 0
             layout.scrollDirection = .vertical
-//            layout.itemSize = CGSize(width: 105, height: 130)
-            
         }
-        recentCollectionView.delegate = self
-        recentCollectionView.dataSource = self
-        recentCollectionView.delaysContentTouches = false
-        recentCollectionView.registerByNib(TodayWorkoutAddCollectionViewCell.self)
-        recentCollectionView.registerForHeaderView(TodayAddWorkoutCollectionHeaderView.self)
+        templateCollectionView.delegate = self
+        templateCollectionView.dataSource = self
+        templateCollectionView.delaysContentTouches = false
+        templateCollectionView.registerByNib(TodayWorkoutAddCollectionViewCell.self)
+        templateCollectionView.registerForHeaderView(TodayAddWorkoutCollectionHeaderView.self)
     }
     
     fileprivate func setupPanGestureRecognizer() {
@@ -122,6 +116,14 @@ class TodayAddWorkoutViewController: BaseViewController {
         view.addGestureRecognizer(panGestureRecognizer)
     }
 
+}
+
+// MARK: AddWorkoutTemplate Delegate
+
+extension TodayAddWorkoutViewController: AddWorkoutTemplate {
+    func workoutTemplateDidAdded() {
+        templateCollectionView.reloadData()
+    }
 }
 
 // MARK: objc functions
@@ -133,8 +135,12 @@ extension TodayAddWorkoutViewController {
     }
     
     @objc
-    func dismiss(_ sender: UITapGestureRecognizer?) {
-        dismiss(animated: true, completion: nil)
+    func editTemplateButtonDidTapped(_ sender: UITapGestureRecognizer?) {
+        let templateAddVC = TodayWorkoutTemplateAddViewController(nibName: "TodayWorkoutTemplateAddViewController", bundle: nil)
+        templateAddVC.modalPresentationStyle = .custom
+        templateAddVC.transitioningDelegate = popupTransitioningDelegateForTemplate
+        templateAddVC.delegate = self
+        present(templateAddVC, animated: true, completion: nil)
     }
     
     @objc

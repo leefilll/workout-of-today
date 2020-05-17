@@ -19,7 +19,11 @@ final class HighlightsWeekChartView: HighlightsView {
     
     fileprivate var xAxisFormatter: IAxisValueFormatter?
     
+    fileprivate var yAxisFormatter: IAxisValueFormatter?
+    
     fileprivate var valueFormatter: IValueFormatter?
+    
+    fileprivate var maxValue: Double = 0.0
     
     enum WeekDays: CaseIterable {
         case mon
@@ -47,27 +51,19 @@ final class HighlightsWeekChartView: HighlightsView {
         }
         
         xAxisFormatter = self
+        yAxisFormatter = self
         valueFormatter = self
         self.barChartView = barChartView
     }
     
     fileprivate func updateChartWithData() {
-        
-        let xAxis = barChartView.xAxis
-        xAxis.labelPosition = .bottom
-        xAxis.labelFont = .systemFont(ofSize: 10)
-        xAxis.gridLineWidth = 0
-        xAxis.granularity = 1
-        xAxis.labelCount = 7
-        xAxis.valueFormatter = xAxisFormatter
-        
         let weekdaysCounts = DBHandler.shared.fetchWorkoutsOfDaysByWeekDays()
         
         let dataEntries = weekdaysCounts.enumerated().map { idx, val -> BarChartDataEntry in
             let xVal = Double(idx)
             var yVal: Double
             if (val == 0) {
-                yVal = 0.1
+                yVal = 0.01
             } else {
                 yVal = Double(val)
             }
@@ -81,6 +77,32 @@ final class HighlightsWeekChartView: HighlightsView {
         let data = BarChartData(dataSet: dataSet)
         data.setValueFormatter(valueFormatter!)
         
+        let xAxis = barChartView.xAxis
+        xAxis.labelPosition = .bottom
+        xAxis.labelFont = .systemFont(ofSize: 10)
+        xAxis.gridLineWidth = 0
+        xAxis.granularity = 1
+        xAxis.labelCount = 7
+        xAxis.valueFormatter = xAxisFormatter
+        
+        maxValue = Double(weekdaysCounts.max() ?? 0)
+        let upperLimitLine = ChartLimitLine(limit: maxValue)
+        upperLimitLine.lineWidth = 2
+        upperLimitLine.lineDashLengths = [5, 5]
+        upperLimitLine.lineColor = .weakTintColor
+
+        let rightAxis = barChartView.rightAxis
+        rightAxis.removeAllLimitLines()
+        rightAxis.addLimitLine(upperLimitLine)
+        rightAxis.axisMaximum = maxValue
+        rightAxis.drawLimitLinesBehindDataEnabled = true
+        rightAxis.axisLineColor = .clear
+        rightAxis.labelFont = .description
+        rightAxis.labelTextColor = .lightGray
+        rightAxis.gridColor = .clear
+        rightAxis.drawLimitLinesBehindDataEnabled = true
+        rightAxis.valueFormatter = yAxisFormatter
+        
         barChartView.data = data
         barChartView.dragEnabled = false
         barChartView.highlightValue(nil)
@@ -89,7 +111,7 @@ final class HighlightsWeekChartView: HighlightsView {
         barChartView.legend.enabled = false
         barChartView.chartDescription?.enabled = false
         barChartView.leftAxis.enabled = false
-        barChartView.rightAxis.enabled = false
+        barChartView.rightAxis.enabled = true
         barChartView.pinchZoomEnabled = false
         barChartView.doubleTapToZoomEnabled = false
         barChartView.highlightPerTapEnabled = false
@@ -105,10 +127,6 @@ final class HighlightsWeekChartView: HighlightsView {
 
 extension HighlightsWeekChartView: IValueFormatter {
     func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
-//        if value < 1 {
-//            return ""
-//        }
-//        return "\(Int(value))"
         return ""
     }
 }
@@ -117,10 +135,18 @@ extension HighlightsWeekChartView: IValueFormatter {
 
 extension HighlightsWeekChartView: IAxisValueFormatter {
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        let index = Int(value)
-        guard let weekdaySymbol = DateFormatter.shared.shortWeekdaySymbols?[index] else {
+        guard let axis = axis else { return "" }
+        if axis == barChartView.xAxis {
+            let index = Int(value)
+            guard let weekdaySymbol = DateFormatter.shared.shortWeekdaySymbols?[index] else {
+                return ""
+            }
+            return weekdaySymbol
+        } else {
+            if value == maxValue {
+                return "\(Int(value))회"
+            }
             return ""
         }
-        return weekdaySymbol
     }
 }

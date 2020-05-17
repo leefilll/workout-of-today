@@ -19,6 +19,8 @@ class TodayWorkoutTemplateAddViewController: BaseViewController {
         return [parts, styles]
     }()
     
+    var delegate: AddWorkoutTemplate?
+    
     // MARK: View
     
     @IBOutlet weak var titleNavigationBar: UINavigationBar!
@@ -32,6 +34,7 @@ class TodayWorkoutTemplateAddViewController: BaseViewController {
     @IBOutlet weak var templateAddButton: UIButton!
     
     override func setup() {
+        
         titleNavigationBar.topItem?.title = "운동 템플릿"
         titleNavigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         titleNavigationBar.shadowImage = UIImage()
@@ -88,22 +91,18 @@ extension TodayWorkoutTemplateAddViewController {
     fileprivate func templateAddButtonDidTapped(_ sender: UIButton) {
         let newWorkoutTemplate = WorkoutTemplate()
         
-        guard let name = templateNameTextField.text else {
-            showBasicAlert(title: "알림", message: "탬플릿 이름을 입력해주세요.")
+        guard let name = templateNameTextField.text, name != "" else {
+            showBasicAlert(title: "알림", message: "운동 템플릿 이름을 입력해주세요.")
             return
         }
         
-        guard let selectedIndex = templateAttributesCollectionView.indexPathsForSelectedItems else {
+        guard let selectedIndex = templateAttributesCollectionView.indexPathsForSelectedItems,
+            selectedIndex.count >= 2 else {
             showBasicAlert(title: "알림", message: "파트와 스타일 모두 선택해주세요.")
             return
         }
         
         newWorkoutTemplate.name = name
-        print(name)
-        print(name)
-        print(name)
-        print(name)
-        print(name)
         selectedIndex.forEach {
             if $0.section == 0 {
                 newWorkoutTemplate.part = atttributes[$0.section][$0.item] as! Part
@@ -113,6 +112,7 @@ extension TodayWorkoutTemplateAddViewController {
         }
         
         DBHandler.shared.create(object: newWorkoutTemplate)
+        delegate?.workoutTemplateDidAdded()
         dismiss(animated: true, completion: nil)
     }
 }
@@ -196,4 +196,6 @@ extension TodayWorkoutTemplateAddViewController: UITextFieldDelegate {
     }
 }
 
-
+protocol AddWorkoutTemplate {
+    func workoutTemplateDidAdded()
+}
