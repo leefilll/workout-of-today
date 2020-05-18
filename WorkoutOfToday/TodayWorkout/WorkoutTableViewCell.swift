@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-final class WorkoutTableViewCell: BaseTableViewCell {
+final class WorkoutTableViewCell: BasicTableViewCell {
     
     // MARK: Model
     

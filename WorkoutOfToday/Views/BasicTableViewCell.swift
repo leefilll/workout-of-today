@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseTableViewCell: UITableViewCell {
+class BasicTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         setup()

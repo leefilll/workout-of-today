@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 import RealmSwift
 
-class FeedMasterViewController: BaseViewController {
+class FeedMasterViewController: BasicViewController {
     
     // MARK: Model
     
@@ -170,7 +170,7 @@ extension FeedMasterViewController {
 }
 
 // MARK: Child VC protocol
-protocol Childable where Self: BaseViewController {
+protocol Childable where Self: BasicViewController {
     var workoutsOfDays: Results<WorkoutsOfDay>! { get set }
 }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TodayWorkoutNoteViewController: BaseViewController {
+class TodayWorkoutNoteViewController: BasicViewController {
     
     var workoutsOfDay: WorkoutsOfDay?
     
@@ -18,7 +18,7 @@ class TodayWorkoutNoteViewController: BaseViewController {
     
     @IBOutlet weak var noteTextView: UITextView!
     
-    @IBOutlet weak var noteAddButton: BaseButton!
+    @IBOutlet weak var noteAddButton: BasicButton!
     
     override func setup() {
         titleLabel.font = .boldTitle

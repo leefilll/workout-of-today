@@ -10,7 +10,7 @@ import UIKit
 
 import RealmSwift
 
-class DailyCollectionViewController: BaseViewController, Childable {
+class DailyCollectionViewController: BasicViewController, Childable {
     
     // MARK: Model
     
@@ -21,7 +21,7 @@ class DailyCollectionViewController: BaseViewController, Childable {
     fileprivate weak var collectionView: UICollectionView!
     
     override func setup() {
-        let layout = FeedCollectionViewFlowLayout()
+        let layout = FeedCollectionViewFlowLayout(minimumInteritemSpacing: 5, minimumLineSpacing: 8, sectionInset: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15))
         layout.scrollDirection = .vertical
         layout.headerReferenceSize = CGSize(width: 0, height: 80)
         
@@ -89,7 +89,7 @@ extension DailyCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView
-            .dequeueReusableSupplementaryHeaderView(LabelCollectionHeaderView.self, for: indexPath)
+            .dequeueReusableSupplementaryView(LabelCollectionHeaderView.self, for: indexPath)
         let workoutsOfDay = self.workoutsOfDays[indexPath.section]
         header.titleLabel.text = DateFormatter.shared.string(from: workoutsOfDay.createdDateTime)
 

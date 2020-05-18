@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileEditViewController: BaseViewController {
+class ProfileEditViewController: BasicViewController {
     
     // MARK: Model
     

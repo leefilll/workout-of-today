@@ -10,9 +10,9 @@ import UIKit
 
 import RealmSwift
 
-// MARK: Base ViewController for all of the controllers
+// MARK: Basic ViewController for all of the controllers
 
-class BaseViewController: UIViewController {
+class BasicViewController: UIViewController {
     
     public var token: NotificationToken? = nil
     

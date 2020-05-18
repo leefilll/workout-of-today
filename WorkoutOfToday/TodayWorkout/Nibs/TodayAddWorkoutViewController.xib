@@ -23,9 +23,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="BIB-UB-i8f">
-                    <rect key="frame" x="25" y="154" width="364" height="703"/>
+                    <rect key="frame" x="25" y="144" width="364" height="718"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="3Pe-Yd-YnN">
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="3Pe-Yd-YnN" customClass="FeedCollectionViewFlowLayout" customModule="WorkoutOfToday" customModuleProvider="target">
                         <size key="itemSize" width="128" height="128"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -33,7 +33,7 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="L4m-dV-HvU">
-                    <rect key="frame" x="20" y="93" width="374" height="56"/>
+                    <rect key="frame" x="20" y="88" width="374" height="56"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
@@ -50,18 +50,18 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="BIB-UB-i8f" firstAttribute="leading" secondItem="8rd-tQ-aQo" secondAttribute="leading" constant="25" id="8QG-FJ-iim"/>
-                <constraint firstItem="L4m-dV-HvU" firstAttribute="top" secondItem="bAk-zd-hMG" secondAttribute="bottom" constant="5" id="MuB-Mm-9Al"/>
+                <constraint firstItem="L4m-dV-HvU" firstAttribute="top" secondItem="bAk-zd-hMG" secondAttribute="bottom" id="MuB-Mm-9Al"/>
                 <constraint firstItem="bAk-zd-hMG" firstAttribute="leading" secondItem="kQS-dL-rTk" secondAttribute="leading" id="Pf8-VS-FKU"/>
                 <constraint firstItem="bAk-zd-hMG" firstAttribute="top" secondItem="8rd-tQ-aQo" secondAttribute="top" id="i3w-Hb-ckm"/>
-                <constraint firstItem="8rd-tQ-aQo" firstAttribute="bottom" secondItem="BIB-UB-i8f" secondAttribute="bottom" constant="5" id="iZ3-fA-nvm"/>
+                <constraint firstItem="8rd-tQ-aQo" firstAttribute="bottom" secondItem="BIB-UB-i8f" secondAttribute="bottom" id="ltg-Xv-Ug3"/>
                 <constraint firstItem="8rd-tQ-aQo" firstAttribute="trailing" secondItem="L4m-dV-HvU" secondAttribute="trailing" constant="20" id="mmU-bu-VCu"/>
-                <constraint firstItem="BIB-UB-i8f" firstAttribute="top" secondItem="L4m-dV-HvU" secondAttribute="bottom" constant="5" id="p3u-5X-5J4"/>
+                <constraint firstItem="BIB-UB-i8f" firstAttribute="top" secondItem="L4m-dV-HvU" secondAttribute="bottom" id="p3u-5X-5J4"/>
                 <constraint firstItem="L4m-dV-HvU" firstAttribute="leading" secondItem="8rd-tQ-aQo" secondAttribute="leading" constant="20" id="rlC-dz-hM8"/>
                 <constraint firstItem="8rd-tQ-aQo" firstAttribute="trailing" secondItem="bAk-zd-hMG" secondAttribute="trailing" id="w8c-Wx-fYH"/>
                 <constraint firstItem="8rd-tQ-aQo" firstAttribute="trailing" secondItem="BIB-UB-i8f" secondAttribute="trailing" constant="25" id="ylJ-2L-Lzr"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="8rd-tQ-aQo"/>
-            <point key="canvasLocation" x="-572" y="844"/>
+            <point key="canvasLocation" x="-572.46376811594212" y="843.75"/>
         </view>
     </objects>
 </document>

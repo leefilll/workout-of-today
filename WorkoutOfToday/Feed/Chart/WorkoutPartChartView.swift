@@ -11,7 +11,7 @@ import UIKit
 import RealmSwift
 import Charts
 
-class WorkoutPartChartView: BaseCardView {
+class WorkoutPartChartView: BasicChartView {
     
     // MARK: View
     
@@ -26,7 +26,12 @@ class WorkoutPartChartView: BaseCardView {
     
     fileprivate var chartFormatter: IValueFormatter?
     
+    override var subtitle: String? {
+        return "빈도 비율"
+    }
+    
     override func setup() {
+        super.setup()
         setupChartView()
         updateChartWithData()
     }
@@ -36,11 +41,9 @@ class WorkoutPartChartView: BaseCardView {
         pieChartView.backgroundColor = .clear
         
         
-        addSubview(pieChartView)
+        chartContainerView.addSubview(pieChartView)
         pieChartView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-10)
-            make.top.equalToSuperview().offset(10)
+            make.leading.trailing.top.bottom.equalToSuperview()
         }
         
         chartFormatter = self

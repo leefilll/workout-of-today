@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="170" height="91"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SmU-PN-x0v" userLabel="ConatinerView" customClass="BaseCardView" customModule="WorkoutOfToday" customModuleProvider="target">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SmU-PN-x0v" userLabel="ConatinerView" customClass="BasicCardView" customModule="WorkoutOfToday" customModuleProvider="target">
                         <rect key="frame" x="4" y="4" width="162" height="83"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="BGx-tE-fbT">

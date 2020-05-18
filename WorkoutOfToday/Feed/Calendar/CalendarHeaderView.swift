@@ -10,11 +10,11 @@ import UIKit
 
 import FSCalendar
 
-class CalendarHeaderView: BaseView {
+class CalendarHeaderView: BasicView {
     
     weak var calendar: FSCalendar!
     
-    weak var toggleCalendarButton: BaseButton!
+    weak var toggleCalendarButton: BasicButton!
 
     override func setup() {
         backgroundColor = .clear
@@ -54,7 +54,7 @@ class CalendarHeaderView: BaseView {
     }
     
     fileprivate func setupButton() {
-        let button = BaseButton()
+        let button = BasicButton()
         
         button.setTitle("접기", for: .normal)
         button.setTitle("열기", for: .selected)

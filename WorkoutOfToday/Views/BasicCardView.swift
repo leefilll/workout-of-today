@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseCardView: UIView {
+class BasicCardView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = .white

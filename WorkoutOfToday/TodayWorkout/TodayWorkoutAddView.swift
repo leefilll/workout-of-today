@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TodayWorkoutAddView: BaseView, NibLoadable {
+class TodayWorkoutAddView: BasicView, NibLoadable {
 
     @IBOutlet weak var nameTextField: UITextField!
     
@@ -16,7 +16,7 @@ class TodayWorkoutAddView: BaseView, NibLoadable {
     
     @IBOutlet weak var equipmentButton: WorkoutEquipmentButton!
     
-    @IBOutlet weak var recentButton: BaseButton!
+    @IBOutlet weak var recentButton: BasicButton!
         
     @IBOutlet weak var closeButton: UIButton!
     

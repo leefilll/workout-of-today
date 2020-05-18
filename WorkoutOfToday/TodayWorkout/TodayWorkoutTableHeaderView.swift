@@ -8,11 +8,11 @@
 
 import UIKit
 
-class TodayWorkoutTableHeaderView: BaseView, NibLoadable {
+class TodayWorkoutTableHeaderView: BasicView, NibLoadable {
     
     @IBOutlet weak var titleLabel: UILabel!
     
-    @IBOutlet weak var workoutNoteButton: BaseButton!
+    @IBOutlet weak var workoutNoteButton: BasicButton!
     
     override func setup() {
         commonInit()

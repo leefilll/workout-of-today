@@ -11,7 +11,7 @@ import UIKit
 import RealmSwift
 import Charts
 
-final class ChartsViewController: BaseViewController, Childable {
+final class ChartsViewController: BasicViewController, Childable {
     
     // MARK: Model
     
@@ -29,7 +29,7 @@ final class ChartsViewController: BaseViewController, Childable {
     
     @IBOutlet weak var workoutLabel: UILabel!
     
-    @IBOutlet weak var workoutSelectButton: BaseButton!
+    @IBOutlet weak var workoutSelectButton: BasicButton!
     
     override func setup() {
         setupLabels()

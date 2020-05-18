@@ -10,7 +10,7 @@ import UIKit
 
 import RealmSwift
 
-final class WorkoutSetTableViewCell: BaseTableViewCell {
+final class WorkoutSetTableViewCell: BasicTableViewCell {
     
     // MARK: Model
     
@@ -36,7 +36,7 @@ final class WorkoutSetTableViewCell: BaseTableViewCell {
     
     @IBOutlet weak var repsTextField: UITextField!
     
-    @IBOutlet weak var completeButton: BaseButton!
+    @IBOutlet weak var completeButton: BasicButton!
     
     
     override func prepareForReuse() {

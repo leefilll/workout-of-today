@@ -26,7 +26,7 @@ final class TodayWorkoutAddCollectionViewCell: UICollectionViewCell {
     
     // MARK: View
     
-    @IBOutlet weak var containerView: BaseCardView!
+    @IBOutlet weak var containerView: BasicCardView!
     
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -46,7 +46,8 @@ final class TodayWorkoutAddCollectionViewCell: UICollectionViewCell {
         containerView.backgroundColor = template?.part.color
         
         nameLabel.sizeToFit()
-        nameLabel.textColor = . white
+        nameLabel.lineBreakMode = .byTruncatingTail
+        nameLabel.textColor = .white
         nameLabel.text = template?.name
     }
     

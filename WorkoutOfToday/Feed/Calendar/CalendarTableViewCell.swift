@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalendarTableViewCell: BaseTableViewCell {
+class CalendarTableViewCell: BasicTableViewCell {
     
     var workoutSet: WorkoutSet? {
         didSet {
@@ -24,7 +24,7 @@ class CalendarTableViewCell: BaseTableViewCell {
     
     @IBOutlet weak var repsLabel: UILabel!
     
-    @IBOutlet weak var completeButton: BaseButton!
+    @IBOutlet weak var completeButton: BasicButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

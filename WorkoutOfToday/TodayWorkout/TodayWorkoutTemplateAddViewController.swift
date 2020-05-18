@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TodayWorkoutTemplateAddViewController: BaseViewController {
+class TodayWorkoutTemplateAddViewController: BasicViewController {
     
     // MARK: Model
     
@@ -159,7 +159,7 @@ extension TodayWorkoutTemplateAddViewController: UICollectionViewDataSource {
     // MARK: Header View
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView
-            .dequeueReusableSupplementaryHeaderView(LabelCollectionHeaderView.self, for: indexPath)
+            .dequeueReusableSupplementaryView(LabelCollectionHeaderView.self, for: indexPath)
         
         let title = atttributes[indexPath.section][indexPath.item].title
         header.titleLabel.text = title

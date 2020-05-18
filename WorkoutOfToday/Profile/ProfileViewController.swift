@@ -21,7 +21,7 @@ import UIKit
  운동량 변화
  */
 
-class ProfileViewController: BaseViewController {
+class ProfileViewController: BasicViewController {
     
     // MARK: Model
     
@@ -32,7 +32,7 @@ class ProfileViewController: BaseViewController {
     
     @IBOutlet weak var summaryTitleLabel: UILabel!
     
-    @IBOutlet weak var summaryEditButton: BaseButton!
+    @IBOutlet weak var summaryEditButton: BasicButton!
     
     @IBOutlet weak var summaryHeightView: SummaryView!
     
@@ -48,7 +48,7 @@ class ProfileViewController: BaseViewController {
     
     @IBOutlet weak var highlightWeekChartView: HighlightsWeekChartView!
     
-    @IBOutlet weak var highlightWorkoutChartView: HighlightsView!
+    @IBOutlet weak var highlightWorkoutChartView: BasicChartView!
     
     override var navigationBarTitle: String {
         return "프로필"

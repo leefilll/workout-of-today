@@ -68,10 +68,11 @@ extension UICollectionView {
                       withReuseIdentifier: String(describing: T.self))
     }
     
-    func dequeueReusableSupplementaryHeaderView<T: UICollectionReusableView>(_ class: T.Type, for indexPath: IndexPath) -> T {
+    /// Note that default supplementaryView is header view
+    func dequeueReusableSupplementaryView<T: UICollectionReusableView>(_ class: T.Type, ofKind elementKind: String = UICollectionView.elementKindSectionHeader, for indexPath: IndexPath) -> T {
         let reusableView = self
             .dequeueReusableSupplementaryView(
-                ofKind: UICollectionView.elementKindSectionHeader,
+                ofKind: elementKind,
                 withReuseIdentifier: String(describing: T.self),
                 for: indexPath) as! T
         

@@ -28,7 +28,7 @@
                     <rect key="frame" x="15" y="0.0" width="384" height="1708"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pj8-ev-vRz" userLabel="Content View">
-                            <rect key="frame" x="0.0" y="0.0" width="384" height="570"/>
+                            <rect key="frame" x="0.0" y="0.0" width="384" height="530"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXT-LO-KfN">
                                     <rect key="frame" x="5" y="0.0" width="374" height="35"/>
@@ -55,7 +55,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYT-h5-Azl" customClass="BaseButton" customModule="WorkoutOfToday" customModuleProvider="target">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYT-h5-Azl" customClass="BasicButton" customModule="WorkoutOfToday" customModuleProvider="target">
                                             <rect key="frame" x="308" y="3.5" width="66" height="28"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                             <state key="normal" title="Button"/>
@@ -66,9 +66,9 @@
                                     </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VP4-1Z-N8U">
-                                    <rect key="frame" x="0.0" y="315" width="384" height="240"/>
+                                    <rect key="frame" x="0.0" y="315" width="384" height="200"/>
                                     <subviews>
-                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="eHF-N8-eID">
+                                        <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="eHF-N8-eID">
                                             <rect key="frame" x="0.0" y="0.0" width="384" height="31"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="Vs9-ef-nsR"/>
@@ -80,7 +80,7 @@
                                             </segments>
                                         </segmentedControl>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1rl-GJ-3Xt" customClass="WorkoutVolumeChartView" customModule="WorkoutOfToday" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="40" width="384" height="200"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="384" height="200"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="200" id="IXj-KM-cWq"/>

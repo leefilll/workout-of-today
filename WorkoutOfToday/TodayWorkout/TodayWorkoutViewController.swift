@@ -12,7 +12,7 @@ import SnapKit
 import RealmSwift
 import DZNEmptyDataSet
 
-final class TodayWorkoutViewController: BaseViewController {
+final class TodayWorkoutViewController: BasicViewController {
     
     // MARK: Model
     
@@ -35,6 +35,8 @@ final class TodayWorkoutViewController: BaseViewController {
     fileprivate weak var workoutAddButton: UIButton!
     
     fileprivate weak var tableHeaderView: TodayWorkoutTableHeaderView!
+    
+    fileprivate weak var editWorkoutButton: BasicButton!
     
     // MARK: View Life Cycle
     
@@ -80,12 +82,26 @@ final class TodayWorkoutViewController: BaseViewController {
         tableView.alwaysBounceVertical = true
         view.insertSubview(tableView, at: 0)
         
+        let editWorkoutButton = BasicButton()
+        editWorkoutButton.setTitle("편집", for: .normal)
+        editWorkoutButton.addTarget(self,
+                                    action: #selector(editWorkoutButtonDidTapped(_:)),
+                                    for: .touchUpInside)
+        view.addSubview(editWorkoutButton)
+        
         tableView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.layoutMarginsGuide.snp.bottom)
         }
+        
+        editWorkoutButton.snp.makeConstraints { make in
+            make.trailing.equalTo(tableView.snp.trailing)
+            make.bottom.equalTo(tableView.snp.top).offset(-5)
+        }
+        
         self.tableView = tableView
+        self.editWorkoutButton = editWorkoutButton
     }
     
     fileprivate func setupWorkoutAddButton() {
@@ -236,6 +252,16 @@ extension TodayWorkoutViewController {
         noteVC.transitioningDelegate = popupTransitioningDelegate
         present(noteVC, animated: true, completion: nil)
     }
+    
+    @objc
+    fileprivate func editWorkoutButtonDidTapped(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        if sender.isSelected {
+            tableView.setEditing(true, animated: true)
+        } else {
+            tableView.setEditing(false, animated: true)
+        }
+    }
 }
 
 // MARK: TableView DataSource
@@ -352,6 +378,17 @@ extension TodayWorkoutViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteButton = UITableViewRowAction(style: .destructive, title: "삭제") { action, indexPath in
+            self.tableView.dataSource?.tableView?(self.tableView,
+                                                  commit: .delete,
+                                                  forRowAt: indexPath)
+            return
+        }
+        deleteButton.backgroundColor = .defaultBackgroundColor
+        return [deleteButton]
     }
 }
 // TODO:- If there is workout here, the add vc make the fields filled

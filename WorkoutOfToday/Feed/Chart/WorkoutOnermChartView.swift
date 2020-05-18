@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WorkoutOnermChartView: BaseCardView {
+class WorkoutOnermChartView: BasicCardView {
     // MARK: Model
     
     

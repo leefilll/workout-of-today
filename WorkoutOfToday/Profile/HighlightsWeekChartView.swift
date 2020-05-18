@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-final class HighlightsWeekChartView: HighlightsView {
+final class HighlightsWeekChartView: BasicChartView {
     
     // MARK: View
     
@@ -25,6 +25,10 @@ final class HighlightsWeekChartView: HighlightsView {
     
     fileprivate var maxValue: Double = 0.0
     
+    override var subtitle: String? {
+        return "요일별 운동 횟수"
+    }
+    
     enum WeekDays: CaseIterable {
         case mon
         case tue
@@ -37,7 +41,6 @@ final class HighlightsWeekChartView: HighlightsView {
     
     override func setup() {
         super.setup()
-        subtitleLabel.text = "요일별 운동 횟수"
         setupChartView()
         updateChartWithData()
     }

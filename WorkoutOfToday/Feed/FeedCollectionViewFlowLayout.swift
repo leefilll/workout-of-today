@@ -9,17 +9,23 @@
 import UIKit
 
 class FeedCollectionViewFlowLayout: UICollectionViewFlowLayout {
+    init(minimumInteritemSpacing: CGFloat, minimumLineSpacing: CGFloat, sectionInset: UIEdgeInsets) {
+        super.init()
+        self.minimumInteritemSpacing = minimumInteritemSpacing
+        self.minimumLineSpacing = minimumLineSpacing
+        self.sectionInset = sectionInset
+    }
     
-    let cellSpacing: CGFloat = 5
-//
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
 //    override func layoutAttributesForDecorationView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
 //        let attribute = super.layoutAttributesForDecorationView(ofKind: elementKind, at: indexPath)
 //        return attribute!
 //    }
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        self.minimumLineSpacing = 8.0
-        self.sectionInset = UIEdgeInsets(top:0, left: 15, bottom: 0, right: 15)
         let attributes = super.layoutAttributesForElements(in: rect)
         var attributesCopy = [UICollectionViewLayoutAttributes]()
         
@@ -41,7 +47,7 @@ class FeedCollectionViewFlowLayout: UICollectionViewFlowLayout {
                 leftMargin = sectionInset.left
             }
             layoutAttribute.frame.origin.x = leftMargin
-            leftMargin += layoutAttribute.frame.width + cellSpacing
+            leftMargin += layoutAttribute.frame.width + minimumInteritemSpacing
             maxY = max(layoutAttribute.frame.maxY , maxY)
         }
         return attributesCopy

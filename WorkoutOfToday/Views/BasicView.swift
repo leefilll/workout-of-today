@@ -10,7 +10,7 @@ import UIKit
 
 import RealmSwift
 
-class BaseView: UIView {
+class BasicView: UIView {
     
     public var token: NotificationToken? = nil
     

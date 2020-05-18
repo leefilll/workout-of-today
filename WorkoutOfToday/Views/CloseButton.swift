@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CloseButton: BaseButton {
+class CloseButton: BasicButton {
     override func setup() {
         setTitle("X", for: .normal)
         setTitleColor(.white, for: .normal)

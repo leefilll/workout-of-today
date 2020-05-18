@@ -10,7 +10,7 @@ import UIKit
 
 import RealmSwift
 
-class TodayAddWorkoutViewController: BaseViewController {
+class TodayAddWorkoutViewController: BasicViewController {
     
     // MARK: Model
     
@@ -25,12 +25,6 @@ class TodayAddWorkoutViewController: BaseViewController {
         }
         return partArray
     }
-    
-//    var tempWorkout: Workout! {         // temporary workout for settings
-//        didSet {
-//            view.layoutIfNeeded()
-//        }
-//    }
     
     var workoutsOfDay: WorkoutsOfDay?   // passed from TodayVC
     
@@ -98,11 +92,11 @@ class TodayAddWorkoutViewController: BaseViewController {
     }
     
     fileprivate func setupCollectionView() {
-        
-        if let layout = templateCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+        if let layout = templateCollectionView.collectionViewLayout as? FeedCollectionViewFlowLayout {
             layout.minimumLineSpacing = 0
             layout.minimumInteritemSpacing = 0
             layout.scrollDirection = .vertical
+            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
         templateCollectionView.delegate = self
         templateCollectionView.dataSource = self
@@ -115,7 +109,6 @@ class TodayAddWorkoutViewController: BaseViewController {
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureDidTapped(_:)))
         view.addGestureRecognizer(panGestureRecognizer)
     }
-
 }
 
 // MARK: AddWorkoutTemplate Delegate
@@ -209,11 +202,9 @@ extension TodayAddWorkoutViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        
         if templates[section].count == 0 {
             return .zero
         }
-        
         return CGSize(width: 0, height: 40)
     }
 }
@@ -231,7 +222,7 @@ extension TodayAddWorkoutViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryHeaderView(TodayAddWorkoutCollectionHeaderView.self, for: indexPath)
+        let header = collectionView.dequeueReusableSupplementaryView(TodayAddWorkoutCollectionHeaderView.self, for: indexPath)
         let part = Part.allCases[indexPath.section]
         header.titleLabel.text = part.description
         return header
@@ -240,7 +231,6 @@ extension TodayAddWorkoutViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(TodayWorkoutAddCollectionViewCell.self,
                                                       for: indexPath)
-        
         cell.template = templates[indexPath.section][indexPath.item]
         return cell
     }
@@ -258,12 +248,16 @@ extension TodayAddWorkoutViewController: UICollectionViewDelegateFlowLayout {
         ])
 
         let extraWidth: CGFloat = 30
-
+        let insetHorizontal = collectionView.contentInset.left + collectionView.contentInset.right
+        let maxWidth = collectionView.bounds.width - insetHorizontal
+        
+        if itemSize.width + extraWidth > maxWidth {
+            return CGSize(width: maxWidth, height: Size.addCollectionViewHeight)
+        }
         return CGSize(width: itemSize.width + extraWidth,
                       height: Size.addCollectionViewHeight)
     }
 }
-
 
 // MARK: TextField Delegate
 

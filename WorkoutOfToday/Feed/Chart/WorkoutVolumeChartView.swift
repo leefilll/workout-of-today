@@ -11,7 +11,23 @@ import UIKit
 import RealmSwift
 import Charts
 
-class WorkoutVolumeChartView: BaseCardView {
+class WorkoutVolumeChartView: BasicChartView {
+    
+    // MARK: View
+    
+    fileprivate var lineChartView: LineChartView!
+    
+    fileprivate var emptyLabel: UILabel!
+    
+    // MARK: At first, set workoutTemplate to first thing
+    override func setup() {
+        super.setup()
+        setupLabel()
+        setupChartView()
+        setupModel()
+        updateChartWithData()
+    }
+    
     // MARK: Model
     
     fileprivate var volumesByDate: [(date: Date, volume: Double)]?
@@ -19,6 +35,10 @@ class WorkoutVolumeChartView: BaseCardView {
     fileprivate var valueFormatter: IValueFormatter?
     
     fileprivate var xAxisFormatter: IAxisValueFormatter?
+    
+    override var subtitle: String? {
+        return "볼륨 변화 추이"
+    }
     
     var workoutTemplate: WorkoutTemplate? {
         didSet {
@@ -39,20 +59,6 @@ class WorkoutVolumeChartView: BaseCardView {
         }
     }
     
-    // MARK: View
-    
-    fileprivate var lineChartView: LineChartView!
-    
-    fileprivate var emptyLabel: UILabel!
-    
-    // MARK: At first, set workoutTemplate to first thing
-    override func setup() {
-        setupLabel()
-        setupChartView()
-        setupModel()
-        updateChartWithData()
-    }
-    
     fileprivate func setupLabel() {
         emptyLabel = UILabel()
         emptyLabel.font = .boldBody
@@ -69,11 +75,9 @@ class WorkoutVolumeChartView: BaseCardView {
         lineChartView = LineChartView()
         lineChartView.backgroundColor = .clear
         
-        addSubview(lineChartView)
+        chartContainerView.addSubview(lineChartView)
         lineChartView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-10)
-            make.top.equalToSuperview().offset(10)
+            make.top.bottom.leading.trailing.equalToSuperview()
         }
         valueFormatter = self
         xAxisFormatter = self

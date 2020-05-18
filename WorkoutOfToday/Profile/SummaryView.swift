@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SummaryView: BaseCardView, NibLoadable {
+class SummaryView: BasicCardView, NibLoadable {
     
     @IBOutlet weak var subtitleLabel: UILabel!
     

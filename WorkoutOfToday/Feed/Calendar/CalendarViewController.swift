@@ -11,7 +11,7 @@ import UIKit
 import RealmSwift
 import FSCalendar
 
-class CalendarViewController: BaseViewController, Childable {
+class CalendarViewController: BasicViewController, Childable {
     
     // MARK: Model
     
@@ -75,7 +75,7 @@ class CalendarViewController: BaseViewController, Childable {
 
 extension CalendarViewController {
     @objc
-    func toggleButtonDidTapped(_ sender: BaseButton) {
+    func toggleButtonDidTapped(_ sender: BasicButton) {
         sender.isSelected = !sender.isSelected
         
         if sender.isSelected {

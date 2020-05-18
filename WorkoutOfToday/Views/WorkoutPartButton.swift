@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class WorkoutPartButton: BaseButton {
+final class WorkoutPartButton: BasicButton {
     
     var part: Part? {
         didSet {
@@ -34,7 +34,7 @@ final class WorkoutPartButton: BaseButton {
     }
 }
 
-final class WorkoutEquipmentButton: BaseButton {
+final class WorkoutEquipmentButton: BasicButton {
     
     var equipment: Equipment? {
         didSet {
