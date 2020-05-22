@@ -36,8 +36,6 @@ final class TodayWorkoutViewController: BasicViewController {
     
     fileprivate weak var tableHeaderView: TodayWorkoutTableHeaderView!
     
-    fileprivate weak var editWorkoutButton: BasicButton!
-    
     // MARK: View Life Cycle
     
     deinit {
@@ -57,24 +55,24 @@ final class TodayWorkoutViewController: BasicViewController {
         addNotificationBlock()
     }
     
-    override func configureNavigationBar() {
-        super.configureNavigationBar()
-        let workoutTemplateAddButton = UIBarButtonItem(barButtonSystemItem: .organize,
-                                                       target: self,
-                                                       action: #selector(workoutTemplateAddButtonDidTapped(_:)))
-        workoutTemplateAddButton.setTitleTextAttributes(
-            [
-                .foregroundColor: UIColor.tintColor,
-                .font: UIFont.boldBody
-            ],
-            for: .normal)
-        workoutTemplateAddButton.setTitleTextAttributes(
-            [
-                .foregroundColor: UIColor.weakTintColor
-            ],
-            for: .highlighted)
-        navigationItem.rightBarButtonItems = [workoutTemplateAddButton]
-    }
+//    override func configureNavigationBar() {
+//        super.configureNavigationBar()
+//        let workoutEditButton = UIBarButtonItem(barButtonSystemItem: .edit,
+//                                                       target: self,
+//                                                       action: #selector(workoutEditButtonDidTapped(_:)))
+//        workoutEditButton.setTitleTextAttributes(
+//            [
+//                .foregroundColor: UIColor.tintColor,
+//                .font: UIFont.boldBody
+//            ],
+//            for: .normal)
+//        workoutEditButton.setTitleTextAttributes(
+//            [
+//                .foregroundColor: UIColor.weakTintColor
+//            ],
+//            for: .highlighted)
+//        navigationItem.rightBarButtonItems = [workoutEditButton]
+//    }
     
     fileprivate func setupTableView() {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -82,26 +80,13 @@ final class TodayWorkoutViewController: BasicViewController {
         tableView.alwaysBounceVertical = true
         view.insertSubview(tableView, at: 0)
         
-        let editWorkoutButton = BasicButton()
-        editWorkoutButton.setTitle("편집", for: .normal)
-        editWorkoutButton.addTarget(self,
-                                    action: #selector(editWorkoutButtonDidTapped(_:)),
-                                    for: .touchUpInside)
-        view.addSubview(editWorkoutButton)
-        
         tableView.snp.makeConstraints { (make) in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.layoutMarginsGuide.snp.bottom)
         }
         
-        editWorkoutButton.snp.makeConstraints { make in
-            make.trailing.equalTo(tableView.snp.trailing)
-            make.bottom.equalTo(tableView.snp.top).offset(-5)
-        }
-        
         self.tableView = tableView
-        self.editWorkoutButton = editWorkoutButton
     }
     
     fileprivate func setupWorkoutAddButton() {
@@ -232,15 +217,28 @@ extension TodayWorkoutViewController {
         if let section = sender.view?.tag {
             print("section: \(section)")
         }
+        
+        let warningAlertVC = WarningAlertViewController(title: "운동을 삭제할까요?.", message: "해당 운동과 모든 세트 정보를 삭제합니다. 이 동작은 되돌릴 수 없습니다.", onDone: #selector(deleteWorkout))
+        warningAlertVC.modalPresentationStyle = .custom
+        warningAlertVC.transitioningDelegate = popupTransitioningDelegate
+        present(warningAlertVC, animated: true, completion: nil)
     }
     
     @objc
-    fileprivate func workoutTemplateAddButtonDidTapped(_ sender: UIBarButtonItem){
-        let templateAddVC = TodayWorkoutTemplateAddViewController(nibName: "TodayWorkoutTemplateAddViewController", bundle: nil)
-        templateAddVC.modalPresentationStyle = .custom
-        templateAddVC.transitioningDelegate = popupTransitioningDelegateForTemplate
-        present(templateAddVC, animated: true, completion: nil)
+    fileprivate func deleteWorkout() {
+        
     }
+//
+//    fileprivate func deleteWorkout(in section: Int) {
+//
+//    }
+
+    
+//    @objc
+//    fileprivate func workoutEditButtonDidTapped(_ sender: UIButton){
+//        sender.isSelected = !sender.isSelected
+//        isEditMode = sender.isSelected
+//    }
     
     @objc
     fileprivate func workoutNoteButtonDidTapped(_ sender: UIButton) {
@@ -378,17 +376,6 @@ extension TodayWorkoutViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
-    }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteButton = UITableViewRowAction(style: .destructive, title: "삭제") { action, indexPath in
-            self.tableView.dataSource?.tableView?(self.tableView,
-                                                  commit: .delete,
-                                                  forRowAt: indexPath)
-            return
-        }
-        deleteButton.backgroundColor = .defaultBackgroundColor
-        return [deleteButton]
     }
 }
 // TODO:- If there is workout here, the add vc make the fields filled

@@ -13,10 +13,9 @@ final class WorkoutPartButton: BasicButton {
     var part: Part? {
         didSet {
             partDidUpdated()
-//            setNeedsDisplay()
         }
     }
-        
+    
     override func setup() {
         super.setup()
         part = Part.none
@@ -32,6 +31,13 @@ final class WorkoutPartButton: BasicButton {
         setTitleColor(.white, for: .normal)
         setTitle(part?.description, for: .normal)
     }
+    
+    fileprivate func setupForEditMode() {
+        setTitle("", for: .normal)
+        backgroundColor = .white
+        layer.borderWidth = 1.0
+        layer.borderColor = UIColor.lightGray.cgColor
+    }
 }
 
 final class WorkoutEquipmentButton: BasicButton {
@@ -42,7 +48,7 @@ final class WorkoutEquipmentButton: BasicButton {
             setNeedsDisplay()
         }
     }
-        
+    
     override func setup() {
         super.setup()
         equipment = Equipment.none

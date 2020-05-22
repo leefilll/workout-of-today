@@ -87,7 +87,6 @@ class TodayAddWorkoutViewController: BasicViewController {
     }
     
     fileprivate func setupEditTemplateButton() {
-        editTemplateButton.title = "템플릿"
         editTemplateButton.action = #selector(editTemplateButtonDidTapped(_:))
     }
     

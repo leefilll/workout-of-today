@@ -42,7 +42,7 @@
                     <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <items>
                         <navigationItem title="Title" id="ejt-Y3-1xf">
-                            <barButtonItem key="rightBarButtonItem" title="Item" id="CM0-ED-d0Q"/>
+                            <barButtonItem key="rightBarButtonItem" systemItem="add" id="CM0-ED-d0Q"/>
                         </navigationItem>
                     </items>
                 </navigationBar>

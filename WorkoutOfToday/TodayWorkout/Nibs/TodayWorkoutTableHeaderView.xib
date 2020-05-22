@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -9,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TodayWorkoutTableHeaderView" customModule="WorkoutOfToday" customModuleProvider="target">
             <connections>
                 <outlet property="titleLabel" destination="8AX-AB-a30" id="qIJ-kM-4NV"/>
+                <outlet property="workoutEditButton" destination="rSg-Mi-91J" id="qcS-1i-IHh"/>
                 <outlet property="workoutNoteButton" destination="mZ0-Kt-YhO" id="whj-I7-nZY"/>
             </connections>
         </placeholder>
@@ -33,17 +36,32 @@
                     <inset key="titleEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="Button"/>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSg-Mi-91J">
+                    <rect key="frame" x="348" y="71" width="46" height="30"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Button"/>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="Iou-9w-fm1" firstAttribute="trailing" secondItem="rSg-Mi-91J" secondAttribute="trailing" constant="20" id="5dY-Wn-6eF"/>
                 <constraint firstItem="8AX-AB-a30" firstAttribute="leading" secondItem="Iou-9w-fm1" secondAttribute="leading" constant="20" id="7Fm-hc-p33"/>
                 <constraint firstItem="mZ0-Kt-YhO" firstAttribute="centerY" secondItem="8AX-AB-a30" secondAttribute="centerY" id="FvA-Q9-4p6"/>
                 <constraint firstItem="8AX-AB-a30" firstAttribute="centerY" secondItem="sr3-iu-gFF" secondAttribute="centerY" id="HiL-pv-zf8"/>
+                <constraint firstItem="rSg-Mi-91J" firstAttribute="bottom" secondItem="8AX-AB-a30" secondAttribute="bottom" id="IAY-Dh-JjC"/>
                 <constraint firstItem="mZ0-Kt-YhO" firstAttribute="leading" secondItem="8AX-AB-a30" secondAttribute="trailing" constant="5" id="ibf-FT-rgR"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="Iou-9w-fm1"/>
             <point key="canvasLocation" x="137.68115942028987" y="316.74107142857139"/>
         </view>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="v9N-gL-DUT">
+            <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+            <nil key="textColor"/>
+            <nil key="highlightedColor"/>
+            <point key="canvasLocation" x="272" y="454"/>
+        </label>
     </objects>
 </document>

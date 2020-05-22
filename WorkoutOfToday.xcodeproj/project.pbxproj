@@ -97,6 +97,7 @@
 		BBE15F2C24581779005600B3 /* TodayWorkoutNoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE15F2B24581779005600B3 /* TodayWorkoutNoteViewController.xib */; };
 		BBE15F2E2458179E005600B3 /* TodayWorkoutNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE15F2D2458179E005600B3 /* TodayWorkoutNoteViewController.swift */; };
 		BBE15F30245818E8005600B3 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE15F2F245818E8005600B3 /* CloseButton.swift */; };
+		BBEE7AF9247599E700F1DF33 /* WarningAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEE7AF8247599E700F1DF33 /* WarningAlertViewController.swift */; };
 		BBF68245244B4D01009EC0EA /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF68244244B4D01009EC0EA /* CalendarViewController.swift */; };
 		BBF68247244B4D11009EC0EA /* BasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF68246244B4D11009EC0EA /* BasicView.swift */; };
 		BBF68249244B505D009EC0EA /* DailyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF68248244B505D009EC0EA /* DailyCollectionViewController.swift */; };
@@ -246,6 +247,7 @@
 		BBE15F2B24581779005600B3 /* TodayWorkoutNoteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayWorkoutNoteViewController.xib; sourceTree = "<group>"; };
 		BBE15F2D2458179E005600B3 /* TodayWorkoutNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWorkoutNoteViewController.swift; sourceTree = "<group>"; };
 		BBE15F2F245818E8005600B3 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		BBEE7AF8247599E700F1DF33 /* WarningAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningAlertViewController.swift; sourceTree = "<group>"; };
 		BBF68244244B4D01009EC0EA /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		BBF68246244B4D11009EC0EA /* BasicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicView.swift; sourceTree = "<group>"; };
 		BBF68248244B505D009EC0EA /* DailyCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCollectionViewController.swift; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 				BBE15F2F245818E8005600B3 /* CloseButton.swift */,
 				BB77E9BC24516BBC00C7C4B5 /* BasicCardView.swift */,
 				BBE15F1E2455EFC0005600B3 /* FormTextField.swift */,
+				BBEE7AF8247599E700F1DF33 /* WarningAlertViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -862,6 +865,7 @@
 				BBE15F0D2455C283005600B3 /* SummaryView.swift in Sources */,
 				BBC65CB6244EFAE2006F0ADB /* CalendarHeaderView.swift in Sources */,
 				BBC65CC2244FF772006F0ADB /* BasicTableViewCell.swift in Sources */,
+				BBEE7AF9247599E700F1DF33 /* WarningAlertViewController.swift in Sources */,
 				BB5C5193243EED1B00A1CD9C /* UIFont+Static.swift in Sources */,
 				BBE15F1D2455E3BE005600B3 /* Profile.swift in Sources */,
 				BBF68249244B505D009EC0EA /* DailyCollectionViewController.swift in Sources */,
