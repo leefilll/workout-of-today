@@ -22,7 +22,7 @@ class FormTextField: UITextField {
         setup()
     }
     
-    fileprivate func setup() {
+    private func setup() {
         backgroundColor = .concaveColor
         clipsToBounds = true
         layer.cornerRadius = 10

@@ -82,7 +82,7 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
 
     }
     
-    fileprivate func fillTextField() {
+    private func fillTextField() {
         if let workoutSet = workoutSet {
             let weight = workoutSet.weight
             let reps = workoutSet.reps
@@ -113,7 +113,7 @@ extension WorkoutSetTableViewCell {
         isCompleted = !isCompleted
     }
     
-    fileprivate func updateButton() {
+    private func updateButton() {
         completeButton.isSelected = !completeButton.isSelected
         if isCompleted {
             completeButton.backgroundColor = .tintColor

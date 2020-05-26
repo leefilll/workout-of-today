@@ -17,7 +17,7 @@ class CalendarFooterView: UITableViewHeaderFooterView {
         setup()
     }
     
-    fileprivate func setup() {
+    private func setup() {
         containerView.backgroundColor = .white
     }
         

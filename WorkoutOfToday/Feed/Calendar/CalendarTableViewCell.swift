@@ -49,7 +49,7 @@ class CalendarTableViewCell: BasicTableViewCell {
         repsLabel.text = nil
     }
     
-    fileprivate func fillLabels() {
+    private func fillLabels() {
         if let workoutSet = workoutSet {
             let weight = workoutSet.weight
             let reps = workoutSet.reps

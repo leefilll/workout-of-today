@@ -37,7 +37,7 @@ final class ChartsViewController: BasicViewController, Childable {
         setupSegmentedControl()
     }
     
-    fileprivate func setupLabels() {
+    private func setupLabels() {
         workoutPartLabel.text = "종목별"
         workoutLabel.text = "운동별"
         
@@ -45,13 +45,13 @@ final class ChartsViewController: BasicViewController, Childable {
         workoutLabel.font = .smallBoldTitle
     }
     
-    fileprivate func setupButton() {
+    private func setupButton() {
         workoutSelectButton.setTitle("운동 선택", for: .normal)
         workoutSelectButton.backgroundColor = .tintColor
         workoutSelectButton.setTitleColor(.white, for: .normal)
     }
     
-    fileprivate func setupSegmentedControl() {
+    private func setupSegmentedControl() {
         periodSegmentedControl.setTitle(Period.oneMonth.description, forSegmentAt: 0)
         periodSegmentedControl.setTitle(Period.threeMonths.description, forSegmentAt: 1)
         periodSegmentedControl.setTitle(Period.entire.description, forSegmentAt: 2)
@@ -91,7 +91,7 @@ final class ChartsViewController: BasicViewController, Childable {
         animateCharts()
     }
     
-    fileprivate func animateCharts() {
+    private func animateCharts() {
         partChartView.animateChart()
         volumeChartView.animateChart()
     }

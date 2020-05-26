@@ -18,7 +18,7 @@ class DailyCollectionViewController: BasicViewController, Childable {
     
     // MARK: View
     
-    fileprivate weak var collectionView: UICollectionView!
+    private weak var collectionView: UICollectionView!
     
     override func setup() {
         let layout = FeedCollectionViewFlowLayout(minimumInteritemSpacing: 5, minimumLineSpacing: 8, sectionInset: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15))

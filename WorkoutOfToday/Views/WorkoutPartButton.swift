@@ -22,7 +22,7 @@ final class WorkoutPartButton: BasicButton {
         setTitle("파트", for: .normal)
     }
     
-    fileprivate func partDidUpdated() {
+    private func partDidUpdated() {
         if part == Part.none {
             backgroundColor = part?.color.withAlphaComponent(0.2)
         } else {
@@ -32,7 +32,7 @@ final class WorkoutPartButton: BasicButton {
         setTitle(part?.description, for: .normal)
     }
     
-    fileprivate func setupForEditMode() {
+    private func setupForEditMode() {
         setTitle("", for: .normal)
         backgroundColor = .white
         layer.borderWidth = 1.0
@@ -55,7 +55,7 @@ final class WorkoutEquipmentButton: BasicButton {
         setTitle("도구", for: .normal)
     }
     
-    fileprivate func equipmentDidUpdated() {
+    private func equipmentDidUpdated() {
         backgroundColor = equipment?.color.withAlphaComponent(0.2)
         setTitleColor(equipment?.color, for: .normal)
         setTitle(equipment?.description, for: .normal)

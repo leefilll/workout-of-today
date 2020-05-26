@@ -24,7 +24,7 @@ class CalendarHeaderView: BasicView {
     }
 
     
-    fileprivate func setupCalendar() {
+    private func setupCalendar() {
         let calendar = FSCalendar()
         calendar.backgroundColor = .white
         calendar.clipsToBounds = true
@@ -53,7 +53,7 @@ class CalendarHeaderView: BasicView {
         self.calendar = calendar
     }
     
-    fileprivate func setupButton() {
+    private func setupButton() {
         let button = BasicButton()
         
         button.setTitle("접기", for: .normal)

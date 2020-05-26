@@ -13,17 +13,17 @@ final class HighlightsWeekChartView: BasicChartView {
     
     // MARK: View
     
-    fileprivate var barChartView: BarChartView!
+    private var barChartView: BarChartView!
     
     // MARK: Model
     
-    fileprivate var xAxisFormatter: IAxisValueFormatter?
+    private var xAxisFormatter: IAxisValueFormatter?
     
-    fileprivate var yAxisFormatter: IAxisValueFormatter?
+    private var yAxisFormatter: IAxisValueFormatter?
     
-    fileprivate var valueFormatter: IValueFormatter?
+    private var valueFormatter: IValueFormatter?
     
-    fileprivate var maxValue: Double = 0.0
+    private var maxValue: Double = 0.0
     
     override var subtitle: String? {
         return "요일별 운동 횟수"
@@ -45,7 +45,7 @@ final class HighlightsWeekChartView: BasicChartView {
         updateChartWithData()
     }
     
-    fileprivate func setupChartView() {
+    private func setupChartView() {
         let barChartView = BarChartView()
         barChartView.backgroundColor = .clear
         chartContainerView.addSubview(barChartView)
@@ -59,7 +59,7 @@ final class HighlightsWeekChartView: BasicChartView {
         self.barChartView = barChartView
     }
     
-    fileprivate func updateChartWithData() {
+    private func updateChartWithData() {
         let weekdaysCounts = DBHandler.shared.fetchWorkoutsOfDaysByWeekDays()
         
         let dataEntries = weekdaysCounts.enumerated().map { idx, val -> BarChartDataEntry in

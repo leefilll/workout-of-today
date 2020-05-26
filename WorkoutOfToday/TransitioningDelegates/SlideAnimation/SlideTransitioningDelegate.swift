@@ -10,7 +10,7 @@ import UIKit
 
 class SlideTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
-    fileprivate var heightRatio: CGFloat
+    private var heightRatio: CGFloat
     
     init(heightRatio: CGFloat) {
         self.heightRatio = heightRatio

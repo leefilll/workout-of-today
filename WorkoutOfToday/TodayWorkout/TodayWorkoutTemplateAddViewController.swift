@@ -12,7 +12,7 @@ class TodayWorkoutTemplateAddViewController: BasicViewController {
     
     // MARK: Model
     
-    fileprivate var atttributes: [[Selectable]] = {
+    private var atttributes: [[Selectable]] = {
         let parts = Part.allCases.filter { $0.name != "-" }
         let styles = Style.allCases.filter { $0.name != "-" }
         
@@ -58,7 +58,7 @@ class TodayWorkoutTemplateAddViewController: BasicViewController {
         setupCollectionView()
     }
     
-    fileprivate func setupCollectionView() {
+    private func setupCollectionView() {
         if let layout = templateAttributesCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
             layout.minimumLineSpacing = 5
@@ -77,7 +77,7 @@ class TodayWorkoutTemplateAddViewController: BasicViewController {
         view.backgroundColor = .white
     }
     
-    fileprivate func configureCollectionView() {
+    private func configureCollectionView() {
         templateAttributesCollectionView.isScrollEnabled = false
         templateAttributesCollectionView.allowsMultipleSelection = true
         templateAttributesCollectionView.delaysContentTouches = false
@@ -88,7 +88,7 @@ class TodayWorkoutTemplateAddViewController: BasicViewController {
 
 extension TodayWorkoutTemplateAddViewController {
     @objc
-    fileprivate func templateAddButtonDidTapped(_ sender: UIButton) {
+    private func templateAddButtonDidTapped(_ sender: UIButton) {
         let newWorkoutTemplate = WorkoutTemplate()
         
         guard let name = templateNameTextField.text, name != "" else {

@@ -36,13 +36,13 @@ final class TodayWorkoutAddCollectionViewCell: UICollectionViewCell {
         setup()
     }
     
-    fileprivate func setup() {
+    private func setup() {
         containerView.layer.cornerRadius = 15
         nameLabel.font = .smallBoldTitle
         nameLabel.textAlignment = .natural
     }
     
-    fileprivate func updateView() {
+    private func updateView() {
         containerView.backgroundColor = template?.part.color
         
         nameLabel.sizeToFit()

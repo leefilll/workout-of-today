@@ -10,13 +10,13 @@ import UIKit
 
 class PopupTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
-    fileprivate var widthRatio: CGFloat = 0
+    private var widthRatio: CGFloat = 0
     
-    fileprivate var heightRatio: CGFloat = 0
+    private var heightRatio: CGFloat = 0
     
-    fileprivate var height: CGFloat = 0
+    private var height: CGFloat = 0
     
-    fileprivate var minY: CGFloat? = nil
+    private var minY: CGFloat? = nil
     
     init(widthRatio: CGFloat, heightRatio: CGFloat, minY: CGFloat? = nil) {
         self.widthRatio = widthRatio

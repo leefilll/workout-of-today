@@ -16,11 +16,11 @@ final class TodayWorkoutViewController: BasicViewController {
     
     // MARK: Model
     
-    fileprivate let slideTransitioningDelegate =  SlideTransitioningDelegate(heightRatio: 0.90)
+    private let slideTransitioningDelegate =  SlideTransitioningDelegate(heightRatio: 0.90)
     
-    fileprivate let popupTransitioningDelegate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.35)
+    private let popupTransitioningDelegate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.35)
     
-    fileprivate let popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.50)
+    private let popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.50)
     
     var workoutsOfDay: WorkoutsOfDay?
     
@@ -30,11 +30,11 @@ final class TodayWorkoutViewController: BasicViewController {
     
     // MARK: View
     
-    fileprivate weak var tableView: UITableView!
+    private weak var tableView: UITableView!
     
-    fileprivate weak var workoutAddButton: UIButton!
+    private weak var workoutAddButton: UIButton!
     
-    fileprivate weak var tableHeaderView: TodayWorkoutTableHeaderView!
+    private weak var tableHeaderView: TodayWorkoutTableHeaderView!
     
     // MARK: View Life Cycle
     
@@ -74,7 +74,7 @@ final class TodayWorkoutViewController: BasicViewController {
 //        navigationItem.rightBarButtonItems = [workoutEditButton]
 //    }
     
-    fileprivate func setupTableView() {
+    private func setupTableView() {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.contentInset.bottom = Size.addButtonHeight + 10
         tableView.alwaysBounceVertical = true
@@ -89,7 +89,7 @@ final class TodayWorkoutViewController: BasicViewController {
         self.tableView = tableView
     }
     
-    fileprivate func setupWorkoutAddButton() {
+    private func setupWorkoutAddButton() {
         let workoutAddButton = UIButton()
         workoutAddButton.setBackgroundColor(.tintColor, for: .normal)
         workoutAddButton.setBackgroundColor(UIColor.tintColor.withAlphaComponent(0.7),
@@ -112,7 +112,7 @@ final class TodayWorkoutViewController: BasicViewController {
         }
     }
     
-    fileprivate func configureTableView() {
+    private func configureTableView() {
         let tableHeaderView = TodayWorkoutTableHeaderView()
         tableHeaderView.titleLabel.text = DateFormatter.shared.string(from: Date.now)
         tableHeaderView.frame.size.height = 50
@@ -187,7 +187,7 @@ final class TodayWorkoutViewController: BasicViewController {
 
 extension TodayWorkoutViewController {
     @objc
-    fileprivate func workoutSetAddButtonDidTapped(_ sender: UIButton) {
+    private func workoutSetAddButtonDidTapped(_ sender: UIButton) {
         guard let workoutsOfDay = workoutsOfDay else { return }
         let section = sender.tag
         let workout = workoutsOfDay.workouts[section]
@@ -202,17 +202,17 @@ extension TodayWorkoutViewController {
     // MARK: Present WorkoutAdd VC
     
     @objc
-    fileprivate func workoutAddButtonDidTapped(_ sender: UIButton) {
-        let vc = TodayAddWorkoutViewController(nibName: "TodayAddWorkoutViewController",
-                                               bundle: nil)
+    private func workoutAddButtonDidTapped(_ sender: UIButton) {
+        let vc = TodayAddWorkoutViewController(nibName: "TodayAddWorkoutViewController", bundle: nil)
         vc.workoutsOfDay = workoutsOfDay
         vc.modalPresentationStyle = .custom
         vc.transitioningDelegate = slideTransitioningDelegate
+        vc.delegate = self
         present(vc, animated: true, completion: nil)
     }
     
     @objc
-    fileprivate func workoutSectionHeaderDidTapped(_ sender: UITapGestureRecognizer) {
+    private func workoutSectionHeaderDidTapped(_ sender: UITapGestureRecognizer) {
         // MARK: using tag for knowing sections
         if let section = sender.view?.tag {
             print("section: \(section)")
@@ -225,23 +225,23 @@ extension TodayWorkoutViewController {
     }
     
     @objc
-    fileprivate func deleteWorkout() {
+    private func deleteWorkout() {
         
     }
 //
-//    fileprivate func deleteWorkout(in section: Int) {
+//    private func deleteWorkout(in section: Int) {
 //
 //    }
 
     
 //    @objc
-//    fileprivate func workoutEditButtonDidTapped(_ sender: UIButton){
+//    private func workoutEditButtonDidTapped(_ sender: UIButton){
 //        sender.isSelected = !sender.isSelected
 //        isEditMode = sender.isSelected
 //    }
     
     @objc
-    fileprivate func workoutNoteButtonDidTapped(_ sender: UIButton) {
+    private func workoutNoteButtonDidTapped(_ sender: UIButton) {
         guard let workoutsOfDay = workoutsOfDay else { return }
         
         let noteVC = TodayWorkoutNoteViewController(nibName: "TodayWorkoutNoteViewController", bundle: nil)
@@ -252,7 +252,7 @@ extension TodayWorkoutViewController {
     }
     
     @objc
-    fileprivate func editWorkoutButtonDidTapped(_ sender: UIButton) {
+    private func editWorkoutButtonDidTapped(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
             tableView.setEditing(true, animated: true)
@@ -292,7 +292,9 @@ extension TodayWorkoutViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        print(#function)
         guard let workoutsOfDay = workoutsOfDay else { return }
+        print("AFTER GUARD")
         switch editingStyle {
             case .delete:
                 let workout = workoutsOfDay.workouts[indexPath.section]
@@ -378,7 +380,16 @@ extension TodayWorkoutViewController: UITableViewDelegate {
         return .delete
     }
 }
-// TODO:- If there is workout here, the add vc make the fields filled
+
+extension TodayWorkoutViewController: WorkoutDidAdded {
+    func firstWorkoutDidAdded(at workoutsOfDay: WorkoutsOfDay) {
+        print(#function)
+        self.workoutsOfDay = workoutsOfDay
+        addNotificationBlock()
+        reloadData()
+    }
+}
+
 
 // MARK: for Empty tableView
 

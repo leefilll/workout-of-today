@@ -16,13 +16,13 @@ class WarningAlertViewController: UIViewController {
     
     var onDoneSelector: Selector?
     
-    fileprivate weak var titleLable: UILabel!
+    private weak var titleLable: UILabel!
     
-    fileprivate weak var messageLabel: UILabel!
+    private weak var messageLabel: UILabel!
     
-    fileprivate weak var confirmButton: BasicButton!
+    private weak var confirmButton: BasicButton!
     
-    fileprivate weak var cancelButton: BasicButton!
+    private weak var cancelButton: BasicButton!
     
     public convenience init(title: String, message: String, onDone: Selector) {
         self.init()

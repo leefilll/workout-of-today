@@ -10,15 +10,15 @@ import UIKit
 
 final class SlidePresentationController: UIPresentationController {
     
-    fileprivate let dimmingView: UIView = {
+    private let dimmingView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.55)
         return view
     }()
     
-    fileprivate var heightRatio: CGFloat = 1.0
+    private var heightRatio: CGFloat = 1.0
     
-    fileprivate var animationType: AnimationType = .present
+    private var animationType: AnimationType = .present
     
     enum AnimationType {
         case present

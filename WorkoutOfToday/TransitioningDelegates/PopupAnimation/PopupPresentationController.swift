@@ -10,23 +10,23 @@ import UIKit
 
 final class PopupPresentationController: UIPresentationController {
     
-    fileprivate let dimmingView: UIView = {
+    private let dimmingView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.55)
         return view
     }()
     
-    fileprivate var widthRatio: CGFloat = 0.95
+    private var widthRatio: CGFloat = 0.95
     
-    fileprivate var heightRatio: CGFloat = 1.0
+    private var heightRatio: CGFloat = 1.0
     
-    fileprivate var height: CGFloat = 0
+    private var height: CGFloat = 0
     
-    fileprivate var animationType: AnimationType = .present
+    private var animationType: AnimationType = .present
     
-    fileprivate var presentationType: PresentationType = .ratio
+    private var presentationType: PresentationType = .ratio
     
-    fileprivate var minY: CGFloat?
+    private var minY: CGFloat?
     
     enum PresentationType {
         case ratio

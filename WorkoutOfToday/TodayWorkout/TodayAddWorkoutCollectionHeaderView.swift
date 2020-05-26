@@ -22,7 +22,7 @@ class TodayAddWorkoutCollectionHeaderView: UICollectionReusableView {
         setup()
     }
 
-    fileprivate func setup() {
+    private func setup() {
         titleLabel = UILabel()
         titleLabel.font = .subheadline
         titleLabel.textColor = .defaultTextColor

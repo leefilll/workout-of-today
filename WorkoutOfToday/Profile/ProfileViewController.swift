@@ -25,9 +25,9 @@ class ProfileViewController: BasicViewController {
     
     // MARK: Model
     
-    fileprivate let popupTransitioningDelegate = PopupTransitioningDelegate(height: 400)
+    private let popupTransitioningDelegate = PopupTransitioningDelegate(height: 400)
     
-    fileprivate var user: Profile? {
+    private var user: Profile? {
         didSet {
             updateSummaries()
         }
@@ -77,7 +77,7 @@ class ProfileViewController: BasicViewController {
         highlightWeekChartView.animateChart()
     }
     
-    fileprivate func setupSummaries() {
+    private func setupSummaries() {
         let profile = DBHandler.shared.fetchObjects(ofType: Profile.self)
         if let user = profile.first {
             self.user = user
@@ -105,7 +105,7 @@ class ProfileViewController: BasicViewController {
         summaryBmiView.unitLabel.text = ""
     }
     
-    fileprivate func updateSummaries() {
+    private func updateSummaries() {
         if let user = user {
             summaryCoverView.isHidden = true
             summaryHeightView.titleLabel.text = String(format: "%.1f", user.height)
@@ -132,7 +132,7 @@ class ProfileViewController: BasicViewController {
         }
     }
     
-    fileprivate func setupHighlights() {
+    private func setupHighlights() {
         highlightTitleLabel.textColor = .defaultTextColor
         highlightTitleLabel.font = .smallBoldTitle
         highlightTitleLabel.text = "하이라이트"
@@ -144,7 +144,7 @@ class ProfileViewController: BasicViewController {
 
 extension ProfileViewController {
     @objc
-    fileprivate func summaryEditButtonDidTapped(_ sender: UIButton) {
+    private func summaryEditButtonDidTapped(_ sender: UIButton) {
         let editVC = ProfileEditViewController(nibName: "ProfileEditViewController", bundle: nil)
         editVC.transitioningDelegate = popupTransitioningDelegate
         editVC.modalPresentationStyle = .custom

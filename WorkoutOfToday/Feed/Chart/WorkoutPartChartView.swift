@@ -15,16 +15,16 @@ class WorkoutPartChartView: BasicChartView {
     
     // MARK: View
     
-    fileprivate weak var pieChartView: PieChartView!
+    private weak var pieChartView: PieChartView!
     
     // MARK: Model
     
-    fileprivate let totalWorkouts: Results<Workout> =
+    private let totalWorkouts: Results<Workout> =
         DBHandler.shared.fetchObjects(ofType: Workout.self)
     
-    fileprivate var mostFrequentParts: [Int] = []
+    private var mostFrequentParts: [Int] = []
     
-    fileprivate var chartFormatter: IValueFormatter?
+    private var chartFormatter: IValueFormatter?
     
     override var subtitle: String? {
         return "빈도 비율"
@@ -36,7 +36,7 @@ class WorkoutPartChartView: BasicChartView {
         updateChartWithData()
     }
     
-    fileprivate func setupChartView() {
+    private func setupChartView() {
         let pieChartView = PieChartView()
         pieChartView.backgroundColor = .clear
         
@@ -50,7 +50,7 @@ class WorkoutPartChartView: BasicChartView {
         self.pieChartView = pieChartView
     }
     
-    fileprivate func updateChartWithData() {
+    private func updateChartWithData() {
         mostFrequentParts = DBHandler.shared.fetchWorkoutPartInPercentage()
         let entries = mostFrequentParts.enumerated().map { idx, count -> PieChartDataEntry in
             return PieChartDataEntry(value: Double(count),

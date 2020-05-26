@@ -16,7 +16,7 @@ final class Profile: Object {
     @objc dynamic var muscleWeight: Double = 0
     @objc dynamic var fatPercentage: Double = 0
     
-    fileprivate let weights = List<Double>()
+    private let weights = List<Double>()
     
     func addNewWeight(_ newWeight: Double) {
         weights.append(newWeight)
@@ -26,7 +26,7 @@ final class Profile: Object {
         return weights.last ?? 0.0
     }
     
-    fileprivate func calculateBMI() -> Double {
+    private func calculateBMI() -> Double {
         let weight = getRecentWeight()
         let heightPerMeter = height / 100
         let bmi = weight / (heightPerMeter * heightPerMeter)
@@ -39,7 +39,7 @@ final class Profile: Object {
         return (bmiIndex, bmi.string)
     }
     
-    fileprivate enum BMI {
+    private enum BMI {
         case lowweight
         case regular
         case overweight

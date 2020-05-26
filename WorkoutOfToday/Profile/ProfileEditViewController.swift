@@ -12,9 +12,9 @@ class ProfileEditViewController: BasicViewController {
     
     // MARK: Model
     
-    fileprivate var tapGestureRecognize: UITapGestureRecognizer!
+    private var tapGestureRecognize: UITapGestureRecognizer!
     
-    fileprivate var moved: CGFloat?
+    private var moved: CGFloat?
     
     var user: Profile?
     
@@ -24,15 +24,15 @@ class ProfileEditViewController: BasicViewController {
     
     @IBOutlet weak var titleNavigationBar: UINavigationBar!
     
-    @IBOutlet fileprivate var subtitleLabels: [UILabel]!
+    @IBOutlet private var subtitleLabels: [UILabel]!
     
-    @IBOutlet fileprivate var textFields: [FormTextField]!
+    @IBOutlet private var textFields: [FormTextField]!
     
-    @IBOutlet fileprivate weak var nameTextField: FormTextField!
+    @IBOutlet private weak var nameTextField: FormTextField!
     
-    @IBOutlet fileprivate weak var heightTextField: FormTextField!
+    @IBOutlet private weak var heightTextField: FormTextField!
     
-    @IBOutlet fileprivate weak var weightTextField: FormTextField!
+    @IBOutlet private weak var weightTextField: FormTextField!
     
     @IBOutlet weak var optionalPartDescLabel: UILabel!
     
@@ -83,7 +83,7 @@ class ProfileEditViewController: BasicViewController {
         setupTextFields()
     }
     
-    fileprivate func setupTextFields() {
+    private func setupTextFields() {
         if let user = user {
             self.user = user
             nameTextField.text = user.name

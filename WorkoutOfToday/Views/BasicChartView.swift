@@ -23,7 +23,7 @@ class BasicChartView: BasicCardView {
         setupChartView()
     }
     
-    fileprivate func setupLabel() {
+    private func setupLabel() {
         let subtitleLabel = UILabel()
         subtitleLabel.font = .subheadline
         subtitleLabel.textColor = .lightGray
@@ -38,7 +38,7 @@ class BasicChartView: BasicCardView {
         self.subtitleLabel = subtitleLabel
     }
     
-    fileprivate func setupChartView() {
+    private func setupChartView() {
         let chartContainerView = UIView()
         chartContainerView.backgroundColor = .clear
         addSubview(chartContainerView)

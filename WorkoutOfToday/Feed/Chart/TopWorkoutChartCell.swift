@@ -35,7 +35,7 @@
 //        setup()
 //    }
 //    
-//    fileprivate func setup() {
+//    private func setup() {
 //        commonInit()
 //        backgroundColor = .clear
 //        

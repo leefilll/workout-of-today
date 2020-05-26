@@ -132,7 +132,7 @@ extension DBHandler {
 //        return mostFrequentWorkouts
 //    }
     
-    fileprivate func fetcthPartsByCount(workouts: Results<Workout>) -> [Int] {
+    private func fetcthPartsByCount(workouts: Results<Workout>) -> [Int] {
         let numberOfPart = Part.allCases.count
         var mostFrequentParts = [Int](repeating: 0, count: numberOfPart)
         
@@ -163,7 +163,7 @@ extension DBHandler {
     }
     
     /// fetch all workouts after period.rawvalue months before today
-    fileprivate func fetchWorkoutsByPeriod(workoutName: String, period: Period) -> [Workout] {
+    private func fetchWorkoutsByPeriod(workoutName: String, period: Period) -> [Workout] {
         let beginningDate = period == .entire ?
             Date(timeIntervalSince1970: 0) : Date.now.dateFromMonths(-period.rawValue)
         let workouts = DBHandler.shared.fetchObjects(ofType: Workout.self).filter("_createdDateTime <= %@", beginningDate)

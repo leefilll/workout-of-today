@@ -15,9 +15,9 @@ class WorkoutVolumeChartView: BasicChartView {
     
     // MARK: View
     
-    fileprivate var lineChartView: LineChartView!
+    private var lineChartView: LineChartView!
     
-    fileprivate var emptyLabel: UILabel!
+    private var emptyLabel: UILabel!
     
     // MARK: At first, set workoutTemplate to first thing
     override func setup() {
@@ -30,11 +30,11 @@ class WorkoutVolumeChartView: BasicChartView {
     
     // MARK: Model
     
-    fileprivate var volumesByDate: [(date: Date, volume: Double)]?
+    private var volumesByDate: [(date: Date, volume: Double)]?
     
-    fileprivate var valueFormatter: IValueFormatter?
+    private var valueFormatter: IValueFormatter?
     
-    fileprivate var xAxisFormatter: IAxisValueFormatter?
+    private var xAxisFormatter: IAxisValueFormatter?
     
     override var subtitle: String? {
         return "볼륨 변화 추이"
@@ -59,7 +59,7 @@ class WorkoutVolumeChartView: BasicChartView {
         }
     }
     
-    fileprivate func setupLabel() {
+    private func setupLabel() {
         emptyLabel = UILabel()
         emptyLabel.font = .boldBody
         emptyLabel.text = "차트를 위한 정보가 부족합니다."
@@ -71,7 +71,7 @@ class WorkoutVolumeChartView: BasicChartView {
         }
     }
     
-    fileprivate func setupChartView() {
+    private func setupChartView() {
         lineChartView = LineChartView()
         lineChartView.backgroundColor = .clear
         
@@ -84,14 +84,14 @@ class WorkoutVolumeChartView: BasicChartView {
         lineChartView.delegate = self
     }
     
-    fileprivate func setupModel() {
+    private func setupModel() {
           let tempTemplate = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self)
           if !tempTemplate.isEmpty {
               workoutTemplate = tempTemplate[0]
           }
       }
 
-    fileprivate func updateContentView() {
+    private func updateContentView() {
         if workoutTemplate == nil || workoutTemplate?.numberOfWorkout ?? 0 < 3 {
             emptyLabel.isHidden = false
             lineChartView.isHidden = true
@@ -101,7 +101,7 @@ class WorkoutVolumeChartView: BasicChartView {
         }
     }
         
-    fileprivate func updateChartWithData() {
+    private func updateChartWithData() {
         guard let workoutTemplate = workoutTemplate else { return }
         volumesByDate = DBHandler.shared.fechWorkoutVolumeByPeriod(workoutName: workoutTemplate.name, period: period)
         guard let volumesByDate = volumesByDate else { fatalError() }

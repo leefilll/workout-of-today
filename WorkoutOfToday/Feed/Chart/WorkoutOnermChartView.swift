@@ -19,11 +19,11 @@ class WorkoutOnermChartView: BasicCardView {
         updateChartWithData()
     }
     
-    fileprivate func setupChartView() {
+    private func setupChartView() {
         
     }
     
-    fileprivate func updateChartWithData() {
+    private func updateChartWithData() {
         
     }
     

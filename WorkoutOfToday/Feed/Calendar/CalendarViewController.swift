@@ -25,15 +25,15 @@ class CalendarViewController: BasicViewController, Childable {
     
     // MARK: View
     
-    fileprivate weak var containerTableView: UITableView!
+    private weak var containerTableView: UITableView!
     
-    fileprivate weak var calendarHeaderView: CalendarHeaderView!
+    private weak var calendarHeaderView: CalendarHeaderView!
     
     override func setup() {
         configureContainerTableView()
     }
     
-    fileprivate func configureContainerTableView() {
+    private func configureContainerTableView() {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .clear
         tableView.alwaysBounceVertical = true

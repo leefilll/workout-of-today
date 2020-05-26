@@ -10,9 +10,9 @@ import UIKit
 
 class SlideAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
-    fileprivate let animationDuration: Double
+    private let animationDuration: Double
     
-    fileprivate let animationType: AnimationType
+    private let animationType: AnimationType
     
     enum AnimationType {
         case present

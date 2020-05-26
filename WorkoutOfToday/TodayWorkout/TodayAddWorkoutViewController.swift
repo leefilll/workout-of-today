@@ -14,9 +14,9 @@ class TodayAddWorkoutViewController: BasicViewController {
     
     // MARK: Model
     
-//    fileprivate var templates: Results<WorkoutTemplate>!
+//    private var templates: Results<WorkoutTemplate>!
     
-    fileprivate var templates: [[WorkoutTemplate]] {
+    private var templates: [[WorkoutTemplate]] {
         let templates = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self)
         var partArray = [[WorkoutTemplate]](repeating: [], count: Part.allCases.count)
         templates.forEach { template in
@@ -28,23 +28,23 @@ class TodayAddWorkoutViewController: BasicViewController {
     
     var workoutsOfDay: WorkoutsOfDay?   // passed from TodayVC
     
-    var recentWorkouts: [Workout]?      // recent Objects for collectionView
+    var delegate: WorkoutDidAdded?
     
-    fileprivate var tapGestureRecognizer: UITapGestureRecognizer!
+    private var tapGestureRecognizer: UITapGestureRecognizer!
 
-    fileprivate var panGestureRecognizer: UIPanGestureRecognizer!
+    private var panGestureRecognizer: UIPanGestureRecognizer!
     
-    fileprivate var originMinY: CGFloat!
+    private var originMinY: CGFloat!
     
-    fileprivate var originMaxY: CGFloat!
+    private var originMaxY: CGFloat!
     
-    fileprivate var minimumVelocityToHide: CGFloat = 1200
+    private var minimumVelocityToHide: CGFloat = 1200
     
-    fileprivate var minimumScreenRatioToHide: CGFloat = 0.3
+    private var minimumScreenRatioToHide: CGFloat = 0.3
     
-    fileprivate var animationDuration: TimeInterval = 0.2
+    private var animationDuration: TimeInterval = 0.2
     
-    fileprivate let popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.50)
+    private let popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.50)
     
     // MARK: View
     
@@ -59,7 +59,6 @@ class TodayAddWorkoutViewController: BasicViewController {
     override func setup() {
         tapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                       action: #selector(containerViewDidTapped(_:)))
-        
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
         
@@ -86,11 +85,11 @@ class TodayAddWorkoutViewController: BasicViewController {
         navigationBar.shadowImage = UIImage()
     }
     
-    fileprivate func setupEditTemplateButton() {
+    private func setupEditTemplateButton() {
         editTemplateButton.action = #selector(editTemplateButtonDidTapped(_:))
     }
     
-    fileprivate func setupCollectionView() {
+    private func setupCollectionView() {
         if let layout = templateCollectionView.collectionViewLayout as? FeedCollectionViewFlowLayout {
             layout.minimumLineSpacing = 0
             layout.minimumInteritemSpacing = 0
@@ -104,7 +103,7 @@ class TodayAddWorkoutViewController: BasicViewController {
         templateCollectionView.registerForHeaderView(TodayAddWorkoutCollectionHeaderView.self)
     }
     
-    fileprivate func setupPanGestureRecognizer() {
+    private func setupPanGestureRecognizer() {
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureDidTapped(_:)))
         view.addGestureRecognizer(panGestureRecognizer)
     }
@@ -179,24 +178,20 @@ extension TodayAddWorkoutViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedTemplate = templates[indexPath.section][indexPath.item]
         let newWorkout = Workout()
-        guard let workoutsOfDay = workoutsOfDay else { return }
+        
+        if let workoutsOfDay = workoutsOfDay {
+            DBHandler.shared.write {
+                workoutsOfDay.workouts.append(newWorkout)
+            }
+        } else {
+            let newWorkoutsOfDay = WorkoutsOfDay()
+            newWorkoutsOfDay.workouts.append(newWorkout)
+            DBHandler.shared.create(object: newWorkoutsOfDay)
+            delegate?.firstWorkoutDidAdded(at: newWorkoutsOfDay)
+        }
         DBHandler.shared.write {
-            workoutsOfDay.workouts.append(newWorkout)
             selectedTemplate.workouts.append(newWorkout)
         }
-//        if let workoutsOfDay = workoutsOfDay {
-//            // if WOD already exists
-//            DBHandler.shared.write {
-//                workoutsOfDay.workouts.append(newWorkout)
-//            }
-//        } else {
-//            let newWorkoutsOfDay = WorkoutsOfDay()
-//            DBHandler.shared.create(object: newWorkoutsOfDay)
-//            DBHandler.shared.write {
-//                newWorkoutsOfDay.workouts.append(newWorkout)
-//            }
-//            // MARK: Should fix this
-//        }
         dismiss(animated: true, completion: nil)
     }
     
@@ -269,4 +264,10 @@ extension TodayAddWorkoutViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+}
+
+// MARK: WorkoutDidAdded protocol
+
+protocol WorkoutDidAdded {
+    func firstWorkoutDidAdded(at workoutsOfDay: WorkoutsOfDay)
 }
