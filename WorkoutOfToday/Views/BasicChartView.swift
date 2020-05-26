@@ -10,17 +10,31 @@ import UIKit
 
 class BasicChartView: BasicCardView {
     
-    var subtitleLabel: UILabel!
+    // MARK: View
     
-    var chartContainerView: UIView!
+    weak var subtitleLabel: UILabel!
+    
+    weak var chartContainerView: UIView!
+    
+    weak var emptyLabel: UILabel!
+    
+    // MARK: Model
     
     var subtitle: String? {
         return ""
     }
     
+    var isEmpty: Bool = true {
+        didSet {
+            updateChartView()
+        }
+    }
+    
     override func setup() {
         setupLabel()
         setupChartView()
+        setupEmptyLabel()
+        updateChartView()
     }
     
     private func setupLabel() {
@@ -50,5 +64,27 @@ class BasicChartView: BasicCardView {
         }
         
         self.chartContainerView =  chartContainerView
+    }
+    
+    private func setupEmptyLabel() {
+        let emptyLabel = UILabel()
+        emptyLabel.font = .subheadline
+        emptyLabel.text = "차트를 위한 정보가 부족합니다."
+        addSubview(emptyLabel)
+        
+        emptyLabel.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+        self.emptyLabel = emptyLabel
+    }
+    
+    private func updateChartView() {
+        if isEmpty {
+            emptyLabel.isHidden = false
+            chartContainerView.isHidden = true
+        } else {
+            emptyLabel.isHidden = true
+            chartContainerView.isHidden = false
+        }
     }
 }

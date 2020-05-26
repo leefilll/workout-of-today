@@ -19,8 +19,14 @@ class WorkoutPartChartView: BasicChartView {
     
     // MARK: Model
     
-    private let totalWorkouts: Results<Workout> =
-        DBHandler.shared.fetchObjects(ofType: Workout.self)
+    private var totalWorkouts: Results<Workout>? {
+        didSet {
+            if let totalWorkouts = totalWorkouts,
+                totalWorkouts.count > 0 {
+                isEmpty = false
+            }
+        }
+    }
     
     private var mostFrequentParts: [Int] = []
     
@@ -32,14 +38,18 @@ class WorkoutPartChartView: BasicChartView {
     
     override func setup() {
         super.setup()
+        setupModel()
         setupChartView()
         updateChartWithData()
+    }
+    
+    private func setupModel() {
+        totalWorkouts = DBHandler.shared.fetchObjects(ofType: Workout.self)
     }
     
     private func setupChartView() {
         let pieChartView = PieChartView()
         pieChartView.backgroundColor = .clear
-        
         
         chartContainerView.addSubview(pieChartView)
         pieChartView.snp.makeConstraints { make in

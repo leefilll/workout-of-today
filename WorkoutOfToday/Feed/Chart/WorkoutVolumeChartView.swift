@@ -15,14 +15,11 @@ class WorkoutVolumeChartView: BasicChartView {
     
     // MARK: View
     
-    private var lineChartView: LineChartView!
-    
-    private var emptyLabel: UILabel!
+    private weak var lineChartView: LineChartView!
     
     // MARK: At first, set workoutTemplate to first thing
     override func setup() {
         super.setup()
-        setupLabel()
         setupChartView()
         setupModel()
         updateChartWithData()
@@ -42,8 +39,9 @@ class WorkoutVolumeChartView: BasicChartView {
     
     var workoutTemplate: WorkoutTemplate? {
         didSet {
-            updateContentView()
-            setNeedsDisplay()
+            if workoutTemplate != nil {
+                isEmpty = false
+            }
         }
     }
     
@@ -59,20 +57,15 @@ class WorkoutVolumeChartView: BasicChartView {
         }
     }
     
-    private func setupLabel() {
-        emptyLabel = UILabel()
-        emptyLabel.font = .boldBody
-        emptyLabel.text = "차트를 위한 정보가 부족합니다."
-        emptyLabel.textColor = .lightGray
-        addSubview(emptyLabel)
-        
-        emptyLabel.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-        }
-    }
+    private func setupModel() {
+          let tempTemplate = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self)
+          if !tempTemplate.isEmpty {
+              workoutTemplate = tempTemplate[0]
+          }
+      }
     
     private func setupChartView() {
-        lineChartView = LineChartView()
+        let lineChartView = LineChartView()
         lineChartView.backgroundColor = .clear
         
         chartContainerView.addSubview(lineChartView)
@@ -82,25 +75,9 @@ class WorkoutVolumeChartView: BasicChartView {
         valueFormatter = self
         xAxisFormatter = self
         lineChartView.delegate = self
+        self.lineChartView = lineChartView
     }
-    
-    private func setupModel() {
-          let tempTemplate = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self)
-          if !tempTemplate.isEmpty {
-              workoutTemplate = tempTemplate[0]
-          }
-      }
-
-    private func updateContentView() {
-        if workoutTemplate == nil || workoutTemplate?.numberOfWorkout ?? 0 < 3 {
-            emptyLabel.isHidden = false
-            lineChartView.isHidden = true
-        } else {
-            emptyLabel.isHidden = true
-            lineChartView.isHidden = false
-        }
-    }
-        
+            
     private func updateChartWithData() {
         guard let workoutTemplate = workoutTemplate else { return }
         volumesByDate = DBHandler.shared.fechWorkoutVolumeByPeriod(workoutName: workoutTemplate.name, period: period)
@@ -111,7 +88,6 @@ class WorkoutVolumeChartView: BasicChartView {
             let volume = value.volume
             return ChartDataEntry(x: Double(idx), y: Double(volume))
         }
-        
         let set = LineChartDataSet(entries: entries)
         set.drawIconsEnabled = false
         set.highlightLineDashLengths = [5, 2.5]
@@ -154,15 +130,14 @@ class WorkoutVolumeChartView: BasicChartView {
     func animateChart() {
         lineChartView.animate(xAxisDuration: 0.8)
     }
-    
 }
 
 // MARK: ChartView Delegate
 
 extension WorkoutVolumeChartView: ChartViewDelegate {
-    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        print(entry)
-    }
+//    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+//        print(entry)
+//    }
 }
 
 // MARK: Value Formatter Delegate
@@ -170,18 +145,6 @@ extension WorkoutVolumeChartView: ChartViewDelegate {
 extension WorkoutVolumeChartView: IValueFormatter {
     func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
         return ""
-        //        if value == 0 {
-        //            return ""
-        //        }
-        //
-        //        let pFormatter = NumberFormatter()
-        //        pFormatter.numberStyle = .none
-        //        pFormatter.multiplier = 1
-        //
-        //        guard let formattedString = pFormatter.string(from: NSNumber(value: value)) else {
-        //            return ""
-        //        }
-        //        return formattedString + " kg"
     }
 }
 

@@ -77,7 +77,6 @@ final class TodayWorkoutViewController: BasicViewController {
     private func setupTableView() {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.contentInset.bottom = Size.addButtonHeight + 10
-        tableView.alwaysBounceVertical = true
         view.insertSubview(tableView, at: 0)
         
         tableView.snp.makeConstraints { (make) in
@@ -122,7 +121,7 @@ final class TodayWorkoutViewController: BasicViewController {
                                                     for: .touchUpInside)
         tableView.tableHeaderView = tableHeaderView
         self.tableHeaderView = tableHeaderView
-        
+        tableView.alwaysBounceVertical = true
         tableView.backgroundColor = .clear
         tableView.sectionHeaderHeight = Size.Cell.headerHeight
         tableView.estimatedSectionHeaderHeight = Size.Cell.headerHeight
@@ -161,6 +160,7 @@ final class TodayWorkoutViewController: BasicViewController {
                         if property.name == "note" {
                             return
                         } else {
+                            print(workoutsOfDay)
                             let targetSection = workoutsOfDay.numberOfWorkouts - 1
                             let targetIndexPath = IndexPath(row: NSNotFound, section: targetSection)
                             self.tableView.beginUpdates()
@@ -217,6 +217,7 @@ extension TodayWorkoutViewController {
         if let section = sender.view?.tag {
             print("section: \(section)")
         }
+        print(sender.view?.tag)
         
         let warningAlertVC = WarningAlertViewController(title: "운동을 삭제할까요?.", message: "해당 운동과 모든 세트 정보를 삭제합니다. 이 동작은 되돌릴 수 없습니다.", onDone: #selector(deleteWorkout))
         warningAlertVC.modalPresentationStyle = .custom
@@ -292,9 +293,7 @@ extension TodayWorkoutViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        print(#function)
         guard let workoutsOfDay = workoutsOfDay else { return }
-        print("AFTER GUARD")
         switch editingStyle {
             case .delete:
                 let workout = workoutsOfDay.workouts[indexPath.section]
@@ -383,7 +382,6 @@ extension TodayWorkoutViewController: UITableViewDelegate {
 
 extension TodayWorkoutViewController: WorkoutDidAdded {
     func firstWorkoutDidAdded(at workoutsOfDay: WorkoutsOfDay) {
-        print(#function)
         self.workoutsOfDay = workoutsOfDay
         addNotificationBlock()
         reloadData()

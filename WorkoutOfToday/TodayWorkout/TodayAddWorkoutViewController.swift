@@ -189,6 +189,7 @@ extension TodayAddWorkoutViewController: UICollectionViewDelegate {
             DBHandler.shared.create(object: newWorkoutsOfDay)
             delegate?.firstWorkoutDidAdded(at: newWorkoutsOfDay)
         }
+//        newWorkout.template = selectedTemplate
         DBHandler.shared.write {
             selectedTemplate.workouts.append(newWorkout)
         }

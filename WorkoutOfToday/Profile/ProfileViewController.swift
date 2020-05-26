@@ -65,6 +65,7 @@ class ProfileViewController: BasicViewController {
     override func setup() {
         setupSummaries()
         setupHighlights()
+        updateSummaries()
     }
     
     override func viewDidLoad() {
@@ -117,11 +118,6 @@ class ProfileViewController: BasicViewController {
             summaryBmiView.titleLabel.text = String(format: "%.1f", bmiDegree)
         } else {
             summaryCoverView.isHidden = false
-            summaryHeightView.titleLabel.text = ""
-            summaryWeightView.titleLabel.text = ""
-            summaryBodyFatView.titleLabel.text = ""
-            summaryMuscleView.titleLabel.text = ""
-            summaryBmiView.titleLabel.text = ""
             let descriptionLabel = UILabel()
             descriptionLabel.text = "정보가 등록되지 않았습니다."
             descriptionLabel.font = .subheadline

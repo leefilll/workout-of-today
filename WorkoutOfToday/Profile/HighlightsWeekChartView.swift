@@ -25,6 +25,8 @@ final class HighlightsWeekChartView: BasicChartView {
     
     private var maxValue: Double = 0.0
     
+    private var weekdaysCount: [Int]?
+    
     override var subtitle: String? {
         return "요일별 운동 횟수"
     }
@@ -41,8 +43,17 @@ final class HighlightsWeekChartView: BasicChartView {
     
     override func setup() {
         super.setup()
+        setupModel()
         setupChartView()
         updateChartWithData()
+    }
+    
+    private func setupModel() {
+        let weekdaysCount = DBHandler.shared.fetchWorkoutsOfDaysByWeekDays()
+        if !isEmpty(weekdaysCount) {
+            self.weekdaysCount = weekdaysCount
+            isEmpty = false
+        }
     }
     
     private func setupChartView() {
@@ -52,17 +63,29 @@ final class HighlightsWeekChartView: BasicChartView {
         barChartView.snp.makeConstraints { make in
             make.bottom.leading.trailing.top.equalToSuperview()
         }
-        
         xAxisFormatter = self
         yAxisFormatter = self
         valueFormatter = self
         self.barChartView = barChartView
     }
     
+    // MARK: Check weekdaysCount is Empty or not
+    private func isEmpty(_ array: [Int]) -> Bool {
+        for elem in array {
+            if elem != 0 {
+                return false
+            }
+        }
+        return true
+    }
+    
     private func updateChartWithData() {
-        let weekdaysCounts = DBHandler.shared.fetchWorkoutsOfDaysByWeekDays()
+        guard let weekdaysCount = weekdaysCount else {
+            isEmpty = true
+            return
+        }
         
-        let dataEntries = weekdaysCounts.enumerated().map { idx, val -> BarChartDataEntry in
+        let dataEntries = weekdaysCount.enumerated().map { idx, val -> BarChartDataEntry in
             let xVal = Double(idx)
             var yVal: Double
             if (val == 0) {
@@ -88,7 +111,7 @@ final class HighlightsWeekChartView: BasicChartView {
         xAxis.labelCount = 7
         xAxis.valueFormatter = xAxisFormatter
         
-        maxValue = Double(weekdaysCounts.max() ?? 0)
+        maxValue = Double(weekdaysCount.max() ?? 0)
         let upperLimitLine = ChartLimitLine(limit: maxValue)
         upperLimitLine.lineWidth = 2
         upperLimitLine.lineDashLengths = [5, 5]

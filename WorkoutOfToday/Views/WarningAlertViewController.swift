@@ -24,7 +24,7 @@ class WarningAlertViewController: UIViewController {
     
     private weak var cancelButton: BasicButton!
     
-    public convenience init(title: String, message: String, onDone: Selector) {
+    convenience init(title: String, message: String, onDone: Selector) {
         self.init()
         self.titleMessage = title
         self.message = message
