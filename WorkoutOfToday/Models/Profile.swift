@@ -13,17 +13,66 @@ final class Profile: Object {
     @objc dynamic var createdDateTime: Date = Date()
     @objc dynamic var name: String = ""
     @objc dynamic var height: Double = 0
-    @objc dynamic fileprivate var id: String  = UUID().uuidString
+    @objc dynamic var muscleWeight: Double = 0
+    @objc dynamic var fatPercentage: Double = 0
     
     fileprivate let weights = List<Double>()
     
     func addNewWeight(_ newWeight: Double) {
-//        DBHandler.shared.write {
-//            weights.append(newWeight)
-//        }
+        weights.append(newWeight)
     }
     
-    override class func primaryKey() -> String? {
-        return "id"
+    func getRecentWeight() -> Double {
+        return weights.last ?? 0.0
+    }
+    
+    fileprivate func calculateBMI() -> Double {
+        let weight = getRecentWeight()
+        let heightPerMeter = height / 100
+        let bmi = weight / (heightPerMeter * heightPerMeter)
+        return bmi
+    }
+    
+    func getBMI() -> (Double, String) {
+        let bmiIndex = calculateBMI()
+        let bmi = BMI.checkBmi(bmiIndex)
+        return (bmiIndex, bmi.string)
+    }
+    
+    fileprivate enum BMI {
+        case lowweight
+        case regular
+        case overweight
+        case obesity
+        case extremelyObesity
+        
+        static func checkBmi(_ bmi: Double) -> BMI {
+            if bmi <= 18.5 {
+                // 저체중
+                return .lowweight
+            } else if bmi <= 23 {
+                // 정싱
+                return .regular
+            } else if bmi <= 25 {
+                // 과체중
+                return .overweight
+            } else if bmi <= 30 {
+                // 비만
+                return .obesity
+            } else {
+                // 고도 비만
+                return .extremelyObesity
+            }
+        }
+        
+        var string: String {
+            switch self {
+                case .lowweight: return "저체중"
+                case .regular: return "정상 체중"
+                case .overweight: return "과체중"
+                case .obesity: return "비만"
+                case .extremelyObesity: return "고도 비만"
+            }
+        }
     }
 }

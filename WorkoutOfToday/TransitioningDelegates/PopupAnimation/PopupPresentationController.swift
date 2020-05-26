@@ -16,13 +16,22 @@ final class PopupPresentationController: UIPresentationController {
         return view
     }()
     
-    fileprivate var widthRatio: CGFloat = 1.0
+    fileprivate var widthRatio: CGFloat = 0.95
     
     fileprivate var heightRatio: CGFloat = 1.0
     
+    fileprivate var height: CGFloat = 0
+    
     fileprivate var animationType: AnimationType = .present
     
+    fileprivate var presentationType: PresentationType = .ratio
+    
     fileprivate var minY: CGFloat?
+    
+    enum PresentationType {
+        case ratio
+        case concrete
+    }
     
     enum AnimationType {
         case present
@@ -35,21 +44,42 @@ final class PopupPresentationController: UIPresentationController {
     
     convenience init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?, widthRatio: CGFloat, heighRatio: CGFloat, minY: CGFloat? = nil) {
         self.init(presentedViewController: presentedViewController, presenting: presentingViewController)
+        self.presentationType = .ratio
         self.widthRatio = widthRatio
         self.heightRatio = heighRatio
         self.minY = minY
     }
     
+    convenience init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?, height: CGFloat) {
+        self.init(presentedViewController: presentedViewController, presenting: presentingViewController)
+        self.presentationType = .concrete
+        self.height = height
+    }
+    
     override var frameOfPresentedViewInContainerView: CGRect {
         guard var frame = containerView?.frame else { return .zero }
-        if let minY = minY {
-            frame.origin.y = minY
-        } else {
-            frame.origin.y = frame.height * (1 - heightRatio) / 2
+        switch presentationType {
+            case .concrete:
+                if let minY = minY {
+                    frame.origin.y = minY
+                } else {
+                    frame.origin.y = (frame.height - height) / 2
+                }
+                frame.origin.x = frame.width * (1 - widthRatio) / 2
+                frame.size.height = height
+                frame.size.width = frame.width * widthRatio
+                break
+            case .ratio:
+                if let minY = minY {
+                    frame.origin.y = minY
+                } else {
+                    frame.origin.y = frame.height * (1 - heightRatio) / 2
+                }
+                frame.origin.x = frame.width * (1 - widthRatio) / 2
+                frame.size.height = frame.height * heightRatio
+                frame.size.width = frame.width * widthRatio
+                break
         }
-        frame.origin.x = frame.width * (1 - widthRatio) / 2
-        frame.size.height = frame.height * heightRatio
-        frame.size.width = frame.width * widthRatio
         return frame
     }
     

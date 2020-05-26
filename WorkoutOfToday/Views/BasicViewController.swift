@@ -97,7 +97,7 @@ class BasicViewController: UIViewController {
            }
        }
     
-    public func keyboardWillShow(bounds: CGRect? = nil) {
+    public func keyboardWillShow(bounds: CGRect?) {
     }
     
     public func keyboardWillHide() {

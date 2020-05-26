@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -10,22 +10,29 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileEditViewController" customModule="WorkoutOfToday" customModuleProvider="target">
             <connections>
-                <outlet property="bmiLabel" destination="RoV-X8-GQ7" id="YrB-JP-5md"/>
-                <outlet property="bmiResultLabel" destination="AXn-BW-gM3" id="fr1-iX-MeE"/>
                 <outlet property="editProfileButton" destination="RSf-uX-DYF" id="SOj-ht-4gR"/>
+                <outlet property="fatPercentageTextField" destination="DUw-7C-zFo" id="uHJ-ld-28K"/>
                 <outlet property="heightTextField" destination="TKD-mQ-GNa" id="dOv-ge-rv8"/>
+                <outlet property="muscleWeightTextField" destination="6UW-jA-t4l" id="03D-OR-oyN"/>
                 <outlet property="nameTextField" destination="iQk-m9-bbb" id="q3p-pG-jUd"/>
+                <outlet property="optionalPartDescLabel" destination="zaD-xG-rdL" id="6qs-7D-PXF"/>
                 <outlet property="titleNavigationBar" destination="TU9-Wd-WaN" id="bhk-gS-R5s"/>
                 <outlet property="view" destination="iN0-l3-epB" id="bWD-PD-BFY"/>
                 <outlet property="weightTextField" destination="wHK-jz-psN" id="h0Y-pp-4Zs"/>
-                <outletCollection property="subtitleLabels" destination="7VN-tn-Dx3" collectionClass="NSMutableArray" id="PVa-b1-qU4"/>
-                <outletCollection property="subtitleLabels" destination="sNF-TM-7cv" collectionClass="NSMutableArray" id="PZh-dT-pB4"/>
-                <outletCollection property="subtitleLabels" destination="m2f-Ko-deg" collectionClass="NSMutableArray" id="J5g-X1-hrI"/>
-                <outletCollection property="textFields" destination="iQk-m9-bbb" collectionClass="NSMutableArray" id="CV5-Bu-ELm"/>
-                <outletCollection property="textFields" destination="TKD-mQ-GNa" collectionClass="NSMutableArray" id="HEY-sB-Hgb"/>
-                <outletCollection property="textFields" destination="wHK-jz-psN" collectionClass="NSMutableArray" id="JBh-hA-tBY"/>
-                <outletCollection property="unitLabels" destination="ELl-2r-gRF" collectionClass="NSMutableArray" id="a9L-nI-uah"/>
-                <outletCollection property="unitLabels" destination="WIV-NU-OrA" collectionClass="NSMutableArray" id="ggh-3n-3kr"/>
+                <outletCollection property="textFields" destination="iQk-m9-bbb" collectionClass="NSMutableArray" id="fEu-5C-7fp"/>
+                <outletCollection property="textFields" destination="TKD-mQ-GNa" collectionClass="NSMutableArray" id="evs-gd-5At"/>
+                <outletCollection property="textFields" destination="wHK-jz-psN" collectionClass="NSMutableArray" id="6GL-kW-IeQ"/>
+                <outletCollection property="textFields" destination="DUw-7C-zFo" collectionClass="NSMutableArray" id="Ois-cB-9RI"/>
+                <outletCollection property="textFields" destination="6UW-jA-t4l" collectionClass="NSMutableArray" id="gwU-WY-thg"/>
+                <outletCollection property="subtitleLabels" destination="7VN-tn-Dx3" collectionClass="NSMutableArray" id="eug-oi-Lby"/>
+                <outletCollection property="subtitleLabels" destination="sNF-TM-7cv" collectionClass="NSMutableArray" id="Cvh-w2-2Ph"/>
+                <outletCollection property="subtitleLabels" destination="m2f-Ko-deg" collectionClass="NSMutableArray" id="qBE-CJ-jhg"/>
+                <outletCollection property="subtitleLabels" destination="JFN-bh-nON" collectionClass="NSMutableArray" id="Okq-WS-NLV"/>
+                <outletCollection property="subtitleLabels" destination="fF7-Hc-pPE" collectionClass="NSMutableArray" id="oHT-Wb-9Dr"/>
+                <outletCollection property="unitLabels" destination="ELl-2r-gRF" collectionClass="NSMutableArray" id="yDb-cT-fLf"/>
+                <outletCollection property="unitLabels" destination="WIV-NU-OrA" collectionClass="NSMutableArray" id="foG-Mf-txU"/>
+                <outletCollection property="unitLabels" destination="Rol-ZD-23i" collectionClass="NSMutableArray" id="9Xc-27-5a2"/>
+                <outletCollection property="unitLabels" destination="4kV-JG-m9V" collectionClass="NSMutableArray" id="VBA-1n-veM"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -34,13 +41,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5nM-Nw-uUW">
-                    <rect key="frame" x="20" y="108" width="374" height="110"/>
+                    <rect key="frame" x="20" y="108" width="374" height="125"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZBa-JU-yE7">
-                            <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="35"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7VN-tn-Dx3">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이름" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7VN-tn-Dx3">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="35"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="50" id="y5C-kW-bfI"/>
                                     </constraints>
@@ -49,15 +56,15 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iQk-m9-bbb" customClass="FormTextField" customModule="WorkoutOfToday" customModuleProvider="target">
-                                    <rect key="frame" x="60" y="0.0" width="274" height="30"/>
+                                    <rect key="frame" x="60" y="0.0" width="274" height="35"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="4id-Jz-0Vo"/>
+                                        <constraint firstAttribute="height" constant="35" id="4id-Jz-0Vo"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdB-L1-AGO">
-                                    <rect key="frame" x="344" y="0.0" width="30" height="30"/>
+                                    <rect key="frame" x="344" y="0.0" width="30" height="35"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="OsS-59-yNo"/>
                                         <constraint firstAttribute="width" constant="30" id="Vvh-yl-gHe"/>
@@ -69,10 +76,10 @@
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cXd-TN-lLp">
-                            <rect key="frame" x="0.0" y="40" width="374" height="30"/>
+                            <rect key="frame" x="0.0" y="45" width="374" height="35"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNF-TM-7cv">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="키" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNF-TM-7cv">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="35"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="50" id="NSy-J3-MmW"/>
                                     </constraints>
@@ -81,15 +88,15 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TKD-mQ-GNa" customClass="FormTextField" customModule="WorkoutOfToday" customModuleProvider="target">
-                                    <rect key="frame" x="60" y="0.0" width="274" height="30"/>
+                                    <rect key="frame" x="60" y="0.0" width="274" height="35"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="fKy-S3-O8N"/>
+                                        <constraint firstAttribute="height" constant="35" id="fKy-S3-O8N"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ELl-2r-gRF">
-                                    <rect key="frame" x="344" y="0.0" width="30" height="30"/>
+                                    <rect key="frame" x="344" y="0.0" width="30" height="35"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="30" id="H0l-5b-bNK"/>
                                     </constraints>
@@ -100,10 +107,10 @@
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="t5c-eC-VhB">
-                            <rect key="frame" x="0.0" y="80" width="374" height="30"/>
+                            <rect key="frame" x="0.0" y="90" width="374" height="35"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m2f-Ko-deg">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="체중" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m2f-Ko-deg">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="35"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="50" id="inP-KR-Lll"/>
                                     </constraints>
@@ -112,15 +119,15 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wHK-jz-psN" customClass="FormTextField" customModule="WorkoutOfToday" customModuleProvider="target">
-                                    <rect key="frame" x="60" y="0.0" width="274" height="30"/>
+                                    <rect key="frame" x="60" y="0.0" width="274" height="35"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="gV8-1f-kmn"/>
+                                        <constraint firstAttribute="height" constant="35" id="gV8-1f-kmn"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WIV-NU-OrA">
-                                    <rect key="frame" x="344" y="0.0" width="30" height="30"/>
+                                    <rect key="frame" x="344" y="0.0" width="30" height="35"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="30" id="TU4-Ps-sSi"/>
                                     </constraints>
@@ -139,18 +146,6 @@
                     </constraints>
                     <state key="normal" title="Button"/>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RoV-X8-GQ7">
-                    <rect key="frame" x="352" y="228" width="42" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AXn-BW-gM3">
-                    <rect key="frame" x="352" y="253.5" width="42" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TU9-Wd-WaN">
                     <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -159,22 +154,95 @@
                         <navigationItem title="Title" id="F0I-rv-LJF"/>
                     </items>
                 </navigationBar>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="선택 사항" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zaD-xG-rdL">
+                    <rect key="frame" x="20" y="253" width="63.5" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="OXR-YV-8sg">
+                    <rect key="frame" x="20" y="278.5" width="374" height="80"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="d2U-XD-CcO">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="35"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="체지방률" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFN-bh-nON">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="50" id="BHF-NN-qnd"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DUw-7C-zFo" customClass="FormTextField" customModule="WorkoutOfToday" customModuleProvider="target">
+                                    <rect key="frame" x="60" y="0.0" width="274" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="Mw8-dM-rKU"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rol-ZD-23i">
+                                    <rect key="frame" x="344" y="0.0" width="30" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="30" id="32Y-Ms-C6v"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="TSp-6g-HUr">
+                            <rect key="frame" x="0.0" y="45" width="374" height="35"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="골격근량" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fF7-Hc-pPE">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="50" id="4nZ-5h-yxm"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6UW-jA-t4l" customClass="FormTextField" customModule="WorkoutOfToday" customModuleProvider="target">
+                                    <rect key="frame" x="60" y="0.0" width="274" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="SLH-g8-RdF"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4kV-JG-m9V">
+                                    <rect key="frame" x="344" y="0.0" width="30" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="30" id="bDv-4L-lNi"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="AXn-BW-gM3" firstAttribute="trailing" secondItem="RoV-X8-GQ7" secondAttribute="trailing" id="14d-lM-Vtd"/>
-                <constraint firstItem="RoV-X8-GQ7" firstAttribute="top" secondItem="5nM-Nw-uUW" secondAttribute="bottom" constant="10" id="3dT-v8-3eC"/>
+                <constraint firstItem="OXR-YV-8sg" firstAttribute="top" secondItem="zaD-xG-rdL" secondAttribute="bottom" constant="5" id="7k1-kO-OEV"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="RSf-uX-DYF" secondAttribute="bottom" constant="15" id="9VP-2l-jAQ"/>
                 <constraint firstItem="TU9-Wd-WaN" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Ech-9j-Lff"/>
                 <constraint firstItem="TU9-Wd-WaN" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="FMi-Fj-BM9"/>
-                <constraint firstItem="AXn-BW-gM3" firstAttribute="top" secondItem="RoV-X8-GQ7" secondAttribute="bottom" constant="5" id="NI6-DD-l5A"/>
                 <constraint firstItem="5nM-Nw-uUW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Nza-NZ-ZBV"/>
-                <constraint firstItem="RSf-uX-DYF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="AXn-BW-gM3" secondAttribute="bottom" constant="10" id="Sqa-VZ-S0E"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="OXR-YV-8sg" secondAttribute="trailing" constant="20" id="QHc-7U-Lq9"/>
                 <constraint firstItem="TU9-Wd-WaN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="V1k-lP-m8o"/>
                 <constraint firstItem="RSf-uX-DYF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="aX0-ki-9TA"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RoV-X8-GQ7" secondAttribute="trailing" constant="20" id="avi-kc-LSk"/>
                 <constraint firstItem="5nM-Nw-uUW" firstAttribute="top" secondItem="TU9-Wd-WaN" secondAttribute="bottom" constant="20" id="bNV-nX-so4"/>
+                <constraint firstItem="zaD-xG-rdL" firstAttribute="top" secondItem="5nM-Nw-uUW" secondAttribute="bottom" constant="20" id="ecN-Bh-H2r"/>
+                <constraint firstItem="zaD-xG-rdL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="tON-QB-f0F"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RSf-uX-DYF" secondAttribute="trailing" constant="10" id="tnf-Vv-HTJ"/>
+                <constraint firstItem="OXR-YV-8sg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="vGY-pX-cnT"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5nM-Nw-uUW" secondAttribute="trailing" constant="20" id="wbn-h1-YeF"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

@@ -16,8 +16,12 @@ class ProfileEditViewController: BasicViewController {
     
     fileprivate var moved: CGFloat?
     
+    var user: Profile?
+    
+    var delegate: ProfileDidUpdatedDelegate?
+    
     // MARK: View
-
+    
     @IBOutlet weak var titleNavigationBar: UINavigationBar!
     
     @IBOutlet fileprivate var subtitleLabels: [UILabel]!
@@ -30,9 +34,11 @@ class ProfileEditViewController: BasicViewController {
     
     @IBOutlet fileprivate weak var weightTextField: FormTextField!
     
-    @IBOutlet weak var bmiLabel: UILabel!
+    @IBOutlet weak var optionalPartDescLabel: UILabel!
     
-    @IBOutlet weak var bmiResultLabel: UILabel!
+    @IBOutlet weak var fatPercentageTextField: FormTextField!
+    
+    @IBOutlet weak var muscleWeightTextField: FormTextField!
     
     @IBOutlet weak var editProfileButton: UIButton!
     
@@ -51,11 +57,8 @@ class ProfileEditViewController: BasicViewController {
         titleNavigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         titleNavigationBar.shadowImage = UIImage()
         
-        let labelTexts = ["이름", "키", "몸무게"]
-        
-        for (i, label) in subtitleLabels.enumerated() {
-            label.text = labelTexts[i]
-            label.font = .boldBody
+        subtitleLabels.forEach {
+            $0.font = .subheadline
         }
         
         textFields.forEach {
@@ -66,6 +69,8 @@ class ProfileEditViewController: BasicViewController {
             $0.font = .boldBody
             $0.textColor = .lightGray
         }
+        optionalPartDescLabel.font = .description
+        optionalPartDescLabel.textColor = .lightGray
         
         editProfileButton.setTitle("확인", for: .normal)
         editProfileButton.setTitleColor(.white, for: .normal)
@@ -75,16 +80,21 @@ class ProfileEditViewController: BasicViewController {
         editProfileButton.layer.cornerRadius = 10
         editProfileButton.addTarget(self, action: #selector(editProfileButtonDidTapped(_:)), for: .touchUpInside)
         
-        bmiLabel.font = .subheadline
-        bmiLabel.textColor = .lightGray
-        bmiLabel.text = "키와 몸무게를 입력하세요"
-        
-        bmiResultLabel.font = .subheadline
-        bmiResultLabel.textColor = .lightGray
-        bmiResultLabel.text = ""
+        setupTextFields()
     }
     
-    override func keyboardWillShow(bounds: CGRect? = nil) {
+    fileprivate func setupTextFields() {
+        if let user = user {
+            self.user = user
+            nameTextField.text = user.name
+            heightTextField.text = String(user.height)
+            weightTextField.text = String(user.getRecentWeight())
+            fatPercentageTextField.text = String(user.fatPercentage)
+            muscleWeightTextField.text = String(user.muscleWeight)
+        }
+    }
+    
+    override func keyboardWillShow(bounds: CGRect?) {
         guard let bounds = bounds else { return }
         let overlappedHeight = view.frame.maxY - bounds.minY
         let extraHeight: CGFloat = 15
@@ -98,62 +108,10 @@ class ProfileEditViewController: BasicViewController {
     
     override func keyboardWillHide() {
         guard let moved = moved else {
-            print(#function)
-            print(#function)
-            print(#function)
-            print(#function)
             return }
         UIView.animate(withDuration: 0.3) {
             self.view.frame.origin.y += moved
         }
-    }
-    
-    fileprivate func updateBMILabels(_ bmi: Double) {
-        let bmiString = String(format: "%.2f", bmi)
-        bmiLabel.text = "BMI지수 \(bmiString)"
-        bmiResultLabel.text = checkBMI(bmi)
-    }
-    
-    fileprivate enum BMI {
-        case lowweight
-        case regular
-        case overweight
-        case obesity
-        case extremelyObesity
-        
-        static func checkBmi(_ bmi: Double) -> BMI {
-            if bmi <= 18.5 {
-                // 저체중
-                return .lowweight
-            } else if bmi <= 23 {
-                // 정싱
-                return .regular
-            } else if bmi <= 25 {
-                // 과체중
-                return .overweight
-            } else if bmi <= 30 {
-                // 비만
-                return .obesity
-            } else {
-                // 고도 비만
-                return .extremelyObesity
-            }
-        }
-        
-        var string: String {
-            switch self {
-                case .lowweight: return "저체중"
-                case .regular: return "정상"
-                case .overweight: return "과체중"
-                case .obesity: return "비만"
-                case .extremelyObesity: return "고도 비만"
-            }
-        }
-    }
-    
-    fileprivate func checkBMI(_ bmi: Double) -> String {
-        let bmi = BMI.checkBmi(bmi)
-        return bmi.string
     }
 }
 
@@ -167,38 +125,56 @@ extension ProfileEditViewController {
     
     @objc
     func editProfileButtonDidTapped(_ sender: UIButton) {
-//        let newProfile = Profile()
-//        
-//        if let name = nameTextField.text {
-//            newProfile.name = name
-//        }
-//        
-//        if let heightString = heightTextField.text,
-//            let height = Double(heightString) {
-//            newProfile.height = height
-//        }
-//        
-//        if let weightString = weightTextField.text,
-//            let weight = Double(weightString) {
-//            newProfile.addNewWeight(weight)
-//        }
+        
+        let name = nameTextField.text
+        
+        guard let heightString = heightTextField.text,
+            let weightString = weightTextField.text,
+            let height = Double(heightString),
+            let weight = Double(weightString)
+            else {
+                showBasicAlert(title: "필수 입력 사항", message: "키와 몸무게 모두 입력하여 주세요.")
+                return
+        }
+        
+        if let user = user {
+            DBHandler.shared.write {
+                if let name = name {
+                    user.name = name
+                }
+                user.height = height
+                user.addNewWeight(weight)
+                
+                if let fatPercentageString = fatPercentageTextField.text,
+                    let muscleWeightString = muscleWeightTextField.text,
+                    let fatPercentage = Double(fatPercentageString),
+                    let muscleWeight = Double(muscleWeightString) {
+                    user.fatPercentage = fatPercentage
+                    user.muscleWeight = muscleWeight
+                }
+            }
+        } else {
+            let newProfile = Profile()
+            newProfile.name = name ?? ""
+            newProfile.height = height
+            newProfile.addNewWeight(weight)
+            if let fatPercentageString = fatPercentageTextField.text,
+                let muscleWeightString = muscleWeightTextField.text,
+                let fatPercentage = Double(fatPercentageString),
+                let muscleWeight = Double(muscleWeightString) {
+                newProfile.fatPercentage = fatPercentage
+                newProfile.muscleWeight = muscleWeight
+            }
+            DBHandler.shared.create(object: newProfile)
+        }
+        delegate?.profileDidUpdated()
+        dismiss(animated: true, completion: nil)
     }
 }
 
 // MARK: Textfield Delegate
 
 extension ProfileEditViewController: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let heightText = heightTextField.text,
-            let weightText = weightTextField.text,
-        var height = Double(heightText),
-        let weight = Double(weightText) else { return }
-        height = height / 100
-        let bmi = weight / (height * height)
-        
-        updateBMILabels(bmi)
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
             case nameTextField:
@@ -206,7 +182,11 @@ extension ProfileEditViewController: UITextFieldDelegate {
             case heightTextField:
                 weightTextField.becomeFirstResponder()
             case weightTextField:
-                weightTextField.resignFirstResponder()
+                fatPercentageTextField.becomeFirstResponder()
+            case fatPercentageTextField:
+                muscleWeightTextField.becomeFirstResponder()
+            case muscleWeightTextField:
+                muscleWeightTextField.resignFirstResponder()
             default:
                 break
         }

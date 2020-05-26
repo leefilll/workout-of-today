@@ -10,9 +10,11 @@ import UIKit
 
 class PopupTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
-    fileprivate var widthRatio: CGFloat
+    fileprivate var widthRatio: CGFloat = 0
     
-    fileprivate var heightRatio: CGFloat
+    fileprivate var heightRatio: CGFloat = 0
+    
+    fileprivate var height: CGFloat = 0
     
     fileprivate var minY: CGFloat? = nil
     
@@ -22,8 +24,16 @@ class PopupTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegat
         self.minY = minY
     }
     
+    init(height: CGFloat) {
+        self.height = height
+    }
+    
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return PopupPresentationController(presentedViewController: presented, presenting: presenting, widthRatio: widthRatio, heighRatio: heightRatio, minY: minY)
+        if height == 0 {
+            return PopupPresentationController(presentedViewController: presented, presenting: presenting, widthRatio: widthRatio, heighRatio: heightRatio, minY: minY)
+        } else {
+            return PopupPresentationController(presentedViewController: presented, presenting: presenting, height: height)
+        }
     }
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {

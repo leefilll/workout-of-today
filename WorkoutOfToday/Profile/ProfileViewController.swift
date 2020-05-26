@@ -25,10 +25,18 @@ class ProfileViewController: BasicViewController {
     
     // MARK: Model
     
-    fileprivate let popupTransitioningDelegate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.4)
+    fileprivate let popupTransitioningDelegate = PopupTransitioningDelegate(height: 400)
+    
+    fileprivate var user: Profile? {
+        didSet {
+            updateSummaries()
+        }
+    }
     
     // MARK: View
     @IBOutlet weak var contentView: UIView!
+    
+    @IBOutlet weak var summaryCoverView: BasicCardView!
     
     @IBOutlet weak var summaryTitleLabel: UILabel!
     
@@ -70,13 +78,18 @@ class ProfileViewController: BasicViewController {
     }
     
     fileprivate func setupSummaries() {
+        let profile = DBHandler.shared.fetchObjects(ofType: Profile.self)
+        if let user = profile.first {
+            self.user = user
+        }
+        
         summaryTitleLabel.textColor = .defaultTextColor
         summaryTitleLabel.font = .smallBoldTitle
         summaryTitleLabel.text = "요약"
         
         summaryEditButton.setTitle("편집", for: .normal)
-        summaryEditButton.backgroundColor = .weakTintColor
-        summaryEditButton.setTitleColor(.tintColor, for: .normal)
+        summaryEditButton.setBackgroundColor(.tintColor, for: .normal)
+        summaryEditButton.setTitleColor(.white, for: .normal)
         summaryEditButton.addTarget(self, action: #selector(summaryEditButtonDidTapped(_:)), for: .touchUpInside)
         
         summaryHeightView.subtitleLabel.text = "키"
@@ -85,26 +98,44 @@ class ProfileViewController: BasicViewController {
         summaryMuscleView.subtitleLabel.text = "골격근"
         summaryBmiView.subtitleLabel.text = "BMI"
         
-        /* Dummy data for prototype */
-        // FIXME: Delete here
         summaryHeightView.unitLabel.text = "cm"
         summaryWeightView.unitLabel.text = "kg"
         summaryBodyFatView.unitLabel.text = "%"
         summaryMuscleView.unitLabel.text = "kg"
-        
-        summaryHeightView.titleLabel.text = "170"
-        summaryWeightView.titleLabel.text = "70"
-        summaryBodyFatView.titleLabel.text = "10"
-        summaryMuscleView.titleLabel.text = "38"
-        summaryBmiView.titleLabel.text = "21"
-        /* Dummy data for prototype */
+        summaryBmiView.unitLabel.text = ""
+    }
+    
+    fileprivate func updateSummaries() {
+        if let user = user {
+            summaryCoverView.isHidden = true
+            summaryHeightView.titleLabel.text = String(format: "%.1f", user.height)
+            summaryWeightView.titleLabel.text = String(format: "%.1f", user.getRecentWeight())
+            summaryBodyFatView.titleLabel.text = String(format: "%.0f", user.fatPercentage)
+            summaryMuscleView.titleLabel.text = String(format: "%.0f", user.muscleWeight)
+            
+            let (bmiDegree, _) = user.getBMI()
+            summaryBmiView.titleLabel.text = String(format: "%.1f", bmiDegree)
+        } else {
+            summaryCoverView.isHidden = false
+            summaryHeightView.titleLabel.text = ""
+            summaryWeightView.titleLabel.text = ""
+            summaryBodyFatView.titleLabel.text = ""
+            summaryMuscleView.titleLabel.text = ""
+            summaryBmiView.titleLabel.text = ""
+            let descriptionLabel = UILabel()
+            descriptionLabel.text = "정보가 등록되지 않았습니다."
+            descriptionLabel.font = .subheadline
+            summaryCoverView.addSubview(descriptionLabel)
+            descriptionLabel.snp.makeConstraints { make in
+                make.centerX.centerY.equalToSuperview()
+            }
+        }
     }
     
     fileprivate func setupHighlights() {
         highlightTitleLabel.textColor = .defaultTextColor
         highlightTitleLabel.font = .smallBoldTitle
         highlightTitleLabel.text = "하이라이트"
-        
         highlightWeekChartView.subtitleLabel.text = "요일별 운동 횟수"
     }
 }
@@ -117,6 +148,20 @@ extension ProfileViewController {
         let editVC = ProfileEditViewController(nibName: "ProfileEditViewController", bundle: nil)
         editVC.transitioningDelegate = popupTransitioningDelegate
         editVC.modalPresentationStyle = .custom
+        editVC.delegate = self
+        editVC.user = user
         present(editVC, animated: true, completion: nil)
     }
+}
+
+extension ProfileViewController: ProfileDidUpdatedDelegate {
+    func profileDidUpdated() {
+        guard let user = DBHandler.shared.fetchObjects(ofType: Profile.self).first else { return }
+        self.user = user
+    }
+}
+
+// MARK: ProfileDidUpdatedDelegate
+protocol ProfileDidUpdatedDelegate {
+    func profileDidUpdated()
 }
