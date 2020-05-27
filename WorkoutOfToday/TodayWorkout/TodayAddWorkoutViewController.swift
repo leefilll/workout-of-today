@@ -14,8 +14,6 @@ class TodayAddWorkoutViewController: BasicViewController {
     
     // MARK: Model
     
-//    private var templates: Results<WorkoutTemplate>!
-    
     private var templates: [[WorkoutTemplate]] {
         let templates = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self)
         var partArray = [[WorkoutTemplate]](repeating: [], count: Part.allCases.count)
@@ -182,16 +180,16 @@ extension TodayAddWorkoutViewController: UICollectionViewDelegate {
         if let workoutsOfDay = workoutsOfDay {
             DBHandler.shared.write {
                 workoutsOfDay.workouts.append(newWorkout)
+                selectedTemplate.workouts.append(newWorkout)
             }
         } else {
             let newWorkoutsOfDay = WorkoutsOfDay()
             newWorkoutsOfDay.workouts.append(newWorkout)
             DBHandler.shared.create(object: newWorkoutsOfDay)
+            DBHandler.shared.write {
+                selectedTemplate.workouts.append(newWorkout)
+            }
             delegate?.firstWorkoutDidAdded(at: newWorkoutsOfDay)
-        }
-//        newWorkout.template = selectedTemplate
-        DBHandler.shared.write {
-            selectedTemplate.workouts.append(newWorkout)
         }
         dismiss(animated: true, completion: nil)
     }

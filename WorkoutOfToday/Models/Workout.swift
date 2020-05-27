@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 final class Workout: Object {
-    @objc private dynamic var _id = UUID().uuidString
+    @objc dynamic var id = UUID().uuidString
     @objc private dynamic var _createdDateTime: Date = Date()
     private let _templates = LinkingObjects(fromType: WorkoutTemplate.self, property: "workouts")
     private let _days = LinkingObjects(fromType: WorkoutsOfDay.self, property: "workouts")
@@ -75,35 +75,7 @@ final class Workout: Object {
         return bestSet
     }
     
-//    func copy(with zone: NSZone? = nil) -> Any {
-//        let copy = Workout()
-//        copy.name = self.name
-//        copy.template = self.template
-////        copy.part = self.part
-////        copy.equipment = self.equipment
-//        for set in self.sets {
-//            let newSet = set.copy() as! WorkoutSet
-//            copy.sets.append(newSet)
-//        }
-//        return copy
-//    }
-    
-//    func copy(from workout: Workout) {
-//        self.name = workout.name
-//        self.part = workout.part
-//        self.equipment = workout.equipment
-//        // TODO: Have to delete all origin set for mermory management
-//        DBHandler.shared.realm.delete(self.sets)
-//        self.sets.removeAll()
-//
-//        for set in workout.sets {
-//            if let newSet = set.copy() as? WorkoutSet {
-//                self.sets.append(newSet)
-//            }
-//        }
-//    }
-//
     override static func primaryKey() -> String? {
-        return "_id"
+        return "id"
     }
 }

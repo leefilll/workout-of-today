@@ -14,7 +14,7 @@ class WarningAlertViewController: UIViewController {
     
     var message: String?
     
-    var onDoneSelector: Selector?
+    var primaryKeyToDelete: String?
     
     private weak var titleLable: UILabel!
     
@@ -24,11 +24,11 @@ class WarningAlertViewController: UIViewController {
     
     private weak var cancelButton: BasicButton!
     
-    convenience init(title: String, message: String, onDone: Selector) {
+    convenience init(title: String, message: String, primaryKey: String) {
         self.init()
         self.titleMessage = title
         self.message = message
-        self.onDoneSelector = onDone
+        self.primaryKeyToDelete = primaryKey
     }
     
     override func loadView() {
@@ -51,16 +51,14 @@ class WarningAlertViewController: UIViewController {
         confirmButton.setTitleColor(.white, for: .normal)
         confirmButton.titleLabel?.font = .boldBody
         confirmButton.backgroundColor = Part.chest.color
-        if let onDoneSelector = onDoneSelector {
-            confirmButton.addTarget(self, action: onDoneSelector, for: .touchUpInside)
-        }
+        confirmButton.addTarget(self, action: #selector(deleteWorkout(_:)), for: .touchUpInside)
         
         let cancelButton = BasicButton()
         cancelButton.setTitle("취소", for: .normal)
         cancelButton.setTitleColor(.black, for: .normal)
         cancelButton.titleLabel?.font = .boldBody
         cancelButton.backgroundColor = .concaveColor
-        cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(cancel(_:)), for: .touchUpInside)
         
         view.addSubview(titleLabel)
         view.addSubview(messageLabel)
@@ -105,7 +103,17 @@ class WarningAlertViewController: UIViewController {
 
 extension WarningAlertViewController {
     @objc
-    public func cancel() {
-        self.dismiss(animated: true, completion: nil)
+    private func deleteWorkout(_ sender: UIButton) {
+        guard let primaryKeyToDelete = primaryKeyToDelete,
+            let workoutToDelete = DBHandler.shared.fetchObject(ofType: Workout.self, forPrimaryKey: primaryKeyToDelete) else {
+                fatalError("Error occurs in \(#function)")
+        }
+        DBHandler.shared.delete(object: workoutToDelete)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc
+    private func cancel(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
 }

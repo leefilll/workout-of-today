@@ -22,7 +22,11 @@ final class TodayWorkoutViewController: BasicViewController {
     
     private let popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.50)
     
-    var workoutsOfDay: WorkoutsOfDay?
+    var workoutsOfDay: WorkoutsOfDay? {
+        didSet {
+            addNotificationBlock()
+        }
+    }
     
     override var navigationBarTitle: String {
         return "오늘의 운동"
@@ -45,6 +49,7 @@ final class TodayWorkoutViewController: BasicViewController {
     
     override func setup() {
         setupTableView()
+//        configureTableView()
         setupWorkoutAddButton()
     }
     
@@ -52,7 +57,6 @@ final class TodayWorkoutViewController: BasicViewController {
         super.viewDidLoad()
         configureTableView()
         configureWorkoutAddButton()
-        addNotificationBlock()
     }
     
 //    override func configureNavigationBar() {
@@ -77,6 +81,14 @@ final class TodayWorkoutViewController: BasicViewController {
     private func setupTableView() {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.contentInset.bottom = Size.addButtonHeight + 10
+        tableView.alwaysBounceVertical = true
+        tableView.backgroundColor = .clear
+        tableView.sectionHeaderHeight = Size.Cell.headerHeight
+        tableView.estimatedSectionHeaderHeight = Size.Cell.headerHeight
+        tableView.sectionFooterHeight = Size.Cell.footerHeight
+        tableView.estimatedSectionFooterHeight = Size.Cell.footerHeight
+        tableView.rowHeight = Size.Cell.rowHeight
+        tableView.estimatedRowHeight = Size.Cell.rowHeight
         view.insertSubview(tableView, at: 0)
         
         tableView.snp.makeConstraints { (make) in
@@ -121,17 +133,9 @@ final class TodayWorkoutViewController: BasicViewController {
                                                     for: .touchUpInside)
         tableView.tableHeaderView = tableHeaderView
         self.tableHeaderView = tableHeaderView
-        tableView.alwaysBounceVertical = true
-        tableView.backgroundColor = .clear
-        tableView.sectionHeaderHeight = Size.Cell.headerHeight
-        tableView.estimatedSectionHeaderHeight = Size.Cell.headerHeight
-        tableView.sectionFooterHeight = Size.Cell.footerHeight
-        tableView.estimatedSectionFooterHeight = Size.Cell.footerHeight
-        tableView.rowHeight = Size.Cell.rowHeight
-        tableView.estimatedRowHeight = Size.Cell.rowHeight
         
-        tableView.emptyDataSetSource = self
-        tableView.emptyDataSetDelegate = self
+//        tableView.emptyDataSetSource = self
+//        tableView.emptyDataSetDelegate = self
         
         tableView.separatorColor = .clear
         tableView.keyboardDismissMode = .interactive
@@ -156,11 +160,14 @@ final class TodayWorkoutViewController: BasicViewController {
             switch changes {
                 case .change(let properties):
                     guard let workoutsOfDay = self.workoutsOfDay else { return }
+                    print(workoutsOfDay.numberOfWorkouts)
                     properties.forEach { property in
+                        print(workoutsOfDay.numberOfWorkouts)
+                        print(property.newValue)
                         if property.name == "note" {
                             return
                         } else {
-                            print(workoutsOfDay)
+                            print(workoutsOfDay.numberOfWorkouts)
                             let targetSection = workoutsOfDay.numberOfWorkouts - 1
                             let targetIndexPath = IndexPath(row: NSNotFound, section: targetSection)
                             self.tableView.beginUpdates()
@@ -214,26 +221,19 @@ extension TodayWorkoutViewController {
     @objc
     private func workoutSectionHeaderDidTapped(_ sender: UITapGestureRecognizer) {
         // MARK: using tag for knowing sections
-        if let section = sender.view?.tag {
-            print("section: \(section)")
+        guard let section = sender.view?.tag,
+            let workoutToDelete = workoutsOfDay?.workouts[section]
+            else {
+                print("Error occurs during delete object")
+                return
         }
-        print(sender.view?.tag)
         
-        let warningAlertVC = WarningAlertViewController(title: "운동을 삭제할까요?.", message: "해당 운동과 모든 세트 정보를 삭제합니다. 이 동작은 되돌릴 수 없습니다.", onDone: #selector(deleteWorkout))
+        let warningAlertVC = WarningAlertViewController(title: "운동을 삭제할까요?", message: "해당 운동과 모든 세트 정보를 삭제합니다. 이 동작은 되돌릴 수 없습니다.", primaryKey: workoutToDelete.id)
         warningAlertVC.modalPresentationStyle = .custom
         warningAlertVC.transitioningDelegate = popupTransitioningDelegate
         present(warningAlertVC, animated: true, completion: nil)
     }
     
-    @objc
-    private func deleteWorkout() {
-        
-    }
-//
-//    private func deleteWorkout(in section: Int) {
-//
-//    }
-
     
 //    @objc
 //    private func workoutEditButtonDidTapped(_ sender: UIButton){
@@ -383,7 +383,6 @@ extension TodayWorkoutViewController: UITableViewDelegate {
 extension TodayWorkoutViewController: WorkoutDidAdded {
     func firstWorkoutDidAdded(at workoutsOfDay: WorkoutsOfDay) {
         self.workoutsOfDay = workoutsOfDay
-        addNotificationBlock()
         reloadData()
     }
 }
