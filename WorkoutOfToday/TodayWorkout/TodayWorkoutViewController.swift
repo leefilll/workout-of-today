@@ -135,9 +135,7 @@ final class TodayWorkoutViewController: BasicViewController {
                                    for: .touchUpInside)
     }
     
-    override func keyboardWillShow(bounds: CGRect?) {
-        guard let bounds = bounds else { return }
-        tableView.contentInset.bottom += bounds.height
+    override func keyboardWillShow(in bounds: CGRect?) {
     }
     
     override func keyboardWillHide() {
@@ -253,8 +251,12 @@ extension TodayWorkoutViewController: UITableViewDataSource {
         let workout = workoutsOfDay?.workouts[indexPath.section]
         let workoutSet = workout?.sets[indexPath.row]
         let setCount = indexPath.row + 1
+        
         cell.countLabel.text = "\(setCount)"
         cell.workoutSet = workoutSet
+        cell.indexPath = indexPath
+        cell.delegate = self
+        
         return cell
     }
     
@@ -329,6 +331,31 @@ extension TodayWorkoutViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
+    }
+}
+
+extension TodayWorkoutViewController: WorkoutSetDidBeginEditing {
+    func workoutSetDidBeginEditing(at indexPath: IndexPath?) {
+        print(keyboardHeight)
+        print(keyboardHeight)
+        print(keyboardHeight)
+        print(keyboardHeight)
+        print(keyboardHeight)
+        guard let indexPath = indexPath,
+            let keyboardHeight = keyboardHeight else { return }
+        let targetRect = tableView.rectForRow(at: indexPath)
+        let keyboardMinY = view.bounds.height - keyboardHeight
+        let extraHeight: CGFloat = 30
+        let overlapped = (targetRect.maxY + extraHeight) - keyboardMinY
+        print("############################################")
+        print("############################################")
+        print(overlapped)
+        print("############################################")
+        print("############################################")
+        if overlapped > 0 {
+            
+            tableView.contentInset.bottom += overlapped
+        }
     }
 }
 

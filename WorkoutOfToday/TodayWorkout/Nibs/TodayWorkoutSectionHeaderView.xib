@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -59,7 +59,7 @@
                                         <constraint firstAttribute="height" constant="35" id="mdH-aZ-pyr"/>
                                     </constraints>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="vgP-it-wca" userLabel="LowerStackView">
+                                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="vgP-it-wca" userLabel="LowerStackView">
                                     <rect key="frame" x="0.0" y="35" width="354" height="20"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="set" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcD-eV-z53">
@@ -71,32 +71,23 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EGY-QC-Gqp">
-                                            <rect key="frame" x="50" y="0.0" width="269" height="20"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="EGY-QC-Gqp">
+                                            <rect key="frame" x="60" y="0.0" width="294" height="20"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="kg" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fhc-vA-lew">
-                                                    <rect key="frame" x="0.0" y="0.0" width="129.5" height="20"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="137" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="reps" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4IC-h2-OuT">
-                                                    <rect key="frame" x="139.5" y="0.0" width="129.5" height="20"/>
+                                                    <rect key="frame" x="157" y="0.0" width="137" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bku-oQ-nYn">
-                                            <rect key="frame" x="339" y="0.0" width="15" height="20"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="15" id="PdL-BM-0XQ"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="c4y-lU-9XI"/>
@@ -128,7 +119,6 @@
                 <outletCollection property="unitLabels" destination="OcD-eV-z53" collectionClass="NSMutableArray" id="qYO-sg-BAo"/>
                 <outletCollection property="unitLabels" destination="Fhc-vA-lew" collectionClass="NSMutableArray" id="Xtl-jT-CEY"/>
                 <outletCollection property="unitLabels" destination="4IC-h2-OuT" collectionClass="NSMutableArray" id="tNh-21-EMq"/>
-                <outletCollection property="unitLabels" destination="Bku-oQ-nYn" collectionClass="NSMutableArray" id="Sm2-uY-JcO"/>
             </connections>
             <point key="canvasLocation" x="-30.434782608695656" y="301.67410714285711"/>
         </view>

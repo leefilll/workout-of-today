@@ -94,7 +94,7 @@ class ProfileEditViewController: BasicViewController {
         }
     }
     
-    override func keyboardWillShow(bounds: CGRect?) {
+    override func keyboardWillShow(in bounds: CGRect?) {
         guard let bounds = bounds else { return }
         let overlappedHeight = view.frame.maxY - bounds.minY
         let extraHeight: CGFloat = 5

@@ -21,6 +21,10 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
         }
     }
     
+    var indexPath: IndexPath?
+    
+    var delegate: WorkoutSetDidBeginEditing?
+    
     // MARK: View
     @IBOutlet weak var containerView: UIView!
     
@@ -94,6 +98,10 @@ extension WorkoutSetTableViewCell {
 // MARK: TextField Delegate
 
 extension WorkoutSetTableViewCell: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        delegate?.workoutSetDidBeginEditing(at: indexPath)
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
 
@@ -124,5 +132,9 @@ extension WorkoutSetTableViewCell: UITextFieldDelegate {
         }
         return true
     }
+}
+
+protocol WorkoutSetDidBeginEditing {
+    func workoutSetDidBeginEditing(at indexPath: IndexPath?)
 }
 

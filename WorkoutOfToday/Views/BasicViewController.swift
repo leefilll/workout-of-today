@@ -18,6 +18,8 @@ class BasicViewController: UIViewController {
     
     public var moved: CGFloat?
     
+    public var keyboardHeight: CGFloat?
+    
     public var navigationBarTitle: String {
         return ""
     }
@@ -82,31 +84,30 @@ class BasicViewController: UIViewController {
     // MARK: Notification for Keyboard
     
     public func addObserverForKeyboard() {
-           NotificationCenter
-               .default
-               .addObserver(forName: UIResponder.keyboardWillShowNotification,
-                            object: nil,
-                            queue: OperationQueue.main) { [weak self] noti in
-                               guard let userInfo = noti.userInfo else { return }
-                               guard let bounds = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-                               
-                                self?.keyboardWillShow(bounds: bounds)
-           }
-           
-           NotificationCenter
-               .default
-               .addObserver(forName: UIResponder.keyboardWillHideNotification,
-                            object: nil,
-                            queue: OperationQueue.main) { [weak self] noti in
-                                self?.keyboardWillHide()
-           }
-       }
+        NotificationCenter
+            .default
+            .addObserver(forName: UIResponder.keyboardWillShowNotification,
+                         object: nil,
+                         queue: OperationQueue.main) { [weak self] noti in
+                            guard let userInfo = noti.userInfo else { return }
+                            guard let bounds = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+                            self?.keyboardHeight = bounds.height
+                            self?.keyboardWillShow(in: bounds)
+        }
+        
+        NotificationCenter
+            .default
+            .addObserver(forName: UIResponder.keyboardWillHideNotification,
+                         object: nil,
+                         queue: OperationQueue.main) { [weak self] noti in
+                            self?.keyboardWillHide()
+        }
+    }
     
-    public func keyboardWillShow(bounds: CGRect?) {
+    public func keyboardWillShow(in bounds: CGRect?) {
     }
     
     public func keyboardWillHide() {
-        
     }
 }
 
@@ -116,14 +117,14 @@ extension String {
     func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
-
+        
         return ceil(boundingBox.height)
     }
-
+    
     func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
-
+        
         return ceil(boundingBox.width)
     }
 }
