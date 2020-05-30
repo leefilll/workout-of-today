@@ -14,6 +14,9 @@ final class RootTabBarController: UITabBarController, UITabBarControllerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
         tabBar.tintColor = .tintColor
         delegate = self
         
