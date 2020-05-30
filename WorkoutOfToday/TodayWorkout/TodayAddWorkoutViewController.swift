@@ -26,7 +26,7 @@ class TodayAddWorkoutViewController: BasicViewController {
     
     var workoutsOfDay: WorkoutsOfDay?   // passed from TodayVC
     
-    var delegate: WorkoutDidAdded?
+    var delegate: WorkoutDidModiFieid?
     
     private var tapGestureRecognizer: UITapGestureRecognizer!
 
@@ -182,6 +182,7 @@ extension TodayAddWorkoutViewController: UICollectionViewDelegate {
                 workoutsOfDay.workouts.append(newWorkout)
                 selectedTemplate.workouts.append(newWorkout)
             }
+            delegate?.workoutDidAdded()
         } else {
             let newWorkoutsOfDay = WorkoutsOfDay()
             newWorkoutsOfDay.workouts.append(newWorkout)
@@ -265,8 +266,12 @@ extension TodayAddWorkoutViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: WorkoutDidAdded protocol
+// MARK: WorkoutDidModified protocol
 
-protocol WorkoutDidAdded {
+protocol WorkoutDidModiFieid {
     func firstWorkoutDidAdded(at workoutsOfDay: WorkoutsOfDay)
+    
+    func workoutDidDeleted()
+    
+    func workoutDidAdded()
 }

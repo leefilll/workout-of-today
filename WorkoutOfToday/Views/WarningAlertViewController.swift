@@ -14,6 +14,8 @@ class WarningAlertViewController: UIViewController {
     
     var message: String?
     
+    var delegate: WorkoutDidModiFieid?
+    
     var primaryKeyToDelete: String?
     
     private weak var titleLable: UILabel!
@@ -109,6 +111,7 @@ extension WarningAlertViewController {
                 fatalError("Error occurs in \(#function)")
         }
         DBHandler.shared.delete(object: workoutToDelete)
+        delegate?.workoutDidDeleted()
         dismiss(animated: true, completion: nil)
     }
     

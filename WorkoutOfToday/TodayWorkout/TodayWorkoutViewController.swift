@@ -24,7 +24,10 @@ final class TodayWorkoutViewController: BasicViewController {
     
     var workoutsOfDay: WorkoutsOfDay? {
         didSet {
-            addNotificationBlock()
+            print(#function)
+            print(#function)
+            print(#function)
+//            addNotificationBlock()
         }
     }
     
@@ -58,25 +61,6 @@ final class TodayWorkoutViewController: BasicViewController {
         configureTableView()
         configureWorkoutAddButton()
     }
-    
-//    override func configureNavigationBar() {
-//        super.configureNavigationBar()
-//        let workoutEditButton = UIBarButtonItem(barButtonSystemItem: .edit,
-//                                                       target: self,
-//                                                       action: #selector(workoutEditButtonDidTapped(_:)))
-//        workoutEditButton.setTitleTextAttributes(
-//            [
-//                .foregroundColor: UIColor.tintColor,
-//                .font: UIFont.boldBody
-//            ],
-//            for: .normal)
-//        workoutEditButton.setTitleTextAttributes(
-//            [
-//                .foregroundColor: UIColor.weakTintColor
-//            ],
-//            for: .highlighted)
-//        navigationItem.rightBarButtonItems = [workoutEditButton]
-//    }
     
     private func setupTableView() {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -153,39 +137,29 @@ final class TodayWorkoutViewController: BasicViewController {
                                    action: #selector(workoutAddButtonDidTapped(_:)),
                                    for: .touchUpInside)
     }
+}
+
+// MARK: WorkoutDidModified Delegate
+
+extension TodayWorkoutViewController: WorkoutDidModiFieid {
+    func workoutDidDeleted() {
+        tableView.reloadData()
+    }
     
-    private func addNotificationBlock() {
-        token = workoutsOfDay?.observe { [weak self] changes in
-            guard let self = self else { return }
-            switch changes {
-                case .change(let properties):
-                    guard let workoutsOfDay = self.workoutsOfDay else { return }
-                    print(workoutsOfDay.numberOfWorkouts)
-                    properties.forEach { property in
-                        print(workoutsOfDay.numberOfWorkouts)
-                        print(property.newValue)
-                        if property.name == "note" {
-                            return
-                        } else {
-                            print(workoutsOfDay.numberOfWorkouts)
-                            let targetSection = workoutsOfDay.numberOfWorkouts - 1
-                            let targetIndexPath = IndexPath(row: NSNotFound, section: targetSection)
-                            self.tableView.beginUpdates()
-                            self.tableView.insertSections([targetSection],
-                                                          with: .fade)
-                            self.tableView.endUpdates()
-                            self.tableView.scrollToRow(at: targetIndexPath,
-                                                       at: .top,
-                                                       animated: true)
-                        }
-                }
-                case .error(let error):
-                    fatalError("\(error)")
-                case .deleted:
-                    print("The object was deleted.")
-                    self.tableView.reloadData()
-            }
-        }
+    func workoutDidAdded() {
+        guard let workoutsOfDay = workoutsOfDay else { fatalError() }
+        let targetSection = workoutsOfDay.numberOfWorkouts - 1
+        let targetIndexPath = IndexPath(row: NSNotFound, section: targetSection)
+        tableView.beginUpdates()
+        tableView.insertSections([targetSection], with: .fade)
+        tableView.reloadData()
+        tableView.endUpdates()
+        tableView.scrollToRow(at: targetIndexPath, at: .top, animated: true)
+    }
+    
+    func firstWorkoutDidAdded(at workoutsOfDay: WorkoutsOfDay) {
+        self.workoutsOfDay = workoutsOfDay
+        tableView.reloadData()
     }
 }
 
@@ -210,12 +184,12 @@ extension TodayWorkoutViewController {
     
     @objc
     private func workoutAddButtonDidTapped(_ sender: UIButton) {
-        let vc = TodayAddWorkoutViewController(nibName: "TodayAddWorkoutViewController", bundle: nil)
-        vc.workoutsOfDay = workoutsOfDay
-        vc.modalPresentationStyle = .custom
-        vc.transitioningDelegate = slideTransitioningDelegate
-        vc.delegate = self
-        present(vc, animated: true, completion: nil)
+        let addWorkoutVC = TodayAddWorkoutViewController(nibName: "TodayAddWorkoutViewController", bundle: nil)
+        addWorkoutVC.workoutsOfDay = workoutsOfDay
+        addWorkoutVC.modalPresentationStyle = .custom
+        addWorkoutVC.transitioningDelegate = slideTransitioningDelegate
+        addWorkoutVC.delegate = self
+        present(addWorkoutVC, animated: true, completion: nil)
     }
     
     @objc
@@ -229,6 +203,7 @@ extension TodayWorkoutViewController {
         }
         
         let warningAlertVC = WarningAlertViewController(title: "운동을 삭제할까요?", message: "해당 운동과 모든 세트 정보를 삭제합니다. 이 동작은 되돌릴 수 없습니다.", primaryKey: workoutToDelete.id)
+        warningAlertVC.delegate = self
         warningAlertVC.modalPresentationStyle = .custom
         warningAlertVC.transitioningDelegate = popupTransitioningDelegate
         present(warningAlertVC, animated: true, completion: nil)
@@ -315,11 +290,6 @@ extension TodayWorkoutViewController: UITableViewDataSource {
                 break
         }
     }
-    
-    @objc
-    func reloadData() {
-        tableView.reloadData()
-    }
 }
 
 // MARK: TableView Delegate
@@ -379,14 +349,6 @@ extension TodayWorkoutViewController: UITableViewDelegate {
         return .delete
     }
 }
-
-extension TodayWorkoutViewController: WorkoutDidAdded {
-    func firstWorkoutDidAdded(at workoutsOfDay: WorkoutsOfDay) {
-        self.workoutsOfDay = workoutsOfDay
-        reloadData()
-    }
-}
-
 
 // MARK: for Empty tableView
 
