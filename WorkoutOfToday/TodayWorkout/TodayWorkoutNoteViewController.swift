@@ -7,42 +7,65 @@
 //
 
 import UIKit
+import UITextView_Placeholder
 
 class TodayWorkoutNoteViewController: BasicViewController {
     
     var workoutsOfDay: WorkoutsOfDay?
     
-    @IBOutlet weak var titleLabel: UILabel!
-    
-    @IBOutlet weak var closeButton: CloseButton!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     @IBOutlet weak var noteTextView: UITextView!
     
     @IBOutlet weak var noteAddButton: BasicButton!
     
     override func setup() {
-        titleLabel.font = .boldTitle
-        titleLabel.text = "운동 노트"
+        let closeButton = CloseButton(target: self, action: #selector(dismiss(_:)))
+        navigationBar.topItem?.title = "운동 노트✏️"
+        navigationBar.topItem?.rightBarButtonItem = closeButton
         
-        noteTextView.font = .subheadline
+        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationBar.shadowImage = UIImage()
+        
+        
+        noteTextView.font = .body
         noteTextView.backgroundColor = .white
         noteTextView.text = workoutsOfDay?.note ?? ""
+        noteTextView.placeholder = "노트를 입력해주세요."
+        noteTextView.placeholderColor = .lightGray
         
         noteAddButton.backgroundColor = .tintColor
         noteAddButton.titleLabel?.font = .boldBody
-        noteAddButton.setTitle("저장", for: .normal)
+        noteAddButton.setTitle("확인", for: .normal)
         noteAddButton.setTitleColor(.white, for: .normal)
         noteAddButton.addTarget(self,
                                 action: #selector(notAddButtonDidTapped(_:)),
                                 for: .touchUpInside)
-        closeButton.addTarget(self,
-                              action: #selector(dismiss(_:)),
-                              for: .touchUpInside)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+    }
+    
+    override func keyboardWillShow(bounds: CGRect?) {
+        guard let bounds = bounds else { return }
+        let overlappedHeight = view.frame.maxY - bounds.minY
+        let extraHeight: CGFloat = 5
+        let move = overlappedHeight + extraHeight
+        self.moved = move
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.frame.origin.y -= move
+        }
+    }
+    
+    override func keyboardWillHide() {
+        guard let moved = moved else {
+            return }
+        UIView.animate(withDuration: 0.3) {
+            self.view.frame.origin.y += moved
+        }
     }
 }
 

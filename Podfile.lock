@@ -14,6 +14,7 @@ PODS:
   - RealmSwift (3.18.0):
     - Realm (= 3.18.0)
   - SnapKit (5.0.1)
+  - "UITextView+Placeholder (1.4.0)"
 
 DEPENDENCIES:
   - Charts
@@ -23,6 +24,7 @@ DEPENDENCIES:
   - FSCalendar
   - RealmSwift
   - SnapKit
+  - "UITextView+Placeholder"
 
 SPEC REPOS:
   trunk:
@@ -34,6 +36,7 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - SnapKit
+    - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
@@ -44,7 +47,8 @@ SPEC CHECKSUMS:
   Realm: 7b3d04740facf45e958a514b466a32b04f1113d6
   RealmSwift: c817b5f374668cf08f649afb05f55d92a787649c
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
 
-PODFILE CHECKSUM: 54f7474dbc9f7c37d6c6bb6081ae2e76e9cfed6f
+PODFILE CHECKSUM: 2937c7b84ae4276a61db43425ee448060a871d96
 
 COCOAPODS: 1.8.4

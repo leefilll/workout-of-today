@@ -16,6 +16,8 @@ class BasicViewController: UIViewController {
     
     public var token: NotificationToken? = nil
     
+    public var moved: CGFloat?
+    
     public var navigationBarTitle: String {
         return ""
     }
@@ -34,6 +36,9 @@ class BasicViewController: UIViewController {
         super.viewDidLoad()
         addObserverForKeyboard()
         view.backgroundColor = .defaultBackgroundColor
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
     }
     
     public func configureNavigationBar() {

@@ -8,20 +8,20 @@
 
 import UIKit
 
-class CloseButton: BasicButton {
-    override func setup() {
-        setTitle("X", for: .normal)
-        setTitleColor(.white, for: .normal)
-        titleLabel?.font = .boldBody
-        
-        contentVerticalAlignment = .center
-        contentHorizontalAlignment = .center
-        
-        backgroundColor = UIColor.lightGray.withAlphaComponent(0.4)
+class CloseButton: UIBarButtonItem {
+    
+    init(target: AnyObject, action: Selector) {
+        super.init()
+        self.target = target
+        self.action = action
+        self.style = .plain
+        let customView = UIButton()
+        customView.setBackgroundImage(UIImage(named: "xmark"), for: .normal)
+        customView.addTarget(target, action: action, for: .touchUpInside)
+        self.customView = customView
     }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        layer.cornerRadius = bounds.height / 2
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
 }

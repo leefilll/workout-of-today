@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -8,10 +10,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TodayWorkoutNoteViewController" customModule="WorkoutOfToday" customModuleProvider="target">
             <connections>
-                <outlet property="closeButton" destination="4rF-FB-oyO" id="u0g-rB-SPj"/>
+                <outlet property="navigationBar" destination="tBq-Lr-yF4" id="aLA-vx-2R7"/>
                 <outlet property="noteAddButton" destination="CQW-HY-MLN" id="XwI-R7-qTf"/>
                 <outlet property="noteTextView" destination="cwi-qE-hmS" id="aaf-2Y-ODd"/>
-                <outlet property="titleLabel" destination="d3P-Jy-T54" id="2yP-ep-f8i"/>
                 <outlet property="view" destination="iN0-l3-epB" id="mkE-PJ-EJc"/>
             </connections>
         </placeholder>
@@ -21,47 +22,41 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cwi-qE-hmS">
-                    <rect key="frame" x="25" y="50.5" width="364" height="765.5"/>
+                    <rect key="frame" x="25" y="103" width="364" height="684"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3P-Jy-T54">
-                    <rect key="frame" x="25" y="20" width="42" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4rF-FB-oyO" customClass="CloseButton" customModule="WorkoutOfToday" customModuleProvider="target">
-                    <rect key="frame" x="364" y="15" width="25" height="25"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="25" id="9WG-5C-9dJ"/>
-                        <constraint firstAttribute="width" constant="25" id="DwD-1j-jVs"/>
-                    </constraints>
-                    <state key="normal" title="Button"/>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQW-HY-MLN" customClass="BasicButton" customModule="WorkoutOfToday" customModuleProvider="target">
-                    <rect key="frame" x="25" y="836" width="364" height="40"/>
+                    <rect key="frame" x="10" y="807" width="394" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="PXc-AJ-0f5"/>
                     </constraints>
                     <state key="normal" title="Button"/>
                 </button>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tBq-Lr-yF4">
+                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <items>
+                        <navigationItem title="Title" id="iJa-q6-bMD"/>
+                    </items>
+                </navigationBar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="cwi-qE-hmS" secondAttribute="trailing" constant="25" id="02Y-G4-sF7"/>
                 <constraint firstItem="CQW-HY-MLN" firstAttribute="top" secondItem="cwi-qE-hmS" secondAttribute="bottom" constant="20" id="0Pc-Ay-Sok"/>
-                <constraint firstItem="d3P-Jy-T54" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="25" id="2iI-rI-jUb"/>
-                <constraint firstItem="cwi-qE-hmS" firstAttribute="top" secondItem="d3P-Jy-T54" secondAttribute="bottom" constant="10" id="7Ds-bn-jVl"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="4rF-FB-oyO" secondAttribute="trailing" constant="25" id="GOj-6X-j4s"/>
+                <constraint firstItem="tBq-Lr-yF4" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="ACv-hl-jsl"/>
                 <constraint firstItem="cwi-qE-hmS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="25" id="KIf-OS-UM4"/>
-                <constraint firstItem="CQW-HY-MLN" firstAttribute="leading" secondItem="cwi-qE-hmS" secondAttribute="leading" id="Yii-Ts-dbV"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="CQW-HY-MLN" secondAttribute="bottom" constant="20" id="b1y-bn-oSj"/>
+                <constraint firstItem="tBq-Lr-yF4" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="RjB-3m-VXi"/>
+                <constraint firstItem="cwi-qE-hmS" firstAttribute="top" secondItem="tBq-Lr-yF4" secondAttribute="bottom" constant="15" id="TPo-p4-PGU"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="CQW-HY-MLN" secondAttribute="trailing" constant="10" id="W60-YR-jcb"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="CQW-HY-MLN" secondAttribute="bottom" constant="15" id="b1y-bn-oSj"/>
+                <constraint firstItem="tBq-Lr-yF4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="cWC-QE-ebe"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="cwi-qE-hmS" secondAttribute="trailing" constant="25" id="e4q-CI-myp"/>
-                <constraint firstItem="CQW-HY-MLN" firstAttribute="trailing" secondItem="cwi-qE-hmS" secondAttribute="trailing" id="i9O-Lp-jhW"/>
-                <constraint firstItem="d3P-Jy-T54" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="qg9-KD-dCv"/>
-                <constraint firstItem="4rF-FB-oyO" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="15" id="zJZ-uG-roJ"/>
+                <constraint firstItem="cwi-qE-hmS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="25" id="fea-nV-zT8"/>
+                <constraint firstItem="CQW-HY-MLN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="pyF-E4-7qC"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

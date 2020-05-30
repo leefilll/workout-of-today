@@ -14,8 +14,6 @@ class ProfileEditViewController: BasicViewController {
     
     private var tapGestureRecognize: UITapGestureRecognizer!
     
-    private var moved: CGFloat?
-    
     var user: Profile?
     
     var delegate: ProfileDidUpdatedDelegate?
@@ -53,7 +51,9 @@ class ProfileEditViewController: BasicViewController {
         tapGestureRecognize = UITapGestureRecognizer(target: self, action: #selector(viewDidTapped(_:)))
         view.addGestureRecognizer(tapGestureRecognize)
         
-        titleNavigationBar.topItem?.title = "기본 정보"
+        let closeButton = CloseButton(target: self, action: #selector(dismiss(_:)))
+        titleNavigationBar.topItem?.title = "기본 정보🏋️‍♂️"
+        titleNavigationBar.topItem?.rightBarButtonItem = closeButton
         titleNavigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         titleNavigationBar.shadowImage = UIImage()
         
@@ -97,7 +97,7 @@ class ProfileEditViewController: BasicViewController {
     override func keyboardWillShow(bounds: CGRect?) {
         guard let bounds = bounds else { return }
         let overlappedHeight = view.frame.maxY - bounds.minY
-        let extraHeight: CGFloat = 15
+        let extraHeight: CGFloat = 5
         let move = overlappedHeight + extraHeight
         self.moved = move
         
@@ -118,6 +118,11 @@ class ProfileEditViewController: BasicViewController {
 // MARK: objc functions
 
 extension ProfileEditViewController {
+    @objc
+    func dismiss(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @objc
     func viewDidTapped(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)

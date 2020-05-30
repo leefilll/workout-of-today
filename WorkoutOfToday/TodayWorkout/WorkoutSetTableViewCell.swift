@@ -21,12 +21,6 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
         }
     }
     
-    var isCompleted: Bool = false {
-        didSet {
-            updateButton()
-        }
-    }
-    
     // MARK: View
     @IBOutlet weak var containerView: UIView!
     
@@ -35,8 +29,6 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
     @IBOutlet weak var weightTextField: UITextField!
     
     @IBOutlet weak var repsTextField: UITextField!
-    
-    @IBOutlet weak var completeButton: BasicButton!
     
     
     override func prepareForReuse() {
@@ -64,13 +56,6 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
         repsTextField.delegate = self
         repsTextField.font = .boldBody
         
-        completeButton.setTitle("완료", for: .normal)
-        completeButton.setTitleColor(.tintColor, for: .normal)
-        completeButton.setTitle("취소", for: .selected)
-        completeButton.setTitleColor(.white, for: .selected)
-        
-        completeButton.addTarget(self, action: #selector(completeButtonDidTapped(_:)), for: .touchUpInside)
-        
         fillTextField()
         
         weightTextField.addToolbar(onDone: (target: self,
@@ -79,7 +64,6 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
         repsTextField.addToolbar(onDone: (target: self,
                                           title: "확인",
                                           action: #selector(doneDidTapped(_:))))
-
     }
     
     private func fillTextField() {
@@ -98,38 +82,18 @@ extension WorkoutSetTableViewCell {
     @objc func nextDidTapped(_ sender: UIBarButtonItem) {
         repsTextField.becomeFirstResponder()
     }
-    
+
     @objc func doneDidTapped(_ sender: UIBarButtonItem) {
         repsTextField.resignFirstResponder()
-        
         if repsTextField.text == nil {
             return
-        }
-        
-        isCompleted = true
-    }
-    
-    @objc func completeButtonDidTapped(_ sender: UIButton) {
-        isCompleted = !isCompleted
-    }
-    
-    private func updateButton() {
-        completeButton.isSelected = !completeButton.isSelected
-        if isCompleted {
-            completeButton.backgroundColor = .tintColor
-            weightTextField.textColor = .lightGray
-            repsTextField.textColor = .lightGray
-        } else {
-            completeButton.backgroundColor = .weakTintColor
         }
     }
 }
 
-
 // MARK: TextField Delegate
 
 extension WorkoutSetTableViewCell: UITextFieldDelegate {
-
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
 

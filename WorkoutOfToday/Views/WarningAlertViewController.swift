@@ -69,20 +69,20 @@ class WarningAlertViewController: UIViewController {
         
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(40)
+            make.top.equalToSuperview().offset(30)
         }
         
         messageLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(10)
             make.trailing.equalToSuperview().offset(-10)
-            make.top.equalTo(titleLabel.snp.bottom).offset(50)
+            make.top.equalTo(titleLabel.snp.bottom).offset(20)
         }
         
         cancelButton.snp.makeConstraints { make in
             make.leading.equalTo(10)
             make.trailing.equalTo(-10)
             make.height.equalTo(40)
-            make.bottom.equalToSuperview().offset(-35)
+            make.bottom.equalToSuperview().offset(-15)
         }
         
         confirmButton.snp.makeConstraints { make in

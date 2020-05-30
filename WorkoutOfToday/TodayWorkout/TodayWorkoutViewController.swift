@@ -18,16 +18,14 @@ final class TodayWorkoutViewController: BasicViewController {
     
     private let slideTransitioningDelegate =  SlideTransitioningDelegate(heightRatio: 0.90)
     
-    private let popupTransitioningDelegate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.35)
+    private let popupTransitioningDelegate = PopupTransitioningDelegate(height: 230)
+    
+    private let popupTransitioningDelegateForNote = PopupTransitioningDelegate(height: 300)
     
     private let popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.50)
     
     var workoutsOfDay: WorkoutsOfDay? {
         didSet {
-            print(#function)
-            print(#function)
-            print(#function)
-//            addNotificationBlock()
         }
     }
     
@@ -52,7 +50,6 @@ final class TodayWorkoutViewController: BasicViewController {
     
     override func setup() {
         setupTableView()
-//        configureTableView()
         setupWorkoutAddButton()
     }
     
@@ -137,6 +134,15 @@ final class TodayWorkoutViewController: BasicViewController {
                                    action: #selector(workoutAddButtonDidTapped(_:)),
                                    for: .touchUpInside)
     }
+    
+    override func keyboardWillShow(bounds: CGRect?) {
+        guard let bounds = bounds else { return }
+        tableView.contentInset.bottom += bounds.height
+    }
+    
+    override func keyboardWillHide() {
+        tableView.contentInset.bottom = Size.addButtonHeight
+    }
 }
 
 // MARK: WorkoutDidModified Delegate
@@ -162,7 +168,6 @@ extension TodayWorkoutViewController: WorkoutDidModiFieid {
         tableView.reloadData()
     }
 }
-
 
 // MARK: objc functions
 
@@ -193,7 +198,7 @@ extension TodayWorkoutViewController {
     }
     
     @objc
-    private func workoutSectionHeaderDidTapped(_ sender: UITapGestureRecognizer) {
+    private func workoutSectionHeaderDidTapped(_ sender: UILongPressGestureRecognizer) {
         // MARK: using tag for knowing sections
         guard let section = sender.view?.tag,
             let workoutToDelete = workoutsOfDay?.workouts[section]
@@ -202,19 +207,19 @@ extension TodayWorkoutViewController {
                 return
         }
         
-        let warningAlertVC = WarningAlertViewController(title: "운동을 삭제할까요?", message: "해당 운동과 모든 세트 정보를 삭제합니다. 이 동작은 되돌릴 수 없습니다.", primaryKey: workoutToDelete.id)
+        let warningAlertVC = WarningAlertViewController(title: "운동을 삭제할까요?", message: "\(workoutToDelete.name) 운동과 모든 세트 정보를 삭제합니다.\n이 동작은 되돌릴 수 없습니다.", primaryKey: workoutToDelete.id)
         warningAlertVC.delegate = self
         warningAlertVC.modalPresentationStyle = .custom
         warningAlertVC.transitioningDelegate = popupTransitioningDelegate
-        present(warningAlertVC, animated: true, completion: nil)
+        
+        if let presented = self.presentedViewController {
+            presented.removeFromParent()
+          }
+
+        if presentedViewController == nil {
+             self.present(warningAlertVC, animated: true, completion: nil)
+          }
     }
-    
-    
-//    @objc
-//    private func workoutEditButtonDidTapped(_ sender: UIButton){
-//        sender.isSelected = !sender.isSelected
-//        isEditMode = sender.isSelected
-//    }
     
     @objc
     private func workoutNoteButtonDidTapped(_ sender: UIButton) {
@@ -223,18 +228,8 @@ extension TodayWorkoutViewController {
         let noteVC = TodayWorkoutNoteViewController(nibName: "TodayWorkoutNoteViewController", bundle: nil)
         noteVC.workoutsOfDay = workoutsOfDay
         noteVC.modalPresentationStyle = .custom
-        noteVC.transitioningDelegate = popupTransitioningDelegate
+        noteVC.transitioningDelegate = popupTransitioningDelegateForNote
         present(noteVC, animated: true, completion: nil)
-    }
-    
-    @objc
-    private func editWorkoutButtonDidTapped(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        if sender.isSelected {
-            tableView.setEditing(true, animated: true)
-        } else {
-            tableView.setEditing(false, animated: true)
-        }
     }
 }
 
@@ -279,13 +274,9 @@ extension TodayWorkoutViewController: UITableViewDataSource {
                 UIView.performWithoutAnimation {
                     self.tableView.reloadData()
                 }
-                //                self.perform(#selector(reloadData), with: nil, afterDelay: 0.1)
-                //TODO: reloadSection animation
-                //                tableView.setNeedsUpdateConstraints()
                 UIView.animate(withDuration: 0.2) {
                     self.view.layoutIfNeeded()
             }
-            
             default:
                 break
         }
@@ -297,16 +288,17 @@ extension TodayWorkoutViewController: UITableViewDataSource {
 extension TodayWorkoutViewController: UITableViewDelegate {
     
     // MARK: Header
+    // Note that view.tag means section
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let workoutsOfDay = workoutsOfDay else { return nil }
         let workout = workoutsOfDay.workouts[section]
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(workoutSectionHeaderDidTapped(_:)))
         
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(workoutSectionHeaderDidTapped(_:)))
         let headerView = tableView.dequeueReusableHeaderFooterView(TodayWorkoutSectionHeaderView.self)
         headerView.tag = section
         headerView.workout = workout
-        headerView.addGestureRecognizer(tapGestureRecognizer)
+        headerView.addGestureRecognizer(longPressGestureRecognizer)
         
         let backgroundView = UIView()
         backgroundView.backgroundColor = .clear
@@ -333,16 +325,6 @@ extension TodayWorkoutViewController: UITableViewDelegate {
         footerView.backgroundView = backgroundView
         
         return footerView
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        guard let workoutsOfToday = self.workoutsOfDay else { return }
-        //        let vc = WorkoutAddViewController()
-        //        let workout = workoutsOfToday.workouts[indexPath.row]
-        //        vc.workout = workout
-        //        DispatchQueue.main.async{
-        //            self.present(vc, animated: true, completion: nil)
-        //        }
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {

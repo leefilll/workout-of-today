@@ -89,8 +89,8 @@ class ProfileViewController: BasicViewController {
         summaryTitleLabel.text = "요약"
         
         summaryEditButton.setTitle("편집", for: .normal)
-        summaryEditButton.setBackgroundColor(.tintColor, for: .normal)
-        summaryEditButton.setTitleColor(.white, for: .normal)
+        summaryEditButton.setBackgroundColor(.weakTintColor, for: .normal)
+        summaryEditButton.setTitleColor(.tintColor, for: .normal)
         summaryEditButton.addTarget(self, action: #selector(summaryEditButtonDidTapped(_:)), for: .touchUpInside)
         
         summaryHeightView.subtitleLabel.text = "키"

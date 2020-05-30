@@ -46,8 +46,8 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAd-MH-17U" customClass="BasicButton" customModule="WorkoutOfToday" customModuleProvider="target">
-                                            <rect key="frame" x="308" y="3.5" width="66" height="28"/>
-                                            <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+                                            <rect key="frame" x="308" y="5.5" width="66" height="24"/>
+                                            <inset key="contentEdgeInsets" minX="10" minY="3" maxX="10" maxY="3"/>
                                             <state key="normal" title="Button"/>
                                         </button>
                                     </subviews>
