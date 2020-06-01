@@ -24,14 +24,13 @@ final class TodayWorkoutViewController: BasicViewController {
     
     private let popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.50)
     
-    var workoutsOfDay: WorkoutsOfDay? {
-        didSet {
-        }
-    }
+    var workoutsOfDay: WorkoutsOfDay?
     
     override var navigationBarTitle: String {
         return "오늘의 운동"
     }
+    
+    private var selectedIndexPath: IndexPath?
     
     // MARK: View
     
@@ -63,6 +62,8 @@ final class TodayWorkoutViewController: BasicViewController {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.contentInset.bottom = Size.addButtonHeight + 10
         tableView.alwaysBounceVertical = true
+        tableView.separatorColor = .clear
+        tableView.keyboardDismissMode = .onDrag
         tableView.backgroundColor = .clear
         tableView.sectionHeaderHeight = Size.Cell.headerHeight
         tableView.estimatedSectionHeaderHeight = Size.Cell.headerHeight
@@ -104,22 +105,30 @@ final class TodayWorkoutViewController: BasicViewController {
         }
     }
     
+    override func setupFeedbackGenerator() {
+        feedbackGenerator = UISelectionFeedbackGenerator()
+        impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+        feedbackGenerator?.prepare()
+        impactFeedbackGenerator?.prepare()
+    }
+    
     private func configureTableView() {
         let tableHeaderView = TodayWorkoutTableHeaderView()
         tableHeaderView.titleLabel.text = DateFormatter.shared.string(from: Date.now)
         tableHeaderView.frame.size.height = 50
         tableHeaderView.frame.size.width = tableView.bounds.width
-        tableHeaderView.workoutNoteButton.addTarget(self,
-                                                    action: #selector(workoutNoteButtonDidTapped(_:)),
-                                                    for: .touchUpInside)
+        tableHeaderView.workoutNoteButton.addTarget(self, action: #selector(workoutNoteButtonDidTapped(_:)), for: .touchUpInside)
+        if let workoutsOfDay = workoutsOfDay {
+            if workoutsOfDay.numberOfWorkouts == 0 {
+                tableHeaderView.workoutNoteButton.isHidden = true
+            }
+        }
+        
         tableView.tableHeaderView = tableHeaderView
         self.tableHeaderView = tableHeaderView
         
-//        tableView.emptyDataSetSource = self
-//        tableView.emptyDataSetDelegate = self
-        
-        tableView.separatorColor = .clear
-        tableView.keyboardDismissMode = .interactive
+        //        tableView.emptyDataSetSource = self
+        //        tableView.emptyDataSetDelegate = self
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -136,34 +145,24 @@ final class TodayWorkoutViewController: BasicViewController {
     }
     
     override func keyboardWillShow(in bounds: CGRect?) {
+        guard let keyboardMinY = bounds?.minY,
+            let selectedIndexPath = selectedIndexPath else { return }
+        let rectForSelectedCell = tableView.rectForRow(at: selectedIndexPath)
+        let rectInScreen = tableView.convert(rectForSelectedCell, to: view)
+        let extraHeight: CGFloat = 5
+        
+        if keyboardMinY < rectInScreen.maxY + extraHeight {
+            let overlappedHeight = rectInScreen.maxY + extraHeight - keyboardMinY
+            tableView.contentInset.bottom += overlappedHeight
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+                self.tableView.scrollToRow(at: selectedIndexPath, at: .middle, animated: true)
+            }
+        }
     }
     
     override func keyboardWillHide() {
-        tableView.contentInset.bottom = Size.addButtonHeight
-    }
-}
-
-// MARK: WorkoutDidModified Delegate
-
-extension TodayWorkoutViewController: WorkoutDidModiFieid {
-    func workoutDidDeleted() {
-        tableView.reloadData()
-    }
-    
-    func workoutDidAdded() {
-        guard let workoutsOfDay = workoutsOfDay else { fatalError() }
-        let targetSection = workoutsOfDay.numberOfWorkouts - 1
-        let targetIndexPath = IndexPath(row: NSNotFound, section: targetSection)
-        tableView.beginUpdates()
-        tableView.insertSections([targetSection], with: .fade)
-        tableView.reloadData()
-        tableView.endUpdates()
-        tableView.scrollToRow(at: targetIndexPath, at: .top, animated: true)
-    }
-    
-    func firstWorkoutDidAdded(at workoutsOfDay: WorkoutsOfDay) {
-        self.workoutsOfDay = workoutsOfDay
-        tableView.reloadData()
+        tableView.contentInset.bottom = Size.addButtonHeight + 10
+        //        selectedIndexPath = nil
     }
 }
 
@@ -180,6 +179,7 @@ extension TodayWorkoutViewController {
         DBHandler.shared.write {
             workout.sets.append(newWorkoutSet)
         }
+        feedbackGenerator?.selectionChanged()
         tableView.insertRows(at: [targetIndexPath], with: .none)
     }
     
@@ -192,11 +192,12 @@ extension TodayWorkoutViewController {
         addWorkoutVC.modalPresentationStyle = .custom
         addWorkoutVC.transitioningDelegate = slideTransitioningDelegate
         addWorkoutVC.delegate = self
+        feedbackGenerator?.selectionChanged()
         present(addWorkoutVC, animated: true, completion: nil)
     }
     
     @objc
-    private func workoutSectionHeaderDidTapped(_ sender: UILongPressGestureRecognizer) {
+    private func workoutSectionHeaderDidBeginPressed(_ sender: UILongPressGestureRecognizer) {
         // MARK: using tag for knowing sections
         guard let section = sender.view?.tag,
             let workoutToDelete = workoutsOfDay?.workouts[section]
@@ -212,11 +213,12 @@ extension TodayWorkoutViewController {
         
         if let presented = self.presentedViewController {
             presented.removeFromParent()
-          }
-
+        }
+        
         if presentedViewController == nil {
-             self.present(warningAlertVC, animated: true, completion: nil)
-          }
+            impactFeedbackGenerator?.impactOccurred()
+            self.present(warningAlertVC, animated: true, completion: nil)
+        }
     }
     
     @objc
@@ -227,6 +229,7 @@ extension TodayWorkoutViewController {
         noteVC.workoutsOfDay = workoutsOfDay
         noteVC.modalPresentationStyle = .custom
         noteVC.transitioningDelegate = popupTransitioningDelegateForNote
+        feedbackGenerator?.selectionChanged()
         present(noteVC, animated: true, completion: nil)
     }
 }
@@ -271,14 +274,13 @@ extension TodayWorkoutViewController: UITableViewDataSource {
                 let workout = workoutsOfDay.workouts[indexPath.section]
                 let setToDelete = workout.sets[indexPath.row]
                 DBHandler.shared.delete(object: setToDelete)
-                
+                feedbackGenerator?.selectionChanged()
                 tableView.deleteRows(at: [indexPath], with: .bottom)
-                UIView.performWithoutAnimation {
-                    self.tableView.reloadData()
-                }
-                UIView.animate(withDuration: 0.2) {
-                    self.view.layoutIfNeeded()
-            }
+                UIView.setAnimationsEnabled(false)
+                tableView.beginUpdates()
+                tableView.reloadData()
+                tableView.endUpdates()
+                UIView.setAnimationsEnabled(true)
             default:
                 break
         }
@@ -296,7 +298,7 @@ extension TodayWorkoutViewController: UITableViewDelegate {
         guard let workoutsOfDay = workoutsOfDay else { return nil }
         let workout = workoutsOfDay.workouts[section]
         
-        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(workoutSectionHeaderDidTapped(_:)))
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(workoutSectionHeaderDidBeginPressed(_:)))
         let headerView = tableView.dequeueReusableHeaderFooterView(TodayWorkoutSectionHeaderView.self)
         headerView.tag = section
         headerView.workout = workout
@@ -334,28 +336,42 @@ extension TodayWorkoutViewController: UITableViewDelegate {
     }
 }
 
+// MARK: WorkoutDidModified Delegate
+
+extension TodayWorkoutViewController: WorkoutDidModiFieid {
+    func workoutDidDeleted() {
+        if let workoutsOfDay = workoutsOfDay {
+            if workoutsOfDay.numberOfWorkouts == 0 {
+                DBHandler.shared.delete(object: workoutsOfDay)
+                tableHeaderView.workoutNoteButton.isHidden = true
+                self.workoutsOfDay = nil
+            }
+        }
+        tableView.reloadData()
+    }
+    
+    func workoutDidAdded() {
+        guard let workoutsOfDay = workoutsOfDay else { fatalError() }
+        let targetSection = workoutsOfDay.numberOfWorkouts - 1
+        let targetIndexPath = IndexPath(row: NSNotFound, section: targetSection)
+        tableView.beginUpdates()
+        tableView.insertSections([targetSection], with: .fade)
+        tableView.endUpdates()
+        tableView.scrollToRow(at: targetIndexPath, at: .top, animated: true)
+    }
+    
+    func firstWorkoutDidAdded(at workoutsOfDay: WorkoutsOfDay) {
+        self.workoutsOfDay = workoutsOfDay
+        tableHeaderView.workoutNoteButton.isHidden = false
+        tableView.reloadData()
+    }
+}
+
+// MARK: WorkoutSetDidBeginEditing Delegate
+
 extension TodayWorkoutViewController: WorkoutSetDidBeginEditing {
     func workoutSetDidBeginEditing(at indexPath: IndexPath?) {
-        print(keyboardHeight)
-        print(keyboardHeight)
-        print(keyboardHeight)
-        print(keyboardHeight)
-        print(keyboardHeight)
-        guard let indexPath = indexPath,
-            let keyboardHeight = keyboardHeight else { return }
-        let targetRect = tableView.rectForRow(at: indexPath)
-        let keyboardMinY = view.bounds.height - keyboardHeight
-        let extraHeight: CGFloat = 30
-        let overlapped = (targetRect.maxY + extraHeight) - keyboardMinY
-        print("############################################")
-        print("############################################")
-        print(overlapped)
-        print("############################################")
-        print("############################################")
-        if overlapped > 0 {
-            
-            tableView.contentInset.bottom += overlapped
-        }
+        selectedIndexPath = indexPath
     }
 }
 

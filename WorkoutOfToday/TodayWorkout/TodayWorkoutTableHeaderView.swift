@@ -17,7 +17,6 @@ class TodayWorkoutTableHeaderView: BasicView, NibLoadable {
     override func setup() {
         commonInit()
         titleLabel.font = .smallBoldTitle
-        
         workoutNoteButton.backgroundColor = .weakTintColor
         workoutNoteButton.setTitleColor(.tintColor, for: .normal)
         workoutNoteButton.setTitle("노트", for: .normal)

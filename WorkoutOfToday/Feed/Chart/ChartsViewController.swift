@@ -34,7 +34,6 @@ final class ChartsViewController: BasicViewController, Childable {
     override func setup() {
         setupLabels()
         setupButton()
-        setupSegmentedControl()
     }
     
     private func setupLabels() {
@@ -51,35 +50,36 @@ final class ChartsViewController: BasicViewController, Childable {
         workoutSelectButton.setTitleColor(.white, for: .normal)
     }
     
-    private func setupSegmentedControl() {
-        periodSegmentedControl.setTitle(Period.oneMonth.description, forSegmentAt: 0)
-        periodSegmentedControl.setTitle(Period.threeMonths.description, forSegmentAt: 1)
-        periodSegmentedControl.setTitle(Period.entire.description, forSegmentAt: 2)
-        
-        periodSegmentedControl.selectedSegmentIndex = 0
-        periodSegmentedControl.layer.cornerRadius = 5.0
-        periodSegmentedControl.backgroundColor = .weakTintColor
-        periodSegmentedControl.setBackgroundColor(.tintColor, for: .selected)
-        periodSegmentedControl.tintColor = .tintColor
-        periodSegmentedControl.addTarget(self, action: #selector(selectionDidChanged(_:)), for: .valueChanged)
-        
-        periodSegmentedControl.backgroundColor = .white
-        periodSegmentedControl.tintColor = .weakTintColor
-        periodSegmentedControl.setTitleTextAttributes(
-            [
-                NSAttributedString.Key.foregroundColor: UIColor.tintColor,
-                NSAttributedString.Key.font: UIFont.subheadline,
-            ],
-            for: .selected
-        )
-        periodSegmentedControl.setTitleTextAttributes(
-            [
-                NSAttributedString.Key.foregroundColor: UIColor.lightGray,
-                NSAttributedString.Key.font: UIFont.subheadline,
-            ],
-            for: .normal
-        )
-    }
+    // MARK: Version 2.0
+//    private func setupSegmentedControl() {
+//        periodSegmentedControl.setTitle(Period.oneMonth.description, forSegmentAt: 0)
+//        periodSegmentedControl.setTitle(Period.threeMonths.description, forSegmentAt: 1)
+//        periodSegmentedControl.setTitle(Period.entire.description, forSegmentAt: 2)
+//
+//        periodSegmentedControl.selectedSegmentIndex = 0
+//        periodSegmentedControl.layer.cornerRadius = 5.0
+//        periodSegmentedControl.backgroundColor = .weakTintColor
+//        periodSegmentedControl.setBackgroundColor(.tintColor, for: .selected)
+//        periodSegmentedControl.tintColor = .tintColor
+//        periodSegmentedControl.addTarget(self, action: #selector(selectionDidChanged(_:)), for: .valueChanged)
+//
+//        periodSegmentedControl.backgroundColor = .white
+//        periodSegmentedControl.tintColor = .weakTintColor
+//        periodSegmentedControl.setTitleTextAttributes(
+//            [
+//                NSAttributedString.Key.foregroundColor: UIColor.tintColor,
+//                NSAttributedString.Key.font: UIFont.subheadline,
+//            ],
+//            for: .selected
+//        )
+//        periodSegmentedControl.setTitleTextAttributes(
+//            [
+//                NSAttributedString.Key.foregroundColor: UIColor.lightGray,
+//                NSAttributedString.Key.font: UIFont.subheadline,
+//            ],
+//            for: .normal
+//        )
+//    }
     
 
     override func viewDidLoad() {

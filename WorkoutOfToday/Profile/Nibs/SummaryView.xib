@@ -10,8 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SummaryView" customModule="WorkoutOfToday" customModuleProvider="target">
             <connections>
+                <outlet property="mainLabel" destination="bfZ-AG-rwC" id="yMa-Li-qZU"/>
                 <outlet property="subtitleLabel" destination="vfs-Ad-dNT" id="Tfh-0w-qsY"/>
-                <outlet property="titleLabel" destination="bfZ-AG-rwC" id="yMa-Li-qZU"/>
                 <outlet property="unitLabel" destination="tGG-P6-Ide" id="5Ja-vR-5kI"/>
             </connections>
         </placeholder>
@@ -27,7 +27,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="lastBaseline" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="dAz-f2-HOo">
-                    <rect key="frame" x="299" y="82" width="105" height="50"/>
+                    <rect key="frame" x="292" y="82" width="105" height="50"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bfZ-AG-rwC">
                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -50,7 +50,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="dAz-f2-HOo" secondAttribute="bottom" constant="15" id="LoF-db-HNA"/>
                 <constraint firstItem="dAz-f2-HOo" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vfs-Ad-dNT" secondAttribute="bottom" constant="10" id="XTq-F7-VyB"/>
                 <constraint firstItem="vfs-Ad-dNT" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="YG2-dt-uGc"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="dAz-f2-HOo" secondAttribute="trailing" constant="10" id="usz-yl-shi"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="dAz-f2-HOo" secondAttribute="trailing" constant="17" id="usz-yl-shi"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

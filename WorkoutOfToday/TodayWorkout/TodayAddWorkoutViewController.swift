@@ -83,6 +83,11 @@ class TodayAddWorkoutViewController: BasicViewController {
         navigationBar.shadowImage = UIImage()
     }
     
+    override func setupFeedbackGenerator() {
+        feedbackGenerator = UISelectionFeedbackGenerator()
+        feedbackGenerator?.prepare()
+    }
+    
     private func setupEditTemplateButton() {
         editTemplateButton.action = #selector(editTemplateButtonDidTapped(_:))
     }
@@ -192,6 +197,8 @@ extension TodayAddWorkoutViewController: UICollectionViewDelegate {
             }
             delegate?.firstWorkoutDidAdded(at: newWorkoutsOfDay)
         }
+        
+        feedbackGenerator?.selectionChanged()
         dismiss(animated: true, completion: nil)
     }
     

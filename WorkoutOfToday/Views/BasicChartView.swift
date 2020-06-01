@@ -18,6 +18,8 @@ class BasicChartView: BasicCardView {
     
     weak var emptyLabel: UILabel!
     
+    weak var selectButton: BasicButton!
+    
     // MARK: Model
     
     var subtitle: String? {
@@ -34,12 +36,14 @@ class BasicChartView: BasicCardView {
         setupLabel()
         setupChartView()
         setupEmptyLabel()
+        setupSelectButton()
         updateChartView()
+        selectButton.isHidden = true
     }
     
     private func setupLabel() {
         let subtitleLabel = UILabel()
-        subtitleLabel.font = .subheadline
+        subtitleLabel.font = .boldBody
         subtitleLabel.textColor = .lightGray
         subtitleLabel.text = subtitle
         addSubview(subtitleLabel)
@@ -50,6 +54,21 @@ class BasicChartView: BasicCardView {
         }
         
         self.subtitleLabel = subtitleLabel
+    }
+    
+    private func setupSelectButton() {
+        let selectButton = BasicButton()
+        selectButton.setTitle(" - ", for: .normal)
+        selectButton.contentEdgeInsets =
+            UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
+        selectButton.addTarget(self, action: #selector(selectButtonDidTapped(_:)), for: .touchUpInside)
+        addSubview(selectButton)
+        
+        selectButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-15)
+            make.centerY.equalTo(subtitleLabel.snp.centerY)
+        }
+        self.selectButton = selectButton
     }
     
     private func setupChartView() {
@@ -86,5 +105,13 @@ class BasicChartView: BasicCardView {
             emptyLabel.isHidden = true
             chartContainerView.isHidden = false
         }
+    }
+}
+
+// MARK: objc functions
+
+extension BasicChartView {
+    @objc
+    func selectButtonDidTapped(_ sender: UIButton) {
     }
 }

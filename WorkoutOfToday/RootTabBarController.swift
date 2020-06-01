@@ -44,8 +44,11 @@ final class RootTabBarController: UITabBarController, UITabBarControllerDelegate
         
         if let items = tabBar.items {
             items[0].title = "프로필"
+            items[0].image = UIImage(named: "Profile")
             items[1].title = "오늘의 운동"
+            items[1].image = UIImage(named: "Workout")
             items[2].title = "이력"
+            items[2].image = UIImage(named: "History")
         }
     }
 }

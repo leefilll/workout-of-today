@@ -12,23 +12,23 @@ class SummaryView: BasicCardView, NibLoadable {
     
     @IBOutlet weak var subtitleLabel: UILabel!
     
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var mainLabel: UILabel!
     
     @IBOutlet weak var unitLabel: UILabel!
     
     override func setup() {
         commonInit()
         
-        subtitleLabel.font = .subheadline
+        subtitleLabel.font = .boldBody
         subtitleLabel.textColor = .lightGray
         
-        unitLabel.font = .subheadline
+        unitLabel.font = .boldBody
         unitLabel.textColor = .lightGray
         
-        titleLabel.font = .boldTitle
+        mainLabel.font = .boldTitle
         
-        subtitleLabel.textColor = .defaultTextColor
+//        subtitleLabel.textColor = .defaultTextColor
         unitLabel.textColor = .defaultTextColor
-        titleLabel.textColor = .defaultTextColor
+        mainLabel.textColor = .defaultTextColor
     }
 }

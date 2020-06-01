@@ -39,11 +39,11 @@ class FeedMasterViewController: BasicViewController {
         return calendarViewController
         }()
 
-    private lazy var chartsViewController: ChartsViewController = {[weak self] in
-        let chartsViewController = ChartsViewController(nibName: "ChartsViewController", bundle: nil)
-        self?.add(asChildViewController: chartsViewController)
-        return chartsViewController
-        }()
+//    private lazy var chartsViewController: ChartsViewController = {[weak self] in
+//        let chartsViewController = ChartsViewController(nibName: "ChartsViewController", bundle: nil)
+//        self?.add(asChildViewController: chartsViewController)
+//        return chartsViewController
+//        }()
     
     // MARK: View Life Cycle
     override func setup() {
@@ -56,13 +56,22 @@ class FeedMasterViewController: BasicViewController {
         updateView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func configureNavigationBar() {
+        super.configureNavigationBar()
+        navigationItem.titleView = segmentedControl
+    }
+    
     deinit {
         self.token?.invalidate()
         print(String(describing: self) + " " + #function)
     }
     
     private func configureSegmentedControll() {
-        let items = ["일별", "월별", "차트"]
+        let items = ["일별", "월별"]
         
         segmentedControl = UISegmentedControl(items: items)
         segmentedControl.selectedSegmentIndex = 0
@@ -89,13 +98,14 @@ class FeedMasterViewController: BasicViewController {
                 for: .normal
             )
         }
+        segmentedControl.bounds.size.width = 150
         
-        view.addSubview(segmentedControl)
-        segmentedControl.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(Inset.paddingHorizontal)
-            make.trailing.equalToSuperview().offset(-Inset.paddingHorizontal)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-10)
-        }
+//        view.addSubview(segmentedControl)
+//        segmentedControl.snp.makeConstraints { make in
+//            make.leading.equalToSuperview().offset(Inset.paddingHorizontal)
+//            make.trailing.equalToSuperview().offset(-Inset.paddingHorizontal)
+//            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-10)
+//        }
     }
     
     private func configureContentView() {
@@ -106,7 +116,7 @@ class FeedMasterViewController: BasicViewController {
         contentView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(segmentedControl.snp.top)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
     
@@ -141,20 +151,17 @@ class FeedMasterViewController: BasicViewController {
         switch segmentedControl.selectedSegmentIndex {
             case 0:
                 remove(asChildViewController: calendarViewController)
-                remove(asChildViewController: chartsViewController)
+//                remove(asChildViewController: chartsViewController)
                 add(asChildViewController: dailyCollectionViewController)
-                break
-
             case 1:
                 remove(asChildViewController: dailyCollectionViewController)
-                remove(asChildViewController: chartsViewController)
+//                remove(asChildViewController: chartsViewController)
                 add(asChildViewController: calendarViewController)
-                break
-            case 2:
-                remove(asChildViewController: calendarViewController)
-                remove(asChildViewController: dailyCollectionViewController)
-                add(asChildViewController: chartsViewController)
-                break
+//            case 2:
+//                remove(asChildViewController: calendarViewController)
+//                remove(asChildViewController: dailyCollectionViewController)
+//                add(asChildViewController: chartsViewController)
+//                break
             default:
                 break
         }

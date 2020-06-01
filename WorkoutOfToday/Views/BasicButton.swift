@@ -27,8 +27,9 @@ class BasicButton: UIButton {
 
     public func setup() {
         setTitle("", for: .normal)
-        setTitleColor(.lightGray, for: .normal)
         titleLabel?.font = .subheadline
+        
+        setTitleColor(.lightGray, for: .normal)
         backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
     }
 
@@ -38,4 +39,5 @@ class BasicButton: UIButton {
         layer.cornerRadius = 10
     }
 }
+
 

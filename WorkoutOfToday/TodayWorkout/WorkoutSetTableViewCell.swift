@@ -40,7 +40,7 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
         weightTextField.text = nil
         repsTextField.text = nil
     }
-
+    
     override func setup() {
         backgroundColor = .clear
         selectionStyle = .none
@@ -61,22 +61,17 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
         repsTextField.font = .boldBody
         
         fillTextField()
-        
-        weightTextField.addToolbar(onDone: (target: self,
-                                            title: "다음",
-                                            action: #selector(nextDidTapped(_:))))
-        repsTextField.addToolbar(onDone: (target: self,
-                                          title: "확인",
-                                          action: #selector(doneDidTapped(_:))))
     }
     
     private func fillTextField() {
-        if let workoutSet = workoutSet {
-            let weight = workoutSet.weight
-            let reps = workoutSet.reps
-            weightTextField.text = weight != 0 ? "\(workoutSet.weight)" : nil
-            repsTextField.text = reps != 0 ? "\(workoutSet.reps)" : nil
-        }
+        guard let workoutSet = workoutSet else { return }
+        let weight = workoutSet.weight
+        let reps = workoutSet.reps
+        let weightSting = weight.isInt
+            ? String(format: "%d", Int(weight))
+            : String(format: ".1f%", weight)
+        weightTextField.text = weight != 0 ? weightSting : nil
+        repsTextField.text = reps != 0 ? "\(workoutSet.reps)" : nil
     }
 }
 
@@ -86,7 +81,7 @@ extension WorkoutSetTableViewCell {
     @objc func nextDidTapped(_ sender: UIBarButtonItem) {
         repsTextField.becomeFirstResponder()
     }
-
+    
     @objc func doneDidTapped(_ sender: UIBarButtonItem) {
         repsTextField.resignFirstResponder()
         if repsTextField.text == nil {
@@ -103,28 +98,32 @@ extension WorkoutSetTableViewCell: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let text = textField.text else { return }
-
         switch textField {
             case weightTextField:
-                if let weight = Double(text) {
+                if let weight = Double(textField.text ?? "0") {
                     DBHandler.shared.write {
                         workoutSet?.weight = weight
                     }
-                }
-            break
+                } else {
+                    DBHandler.shared.write {
+                        workoutSet?.weight = 0
+                    }
+            }
             case repsTextField:
-                if let reps = Int(text) {
+                if let reps = Int(textField.text ?? "0") {
                     DBHandler.shared.write {
                         workoutSet?.reps = reps
                     }
+                } else {
+                DBHandler.shared.write {
+                    workoutSet?.reps = 0
                 }
-            break
+            }
             default:
-            break
+                break
         }
     }
-
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let charSet = CharacterSet(charactersIn: "0123456789.").inverted
         if let _ = string.rangeOfCharacter(from: charSet) {

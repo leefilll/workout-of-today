@@ -33,7 +33,7 @@ class WorkoutPartChartView: BasicChartView {
     private var chartFormatter: IValueFormatter?
     
     override var subtitle: String? {
-        return "빈도 비율"
+        return "부위별 빈도 비율"
     }
     
     override func setup() {

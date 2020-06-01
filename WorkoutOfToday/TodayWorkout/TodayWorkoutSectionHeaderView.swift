@@ -46,7 +46,7 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
         workoutNameLabel.numberOfLines = 1
         
         workoutPartButton.isEnabled = false
-        
+        workoutPartButton.setTitleColor(.white, for: .disabled)
 
         unitLabels.forEach { label in
             label.font = .description

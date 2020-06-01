@@ -18,7 +18,9 @@ class BasicViewController: UIViewController {
     
     public var moved: CGFloat?
     
-    public var keyboardHeight: CGFloat?
+    public var feedbackGenerator: UISelectionFeedbackGenerator?
+    
+    public var impactFeedbackGenerator: UIImpactFeedbackGenerator?
     
     public var navigationBarTitle: String {
         return ""
@@ -27,11 +29,16 @@ class BasicViewController: UIViewController {
     override func loadView() {
         super.loadView()
         setup()
+        setupFeedbackGenerator()
         configureNavigationBar()
     }
     
     public func setup() {
         // setup subViews and layout
+    }
+    
+    public func setupFeedbackGenerator() {
+        
     }
     
     override func viewDidLoad() {
@@ -91,7 +98,6 @@ class BasicViewController: UIViewController {
                          queue: OperationQueue.main) { [weak self] noti in
                             guard let userInfo = noti.userInfo else { return }
                             guard let bounds = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-                            self?.keyboardHeight = bounds.height
                             self?.keyboardWillShow(in: bounds)
         }
         

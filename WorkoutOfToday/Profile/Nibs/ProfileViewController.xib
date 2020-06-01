@@ -11,9 +11,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="WorkoutOfToday" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="s49-8b-70J" id="hfd-AW-qyf"/>
+                <outlet property="highlightPartChartView" destination="ZdB-lT-eoF" id="jU4-jD-84a"/>
                 <outlet property="highlightTitleLabel" destination="hQ8-vL-ozx" id="kdm-hj-XcL"/>
-                <outlet property="highlightWeekChartView" destination="ZdB-lT-eoF" id="bDt-l7-Lfb"/>
-                <outlet property="highlightWorkoutChartView" destination="9g3-YM-onO" id="Fna-u3-HCC"/>
+                <outlet property="highlightVolumeChartView" destination="9g3-YM-onO" id="i8Y-Z2-AeZ"/>
                 <outlet property="summaryBmiView" destination="hzh-Js-iwV" id="lgS-KV-0WX"/>
                 <outlet property="summaryBodyFatView" destination="q8y-uF-TAm" id="Pkk-FC-Qyq"/>
                 <outlet property="summaryCoverView" destination="VJb-57-BDV" id="Se3-Gy-c8W"/>
@@ -130,14 +130,14 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="j6x-td-btk">
                                     <rect key="frame" x="0.0" y="305" width="384" height="410"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZdB-lT-eoF" customClass="HighlightsWeekChartView" customModule="WorkoutOfToday" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZdB-lT-eoF" customClass="WorkoutPartChartView" customModule="WorkoutOfToday" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="384" height="200"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="200" id="rb1-3j-LJn"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9g3-YM-onO" customClass="BasicChartView" customModule="WorkoutOfToday" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9g3-YM-onO" customClass="WorkoutVolumeChartView" customModule="WorkoutOfToday" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="210" width="384" height="200"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>

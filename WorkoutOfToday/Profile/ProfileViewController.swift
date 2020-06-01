@@ -54,9 +54,11 @@ class ProfileViewController: BasicViewController {
     
     @IBOutlet weak var highlightTitleLabel: UILabel!
     
-    @IBOutlet weak var highlightWeekChartView: HighlightsWeekChartView!
+//    @IBOutlet weak var highlightWeekChartView: HighlightsWeekChartView!
     
-    @IBOutlet weak var highlightWorkoutChartView: BasicChartView!
+    @IBOutlet weak var highlightPartChartView: WorkoutPartChartView!
+    
+    @IBOutlet weak var highlightVolumeChartView: WorkoutVolumeChartView!
     
     override var navigationBarTitle: String {
         return "프로필"
@@ -65,17 +67,25 @@ class ProfileViewController: BasicViewController {
     override func setup() {
         setupSummaries()
         setupHighlights()
+        setupFeedback()
         updateSummaries()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         contentView.backgroundColor = .defaultBackgroundColor
+        highlightPartChartView.animateChart()
+        highlightVolumeChartView.animateChart()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        highlightWeekChartView.animateChart()
+//        highlightWeekChartView.animateChart()
+    }
+    
+    override func setupFeedbackGenerator() {
+        feedbackGenerator = UISelectionFeedbackGenerator()
+        feedbackGenerator?.prepare()
     }
     
     private func setupSummaries() {
@@ -106,16 +116,21 @@ class ProfileViewController: BasicViewController {
         summaryBmiView.unitLabel.text = ""
     }
     
+    private func setupFeedback() {
+        feedbackGenerator = UISelectionFeedbackGenerator()
+        feedbackGenerator?.prepare()
+    }
+    
     private func updateSummaries() {
         if let user = user {
             summaryCoverView.isHidden = true
-            summaryHeightView.titleLabel.text = String(format: "%.1f", user.height)
-            summaryWeightView.titleLabel.text = String(format: "%.1f", user.getRecentWeight())
-            summaryBodyFatView.titleLabel.text = String(format: "%.0f", user.fatPercentage)
-            summaryMuscleView.titleLabel.text = String(format: "%.0f", user.muscleWeight)
+            summaryHeightView.mainLabel.text = String(format: "%.1f", user.height)
+            summaryWeightView.mainLabel.text = String(format: "%.1f", user.getRecentWeight())
+            summaryBodyFatView.mainLabel.text = String(format: "%.0f", user.fatPercentage)
+            summaryMuscleView.mainLabel.text = String(format: "%.0f", user.muscleWeight)
             
             let (bmiDegree, _) = user.getBMI()
-            summaryBmiView.titleLabel.text = String(format: "%.1f", bmiDegree)
+            summaryBmiView.mainLabel.text = String(format: "%.1f", bmiDegree)
         } else {
             summaryCoverView.isHidden = false
             let descriptionLabel = UILabel()
@@ -132,7 +147,8 @@ class ProfileViewController: BasicViewController {
         highlightTitleLabel.textColor = .defaultTextColor
         highlightTitleLabel.font = .smallBoldTitle
         highlightTitleLabel.text = "하이라이트"
-        highlightWeekChartView.subtitleLabel.text = "요일별 운동 횟수"
+//        highlightWorkoutPartChartView.subtitle.
+//        highlightWeekChartView.subtitleLabel.text = "요일별 운동 횟수"
     }
 }
 
@@ -146,6 +162,7 @@ extension ProfileViewController {
         editVC.modalPresentationStyle = .custom
         editVC.delegate = self
         editVC.user = user
+        feedbackGenerator?.selectionChanged()
         present(editVC, animated: true, completion: nil)
     }
 }

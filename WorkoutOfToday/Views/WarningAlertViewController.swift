@@ -26,6 +26,8 @@ class WarningAlertViewController: UIViewController {
     
     private weak var cancelButton: BasicButton!
     
+    private var impactFeedbackGenerator: UIImpactFeedbackGenerator?
+    
     convenience init(title: String, message: String, primaryKey: String) {
         self.init()
         self.titleMessage = title
@@ -100,6 +102,15 @@ class WarningAlertViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
+        setupFeedback()
+    }
+    
+    private func setupFeedback() {
+        impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+        impactFeedbackGenerator?.prepare()
     }
 }
 
@@ -112,6 +123,7 @@ extension WarningAlertViewController {
         }
         DBHandler.shared.delete(object: workoutToDelete)
         delegate?.workoutDidDeleted()
+        impactFeedbackGenerator?.impactOccurred()
         dismiss(animated: true, completion: nil)
     }
     

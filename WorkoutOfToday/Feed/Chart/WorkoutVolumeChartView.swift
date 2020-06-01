@@ -17,14 +17,6 @@ class WorkoutVolumeChartView: BasicChartView {
     
     private weak var lineChartView: LineChartView!
     
-    // MARK: At first, set workoutTemplate to first thing
-    override func setup() {
-        super.setup()
-        setupChartView()
-        setupModel()
-        updateChartWithData()
-    }
-    
     // MARK: Model
     
     private var volumesByDate: [(date: Date, volume: Double)]?
@@ -34,7 +26,7 @@ class WorkoutVolumeChartView: BasicChartView {
     private var xAxisFormatter: IAxisValueFormatter?
     
     override var subtitle: String? {
-        return "볼륨 변화 추이"
+        return "운동별 볼륨량 변화"
     }
     
     var workoutTemplate: WorkoutTemplate? {
@@ -55,6 +47,18 @@ class WorkoutVolumeChartView: BasicChartView {
         didSet {
             setNeedsDisplay()
         }
+    }
+    
+    // MARK: At first, set workoutTemplate to first thing
+    override func setup() {
+        super.setup()
+        setupChartView()
+        setupModel()
+        updateChartWithData()
+        selectButton.isHidden = false
+    }
+    
+    override func selectButtonDidTapped(_ sender: UIButton) {
     }
     
     private func setupModel() {

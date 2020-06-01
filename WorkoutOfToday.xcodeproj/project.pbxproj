@@ -52,6 +52,7 @@
 		BB8BB7A9243CCEBA00774EA9 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8BB7A8243CCEBA00774EA9 /* Version.swift */; };
 		BB91CD102444842D00342CFC /* WorkoutSetAddFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB91CD0F2444842D00342CFC /* WorkoutSetAddFooterView.swift */; };
 		BB91CD1224448B0900342CFC /* WorkoutSetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB91CD1124448B0900342CFC /* WorkoutSetTableViewCell.xib */; };
+		BB92A8D624851649003AD89E /* Double+IsInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB92A8D524851648003AD89E /* Double+IsInt.swift */; };
 		BB96FD602444981200E8DE10 /* WorkoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB96FD5F2444981200E8DE10 /* WorkoutTableViewCell.xib */; };
 		BB96FD622444AE1B00E8DE10 /* UITableView+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB96FD612444AE1B00E8DE10 /* UITableView+Register.swift */; };
 		BB96FD642444B99300E8DE10 /* LabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB96FD632444B99300E8DE10 /* LabelCollectionViewCell.swift */; };
@@ -198,6 +199,7 @@
 		BB8BB7A8243CCEBA00774EA9 /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
 		BB91CD0F2444842D00342CFC /* WorkoutSetAddFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSetAddFooterView.swift; sourceTree = "<group>"; };
 		BB91CD1124448B0900342CFC /* WorkoutSetTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutSetTableViewCell.xib; sourceTree = "<group>"; };
+		BB92A8D524851648003AD89E /* Double+IsInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+IsInt.swift"; sourceTree = "<group>"; };
 		BB96FD5F2444981200E8DE10 /* WorkoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutTableViewCell.xib; sourceTree = "<group>"; };
 		BB96FD612444AE1B00E8DE10 /* UITableView+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Register.swift"; sourceTree = "<group>"; };
 		BB96FD632444B99300E8DE10 /* LabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -217,7 +219,6 @@
 		BBC65CB1244E0128006F0ADB /* TodayWorkoutAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWorkoutAddView.swift; sourceTree = "<group>"; };
 		BBC65CB3244EA915006F0ADB /* BasicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicButton.swift; sourceTree = "<group>"; };
 		BBC65CB5244EFAE2006F0ADB /* CalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeaderView.swift; sourceTree = "<group>"; };
-		BBC65CB7244F0805006F0ADB /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BBC65CB8244F1583006F0ADB /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
 		BBC65CBD244F27F9006F0ADB /* TopWorkoutChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopWorkoutChartCell.swift; sourceTree = "<group>"; };
 		BBC65CBF244F2815006F0ADB /* TopWorkoutChartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopWorkoutChartCell.xib; sourceTree = "<group>"; };
@@ -499,9 +500,9 @@
 				BBC65CA2244DCB7F006F0ADB /* UI */,
 				BB8BB7A2243CC75E00774EA9 /* DateFormatter+String.swift */,
 				BB5C515E243DADB600A1CD9C /* Date+Calendar.swift */,
+				BB92A8D524851648003AD89E /* Double+IsInt.swift */,
 				BB8BB7A8243CCEBA00774EA9 /* Version.swift */,
 				BB5C5196243EF8FE00A1CD9C /* Constants.swift */,
-				BBC65CB7244F0805006F0ADB /* MyPlayground.playground */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -899,6 +900,7 @@
 				BBC65CB4244EA915006F0ADB /* BasicButton.swift in Sources */,
 				BB8BB760243CBA0200774EA9 /* AppDelegate.swift in Sources */,
 				BBE15F30245818E8005600B3 /* CloseButton.swift in Sources */,
+				BB92A8D624851649003AD89E /* Double+IsInt.swift in Sources */,
 				BB5C5191243DE4BB00A1CD9C /* UIColor+TintColor.swift in Sources */,
 				BB96FD622444AE1B00E8DE10 /* UITableView+Register.swift in Sources */,
 				BB6D277E246D24CF0011DB2D /* TodayWorkoutTemplateAddViewController.swift in Sources */,
