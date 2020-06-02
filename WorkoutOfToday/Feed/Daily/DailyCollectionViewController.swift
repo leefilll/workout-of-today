@@ -40,7 +40,7 @@ class DailyCollectionViewController: BasicViewController, Childable {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        addNotificationBlock()
+//        addNotificationBlock()
     }
     
     private func configureCollectionView() {
@@ -50,18 +50,18 @@ class DailyCollectionViewController: BasicViewController, Childable {
         collectionView.registerForHeaderView(LabelCollectionHeaderView.self)
     }
     
-    private func addNotificationBlock() {
-        guard let workoutsOfDays = self.workoutsOfDays else { return }
-        self.token = workoutsOfDays.observe { [weak self] (changes: RealmCollectionChange) in
-            guard let collectionView = self?.collectionView else { return }
-            switch changes {
-                case .initial, .update:
-                    collectionView.reloadData()
-                case .error(let error):
-                    fatalError("\(error)")
-            }
-        }
-    }
+//    private func addNotificationBlock() {
+//        guard let workoutsOfDays = self.workoutsOfDays else { return }
+//        self.token = workoutsOfDays.observe { [weak self] (changes: RealmCollectionChange) in
+//            guard let collectionView = self?.collectionView else { return }
+//            switch changes {
+//                case .initial, .update:
+//                    collectionView.reloadData()
+//                case .error(let error):
+//                    fatalError("\(error)")
+//            }
+//        }
+//    }
 }
 
 // MARK: CollectionView DataSource

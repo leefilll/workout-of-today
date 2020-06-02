@@ -67,7 +67,6 @@ class ProfileViewController: BasicViewController {
     override func setup() {
         setupSummaries()
         setupHighlights()
-        setupFeedback()
         updateSummaries()
     }
     
@@ -84,8 +83,8 @@ class ProfileViewController: BasicViewController {
     }
     
     override func setupFeedbackGenerator() {
-        feedbackGenerator = UISelectionFeedbackGenerator()
-        feedbackGenerator?.prepare()
+        selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator?.prepare()
     }
     
     private func setupSummaries() {
@@ -116,10 +115,6 @@ class ProfileViewController: BasicViewController {
         summaryBmiView.unitLabel.text = ""
     }
     
-    private func setupFeedback() {
-        feedbackGenerator = UISelectionFeedbackGenerator()
-        feedbackGenerator?.prepare()
-    }
     
     private func updateSummaries() {
         if let user = user {
@@ -162,7 +157,7 @@ extension ProfileViewController {
         editVC.modalPresentationStyle = .custom
         editVC.delegate = self
         editVC.user = user
-        feedbackGenerator?.selectionChanged()
+        selectionFeedbackGenerator?.selectionChanged()
         present(editVC, animated: true, completion: nil)
     }
 }

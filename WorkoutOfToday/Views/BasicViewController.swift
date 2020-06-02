@@ -14,11 +14,17 @@ import RealmSwift
 
 class BasicViewController: UIViewController {
     
-    public var token: NotificationToken? = nil
+    public var keyboardNotificationTokens = [NotificationToken]()
+    
+    public var notificationTokens = [NotificationToken]()
+    
+    public var workoutDidAddedNotificationToken: NotificationToken?
+    
+    public var workoutDidDeletedNotificationToken: NotificationToken?
     
     public var moved: CGFloat?
     
-    public var feedbackGenerator: UISelectionFeedbackGenerator?
+    public var selectionFeedbackGenerator: UISelectionFeedbackGenerator?
     
     public var impactFeedbackGenerator: UIImpactFeedbackGenerator?
     
@@ -33,22 +39,9 @@ class BasicViewController: UIViewController {
         configureNavigationBar()
     }
     
-    public func setup() {
-        // setup subViews and layout
-    }
+    public func setup() {}
     
-    public func setupFeedbackGenerator() {
-        
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addObserverForKeyboard()
-        view.backgroundColor = .defaultBackgroundColor
-        if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = .light
-        }
-    }
+    public func setupFeedbackGenerator() {}
     
     public func configureNavigationBar() {
         if let navigationBar = self.navigationController?.navigationBar {
@@ -58,6 +51,48 @@ class BasicViewController: UIViewController {
             title = self.navigationBarTitle
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        registerKeyboardNotifications()
+        registerNotifications()
+        view.backgroundColor = .defaultBackgroundColor
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
+    }
+    
+    public func registerNotification(_ NotificationName: NSNotification.Name, using block: @escaping (Notification) -> ()) {
+        let token = NotificationCenter.default.addObserver(forName: NotificationName, object: nil, queue: OperationQueue.main, using: block)
+        let notificationToken = NotificationToken(token: token, center: .default)
+        notificationTokens.append(notificationToken)
+    }
+    
+    public func registerNotifications() {}
+    
+    public func postNotification(_ NotificationName: NSNotification.Name) {
+        NotificationCenter.default.post(name: NotificationName, object: nil)
+    }
+    
+    // MARK: Notification for Keyboard
+    
+    private func registerKeyboardNotifications() {
+        let keyboardWillShow = NotificationCenter.default.addObserver(with: UIViewController.keyboardWillShow) { [weak self] payload in
+            guard let strongSelf = self else { return }
+            let bounds = payload.finalFrame
+            strongSelf.keyboardWillShow(in: bounds)
+        }
+        let keyboardWillHide = NotificationCenter.default.addObserver(with: UIViewController.keyboardWillHide) { [weak self] payload in
+            guard let strongSelf = self else { return }
+            strongSelf.keyboardWillHide()
+        }
+        
+        keyboardNotificationTokens.append(contentsOf: [keyboardWillShow, keyboardWillHide])
+    }
+    
+    public func keyboardWillShow(in bounds: CGRect?) {}
+    
+    public func keyboardWillHide() {}
     
     public func showBasicAlert(title: String?, message: String?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -73,64 +108,7 @@ class BasicViewController: UIViewController {
         actions.forEach { action in
             alert.addAction(action)
         }
-        
         present(alert, animated: true, completion: nil)
     }
     
-    public func addObserverToNotificationCenter(_ NotificationName: NSNotification.Name, selector aSelector: Selector) {
-        NotificationCenter.default.addObserver(self,
-                                               selector: aSelector,
-                                               name: NotificationName,
-                                               object: nil)
-    }
-    
-    public func postNotification(_ NotificationName: NSNotification.Name) {
-        NotificationCenter.default .post(name: NotificationName, object: nil)
-    }
-    
-    // MARK: Notification for Keyboard
-    
-    public func addObserverForKeyboard() {
-        NotificationCenter
-            .default
-            .addObserver(forName: UIResponder.keyboardWillShowNotification,
-                         object: nil,
-                         queue: OperationQueue.main) { [weak self] noti in
-                            guard let userInfo = noti.userInfo else { return }
-                            guard let bounds = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-                            self?.keyboardWillShow(in: bounds)
-        }
-        
-        NotificationCenter
-            .default
-            .addObserver(forName: UIResponder.keyboardWillHideNotification,
-                         object: nil,
-                         queue: OperationQueue.main) { [weak self] noti in
-                            self?.keyboardWillHide()
-        }
-    }
-    
-    public func keyboardWillShow(in bounds: CGRect?) {
-    }
-    
-    public func keyboardWillHide() {
-    }
-}
-
-// MARK: Width for string
-
-extension String {
-    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
-        
-        return ceil(boundingBox.height)
-    }
-    
-    func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
-        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
-        
-        return ceil(boundingBox.width)
-    }
 }

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		4ED928474D7D7FC0509DA153 /* Pods_WorkoutOfTodayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39BFF9168A261E9B4EECA678 /* Pods_WorkoutOfTodayTests.framework */; };
 		B0881FDB94ACD171777EC513 /* Pods_WorkoutOfToday_WorkoutOfTodayUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759A9CFEB15D065C565DBBB2 /* Pods_WorkoutOfToday_WorkoutOfTodayUITests.framework */; };
+		BB04A86D248617BA00C9FA69 /* NotificationDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04A86C248617BA00C9FA69 /* NotificationDescriptor.swift */; };
+		BB04A86F2486189D00C9FA69 /* KeyboardPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04A86E2486189D00C9FA69 /* KeyboardPayload.swift */; };
+		BB04A871248619FD00C9FA69 /* NotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04A870248619FD00C9FA69 /* NotificationToken.swift */; };
+		BB04A87324861C7600C9FA69 /* Feedbackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04A87224861C7600C9FA69 /* Feedbackable.swift */; };
 		BB12C88B2447343D007DFBC1 /* Pods_WorkoutOfToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1649F6C72DC0D20F9053D785 /* Pods_WorkoutOfToday.framework */; };
 		BB12C88C2447343D007DFBC1 /* Pods_WorkoutOfToday.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1649F6C72DC0D20F9053D785 /* Pods_WorkoutOfToday.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BB12C8A82447441E007DFBC1 /* BasicSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB12C8A72447441E007DFBC1 /* BasicSectionHeaderView.swift */; };
@@ -145,6 +149,10 @@
 		931CE3F9D04CD2D6BEAEB252 /* Pods-WorkoutOfToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorkoutOfToday.debug.xcconfig"; path = "Target Support Files/Pods-WorkoutOfToday/Pods-WorkoutOfToday.debug.xcconfig"; sourceTree = "<group>"; };
 		A4EB4DDD8565068A8DF0231D /* Pods-WorkoutOfTodayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorkoutOfTodayTests.debug.xcconfig"; path = "Target Support Files/Pods-WorkoutOfTodayTests/Pods-WorkoutOfTodayTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A792CD34C8F57C276FFA3DCF /* Pods-WorkoutOfToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorkoutOfToday.release.xcconfig"; path = "Target Support Files/Pods-WorkoutOfToday/Pods-WorkoutOfToday.release.xcconfig"; sourceTree = "<group>"; };
+		BB04A86C248617BA00C9FA69 /* NotificationDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDescriptor.swift; sourceTree = "<group>"; };
+		BB04A86E2486189D00C9FA69 /* KeyboardPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardPayload.swift; sourceTree = "<group>"; };
+		BB04A870248619FD00C9FA69 /* NotificationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationToken.swift; sourceTree = "<group>"; };
+		BB04A87224861C7600C9FA69 /* Feedbackable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedbackable.swift; sourceTree = "<group>"; };
 		BB12C87E244733B6007DFBC1 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB12C880244733B6007DFBC1 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB12C882244733B6007DFBC1 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -503,6 +511,10 @@
 				BB92A8D524851648003AD89E /* Double+IsInt.swift */,
 				BB8BB7A8243CCEBA00774EA9 /* Version.swift */,
 				BB5C5196243EF8FE00A1CD9C /* Constants.swift */,
+				BB04A86C248617BA00C9FA69 /* NotificationDescriptor.swift */,
+				BB04A86E2486189D00C9FA69 /* KeyboardPayload.swift */,
+				BB04A870248619FD00C9FA69 /* NotificationToken.swift */,
+				BB04A87224861C7600C9FA69 /* Feedbackable.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -851,6 +863,7 @@
 				BB5C515C243DA34200A1CD9C /* UIView+CornerRadii.swift in Sources */,
 				BBE15F152455C777005600B3 /* ProfileEditViewController.swift in Sources */,
 				BBE15F192455D43B005600B3 /* PopupTransitioningDelegate.swift in Sources */,
+				BB04A86F2486189D00C9FA69 /* KeyboardPayload.swift in Sources */,
 				BB6D2779246C56860011DB2D /* TodayAddWorkoutCollectionHeaderView.swift in Sources */,
 				BBE15F1F2455EFC0005600B3 /* FormTextField.swift in Sources */,
 				BBB3597C2445F19F00E8B2F2 /* DBHandler.swift in Sources */,
@@ -864,6 +877,7 @@
 				BB8BB764243CBA0200774EA9 /* TodayWorkoutViewController.swift in Sources */,
 				BBC65CB2244E0128006F0ADB /* TodayWorkoutAddView.swift in Sources */,
 				BBE15F0D2455C283005600B3 /* SummaryView.swift in Sources */,
+				BB04A871248619FD00C9FA69 /* NotificationToken.swift in Sources */,
 				BBC65CB6244EFAE2006F0ADB /* CalendarHeaderView.swift in Sources */,
 				BBC65CC2244FF772006F0ADB /* BasicTableViewCell.swift in Sources */,
 				BBEE7AF9247599E700F1DF33 /* WarningAlertViewController.swift in Sources */,
@@ -910,9 +924,11 @@
 				BB77E9BD24516BBC00C7C4B5 /* BasicCardView.swift in Sources */,
 				BBC65CA4244DD5E4006F0ADB /* TodayAddWorkoutViewController.swift in Sources */,
 				BB5A05132441AFF900AB1604 /* WorkoutTableViewCell.swift in Sources */,
+				BB04A86D248617BA00C9FA69 /* NotificationDescriptor.swift in Sources */,
 				BBE15F2324570270005600B3 /* SlidePresentationController.swift in Sources */,
 				BB77E9C22452EA0F00C7C4B5 /* WorkoutVolumeChartView.swift in Sources */,
 				BB8BB762243CBA0200774EA9 /* SceneDelegate.swift in Sources */,
+				BB04A87324861C7600C9FA69 /* Feedbackable.swift in Sources */,
 				BB8BB7A9243CCEBA00774EA9 /* Version.swift in Sources */,
 				BB206FA02450776600057CDB /* PopupPresentationController.swift in Sources */,
 				BBD5FE39244D653E00E5C8E7 /* ProfileViewController.swift in Sources */,

@@ -15,7 +15,9 @@ class FeedMasterViewController: BasicViewController {
     
     // MARK: Model
     
-    private let workoutsOfDays = DBHandler.shared.fetchObjects(ofType: WorkoutsOfDay.self)
+    private var workoutsOfDays: Results<WorkoutsOfDay> {
+        return DBHandler.shared.fetchObjects(ofType: WorkoutsOfDay.self)
+    }
     
     override var navigationBarTitle: String {
         return "이력"
@@ -39,11 +41,6 @@ class FeedMasterViewController: BasicViewController {
         return calendarViewController
         }()
 
-//    private lazy var chartsViewController: ChartsViewController = {[weak self] in
-//        let chartsViewController = ChartsViewController(nibName: "ChartsViewController", bundle: nil)
-//        self?.add(asChildViewController: chartsViewController)
-//        return chartsViewController
-//        }()
     
     // MARK: View Life Cycle
     override func setup() {
@@ -56,18 +53,21 @@ class FeedMasterViewController: BasicViewController {
         updateView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     override func configureNavigationBar() {
         super.configureNavigationBar()
         navigationItem.titleView = segmentedControl
     }
     
-    deinit {
-        self.token?.invalidate()
-        print(String(describing: self) + " " + #function)
+    override func registerNotifications() {
+        registerNotification(.WorkoutDidDeleted) { [weak self] note in
+            guard let strongSelf = self else { return }
+            print(String(describing: strongSelf) + "Workout Did deleted")
+        }
+        
+        registerNotification(.WorkoutDidAdded) { [weak self] note in
+            guard let strongSelf = self else { return }
+            print(String(describing: strongSelf) + "Workout Did Added")
+        }
     }
     
     private func configureSegmentedControll() {
@@ -99,13 +99,6 @@ class FeedMasterViewController: BasicViewController {
             )
         }
         segmentedControl.bounds.size.width = 150
-        
-//        view.addSubview(segmentedControl)
-//        segmentedControl.snp.makeConstraints { make in
-//            make.leading.equalToSuperview().offset(Inset.paddingHorizontal)
-//            make.trailing.equalToSuperview().offset(-Inset.paddingHorizontal)
-//            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-10)
-//        }
     }
     
     private func configureContentView() {
@@ -151,17 +144,10 @@ class FeedMasterViewController: BasicViewController {
         switch segmentedControl.selectedSegmentIndex {
             case 0:
                 remove(asChildViewController: calendarViewController)
-//                remove(asChildViewController: chartsViewController)
                 add(asChildViewController: dailyCollectionViewController)
             case 1:
                 remove(asChildViewController: dailyCollectionViewController)
-//                remove(asChildViewController: chartsViewController)
                 add(asChildViewController: calendarViewController)
-//            case 2:
-//                remove(asChildViewController: calendarViewController)
-//                remove(asChildViewController: dailyCollectionViewController)
-//                add(asChildViewController: chartsViewController)
-//                break
             default:
                 break
         }

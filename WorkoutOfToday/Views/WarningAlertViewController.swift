@@ -8,13 +8,13 @@
 
 import UIKit
 
-class WarningAlertViewController: UIViewController {
+class WarningAlertViewController: BasicViewController {
     
     var titleMessage: String?
     
     var message: String?
     
-    var delegate: WorkoutDidModiFieid?
+//    var delegate: WorkoutDidModiFieid?
     
     var primaryKeyToDelete: String?
     
@@ -25,8 +25,6 @@ class WarningAlertViewController: UIViewController {
     private weak var confirmButton: BasicButton!
     
     private weak var cancelButton: BasicButton!
-    
-    private var impactFeedbackGenerator: UIImpactFeedbackGenerator?
     
     convenience init(title: String, message: String, primaryKey: String) {
         self.init()
@@ -105,10 +103,9 @@ class WarningAlertViewController: UIViewController {
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = .light
         }
-        setupFeedback()
     }
     
-    private func setupFeedback() {
+    override func setupFeedbackGenerator() {
         impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
         impactFeedbackGenerator?.prepare()
     }
@@ -122,7 +119,8 @@ extension WarningAlertViewController {
                 fatalError("Error occurs in \(#function)")
         }
         DBHandler.shared.delete(object: workoutToDelete)
-        delegate?.workoutDidDeleted()
+        postNotification(.WorkoutDidDeleted)
+//        delegate?.workoutDidDeleted()
         impactFeedbackGenerator?.impactOccurred()
         dismiss(animated: true, completion: nil)
     }

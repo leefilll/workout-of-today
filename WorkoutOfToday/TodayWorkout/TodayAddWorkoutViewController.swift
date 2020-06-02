@@ -26,7 +26,7 @@ class TodayAddWorkoutViewController: BasicViewController {
     
     var workoutsOfDay: WorkoutsOfDay?   // passed from TodayVC
     
-    var delegate: WorkoutDidModiFieid?
+//    var delegate: WorkoutDidModiFieid?
     
     private var tapGestureRecognizer: UITapGestureRecognizer!
 
@@ -84,8 +84,8 @@ class TodayAddWorkoutViewController: BasicViewController {
     }
     
     override func setupFeedbackGenerator() {
-        feedbackGenerator = UISelectionFeedbackGenerator()
-        feedbackGenerator?.prepare()
+        selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator?.prepare()
     }
     
     private func setupEditTemplateButton() {
@@ -187,7 +187,7 @@ extension TodayAddWorkoutViewController: UICollectionViewDelegate {
                 workoutsOfDay.workouts.append(newWorkout)
                 selectedTemplate.workouts.append(newWorkout)
             }
-            delegate?.workoutDidAdded()
+//            delegate?.workoutDidAdded()
         } else {
             let newWorkoutsOfDay = WorkoutsOfDay()
             newWorkoutsOfDay.workouts.append(newWorkout)
@@ -195,10 +195,10 @@ extension TodayAddWorkoutViewController: UICollectionViewDelegate {
             DBHandler.shared.write {
                 selectedTemplate.workouts.append(newWorkout)
             }
-            delegate?.firstWorkoutDidAdded(at: newWorkoutsOfDay)
+//            delegate?.firstWorkoutDidAdded(at: newWorkoutsOfDay)
         }
-        
-        feedbackGenerator?.selectionChanged()
+        postNotification(.WorkoutDidAdded)
+        selectionFeedbackGenerator?.selectionChanged()
         dismiss(animated: true, completion: nil)
     }
     
@@ -218,7 +218,6 @@ extension TodayAddWorkoutViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return dummyData.count
         return templates[section].count
     }
     
@@ -271,14 +270,4 @@ extension TodayAddWorkoutViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-}
-
-// MARK: WorkoutDidModified protocol
-
-protocol WorkoutDidModiFieid {
-    func firstWorkoutDidAdded(at workoutsOfDay: WorkoutsOfDay)
-    
-    func workoutDidDeleted()
-    
-    func workoutDidAdded()
 }
