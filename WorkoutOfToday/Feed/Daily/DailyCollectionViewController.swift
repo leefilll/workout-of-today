@@ -14,7 +14,11 @@ class DailyCollectionViewController: BasicViewController, Childable {
     
     // MARK: Model
     
-    var workoutsOfDays: Results<WorkoutsOfDay>!
+    var workoutsOfDays: Results<WorkoutsOfDay>? {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     // MARK: View
     
@@ -40,7 +44,6 @@ class DailyCollectionViewController: BasicViewController, Childable {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-//        addNotificationBlock()
     }
     
     private func configureCollectionView() {
@@ -69,18 +72,18 @@ class DailyCollectionViewController: BasicViewController, Childable {
 extension DailyCollectionViewController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.workoutsOfDays.count
+        return self.workoutsOfDays?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let workoutsOfDay = self.workoutsOfDays[section]
-        return workoutsOfDay.numberOfWorkouts
+        let workoutsOfDay = self.workoutsOfDays?[section]
+        return workoutsOfDay?.numberOfWorkouts ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(LabelCollectionViewCell.self, for: indexPath)
-        let workoutsOfDay = self.workoutsOfDays[indexPath.section]
-        let workout = workoutsOfDay.workouts[indexPath.item]
+        let workoutsOfDay = self.workoutsOfDays?[indexPath.section]
+        let workout = workoutsOfDay?.workouts[indexPath.item]
         cell.content = workout
         return cell
     }
@@ -88,9 +91,10 @@ extension DailyCollectionViewController: UICollectionViewDataSource {
     // MARK: Header View
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let workoutsOfDays = workoutsOfDays else { return UICollectionReusableView() }
         let header = collectionView
             .dequeueReusableSupplementaryView(LabelCollectionHeaderView.self, for: indexPath)
-        let workoutsOfDay = self.workoutsOfDays[indexPath.section]
+        let workoutsOfDay = workoutsOfDays[indexPath.section]
         header.titleLabel.text = DateFormatter.shared.string(from: workoutsOfDay.createdDateTime)
 
         return header
@@ -114,7 +118,7 @@ extension DailyCollectionViewController: UICollectionViewDelegate {
 
 extension DailyCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let workoutsOfDay = self.workoutsOfDays[indexPath.section]
+        guard let workoutsOfDay = self.workoutsOfDays?[indexPath.section] else { return .zero }
         let workout = workoutsOfDay.workouts[indexPath.item]
         let workoutName = workout.name
         let fontAtttribute = [NSAttributedString.Key.font: UIFont.smallBoldTitle]

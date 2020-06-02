@@ -11,7 +11,7 @@ import UIKit
 import RealmSwift
 import Charts
 
-final class ChartsViewController: BasicViewController, Childable {
+final class ChartsViewController: BasicViewController {
     
     // MARK: Model
     

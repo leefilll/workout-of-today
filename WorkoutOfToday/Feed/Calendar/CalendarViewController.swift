@@ -15,11 +15,16 @@ class CalendarViewController: BasicViewController, Childable {
     
     // MARK: Model
     
-    var workoutsOfDays: Results<WorkoutsOfDay>!
+    var workoutsOfDays: Results<WorkoutsOfDay>? {
+        didSet {
+            containerTableView.reloadData()
+            calendarHeaderView.calendar.reloadData()
+        }
+    }
     
     var workoutsOfSelectedDay: WorkoutsOfDay? {
         didSet {
-            self.containerTableView.reloadData()
+            containerTableView.reloadData()
         }
     }
     
@@ -108,7 +113,7 @@ extension CalendarViewController: FSCalendarDelegate {
         // MARK: update model workoutsOfSelectedDay
         
         let keyStringFromDate = DateFormatter.shared.keyStringFromDate(date)
-        let workoutsOfSelectedDay = workoutsOfDays.filter("id = %@", keyStringFromDate).first
+        let workoutsOfSelectedDay = workoutsOfDays?.filter("id = %@", keyStringFromDate).first
         self.workoutsOfSelectedDay = workoutsOfSelectedDay
     }
 }
@@ -119,7 +124,7 @@ extension CalendarViewController: FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         let keyStringFromDate = DateFormatter.shared.keyStringFromDate(date)
         
-        if let _ = workoutsOfDays.filter("id = %@", keyStringFromDate).first {
+        if let _ = workoutsOfDays?.filter("id = %@", keyStringFromDate).first {
             return 1
         }
         return 0

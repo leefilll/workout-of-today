@@ -15,9 +15,13 @@ class FeedMasterViewController: BasicViewController {
     
     // MARK: Model
     
-    private var workoutsOfDays: Results<WorkoutsOfDay> {
-        return DBHandler.shared.fetchObjects(ofType: WorkoutsOfDay.self)
+    private var workoutsOfDays: Results<WorkoutsOfDay>? {
+        didSet {
+            dailyCollectionViewController.workoutsOfDays = workoutsOfDays
+            calendarViewController.workoutsOfDays = workoutsOfDays
+        }
     }
+
     
     override var navigationBarTitle: String {
         return "이력"
@@ -25,32 +29,35 @@ class FeedMasterViewController: BasicViewController {
     
     // MARK: View
     
-    var segmentedControl: UISegmentedControl!
+    private var segmentedControl: UISegmentedControl!
     
-    var contentView: UIView!
+    private var contentView: UIView!
     
-    private lazy var dailyCollectionViewController: DailyCollectionViewController = {[weak self] in
-        let dailyCollectionViewController = DailyCollectionViewController()
-        self?.add(asChildViewController: dailyCollectionViewController)
-        return dailyCollectionViewController
-        }()
+    private var dailyCollectionViewController: DailyCollectionViewController!
 
-    private lazy var calendarViewController: CalendarViewController = {[weak self] in
-        let calendarViewController = CalendarViewController()
-        self?.add(asChildViewController: calendarViewController)
-        return calendarViewController
-        }()
+    private var calendarViewController: CalendarViewController!
 
     
     // MARK: View Life Cycle
     override func setup() {
+        setupChildViews()
         configureSegmentedControll()
         configureContentView()
+        updateView()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateView()
+        fetchData()
+    }
+    
+    private func setupChildViews() {
+        dailyCollectionViewController = DailyCollectionViewController()
+        calendarViewController = CalendarViewController()
+    }
+    
+    private func fetchData() {
+        workoutsOfDays = DBHandler.shared.fetchObjects(ofType: WorkoutsOfDay.self)
     }
     
     override func configureNavigationBar() {
@@ -61,12 +68,12 @@ class FeedMasterViewController: BasicViewController {
     override func registerNotifications() {
         registerNotification(.WorkoutDidDeleted) { [weak self] note in
             guard let strongSelf = self else { return }
-            print(String(describing: strongSelf) + "Workout Did deleted")
+            strongSelf.fetchData()
         }
         
         registerNotification(.WorkoutDidAdded) { [weak self] note in
             guard let strongSelf = self else { return }
-            print(String(describing: strongSelf) + "Workout Did Added")
+            strongSelf.fetchData()
         }
     }
     
@@ -164,7 +171,7 @@ extension FeedMasterViewController {
 
 // MARK: Child VC protocol
 protocol Childable where Self: BasicViewController {
-    var workoutsOfDays: Results<WorkoutsOfDay>! { get set }
+    var workoutsOfDays: Results<WorkoutsOfDay>? { get set }
 }
 
 
