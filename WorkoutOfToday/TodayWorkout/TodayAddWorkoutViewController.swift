@@ -107,7 +107,7 @@ class TodayAddWorkoutViewController: BasicViewController {
     }
     
     private func setupPanGestureRecognizer() {
-        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureDidTapped(_:)))
+        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureDidBegin(_:)))
         view.addGestureRecognizer(panGestureRecognizer)
     }
 }
@@ -138,7 +138,7 @@ extension TodayAddWorkoutViewController {
     }
     
     @objc
-    func panGestureDidTapped(_ sender: UIPanGestureRecognizer) {
+    func panGestureDidBegin(_ sender: UIPanGestureRecognizer) {
         func slideViewVerticallyTo(_ y: CGFloat) {
             view.frame.origin = CGPoint(x: 0, y: y)
         }
@@ -180,23 +180,24 @@ extension TodayAddWorkoutViewController {
 extension TodayAddWorkoutViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedTemplate = templates[indexPath.section][indexPath.item]
-        let newWorkout = Workout()
         
-        if let workoutsOfDay = workoutsOfDay {
-            DBHandler.shared.write {
+        DBHandler.shared.write {
+            let newWorkout = Workout()
+            DBHandler.shared.realm.add(newWorkout)
+            
+            newWorkout.template = selectedTemplate
+//            selectedTemplate.workouts.append(newWorkout)
+            if let workoutsOfDay = workoutsOfDay {
+                newWorkout.day = workoutsOfDay
                 workoutsOfDay.workouts.append(newWorkout)
-                selectedTemplate.workouts.append(newWorkout)
+            } else {
+                let newWorkoutsOfDay = WorkoutsOfDay()
+                newWorkout.day = newWorkoutsOfDay
+                DBHandler.shared.realm.add(newWorkoutsOfDay)
+                newWorkoutsOfDay.workouts.append(newWorkout)
             }
-//            delegate?.workoutDidAdded()
-        } else {
-            let newWorkoutsOfDay = WorkoutsOfDay()
-            newWorkoutsOfDay.workouts.append(newWorkout)
-            DBHandler.shared.create(object: newWorkoutsOfDay)
-            DBHandler.shared.write {
-                selectedTemplate.workouts.append(newWorkout)
-            }
-//            delegate?.firstWorkoutDidAdded(at: newWorkoutsOfDay)
         }
+        
         postNotification(.WorkoutDidAdded)
         selectionFeedbackGenerator?.selectionChanged()
         dismiss(animated: true, completion: nil)

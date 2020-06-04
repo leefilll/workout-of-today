@@ -15,8 +15,9 @@ class WarningAlertViewController: BasicViewController {
     var message: String?
     
 //    var delegate: WorkoutDidModiFieid?
+    var index: Int?
     
-    var primaryKeyToDelete: String?
+    var workoutToDelete: Workout?
     
     private weak var titleLable: UILabel!
     
@@ -26,11 +27,12 @@ class WarningAlertViewController: BasicViewController {
     
     private weak var cancelButton: BasicButton!
     
-    convenience init(title: String, message: String, primaryKey: String) {
+    convenience init(workoutToDelete: Workout, index: Int, title: String, message: String) {
         self.init()
+        self.workoutToDelete = workoutToDelete
+        self.index = index
         self.titleMessage = title
         self.message = message
-        self.primaryKeyToDelete = primaryKey
     }
     
     override func loadView() {
@@ -114,13 +116,21 @@ class WarningAlertViewController: BasicViewController {
 extension WarningAlertViewController {
     @objc
     private func deleteWorkout(_ sender: UIButton) {
-        guard let primaryKeyToDelete = primaryKeyToDelete,
-            let workoutToDelete = DBHandler.shared.fetchObject(ofType: Workout.self, forPrimaryKey: primaryKeyToDelete) else {
-                fatalError("Error occurs in \(#function)")
+        guard let workoutToDelete = workoutToDelete,
+            let workoutsOfDay = workoutToDelete.day,
+//            let workoutTemplate = workoutToDelete.template,
+            let index = index else {
+                fatalError("Failled to delete workout")
         }
-        DBHandler.shared.delete(object: workoutToDelete)
+        
+        print(#function, workoutsOfDay)
+        
+        DBHandler.shared.write {
+            workoutsOfDay.workouts.remove(at: index)
+//            workoutTemplate.workouts.remove(at: index)
+            DBHandler.shared.realm.delete(workoutToDelete)
+        }
         postNotification(.WorkoutDidDeleted)
-//        delegate?.workoutDidDeleted()
         impactFeedbackGenerator?.impactOccurred()
         dismiss(animated: true, completion: nil)
     }

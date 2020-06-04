@@ -14,13 +14,13 @@ import RealmSwift
 
 class BasicViewController: UIViewController {
     
-    public var keyboardNotificationTokens = [NotificationToken]()
+    public var keyboardNotificationTokens = [BasicNotificationToken]()
     
-    public var notificationTokens = [NotificationToken]()
+    public var notificationTokens = [BasicNotificationToken]()
     
-    public var workoutDidAddedNotificationToken: NotificationToken?
+    public var workoutDidAddedNotificationToken: BasicNotificationToken?
     
-    public var workoutDidDeletedNotificationToken: NotificationToken?
+    public var workoutDidDeletedNotificationToken: BasicNotificationToken?
     
     public var moved: CGFloat?
     
@@ -64,7 +64,7 @@ class BasicViewController: UIViewController {
     
     public func registerNotification(_ NotificationName: NSNotification.Name, using block: @escaping (Notification) -> ()) {
         let token = NotificationCenter.default.addObserver(forName: NotificationName, object: nil, queue: OperationQueue.main, using: block)
-        let notificationToken = NotificationToken(token: token, center: .default)
+        let notificationToken = BasicNotificationToken(token: token, center: .default)
         notificationTokens.append(notificationToken)
     }
     

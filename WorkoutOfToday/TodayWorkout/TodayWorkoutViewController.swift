@@ -24,7 +24,8 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
     
     private let popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.50)
     
-    var workoutsOfDay: WorkoutsOfDay?
+//    var workoutsOfDay: WorkoutsOfDay?
+    var workouts: Results<Workout>?
     
     override var navigationBarTitle: String {
         return "오늘의 운동"
@@ -56,6 +57,10 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
         super.viewDidLoad()
         configureTableView()
         configureWorkoutAddButton()
+        
+        workouts = DBHandler.shared.fetchObjects(ofType: Workout.self)
+            .filter(Date.now.predicateForDay)
+            .sorted(byKeyPath: "created")
     }
     
     
@@ -118,31 +123,31 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
     override func registerNotifications() {
         registerNotification(.WorkoutDidAdded) { [weak self] note in
             guard let strongSelf = self else { return }
-            if let workoutsOfDay = strongSelf.workoutsOfDay {
-                let targetSection = workoutsOfDay.numberOfWorkouts - 1
-                let targetIndexPath = IndexPath(row: NSNotFound, section: targetSection)
-                strongSelf.tableView.beginUpdates()
-                strongSelf.tableView.insertSections([targetSection], with: .fade)
-                strongSelf.tableView.endUpdates()
-                strongSelf.tableView.scrollToRow(at: targetIndexPath, at: .top, animated: true)
-            } else {
-                let keyFromDate = DateFormatter.shared.keyStringFromNow
-                guard let newWorkoutsOfDay = DBHandler.shared.fetchObject(ofType: WorkoutsOfDay.self, forPrimaryKey: keyFromDate) else { fatalError() }
-                strongSelf.workoutsOfDay = newWorkoutsOfDay
-                strongSelf.tableHeaderView.workoutNoteButton.isHidden = false
-                strongSelf.tableView.reloadData()
-            }
+//            if let workoutsOfDay = strongSelf.workoutsOfDay {
+//                let targetSection = workoutsOfDay.numberOfWorkouts - 1
+//                let targetIndexPath = IndexPath(row: NSNotFound, section: targetSection)
+//                strongSelf.tableView.beginUpdates()
+//                strongSelf.tableView.insertSections([targetSection], with: .fade)
+//                strongSelf.tableView.endUpdates()
+//                strongSelf.tableView.scrollToRow(at: targetIndexPath, at: .top, animated: true)
+//            } else {
+//                let keyFromDate = DateFormatter.shared.keyStringFromNow
+//                guard let newWorkoutsOfDay = DBHandler.shared.fetchObject(ofType: WorkoutsOfDay.self, forPrimaryKey: keyFromDate) else { fatalError() }
+//                strongSelf.workoutsOfDay = newWorkoutsOfDay
+//                strongSelf.tableHeaderView.workoutNoteButton.isHidden = false
+//                strongSelf.tableView.reloadData()
+//            }
         }
         
         registerNotification(.WorkoutDidDeleted) { [weak self] note in
             guard let strongSelf = self else { return }
-            if let workoutsOfDay = strongSelf.workoutsOfDay {
-                if workoutsOfDay.numberOfWorkouts == 0 {
-                    DBHandler.shared.delete(object: workoutsOfDay)
-                    strongSelf.tableHeaderView.workoutNoteButton.isHidden = true
-                    strongSelf.workoutsOfDay = nil
-                }
-            }
+//            if let workoutsOfDay = strongSelf.workoutsOfDay {
+//                if workoutsOfDay.numberOfWorkouts == 0 {
+//                    DBHandler.shared.deleteWorkoutsOfDay(workoutsOfDay: workoutsOfDay)
+//                    strongSelf.tableHeaderView.workoutNoteButton.isHidden = true
+//                    strongSelf.workoutsOfDay = nil
+//                }
+//            }
             strongSelf.tableView.reloadData()
         }
     }
@@ -153,17 +158,9 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
         tableHeaderView.frame.size.height = 50
         tableHeaderView.frame.size.width = tableView.bounds.width
         tableHeaderView.workoutNoteButton.addTarget(self, action: #selector(workoutNoteButtonDidTapped(_:)), for: .touchUpInside)
-        if let workoutsOfDay = workoutsOfDay {
-            if workoutsOfDay.numberOfWorkouts == 0 {
-                tableHeaderView.workoutNoteButton.isHidden = true
-            }
-        }
         
         tableView.tableHeaderView = tableHeaderView
         self.tableHeaderView = tableHeaderView
-        
-        //        tableView.emptyDataSetSource = self
-        //        tableView.emptyDataSetDelegate = self
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -197,7 +194,6 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
     
     override func keyboardWillHide() {
         tableView.contentInset.bottom = Size.addButtonHeight + 10
-        //        selectedIndexPath = nil
     }
 }
 
@@ -206,12 +202,14 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
 extension TodayWorkoutViewController {
     @objc
     private func workoutSetAddButtonDidTapped(_ sender: UIButton) {
-        guard let workoutsOfDay = workoutsOfDay else { return }
+        guard let workouts = workouts else { return }
         let section = sender.tag
-        let workout = workoutsOfDay.workouts[section]
-        let newWorkoutSet = WorkoutSet()
+        let workout = workouts[section]
         let targetIndexPath = IndexPath(row: workout.numberOfSets, section: section)
+        
+        let newWorkoutSet = WorkoutSet()
         DBHandler.shared.write {
+            DBHandler.shared.realm.add(newWorkoutSet)
             workout.sets.append(newWorkoutSet)
         }
         selectionFeedbackGenerator?.selectionChanged()
@@ -223,10 +221,8 @@ extension TodayWorkoutViewController {
     @objc
     private func workoutAddButtonDidTapped(_ sender: UIButton) {
         let addWorkoutVC = TodayAddWorkoutViewController(nibName: "TodayAddWorkoutViewController", bundle: nil)
-        addWorkoutVC.workoutsOfDay = workoutsOfDay
         addWorkoutVC.modalPresentationStyle = .custom
         addWorkoutVC.transitioningDelegate = slideTransitioningDelegate
-//        addWorkoutVC.delegate = self
         selectionFeedbackGenerator?.selectionChanged()
         present(addWorkoutVC, animated: true, completion: nil)
     }
@@ -235,14 +231,13 @@ extension TodayWorkoutViewController {
     private func workoutSectionHeaderDidBeginPressed(_ sender: UILongPressGestureRecognizer) {
         // MARK: using tag for knowing sections
         guard let section = sender.view?.tag,
-            let workoutToDelete = workoutsOfDay?.workouts[section]
+            let workoutToDelete = workouts?[section]
             else {
                 print("Error occurs during delete object")
                 return
         }
         
-        let warningAlertVC = WarningAlertViewController(title: "운동을 삭제할까요?", message: "\(workoutToDelete.name) 운동과 모든 세트 정보를 삭제합니다.\n이 동작은 되돌릴 수 없습니다.", primaryKey: workoutToDelete.id)
-//        warningAlertVC.delegate = self
+        let warningAlertVC = WarningAlertViewController(workoutToDelete: workoutToDelete, index: section, title: "운동을 삭제할까요?", message: "\(workoutToDelete.name) 운동과 모든 세트 정보를 삭제합니다.\n이 동작은 되돌릴 수 없습니다.")
         warningAlertVC.modalPresentationStyle = .custom
         warningAlertVC.transitioningDelegate = popupTransitioningDelegate
         
@@ -258,10 +253,8 @@ extension TodayWorkoutViewController {
     
     @objc
     private func workoutNoteButtonDidTapped(_ sender: UIButton) {
-        guard let workoutsOfDay = workoutsOfDay else { return }
-        
+        guard let workouts = workouts else { return }
         let noteVC = TodayWorkoutNoteViewController(nibName: "TodayWorkoutNoteViewController", bundle: nil)
-        noteVC.workoutsOfDay = workoutsOfDay
         noteVC.modalPresentationStyle = .custom
         noteVC.transitioningDelegate = popupTransitioningDelegateForNote
         selectionFeedbackGenerator?.selectionChanged()
@@ -274,12 +267,12 @@ extension TodayWorkoutViewController {
 extension TodayWorkoutViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let workoutsOfDay = workoutsOfDay else { return 0 }
-        return workoutsOfDay.workouts.count
+        guard let workouts = workouts else { return 0 }
+        return workouts.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let workoutsOfDay = workoutsOfDay else { return 0 }
+        guard let workouts = workouts else { return 0 }
         let workout = workoutsOfDay.workouts[section]
         return workout.numberOfSets
     }

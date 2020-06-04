@@ -15,7 +15,8 @@ final class WorkoutTemplate: Object {
     @objc private dynamic var _part: Int = Part.none.rawValue
     @objc private dynamic var _style: Int = Style.none.rawValue
     @objc private dynamic var _equipment: Int = Equipment.none.rawValue
-    let workouts = List<Workout>()
+//    let workouts = List<Workout>()
+//    let workouts = LinkingObjects(fromType: Workout.self, property: "template")
     
     public var name: String {
         get {
@@ -51,10 +52,6 @@ final class WorkoutTemplate: Object {
         set(equipment) {
             _equipment = equipment.rawValue
         }
-    }
-    
-    public var numberOfWorkout: Int {
-        return workouts.count
     }
     
     override static func primaryKey() -> String? {

@@ -11,35 +11,44 @@ import RealmSwift
 
 final class Workout: Object {
     @objc dynamic var id = UUID().uuidString
-    @objc private dynamic var _createdDateTime: Date = Date()
-    private let _templates = LinkingObjects(fromType: WorkoutTemplate.self, property: "workouts")
-    private let _days = LinkingObjects(fromType: WorkoutsOfDay.self, property: "workouts")
-    
+    @objc dynamic var template: WorkoutTemplate?
+//    @objc dynamic var day: WorkoutsOfDay?
+    @objc dynamic var created: Date = Date()
     let sets = List<WorkoutSet>()
-    
-    public var createdDateTime: Date {
-        return _createdDateTime
-    }
+//    let sets = LinkingObjects(fromType: WorkoutSet.self,
+//                              property: "workout")
     
     public var name: String {
-        return _templates[0].name
+        return template?.name ?? ""
     }
     
     public var part: Part {
-        return _templates[0].part
+        return template?.part ?? .none
     }
     
     public var equipment: Equipment {
-        return _templates[0].equipment
+        return template?.equipment ?? .none
     }
+       
+    //    public var name: String {
+    //        return _templates[0].name
+    //    }
     
-    public var template: WorkoutTemplate {
-        return _templates[0]
-    }
-    
-    public var day: WorkoutsOfDay {
-        return _days[0]
-    }
+//    public var part: Part {
+//        return _templates[0].part
+//    }
+//
+//    public var equipment: Equipment {
+//        return _templates[0].equipment
+//    }
+//
+//    public var template: WorkoutTemplate {
+//        return _templates[0]
+//    }
+//
+//    public var day: WorkoutsOfDay {
+//        return _days[0]
+//    }
     
     public var rm: Double {
         var rm: Double = 0

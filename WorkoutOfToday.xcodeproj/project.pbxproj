@@ -11,7 +11,7 @@
 		B0881FDB94ACD171777EC513 /* Pods_WorkoutOfToday_WorkoutOfTodayUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759A9CFEB15D065C565DBBB2 /* Pods_WorkoutOfToday_WorkoutOfTodayUITests.framework */; };
 		BB04A86D248617BA00C9FA69 /* NotificationDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04A86C248617BA00C9FA69 /* NotificationDescriptor.swift */; };
 		BB04A86F2486189D00C9FA69 /* KeyboardPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04A86E2486189D00C9FA69 /* KeyboardPayload.swift */; };
-		BB04A871248619FD00C9FA69 /* NotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04A870248619FD00C9FA69 /* NotificationToken.swift */; };
+		BB04A871248619FD00C9FA69 /* BasicNotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04A870248619FD00C9FA69 /* BasicNotificationToken.swift */; };
 		BB04A87324861C7600C9FA69 /* Feedbackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04A87224861C7600C9FA69 /* Feedbackable.swift */; };
 		BB12C88B2447343D007DFBC1 /* Pods_WorkoutOfToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1649F6C72DC0D20F9053D785 /* Pods_WorkoutOfToday.framework */; };
 		BB12C88C2447343D007DFBC1 /* Pods_WorkoutOfToday.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1649F6C72DC0D20F9053D785 /* Pods_WorkoutOfToday.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -68,7 +68,6 @@
 		BBC65C9D244DBED2006F0ADB /* TodayWorkoutTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC65C9C244DBED2006F0ADB /* TodayWorkoutTableHeaderView.swift */; };
 		BBC65C9F244DBF88006F0ADB /* TodayWorkoutTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBC65C9E244DBF88006F0ADB /* TodayWorkoutTableHeaderView.xib */; };
 		BBC65CA4244DD5E4006F0ADB /* TodayAddWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC65CA3244DD5E4006F0ADB /* TodayAddWorkoutViewController.swift */; };
-		BBC65CA6244DDA43006F0ADB /* PopupAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC65CA5244DDA43006F0ADB /* PopupAnimationController.swift */; };
 		BBC65CB0244E0111006F0ADB /* TodayWorkoutAddView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBC65CAF244E0111006F0ADB /* TodayWorkoutAddView.xib */; };
 		BBC65CB2244E0128006F0ADB /* TodayWorkoutAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC65CB1244E0128006F0ADB /* TodayWorkoutAddView.swift */; };
 		BBC65CB4244EA915006F0ADB /* BasicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC65CB3244EA915006F0ADB /* BasicButton.swift */; };
@@ -151,8 +150,9 @@
 		A792CD34C8F57C276FFA3DCF /* Pods-WorkoutOfToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorkoutOfToday.release.xcconfig"; path = "Target Support Files/Pods-WorkoutOfToday/Pods-WorkoutOfToday.release.xcconfig"; sourceTree = "<group>"; };
 		BB04A86C248617BA00C9FA69 /* NotificationDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDescriptor.swift; sourceTree = "<group>"; };
 		BB04A86E2486189D00C9FA69 /* KeyboardPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardPayload.swift; sourceTree = "<group>"; };
-		BB04A870248619FD00C9FA69 /* NotificationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationToken.swift; sourceTree = "<group>"; };
+		BB04A870248619FD00C9FA69 /* BasicNotificationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicNotificationToken.swift; sourceTree = "<group>"; };
 		BB04A87224861C7600C9FA69 /* Feedbackable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedbackable.swift; sourceTree = "<group>"; };
+		BB04A87524891B8C00C9FA69 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB12C87E244733B6007DFBC1 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB12C880244733B6007DFBC1 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB12C882244733B6007DFBC1 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,7 +222,6 @@
 		BBC65C9C244DBED2006F0ADB /* TodayWorkoutTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWorkoutTableHeaderView.swift; sourceTree = "<group>"; };
 		BBC65C9E244DBF88006F0ADB /* TodayWorkoutTableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayWorkoutTableHeaderView.xib; sourceTree = "<group>"; };
 		BBC65CA3244DD5E4006F0ADB /* TodayAddWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayAddWorkoutViewController.swift; sourceTree = "<group>"; };
-		BBC65CA5244DDA43006F0ADB /* PopupAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupAnimationController.swift; sourceTree = "<group>"; };
 		BBC65CAF244E0111006F0ADB /* TodayWorkoutAddView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayWorkoutAddView.xib; sourceTree = "<group>"; };
 		BBC65CB1244E0128006F0ADB /* TodayWorkoutAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWorkoutAddView.swift; sourceTree = "<group>"; };
 		BBC65CB3244EA915006F0ADB /* BasicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicButton.swift; sourceTree = "<group>"; };
@@ -403,7 +402,6 @@
 				BB8BB78F243CBCC100774EA9 /* Supporting Files */,
 				BB8BB790243CBD3300774EA9 /* RootTabBarController.swift */,
 				BB8BB76D243CBA0400774EA9 /* Info.plist */,
-				BBC65CA5244DDA43006F0ADB /* PopupAnimationController.swift */,
 			);
 			path = WorkoutOfToday;
 			sourceTree = "<group>";
@@ -513,8 +511,9 @@
 				BB5C5196243EF8FE00A1CD9C /* Constants.swift */,
 				BB04A86C248617BA00C9FA69 /* NotificationDescriptor.swift */,
 				BB04A86E2486189D00C9FA69 /* KeyboardPayload.swift */,
-				BB04A870248619FD00C9FA69 /* NotificationToken.swift */,
+				BB04A870248619FD00C9FA69 /* BasicNotificationToken.swift */,
 				BB04A87224861C7600C9FA69 /* Feedbackable.swift */,
+				BB04A87524891B8C00C9FA69 /* MyPlayground.playground */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -877,7 +876,7 @@
 				BB8BB764243CBA0200774EA9 /* TodayWorkoutViewController.swift in Sources */,
 				BBC65CB2244E0128006F0ADB /* TodayWorkoutAddView.swift in Sources */,
 				BBE15F0D2455C283005600B3 /* SummaryView.swift in Sources */,
-				BB04A871248619FD00C9FA69 /* NotificationToken.swift in Sources */,
+				BB04A871248619FD00C9FA69 /* BasicNotificationToken.swift in Sources */,
 				BBC65CB6244EFAE2006F0ADB /* CalendarHeaderView.swift in Sources */,
 				BBC65CC2244FF772006F0ADB /* BasicTableViewCell.swift in Sources */,
 				BBEE7AF9247599E700F1DF33 /* WarningAlertViewController.swift in Sources */,
@@ -919,7 +918,6 @@
 				BB96FD622444AE1B00E8DE10 /* UITableView+Register.swift in Sources */,
 				BB6D277E246D24CF0011DB2D /* TodayWorkoutTemplateAddViewController.swift in Sources */,
 				BBC65C9D244DBED2006F0ADB /* TodayWorkoutTableHeaderView.swift in Sources */,
-				BBC65CA6244DDA43006F0ADB /* PopupAnimationController.swift in Sources */,
 				BB77E9C42452EB4E00C7C4B5 /* WorkoutOnermChartView.swift in Sources */,
 				BB77E9BD24516BBC00C7C4B5 /* BasicCardView.swift in Sources */,
 				BBC65CA4244DD5E4006F0ADB /* TodayAddWorkoutViewController.swift in Sources */,

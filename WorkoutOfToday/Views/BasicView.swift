@@ -12,7 +12,7 @@ import RealmSwift
 
 class BasicView: UIView {
     
-    public var token: NotificationToken? = nil
+    public var token: BasicNotificationToken? = nil
     
     override init(frame: CGRect) {
         super.init(frame: frame)

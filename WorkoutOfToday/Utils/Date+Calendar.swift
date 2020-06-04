@@ -48,5 +48,21 @@ extension Date {
     func hasSame(_ component: Calendar.Component, as date: Date) -> Bool {
         return self.compare(with: date, only: component) == 0
     }
+    
+    var predicateForDay: NSCompoundPredicate {
+        var calendar = Calendar.current
+        calendar.timeZone = NSTimeZone.local
+
+        // Get today's beginning & end
+        let dateFrom = calendar.startOfDay(for: Date()) // eg. 2016-10-10 00:00:00
+        let dateTo = calendar.date(byAdding: .day, value: 1, to: dateFrom)
+        // Note: Times are printed in UTC. Depending on where you live it won't print 00:00:00 but it will work with UTC times which can be converted to local time
+
+        // Set predicate as date being today's date
+        let fromPredicate = NSPredicate(format: "%@ >= %@", dateTo as! NSDate, dateFrom as NSDate)
+        let toPredicate = NSPredicate(format: "%@ < %@", dateFrom as NSDate, dateTo as! NSDate)
+        let datePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate])
+        return datePredicate
+    }
 }
 

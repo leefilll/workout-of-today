@@ -17,8 +17,8 @@ class CalendarViewController: BasicViewController, Childable {
     
     var workoutsOfDays: Results<WorkoutsOfDay>? {
         didSet {
-            containerTableView.reloadData()
-            calendarHeaderView.calendar.reloadData()
+//            containerTableView.reloadData()
+//            calendarHeaderView.calendar.reloadData()
         }
     }
     

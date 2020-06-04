@@ -73,28 +73,34 @@ class DBHandler {
     
     func deleteWorkout(workout: Workout) {
         do {
-            try _realm.write {
-                _realm.delete(workout.sets)
-                _realm.delete(workout)
-            }
+            _realm.beginWrite()
+            _realm.delete(workout.sets)
+            _realm.delete(workout)
+            try _realm.commitWrite()
+
+//            try _realm.write {
+//                _realm.delete(workout.sets)
+//                _realm.delete(workout)
+//                try _realm.commitWrite()
+//            }
         } catch let error as NSError {
             fatalError("Error: \(error)")
         }
     }
-    
-    func deleteWorkoutsOfDay(workoutsOfDay: WorkoutsOfDay) {
-        do {
-            try _realm.write {
-                for workout in workoutsOfDay.workouts {
-                    deleteWorkout(workout: workout)
-                }
-                _realm.delete(workoutsOfDay)
-            }
-        } catch let error as NSError {
-            fatalError("Error: \(error)")
-        }
-    }
-    
+//
+//    func deleteWorkoutsOfDay(workoutsOfDay: WorkoutsOfDay) {
+//        do {
+//            try _realm.write {
+//                for workout in workoutsOfDay.workouts {
+//                    deleteWorkout(workout: workout)
+//                }
+//                _realm.delete(workoutsOfDay)
+//            }
+//        } catch let error as NSError {
+//            fatalError("Error: \(error)")
+//        }
+//    }
+//
     func fetchObject<T: Object>(ofType type: T.Type, forPrimaryKey primaryKey: String) -> T? {
         return _realm.object(ofType: type, forPrimaryKey: primaryKey)
     }

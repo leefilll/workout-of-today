@@ -10,7 +10,7 @@ import UIKit
 
 final class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
     
-    private var workoutsOfDay: WorkoutsOfDay?
+//    private var workoutsOfDay: WorkoutsOfDay?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,21 +20,22 @@ final class RootTabBarController: UITabBarController, UITabBarControllerDelegate
         tabBar.tintColor = .tintColor
         delegate = self
         
-        let keyFromDate = DateFormatter.shared.keyStringFromNow
-        if let workoutsOfDay = DBHandler.shared.fetchObject(ofType: WorkoutsOfDay.self,
-                                                            forPrimaryKey: keyFromDate) {
-            self.workoutsOfDay = workoutsOfDay
-        }
+        
+//        let keyFromDate = DateFormatter.shared.keyStringFromNow
+//        if let workoutsOfDay = DBHandler.shared.fetchObject(ofType: WorkoutsOfDay.self,
+//                                                            forPrimaryKey: keyFromDate) {
+//            self.workoutsOfDay = workoutsOfDay
+//        }
+        
         
         let profileViewController = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
         let profileNavigationController = UINavigationController(rootViewController: profileViewController)
         
         let todayWorkoutViewController = TodayWorkoutViewController()
-        todayWorkoutViewController.workoutsOfDay = workoutsOfDay
+//        todayWorkoutViewController.workoutsOfDay = workoutsOfDay
         let todayWorkoutNavigationController = UINavigationController(rootViewController: todayWorkoutViewController)
         
         let feedViewController = UINavigationController(rootViewController: FeedMasterViewController())
-        
         
         let tabBarControllers = [profileNavigationController,
                                  todayWorkoutNavigationController,

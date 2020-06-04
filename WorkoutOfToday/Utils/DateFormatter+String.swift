@@ -27,22 +27,22 @@ extension DateFormatter {
         return formatter
     }()
     
-    var keyStringFromNow: String {
-        let now = Date.now
-        let year = self.string(of: .year, from: now)
-        let month = self.string(of: .month, from: now)
-        let day = self.string(of: .day, from: now)
-        
-        return year + "-" + month + "-" + day
-    }
+//    var keyStringFromNow: String {
+//        let now = Date.now
+//        let year = self.string(of: .year, from: now)
+//        let month = self.string(of: .month, from: now)
+//        let day = self.string(of: .day, from: now)
+//
+//        return year + "-" + month + "-" + day
+//    }
     
-    func keyStringFromDate(_ date: Date) -> String {
-        let year = self.string(of: .year, from: date)
-        let month = self.string(of: .month, from: date)
-        let day = self.string(of: .day, from: date)
-        
-        return year + "-" + month + "-" + day
-    }
+//    func keyStringFromDate(_ date: Date) -> String {
+//        let year = self.string(of: .year, from: date)
+//        let month = self.string(of: .month, from: date)
+//        let day = self.string(of: .day, from: date)
+//
+//        return year + "-" + month + "-" + day
+//    }
     
     func string(of component: Calendar.Component, from date: Date) -> String {
         let calendar = Calendar.current
