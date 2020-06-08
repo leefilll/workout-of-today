@@ -2,11 +2,11 @@
 Simple iOS Workout diary application
 
 > OpenSources:
->> [Realm/RealmSwift][relam]
->> [Sanpkit][snapkit]    
->> [FSCalendar][fscal]    
->> [Charts][chart] / [ChartsRealm][chart_realm]    
->> [DZNEmptyDataSet][dz]    
+> - [Realm/RealmSwift][relam]
+> - [Sanpkit][snapkit]    
+> - [FSCalendar][fscal]    
+> - [Charts][chart] / [ChartsRealm][chart_realm]    
+> - [DZNEmptyDataSet][dz]    
 
 [relam]: https://realm.io/kr
 [snapkit]: https://github.com/SnapKit/SnapKit
