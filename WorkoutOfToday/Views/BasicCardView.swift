@@ -20,11 +20,6 @@ class BasicCardView: UIView {
         setup()
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setup()
-    }
-    
     func setup() {
         clipsToBounds = true
         layer.cornerRadius = Size.cornerRadius

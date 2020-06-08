@@ -19,13 +19,15 @@ class WorkoutVolumeChartView: BasicChartView {
     
     // MARK: Model
     
-    private var volumesByDate: [(date: Date, volume: Double)]?
+    private var volumesByDate: [(date: Date, volume: Double)]? {
+        didSet {
+            updateChartWithData()
+        }
+    }
     
     private var valueFormatter: IValueFormatter?
     
     private var xAxisFormatter: IAxisValueFormatter?
-    
-    private let popupTransitioningDelegate = PopupTransitioningDelegate(height: 500)
     
     override var subtitle: String? {
         return "운동별 볼륨량 변화"
@@ -33,41 +35,35 @@ class WorkoutVolumeChartView: BasicChartView {
     
     var workoutTemplate: WorkoutTemplate? {
         didSet {
-            if workoutTemplate != nil {
-                isEmpty = false
-            }
-        }
-    }
-    
-    var workoutName: String = "데드리프트" {
-        didSet {
-            setNeedsDisplay()
+            selectButton.setTitle(workoutTemplate?.name, for: .normal)
+            selectButton.setTitleColor(workoutTemplate?.part.color, for: .normal)
+            selectButton.backgroundColor = workoutTemplate?.part.color.withAlphaComponent(0.1)
         }
     }
     
     // MARK: At first, set workoutTemplate to first thing
     override func setup() {
         super.setup()
+        setupSelectButton()
         setupChartView()
         setupModel()
-        updateChartWithData()
-        setupSelectButton()
     }
     
     private func setupSelectButton() {
         selectButton.isHidden = false
-        guard let workoutTemplate = workoutTemplate else {
-            return
-        }
-        selectButton.setTitle(workoutTemplate.name, for: .normal)
     }
     
     private func setupModel() {
-          let tempTemplate = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self)
-          if !tempTemplate.isEmpty {
-              workoutTemplate = tempTemplate[0]
-          }
-      }
+        if let tempTemplate = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self).first {
+            volumesByDate = DBHandler.shared.fetchWorkoutVolumes(workoutTemplate: tempTemplate)
+            workoutTemplate = tempTemplate
+        }
+    }
+    
+    func updateWorkoutTemplate(workoutTemplate: WorkoutTemplate) {
+        self.workoutTemplate = workoutTemplate
+        volumesByDate = DBHandler.shared.fetchWorkoutVolumes(workoutTemplate: workoutTemplate)
+    }
     
     private func setupChartView() {
         let lineChartView = LineChartView()
@@ -82,12 +78,13 @@ class WorkoutVolumeChartView: BasicChartView {
         lineChartView.delegate = self
         self.lineChartView = lineChartView
     }
-            
+    
     private func updateChartWithData() {
-        guard let workoutTemplate = workoutTemplate else { return }
-        volumesByDate = DBHandler.shared.fetchWorkoutVolumes(workoutTemplate: workoutTemplate)
-        guard let volumesByDate = volumesByDate else { fatalError() }
-        
+        guard let volumesByDate = volumesByDate,
+            volumesByDate.count > 2 else {
+            isEmpty = true
+            return
+        }
         // MARK: note that x value used for index
         let entries = volumesByDate.enumerated().map { idx, value -> ChartDataEntry in
             let volume = value.volume
@@ -140,9 +137,9 @@ class WorkoutVolumeChartView: BasicChartView {
 // MARK: ChartView Delegate
 
 extension WorkoutVolumeChartView: ChartViewDelegate {
-//    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-//        print(entry)
-//    }
+    //    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+    //        print(entry)
+    //    }
 }
 
 // MARK: Value Formatter Delegate

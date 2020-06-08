@@ -14,12 +14,13 @@
 		BB04A871248619FD00C9FA69 /* BasicNotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04A870248619FD00C9FA69 /* BasicNotificationToken.swift */; };
 		BB04A87324861C7600C9FA69 /* Feedbackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04A87224861C7600C9FA69 /* Feedbackable.swift */; };
 		BB04A87724895C5000C9FA69 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04A87624895C5000C9FA69 /* Note.swift */; };
-		BB04AF76248E69110006BE87 /* WorkoutTemplateCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04AF75248E69110006BE87 /* WorkoutTemplateCollectionViewController.swift */; };
+		BB04AF76248E69110006BE87 /* WorkoutTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04AF75248E69110006BE87 /* WorkoutTemplateViewController.swift */; };
+		BB04AF78248E75340006BE87 /* ProfileWorkoutTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04AF77248E75340006BE87 /* ProfileWorkoutTemplateViewController.swift */; };
 		BB12C88B2447343D007DFBC1 /* Pods_WorkoutOfToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1649F6C72DC0D20F9053D785 /* Pods_WorkoutOfToday.framework */; };
 		BB12C88C2447343D007DFBC1 /* Pods_WorkoutOfToday.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1649F6C72DC0D20F9053D785 /* Pods_WorkoutOfToday.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BB12C8A82447441E007DFBC1 /* BasicSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB12C8A72447441E007DFBC1 /* BasicSectionHeaderView.swift */; };
 		BB206FA02450776600057CDB /* PopupPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB206F9F2450776600057CDB /* PopupPresentationController.swift */; };
-		BB206FC624508D9600057CDB /* WorkoutTemplateCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB206FC524508D9600057CDB /* WorkoutTemplateCollectionViewController.xib */; };
+		BB206FC624508D9600057CDB /* WorkoutTemplateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB206FC524508D9600057CDB /* WorkoutTemplateViewController.xib */; };
 		BB2E75422447752E006108F5 /* UIButton+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2E75412447752E006108F5 /* UIButton+Color.swift */; };
 		BB2E754724486CCF006108F5 /* FeedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2E754624486CCF006108F5 /* FeedCollectionViewFlowLayout.swift */; };
 		BB5C515C243DA34200A1CD9C /* UIView+CornerRadii.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C515B243DA34200A1CD9C /* UIView+CornerRadii.swift */; };
@@ -153,7 +154,8 @@
 		BB04A87224861C7600C9FA69 /* Feedbackable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedbackable.swift; sourceTree = "<group>"; };
 		BB04A87524891B8C00C9FA69 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BB04A87624895C5000C9FA69 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
-		BB04AF75248E69110006BE87 /* WorkoutTemplateCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplateCollectionViewController.swift; sourceTree = "<group>"; };
+		BB04AF75248E69110006BE87 /* WorkoutTemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplateViewController.swift; sourceTree = "<group>"; };
+		BB04AF77248E75340006BE87 /* ProfileWorkoutTemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileWorkoutTemplateViewController.swift; sourceTree = "<group>"; };
 		BB12C87E244733B6007DFBC1 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB12C880244733B6007DFBC1 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB12C882244733B6007DFBC1 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,7 +164,7 @@
 		BB12C8A024473CAE007DFBC1 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB12C8A72447441E007DFBC1 /* BasicSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSectionHeaderView.swift; sourceTree = "<group>"; };
 		BB206F9F2450776600057CDB /* PopupPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupPresentationController.swift; sourceTree = "<group>"; };
-		BB206FC524508D9600057CDB /* WorkoutTemplateCollectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutTemplateCollectionViewController.xib; sourceTree = "<group>"; };
+		BB206FC524508D9600057CDB /* WorkoutTemplateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutTemplateViewController.xib; sourceTree = "<group>"; };
 		BB2E75412447752E006108F5 /* UIButton+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Color.swift"; sourceTree = "<group>"; };
 		BB2E7543244826FF006108F5 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		BB2E754624486CCF006108F5 /* FeedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
@@ -479,8 +481,8 @@
 				BB77E9BC24516BBC00C7C4B5 /* BasicCardView.swift */,
 				BBE15F1E2455EFC0005600B3 /* FormTextField.swift */,
 				BBEE7AF8247599E700F1DF33 /* WarningAlertViewController.swift */,
-				BB04AF75248E69110006BE87 /* WorkoutTemplateCollectionViewController.swift */,
-				BB206FC524508D9600057CDB /* WorkoutTemplateCollectionViewController.xib */,
+				BB04AF75248E69110006BE87 /* WorkoutTemplateViewController.swift */,
+				BB206FC524508D9600057CDB /* WorkoutTemplateViewController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -565,6 +567,7 @@
 				BB6D27742469B41A0011DB2D /* HighlightsWeekChartView.swift */,
 				BBE15F0C2455C283005600B3 /* SummaryView.swift */,
 				BBC65CA1244DCB1C006F0ADB /* Nibs */,
+				BB04AF77248E75340006BE87 /* ProfileWorkoutTemplateViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -716,7 +719,7 @@
 				BBE15F132455C750005600B3 /* ProfileEditViewController.xib in Resources */,
 				BBE15F2C24581779005600B3 /* TodayWorkoutNoteViewController.xib in Resources */,
 				BBE15F0B2455C1C0005600B3 /* SummaryView.xib in Resources */,
-				BB206FC624508D9600057CDB /* WorkoutTemplateCollectionViewController.xib in Resources */,
+				BB206FC624508D9600057CDB /* WorkoutTemplateViewController.xib in Resources */,
 				BBC65C9F244DBF88006F0ADB /* TodayWorkoutTableHeaderView.xib in Resources */,
 				BBC65CC0244F2815006F0ADB /* TopWorkoutChartCell.xib in Resources */,
 				BB8BB76C243CBA0400774EA9 /* LaunchScreen.storyboard in Resources */,
@@ -902,7 +905,7 @@
 				BB6D27752469B41A0011DB2D /* HighlightsWeekChartView.swift in Sources */,
 				BB8BB7A0243CBFBD00774EA9 /* WorkoutsOfDay.swift in Sources */,
 				BB12C8A82447441E007DFBC1 /* BasicSectionHeaderView.swift in Sources */,
-				BB04AF76248E69110006BE87 /* WorkoutTemplateCollectionViewController.swift in Sources */,
+				BB04AF76248E69110006BE87 /* WorkoutTemplateViewController.swift in Sources */,
 				BBB5D7B6244AF9BD00F89A68 /* BasicViewController.swift in Sources */,
 				BB96FD642444B99300E8DE10 /* LabelCollectionViewCell.swift in Sources */,
 				BB96FD662444BF5600E8DE10 /* LabelCollectionHeaderView.swift in Sources */,
@@ -911,6 +914,7 @@
 				BB8BB760243CBA0200774EA9 /* AppDelegate.swift in Sources */,
 				BBE15F30245818E8005600B3 /* CloseButton.swift in Sources */,
 				BB92A8D624851649003AD89E /* Double+IsInt.swift in Sources */,
+				BB04AF78248E75340006BE87 /* ProfileWorkoutTemplateViewController.swift in Sources */,
 				BB5C5191243DE4BB00A1CD9C /* UIColor+TintColor.swift in Sources */,
 				BB96FD622444AE1B00E8DE10 /* UITableView+Register.swift in Sources */,
 				BB6D277E246D24CF0011DB2D /* TodayWorkoutTemplateAddViewController.swift in Sources */,

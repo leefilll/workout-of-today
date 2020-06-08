@@ -10,7 +10,7 @@ import UIKit
 
 import RealmSwift
 
-class TodayAddWorkoutViewController: WorkoutTemplateCollectionViewController {
+class TodayAddWorkoutViewController: WorkoutTemplateViewController {
     
     // MARK: Model
     
@@ -34,9 +34,6 @@ class TodayAddWorkoutViewController: WorkoutTemplateCollectionViewController {
         return "운동 추가"
     }
     
-    // MARK: View
-    
-//    weak var editTemplateButton: UIBarButtonItem!
     
     override func setup() {
         super.setup()

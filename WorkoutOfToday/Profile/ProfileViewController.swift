@@ -132,7 +132,9 @@ class ProfileViewController: BasicViewController {
             summaryCoverView.isHidden = false
             let descriptionLabel = UILabel()
             descriptionLabel.text = "정보가 등록되지 않았습니다."
-            descriptionLabel.font = .subheadline
+            descriptionLabel.font = .boldBody
+            descriptionLabel.textColor = .lightGray
+            
             summaryCoverView.addSubview(descriptionLabel)
             descriptionLabel.snp.makeConstraints { make in
                 make.centerX.centerY.equalToSuperview()
@@ -144,6 +146,7 @@ class ProfileViewController: BasicViewController {
         highlightTitleLabel.textColor = .defaultTextColor
         highlightTitleLabel.font = .smallBoldTitle
         highlightTitleLabel.text = "하이라이트"
+        
         highlightVolumeChartView.selectButton.addTarget(self, action: #selector(selectTemplateButtonDidTapped(_:)), for: .touchUpInside)
     }
 }
@@ -164,12 +167,15 @@ extension ProfileViewController {
     
     @objc
     private func selectTemplateButtonDidTapped(_ sender: UIButton) {
-        let workoutTemplateVC = WorkoutTemplateCollectionViewController()
-        workoutTemplateVC.transitioningDelegate = popupTransitioningDelegateForTemplate
-        workoutTemplateVC.modalPresentationStyle = .custom
-        present(workoutTemplateVC, animated: true, completion: nil)
+        let vc = ProfileWorkoutTemplateViewController()
+        vc.delegate = self
+        vc.transitioningDelegate = popupTransitioningDelegateForTemplate
+        vc.modalPresentationStyle = .custom
+        present(vc, animated: true, completion: nil)
     }
 }
+
+// MARK: Delegates
 
 extension ProfileViewController: ProfileDidUpdatedDelegate {
     func profileDidUpdated() {
@@ -178,7 +184,16 @@ extension ProfileViewController: ProfileDidUpdatedDelegate {
     }
 }
 
-// MARK: ProfileDidUpdatedDelegate
+extension ProfileViewController: WorkoutTemplateDidSelectedDelegate {
+    func workoutTemplateDidSelect(workoutTemplate: WorkoutTemplate) {
+        highlightVolumeChartView.updateWorkoutTemplate(workoutTemplate: workoutTemplate)
+    }
+}
+
 protocol ProfileDidUpdatedDelegate {
     func profileDidUpdated()
+}
+
+protocol WorkoutTemplateDidSelectedDelegate {
+    func workoutTemplateDidSelect(workoutTemplate: WorkoutTemplate)
 }

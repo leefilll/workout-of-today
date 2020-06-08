@@ -31,10 +31,7 @@ class BasicButton: UIButton {
         
         setTitleColor(.lightGray, for: .normal)
         backgroundColor = .concaveColor
-    }
-
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
+        
         clipsToBounds = true
         layer.cornerRadius = 10
     }

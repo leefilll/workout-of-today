@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WorkoutTemplateCollectionViewController" customModule="WorkoutOfToday" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WorkoutTemplateViewController" customModule="WorkoutOfToday" customModuleProvider="target">
             <connections>
                 <outlet property="navigationBar" destination="bAk-zd-hMG" id="IGl-PJ-lNd"/>
                 <outlet property="searchBar" destination="L4m-dV-HvU" id="rfL-qV-ron"/>

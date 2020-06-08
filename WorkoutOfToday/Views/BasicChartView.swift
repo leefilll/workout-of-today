@@ -39,7 +39,6 @@ class BasicChartView: BasicCardView {
         setupEmptyLabel()
         setupSelectButton()
         updateChartView()
-        selectButton.isHidden = true
     }
     
     private func setupLabel() {
@@ -61,13 +60,14 @@ class BasicChartView: BasicCardView {
         let selectButton = BasicButton()
         selectButton.setTitle(" - ", for: .normal)
         selectButton.contentEdgeInsets =
-            UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
+            UIEdgeInsets(top: 4, left: 10, bottom: 4, right: 10)
         addSubview(selectButton)
         
         selectButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-15)
             make.centerY.equalTo(subtitleLabel.snp.centerY)
         }
+        selectButton.isHidden = true
         self.selectButton = selectButton
     }
     
@@ -87,7 +87,8 @@ class BasicChartView: BasicCardView {
     
     private func setupEmptyLabel() {
         let emptyLabel = UILabel()
-        emptyLabel.font = .subheadline
+        emptyLabel.font = .boldBody
+        emptyLabel.textColor = .lightGray
         emptyLabel.text = "차트를 위한 정보가 부족합니다."
         addSubview(emptyLabel)
         

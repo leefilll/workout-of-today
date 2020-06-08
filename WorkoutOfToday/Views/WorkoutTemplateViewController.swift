@@ -10,7 +10,7 @@ import UIKit
 
 import RealmSwift
 
-class WorkoutTemplateCollectionViewController: BasicViewController {
+class WorkoutTemplateViewController: BasicViewController {
     
     // MARK: Model
     
@@ -33,7 +33,7 @@ class WorkoutTemplateCollectionViewController: BasicViewController {
     @IBOutlet weak var navigationBar: UINavigationBar!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: "WorkoutTemplateCollectionViewController", bundle: nil)
+        super.init(nibName: "WorkoutTemplateViewController", bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -82,7 +82,7 @@ class WorkoutTemplateCollectionViewController: BasicViewController {
 
 // MARK: objc functions
 
-extension WorkoutTemplateCollectionViewController {
+extension WorkoutTemplateViewController {
     @objc
     func containerViewDidTapped(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
@@ -91,19 +91,8 @@ extension WorkoutTemplateCollectionViewController {
 
 // MARK: CollectionView Delegate
 
-extension WorkoutTemplateCollectionViewController: UICollectionViewDelegate {
+extension WorkoutTemplateViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let selectedTemplate = templates[indexPath.section][indexPath.item]
-//
-//        DBHandler.shared.write {
-//            let newWorkout = Workout()
-//            newWorkout.template = selectedTemplate
-//            DBHandler.shared.realm.add(newWorkout)
-//        }
-//
-//        postNotification(.WorkoutDidAdded)
-//        selectionFeedbackGenerator?.selectionChanged()
-//        dismiss(animated: true, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -116,7 +105,7 @@ extension WorkoutTemplateCollectionViewController: UICollectionViewDelegate {
 
 // MARK: CollectionView DataSourec
 
-extension WorkoutTemplateCollectionViewController: UICollectionViewDataSource {
+extension WorkoutTemplateViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return templates.count
     }
@@ -142,7 +131,7 @@ extension WorkoutTemplateCollectionViewController: UICollectionViewDataSource {
 
 // MARK: CollectionView Delegate Flow Layout
 
-extension WorkoutTemplateCollectionViewController: UICollectionViewDelegateFlowLayout {
+extension WorkoutTemplateViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         let workoutTemplate = templates[indexPath.section][indexPath.item]
@@ -165,7 +154,7 @@ extension WorkoutTemplateCollectionViewController: UICollectionViewDelegateFlowL
 
 // MARK: TextField Delegate
 
-extension WorkoutTemplateCollectionViewController: UITextFieldDelegate {
+extension WorkoutTemplateViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
     }
