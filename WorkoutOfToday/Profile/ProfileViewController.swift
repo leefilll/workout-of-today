@@ -27,6 +27,8 @@ class ProfileViewController: BasicViewController {
     
     private let popupTransitioningDelegate = PopupTransitioningDelegate(height: 400)
     
+    lazy private var popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(height: self.view.bounds.height * 4 / 5)
+    
     private var user: Profile? {
         didSet {
             updateSummaries()
@@ -142,8 +144,7 @@ class ProfileViewController: BasicViewController {
         highlightTitleLabel.textColor = .defaultTextColor
         highlightTitleLabel.font = .smallBoldTitle
         highlightTitleLabel.text = "하이라이트"
-//        highlightWorkoutPartChartView.subtitle.
-//        highlightWeekChartView.subtitleLabel.text = "요일별 운동 횟수"
+        highlightVolumeChartView.selectButton.addTarget(self, action: #selector(selectTemplateButtonDidTapped(_:)), for: .touchUpInside)
     }
 }
 
@@ -159,6 +160,14 @@ extension ProfileViewController {
         editVC.user = user
         selectionFeedbackGenerator?.selectionChanged()
         present(editVC, animated: true, completion: nil)
+    }
+    
+    @objc
+    private func selectTemplateButtonDidTapped(_ sender: UIButton) {
+        let workoutTemplateVC = WorkoutTemplateCollectionViewController()
+        workoutTemplateVC.transitioningDelegate = popupTransitioningDelegateForTemplate
+        workoutTemplateVC.modalPresentationStyle = .custom
+        present(workoutTemplateVC, animated: true, completion: nil)
     }
 }
 

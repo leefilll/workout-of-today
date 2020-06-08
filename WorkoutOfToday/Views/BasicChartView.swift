@@ -62,7 +62,6 @@ class BasicChartView: BasicCardView {
         selectButton.setTitle(" - ", for: .normal)
         selectButton.contentEdgeInsets =
             UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
-        selectButton.addTarget(self, action: #selector(selectButtonDidTapped(_:)), for: .touchUpInside)
         addSubview(selectButton)
         
         selectButton.snp.makeConstraints { make in
@@ -109,10 +108,3 @@ class BasicChartView: BasicCardView {
     }
 }
 
-// MARK: objc functions
-
-extension BasicChartView {
-    @objc
-    func selectButtonDidTapped(_ sender: UIButton) {
-    }
-}

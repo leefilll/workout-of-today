@@ -208,7 +208,7 @@ extension TodayWorkoutViewController {
     
     @objc
     private func workoutAddButtonDidTapped(_ sender: UIButton?) {
-        let addWorkoutVC = TodayAddWorkoutViewController(nibName: "TodayAddWorkoutViewController", bundle: nil)
+        let addWorkoutVC = TodayAddWorkoutViewController()
         addWorkoutVC.modalPresentationStyle = .custom
         addWorkoutVC.transitioningDelegate = slideTransitioningDelegate
         selectionFeedbackGenerator?.selectionChanged()

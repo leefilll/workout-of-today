@@ -25,6 +25,8 @@ class WorkoutVolumeChartView: BasicChartView {
     
     private var xAxisFormatter: IAxisValueFormatter?
     
+    private let popupTransitioningDelegate = PopupTransitioningDelegate(height: 500)
+    
     override var subtitle: String? {
         return "운동별 볼륨량 변화"
     }
@@ -43,22 +45,21 @@ class WorkoutVolumeChartView: BasicChartView {
         }
     }
     
-//    var period: Period = .oneMonth {
-//        didSet {
-//            setNeedsDisplay()
-//        }
-//    }
-    
     // MARK: At first, set workoutTemplate to first thing
     override func setup() {
         super.setup()
         setupChartView()
         setupModel()
         updateChartWithData()
-        selectButton.isHidden = false
+        setupSelectButton()
     }
     
-    override func selectButtonDidTapped(_ sender: UIButton) {
+    private func setupSelectButton() {
+        selectButton.isHidden = false
+        guard let workoutTemplate = workoutTemplate else {
+            return
+        }
+        selectButton.setTitle(workoutTemplate.name, for: .normal)
     }
     
     private func setupModel() {
