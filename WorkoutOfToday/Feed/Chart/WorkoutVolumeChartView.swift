@@ -80,22 +80,26 @@ class WorkoutVolumeChartView: BasicChartView {
     }
     
     private func updateChartWithData() {
-        guard let volumesByDate = volumesByDate,
-            volumesByDate.count > 2 else {
+        guard let workoutTemplate = workoutTemplate,
+            let volumesByDate = volumesByDate,
+            volumesByDate.count > 1 else {
             isEmpty = true
             return
         }
+        
+        isEmpty = false
         // MARK: note that x value used for index
         let entries = volumesByDate.enumerated().map { idx, value -> ChartDataEntry in
             let volume = value.volume
             return ChartDataEntry(x: Double(idx), y: Double(volume))
         }
+        
         let set = LineChartDataSet(entries: entries)
         set.drawIconsEnabled = false
         set.highlightLineDashLengths = [5, 2.5]
-        set.setColor(.tintColor)
-        set.setCircleColor(.tintColor)
-        set.circleHoleColor = .weakTintColor
+        set.setColor(workoutTemplate.part.color)
+        set.setCircleColor(workoutTemplate.part.color)
+        set.circleHoleColor = workoutTemplate.part.color.withAlphaComponent(0.1)
         set.lineWidth = 2
         set.circleRadius = 4
         set.circleHoleRadius = 2
@@ -123,9 +127,12 @@ class WorkoutVolumeChartView: BasicChartView {
         let xAxis = lineChartView.xAxis
         xAxis.labelPosition = .bottom
         xAxis.gridLineWidth = 0
-        xAxis.labelFont = .systemFont(ofSize: 10)
-        xAxis.granularity = 2
+        xAxis.granularity = 1
         xAxis.labelCount = 7
+        xAxis.labelFont = .description
+        xAxis.labelTextColor = .lightGray
+        xAxis.axisLineWidth = 1
+        xAxis.axisLineColor = .concaveColor
         xAxis.valueFormatter = xAxisFormatter
     }
     
@@ -156,7 +163,6 @@ extension WorkoutVolumeChartView: IAxisValueFormatter {
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         guard let volumesByDate = volumesByDate else { return "" }
         let date = volumesByDate[Int(value)].date
-        
         let formatter = DateFormatter.shared
         formatter.setLocalizedDateFormatFromTemplate("MMMM-d")
         let dateString = formatter.string(from: date)

@@ -43,14 +43,6 @@ class LabelCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         willSet {
-//            if content is Workout {
-//            } else {
-//                if newValue == true {
-//                    contentView.backgroundColor = .tintColor
-//                } else {
-//                    contentView.backgroundColor = UIColor.tintColor.withAlphaComponent(0.5)
-//                }
-//            }
         }
     }
     
@@ -68,8 +60,8 @@ class LabelCollectionViewCell: UICollectionViewCell {
         let containerView = BasicCardView()
         contentView.addSubview(containerView)
         containerView.snp.makeConstraints { make in
-            make.leading.top.equalToSuperview().offset(4)
-            make.trailing.bottom.equalToSuperview().offset(-4)
+            make.leading.top.equalToSuperview().offset(3)
+            make.trailing.bottom.equalToSuperview().offset(-3)
         }
         
         let nameLabel = UILabel()
@@ -82,8 +74,6 @@ class LabelCollectionViewCell: UICollectionViewCell {
         containerView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(2)
-            make.trailing.equalToSuperview().offset(-2)
         }
         contentView.clipsToBounds = true
         contentView.layer.cornerRadius = bounds.size.height * 0.20

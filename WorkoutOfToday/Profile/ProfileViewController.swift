@@ -27,7 +27,7 @@ class ProfileViewController: BasicViewController {
     
     private let popupTransitioningDelegate = PopupTransitioningDelegate(height: 400)
     
-    lazy private var popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(height: self.view.bounds.height * 4 / 5)
+    lazy private var popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(height: self.view.bounds.height * 3 / 4)
     
     private var user: Profile? {
         didSet {
@@ -89,6 +89,15 @@ class ProfileViewController: BasicViewController {
         selectionFeedbackGenerator?.prepare()
     }
     
+    override func registerNotifications() {
+        registerNotification(.WorkoutDidAdded) { [weak self] note in
+            self?.highlightPartChartView.setupModel()
+        }
+        registerNotification(.WorkoutDidDeleted) { [weak self] note in
+            self?.highlightPartChartView.setupModel()
+        }
+    }
+    
     private func setupSummaries() {
         let profile = DBHandler.shared.fetchObjects(ofType: Profile.self)
         if let user = profile.first {
@@ -117,7 +126,6 @@ class ProfileViewController: BasicViewController {
         summaryBmiView.unitLabel.text = ""
     }
     
-    
     private func updateSummaries() {
         if let user = user {
             summaryCoverView.isHidden = true
@@ -132,7 +140,7 @@ class ProfileViewController: BasicViewController {
             summaryCoverView.isHidden = false
             let descriptionLabel = UILabel()
             descriptionLabel.text = "정보가 등록되지 않았습니다."
-            descriptionLabel.font = .boldBody
+            descriptionLabel.font = .subheadline
             descriptionLabel.textColor = .lightGray
             
             summaryCoverView.addSubview(descriptionLabel)

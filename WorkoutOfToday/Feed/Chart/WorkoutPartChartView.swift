@@ -19,14 +19,6 @@ class WorkoutPartChartView: BasicChartView {
     
     // MARK: Model
     
-    private var totalWorkouts: Results<Workout>? {
-        didSet {
-            if let totalWorkouts = totalWorkouts,
-                totalWorkouts.count > 0 {
-                isEmpty = false
-            }
-        }
-    }
     
     private var mostFrequentParts: [Int] = []
     
@@ -38,13 +30,19 @@ class WorkoutPartChartView: BasicChartView {
     
     override func setup() {
         super.setup()
-        setupModel()
         setupChartView()
-        updateChartWithData()
+        setupModel()
     }
     
-    private func setupModel() {
-        totalWorkouts = DBHandler.shared.fetchObjects(ofType: Workout.self)
+    func setupModel() {
+        mostFrequentParts = DBHandler.shared.fetchWorkoutPartInPercentage()
+        if mostFrequentParts == [0] {
+            isEmpty = true
+            return
+        } else {
+            isEmpty = false
+            updateChartWithData()
+        }
     }
     
     private func setupChartView() {
@@ -61,7 +59,7 @@ class WorkoutPartChartView: BasicChartView {
     }
     
     private func updateChartWithData() {
-        mostFrequentParts = DBHandler.shared.fetchWorkoutPartInPercentage()
+        if isEmpty { return }
         let entries = mostFrequentParts.enumerated().map { idx, count -> PieChartDataEntry in
             return PieChartDataEntry(value: Double(count),
                                      label: Part.string(from: idx))}
@@ -84,15 +82,26 @@ class WorkoutPartChartView: BasicChartView {
         l.horizontalAlignment = .right
         l.verticalAlignment = .center
         l.orientation = .vertical
+        l.font = .description
+        l.form = Legend.Form.circle
+        l.formSize = 7
         l.xEntrySpace = 0
         l.yEntrySpace = 0
+        l.yOffset = -10
         l.xOffset = 20
         
         pieChartView.data = data
-        pieChartView.highlightValues(nil)
-        pieChartView.sizeToFit()
+        pieChartView.drawHoleEnabled = true
+        pieChartView.holeRadiusPercent = 0.425
+        pieChartView.holeColor = .clear
+        pieChartView.drawSlicesUnderHoleEnabled = false
+        pieChartView.transparentCircleColor = NSUIColor.white.withAlphaComponent(0.1)
+        pieChartView.transparentCircleRadiusPercent = 0.48
+        pieChartView.usePercentValuesEnabled = true
         pieChartView.drawEntryLabelsEnabled = false
         pieChartView.chartDescription?.enabled = false
+        pieChartView.highlightValues(nil)
+        pieChartView.sizeToFit()
         pieChartView.notifyDataSetChanged()
     }
     
@@ -114,7 +123,7 @@ extension WorkoutPartChartView: IValueFormatter {
         pFormatter.numberStyle = .percent
         pFormatter.maximumFractionDigits = 1
         pFormatter.multiplier = 1
-        pFormatter.percentSymbol = " %"
+        pFormatter.percentSymbol = "%"
         
         let formattedString = pFormatter.string(from: NSNumber(value: value))
         return formattedString ?? ""

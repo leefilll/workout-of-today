@@ -16,8 +16,12 @@ class CloseButton: UIBarButtonItem {
         self.action = action
         self.style = .plain
         let customView = UIButton()
-        customView.setBackgroundImage(UIImage(named: "xmark"), for: .normal)
+        let xmarkImage = UIImage(named: "xmark")
+        
+        xmarkImage?.withRenderingMode(.alwaysTemplate)
+        customView.setBackgroundImage(xmarkImage, for: .normal)
         customView.addTarget(target, action: action, for: .touchUpInside)
+//        customView.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         self.customView = customView
     }
     

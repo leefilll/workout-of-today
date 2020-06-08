@@ -78,7 +78,8 @@ class BasicChartView: BasicCardView {
         
         chartContainerView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(10)
-            make.trailing.bottom.equalToSuperview().offset(-10)
+            make.trailing.equalToSuperview().offset(-10)
+            make.bottom.equalToSuperview().offset(-15)
             make.top.equalTo(subtitleLabel.snp.bottom).offset(15)
         }
         
@@ -87,7 +88,7 @@ class BasicChartView: BasicCardView {
     
     private func setupEmptyLabel() {
         let emptyLabel = UILabel()
-        emptyLabel.font = .boldBody
+        emptyLabel.font = .subheadline
         emptyLabel.textColor = .lightGray
         emptyLabel.text = "차트를 위한 정보가 부족합니다."
         addSubview(emptyLabel)
