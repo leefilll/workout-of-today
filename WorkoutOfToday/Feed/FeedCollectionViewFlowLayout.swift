@@ -19,18 +19,12 @@ class FeedCollectionViewFlowLayout: UICollectionViewFlowLayout {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
-//    override func layoutAttributesForDecorationView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-//        let attribute = super.layoutAttributesForDecorationView(ofKind: elementKind, at: indexPath)
-//        return attribute!
-//    }
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let attributes = super.layoutAttributesForElements(in: rect)
         var attributesCopy = [UICollectionViewLayoutAttributes]()
         
         for attribute in attributes! {
-//            let decoratedAttributes = FeedCollectionViewLayoutAttributes(forSupplementaryViewOfKind: "sectionBackground", with: attribute.indexPath)
             let itemAttributesCopy = attribute.copy() as! UICollectionViewLayoutAttributes
             attributesCopy.append(itemAttributesCopy)
         }

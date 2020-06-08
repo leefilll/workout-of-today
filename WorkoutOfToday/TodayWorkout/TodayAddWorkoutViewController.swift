@@ -24,10 +24,6 @@ class TodayAddWorkoutViewController: BasicViewController {
         return partArray
     }
     
-    var workoutsOfDay: WorkoutsOfDay?   // passed from TodayVC
-    
-//    var delegate: WorkoutDidModiFieid?
-    
     private var tapGestureRecognizer: UITapGestureRecognizer!
 
     private var panGestureRecognizer: UIPanGestureRecognizer!
@@ -95,14 +91,15 @@ class TodayAddWorkoutViewController: BasicViewController {
     private func setupCollectionView() {
         if let layout = templateCollectionView.collectionViewLayout as? FeedCollectionViewFlowLayout {
             layout.minimumLineSpacing = 0
-            layout.minimumInteritemSpacing = 0
+            layout.minimumInteritemSpacing = 3
             layout.scrollDirection = .vertical
             layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
         templateCollectionView.delegate = self
         templateCollectionView.dataSource = self
         templateCollectionView.delaysContentTouches = false
-        templateCollectionView.registerByNib(TodayWorkoutAddCollectionViewCell.self)
+        templateCollectionView.register(LabelCollectionViewCell.self)
+//        templateCollectionView.registerByNib(LabelCollectionViewCell.self)
         templateCollectionView.registerForHeaderView(TodayAddWorkoutCollectionHeaderView.self)
     }
     
@@ -183,19 +180,8 @@ extension TodayAddWorkoutViewController: UICollectionViewDelegate {
         
         DBHandler.shared.write {
             let newWorkout = Workout()
-            DBHandler.shared.realm.add(newWorkout)
-            
             newWorkout.template = selectedTemplate
-//            selectedTemplate.workouts.append(newWorkout)
-            if let workoutsOfDay = workoutsOfDay {
-                newWorkout.day = workoutsOfDay
-                workoutsOfDay.workouts.append(newWorkout)
-            } else {
-                let newWorkoutsOfDay = WorkoutsOfDay()
-                newWorkout.day = newWorkoutsOfDay
-                DBHandler.shared.realm.add(newWorkoutsOfDay)
-                newWorkoutsOfDay.workouts.append(newWorkout)
-            }
+            DBHandler.shared.realm.add(newWorkout)
         }
         
         postNotification(.WorkoutDidAdded)
@@ -230,9 +216,9 @@ extension TodayAddWorkoutViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(TodayWorkoutAddCollectionViewCell.self,
+        let cell = collectionView.dequeueReusableCell(LabelCollectionViewCell.self,
                                                       for: indexPath)
-        cell.template = templates[indexPath.section][indexPath.item]
+        cell.content = templates[indexPath.section][indexPath.item]
         return cell
     }
 }

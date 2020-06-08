@@ -35,7 +35,6 @@ class TodayWorkoutAddView: BasicView, NibLoadable {
     
     override func setup() {
         commonInit()
-//        self.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.font = .boldTitle
         nameTextField.placeholder = "운동 이름"
         nameTextField.minimumFontSize = UIFont.boldTitle.pointSize

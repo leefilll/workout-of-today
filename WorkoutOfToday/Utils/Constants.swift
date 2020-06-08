@@ -140,25 +140,24 @@ extension Selectable {
             return Part.title
         } else if self is Style {
             return Style.title
+        } else {
+            return ""
         }
-        return ""
     }
     
     var name: String {
-        if self is Part {
-            if let part = self as? Part {
+        switch self {
+            case let part as Part:
                 return part.description
-            }
-        } else if self is Style {
-            if let style = self as? Style {
+            case let style as Style:
                 return style.description
-            }
-        } else if self is Workout {
-            if let workout = self as? Workout {
+            case let workout as Workout:
                 return workout.name
-            }
+            case let template as WorkoutTemplate:
+                return template.name
+            default:
+                return ""
         }
-        return ""
     }
 }
 
@@ -167,3 +166,5 @@ extension Part: Selectable {}
 extension Style: Selectable {}
 
 extension Workout: Selectable {}
+
+extension WorkoutTemplate: Selectable {}

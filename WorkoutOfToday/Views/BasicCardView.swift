@@ -9,16 +9,24 @@
 import UIKit
 
 class BasicCardView: UIView {
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        backgroundColor = .white
-        
-        clipsToBounds = true
-        layer.cornerRadius = Size.cornerRadius
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
     }
     
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+    
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+//        setup()
+//    }
+    
     func setup() {
-//        fatalError("Setup functions did not overriden")
+        clipsToBounds = true
+        layer.cornerRadius = Size.cornerRadius
     }
 }

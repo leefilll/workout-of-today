@@ -183,7 +183,7 @@ extension DBHandler {
         
         // TODO: Make same tuple if multiple same workout in a day
         for workout in sortedWorkout {
-            let dateWithVolume = (date: workout.createdDateTime.startOfDate(), volume: workout.totalVolume)
+            let dateWithVolume = (date: workout.created.startOfDate(), volume: workout.totalVolume)
             let lastIdx = volumesByDate.count - 1
             print(lastIdx)
             if lastIdx > 0 {
@@ -220,13 +220,14 @@ extension DBHandler {
     
     /// Note that index 0 means Sunday, and 6 means Saturday
     func fetchWorkoutsOfDaysByWeekDays() -> [Int] {
-        let totalWorkoutsOfDay = DBHandler.shared.fetchObjects(ofType: WorkoutsOfDay.self)
-        var weekdaysCounts = [Int](repeating: 0, count: 7)
-        totalWorkoutsOfDay.forEach { workoutsOfDay in
-            let dateTime = workoutsOfDay.createdDateTime
-            let weekday = Calendar.current.component(.weekday, from: dateTime)
-            weekdaysCounts[weekday - 1] += 1
-        }
-        return weekdaysCounts
+//        let totalWorkoutsOfDay = DBHandler.shared.fetchObjects(ofType: WorkoutsOfDay.self)
+//        var weekdaysCounts = [Int](repeating: 0, count: 7)
+//        totalWorkoutsOfDay.forEach { workoutsOfDay in
+//            let dateTime = workoutsOfDay.createdDateTime
+//            let weekday = Calendar.current.component(.weekday, from: dateTime)
+//            weekdaysCounts[weekday - 1] += 1
+//        }
+//        return weekdaysCounts
+        return [1,1,1,1,1,1,1]
     }
 }

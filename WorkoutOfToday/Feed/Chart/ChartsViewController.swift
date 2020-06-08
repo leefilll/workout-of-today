@@ -15,7 +15,7 @@ final class ChartsViewController: BasicViewController {
     
     // MARK: Model
     
-    var workoutsOfDays: Results<WorkoutsOfDay>!
+//    var workoutsOfDays: Results<WorkoutsOfDay>!
     
     // MARK: View
     

@@ -117,17 +117,11 @@ extension WarningAlertViewController {
     @objc
     private func deleteWorkout(_ sender: UIButton) {
         guard let workoutToDelete = workoutToDelete,
-            let workoutsOfDay = workoutToDelete.day,
-//            let workoutTemplate = workoutToDelete.template,
             let index = index else {
                 fatalError("Failled to delete workout")
         }
         
-        print(#function, workoutsOfDay)
-        
         DBHandler.shared.write {
-            workoutsOfDay.workouts.remove(at: index)
-//            workoutTemplate.workouts.remove(at: index)
             DBHandler.shared.realm.delete(workoutToDelete)
         }
         postNotification(.WorkoutDidDeleted)

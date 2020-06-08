@@ -15,11 +15,13 @@ class LabelCollectionViewCell: UICollectionViewCell {
     var content: Selectable? {
         didSet {
             nameLabel.text = content?.name
-            if content is Workout {
-                guard let workout = content as? Workout else { return }
-                contentView.backgroundColor = workout.part.color
-            } else {
-                contentView.backgroundColor = UIColor.tintColor.withAlphaComponent(0.5)
+            switch content {
+                case let workout as Workout:
+                    containerView.backgroundColor = workout.template?.part.color
+                case let template as WorkoutTemplate:
+                    containerView.backgroundColor = template.part.color
+                default:
+                    contentView.backgroundColor = UIColor.tintColor.withAlphaComponent(0.5)
             }
             setNeedsLayout()
         }
@@ -27,17 +29,14 @@ class LabelCollectionViewCell: UICollectionViewCell {
     
     // MARK: View
     
-    var nameLabel: UILabel!
+    weak var nameLabel: UILabel!
+    
+    weak var containerView: BasicCardView!
     
     override var isHighlighted: Bool {
         willSet {
-            if content is Workout {
-                guard let workout = content as? Workout else { return }
-                if newValue == true {
-                    contentView.backgroundColor = workout.part.color.withAlphaComponent(0.5)
-                } else {
-                    contentView.backgroundColor = workout.part.color
-                }
+            if content is Workout || content is WorkoutTemplate {
+                animate(newValue)
             }
         }
     }
@@ -66,28 +65,50 @@ class LabelCollectionViewCell: UICollectionViewCell {
     }
     
     private func setup() {
-        nameLabel = UILabel()
+        let containerView = BasicCardView()
+        contentView.addSubview(containerView)
+        containerView.snp.makeConstraints { make in
+            make.leading.top.equalToSuperview().offset(4)
+            make.trailing.bottom.equalToSuperview().offset(-4)
+        }
+        
+        let nameLabel = UILabel()
         nameLabel.font = .smallBoldTitle
         nameLabel.textColor = .white
         nameLabel.textAlignment = .center
         nameLabel.numberOfLines = 1
         nameLabel.lineBreakMode = .byTruncatingTail
-    
-        contentView.addSubview(self.nameLabel)
-        contentView.snp.makeConstraints { make in
-            make.bottom.top.leading.trailing.equalToSuperview()
-        }
         
+        containerView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(10)
-            make.trailing.equalToSuperview().offset(-10)
+            make.leading.equalToSuperview().offset(2)
+            make.trailing.equalToSuperview().offset(-2)
         }
+        
+        self.containerView = containerView
+        self.nameLabel = nameLabel
     }
     
     override func layoutSubviews() {
         contentView.clipsToBounds = true
         contentView.layer.cornerRadius = bounds.size.height * 0.20
         nameLabel.sizeToFit()
+    }
+
+    private func animate(_ newValue: Bool) {
+        UIView.animate(withDuration: 0.12,
+                       delay: 0,
+                       usingSpringWithDamping: 0.4,
+                       initialSpringVelocity: 0.55,
+                       options: .curveEaseIn,
+                       animations: {
+                        if newValue == true {
+                            self.containerView.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                        } else {
+                            self.containerView.transform = .identity
+                        }
+        },
+                       completion: nil)
     }
 }

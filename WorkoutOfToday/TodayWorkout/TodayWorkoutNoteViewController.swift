@@ -11,8 +11,6 @@ import UITextView_Placeholder
 
 class TodayWorkoutNoteViewController: BasicViewController {
     
-    var workoutsOfDay: WorkoutsOfDay?
-    
     @IBOutlet weak var navigationBar: UINavigationBar!
     
     @IBOutlet weak var noteTextView: UITextView!
@@ -30,7 +28,7 @@ class TodayWorkoutNoteViewController: BasicViewController {
         
         noteTextView.font = .body
         noteTextView.backgroundColor = .white
-        noteTextView.text = workoutsOfDay?.note ?? ""
+//        noteTextView.text = workoutsOfDay?.note ?? ""
         noteTextView.placeholder = "노트를 입력해주세요."
         noteTextView.placeholderColor = .lightGray
         
@@ -80,20 +78,10 @@ extension TodayWorkoutNoteViewController {
     @objc
     func notAddButtonDidTapped(_ sender: UIButton) {
         guard let note = noteTextView.text else { return }
-        
-        if let workoutsOfDay = workoutsOfDay {
-            // if WOD already exists
-            DBHandler.shared.write {
-                workoutsOfDay.note = note
-            }
-        } else {
-            let newWorkoutsOfDay = WorkoutsOfDay()
-            DBHandler.shared.create(object: newWorkoutsOfDay)
-            DBHandler.shared.write {
-                newWorkoutsOfDay.note = note
-            }
-        }
-        
+
+        let newNote = Note()
+        newNote.content = note
+        DBHandler.shared.create(object: newNote)
         dismiss(animated: true, completion: nil)
     }
 }
