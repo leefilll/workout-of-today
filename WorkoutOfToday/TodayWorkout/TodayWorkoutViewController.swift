@@ -150,6 +150,8 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.emptyDataSetDelegate = self
+        tableView.emptyDataSetSource = self
         
         tableView.registerByNib(WorkoutSetTableViewCell.self)
         tableView.registerByNib(TodayWorkoutSectionHeaderView.self)
@@ -205,7 +207,7 @@ extension TodayWorkoutViewController {
     // MARK: Present WorkoutAdd VC
     
     @objc
-    private func workoutAddButtonDidTapped(_ sender: UIButton) {
+    private func workoutAddButtonDidTapped(_ sender: UIButton?) {
         let addWorkoutVC = TodayAddWorkoutViewController(nibName: "TodayAddWorkoutViewController", bundle: nil)
         addWorkoutVC.modalPresentationStyle = .custom
         addWorkoutVC.transitioningDelegate = slideTransitioningDelegate
@@ -359,8 +361,36 @@ extension TodayWorkoutViewController: WorkoutSetDidBeginEditing {
     }
 }
 
-// MARK: for Empty tableView
+// MARK: DZNEmptyDataSet DataSource and Delegate
 
 extension TodayWorkoutViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        return workouts?.count == 0 ? true : false
+    }
     
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "오늘의 운동이 없습니다."
+        let font = UIFont.smallBoldTitle
+        let attributes = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray
+        ]
+        let attributedString = NSAttributedString(string: str, attributes: attributes)
+        return attributedString
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "화면을 터치하거나 버튼을 탭하여\n운동을 추가하세요."
+        let font = UIFont.subheadline
+        let attributes = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray
+        ]
+        let attributedString = NSAttributedString(string: str, attributes: attributes)
+        return attributedString
+    }
+    
+    func emptyDataSet(_ scrollView: UIScrollView!, didTap view: UIView!) {
+        workoutAddButtonDidTapped(nil)
+    }
 }

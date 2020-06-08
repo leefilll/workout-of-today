@@ -33,6 +33,7 @@ class BasicChartView: BasicCardView {
     }
     
     override func setup() {
+        super.setup()
         setupLabel()
         setupChartView()
         setupEmptyLabel()

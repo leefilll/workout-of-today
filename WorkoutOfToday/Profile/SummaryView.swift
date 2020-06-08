@@ -17,6 +17,7 @@ class SummaryView: BasicCardView, NibLoadable {
     @IBOutlet weak var unitLabel: UILabel!
     
     override func setup() {
+        super.setup()
         commonInit()
         
         subtitleLabel.font = .boldBody

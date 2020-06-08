@@ -177,6 +177,26 @@ extension DBHandler {
         return sortedWorkouts.filter { $0.name == workoutName }
     }
     
+    func fetchWorkoutVolumes(workoutTemplate: WorkoutTemplate) -> [(date: Date, volume: Double)] {
+        let sortedWorkout = DBHandler.shared.fetchObjects(ofType: Workout.self)
+            .filter("template == %@", workoutTemplate)
+        let volumesByDate = sortedWorkout
+            .map { workout in
+                return Calendar.current.startOfDay(for: workout.created)
+        }
+            .reduce([]) { dates, date in
+                return dates.last == date ? dates : dates + [date]
+        }
+            .compactMap { startDate -> (date: Date, volume: Double)? in
+            let endDate = Calendar.current.date(byAdding: .day, value: 1, to: startDate)!
+            let workoutVolume = sortedWorkout
+                .filter("(created >= %@) AND (created < %@)", startDate, endDate)
+                .reduce(0.0) { $0 + $1.totalVolume }
+                return workoutVolume == 0.0 ? nil : (date: startDate, volume: workoutVolume)
+        }
+        return volumesByDate
+    }
+    
     func fechWorkoutVolumeByPeriod(workoutName: String, period: Period) -> [(date: Date, volume: Double)] {
         let sortedWorkout = fetchWorkoutsByPeriod(workoutName: workoutName, period: period)
         var volumesByDate: [(date: Date, volume: Double)] = []
@@ -196,10 +216,6 @@ extension DBHandler {
             }
             volumesByDate.append(dateWithVolume)
         }
-        print(volumesByDate)
-        print(volumesByDate)
-        print(volumesByDate)
-        
         return volumesByDate
     }
     

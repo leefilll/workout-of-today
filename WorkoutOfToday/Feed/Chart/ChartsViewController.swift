@@ -100,11 +100,6 @@ final class ChartsViewController: BasicViewController {
 // MARK: objc functions
 
 extension ChartsViewController {
-    @objc
-    func selectionDidChanged(_ sender: UISegmentedControl) {
-        guard let period = Period(rawValue: sender.selectedSegmentIndex) else { fatalError() }
-        volumeChartView.period = period
-    }
 }
 
 // MARK: enum - Period

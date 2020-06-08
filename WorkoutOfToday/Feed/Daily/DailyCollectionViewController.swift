@@ -9,6 +9,7 @@
 import UIKit
 
 import RealmSwift
+import DZNEmptyDataSet
 
 class DailyCollectionViewController: BasicViewController, Childable {
     
@@ -51,6 +52,8 @@ class DailyCollectionViewController: BasicViewController, Childable {
     private func configureCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.emptyDataSetSource = self
+        collectionView.emptyDataSetDelegate = self
         collectionView.register(LabelCollectionViewCell.self)
         collectionView.registerForHeaderView(LabelCollectionHeaderView.self)
     }
@@ -126,5 +129,20 @@ extension DailyCollectionViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: maximumWidth, height: 45)
         }
         return CGSize(width: width, height: 45)
+    }
+}
+
+// MARK: DZNEmptyDataSet DataSource and Delegate
+
+extension DailyCollectionViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "아직 등록된 운동이 없습니다."
+        let font = UIFont.smallBoldTitle
+        let attributes = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray
+        ]
+        let attributedString = NSAttributedString(string: str, attributes: attributes)
+        return attributedString
     }
 }

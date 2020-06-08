@@ -43,14 +43,14 @@ class LabelCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         willSet {
-            if content is Workout {
-            } else {
-                if newValue == true {
-                    contentView.backgroundColor = .tintColor
-                } else {
-                    contentView.backgroundColor = UIColor.tintColor.withAlphaComponent(0.5)
-                }
-            }
+//            if content is Workout {
+//            } else {
+//                if newValue == true {
+//                    contentView.backgroundColor = .tintColor
+//                } else {
+//                    contentView.backgroundColor = UIColor.tintColor.withAlphaComponent(0.5)
+//                }
+//            }
         }
     }
     
@@ -85,17 +85,13 @@ class LabelCollectionViewCell: UICollectionViewCell {
             make.leading.equalToSuperview().offset(2)
             make.trailing.equalToSuperview().offset(-2)
         }
+        contentView.clipsToBounds = true
+        contentView.layer.cornerRadius = bounds.size.height * 0.20
         
         self.containerView = containerView
         self.nameLabel = nameLabel
     }
     
-    override func layoutSubviews() {
-        contentView.clipsToBounds = true
-        contentView.layer.cornerRadius = bounds.size.height * 0.20
-        nameLabel.sizeToFit()
-    }
-
     private func animate(_ newValue: Bool) {
         UIView.animate(withDuration: 0.12,
                        delay: 0,

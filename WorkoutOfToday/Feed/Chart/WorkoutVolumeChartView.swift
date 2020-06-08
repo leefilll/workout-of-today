@@ -43,11 +43,11 @@ class WorkoutVolumeChartView: BasicChartView {
         }
     }
     
-    var period: Period = .oneMonth {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
+//    var period: Period = .oneMonth {
+//        didSet {
+//            setNeedsDisplay()
+//        }
+//    }
     
     // MARK: At first, set workoutTemplate to first thing
     override func setup() {
@@ -84,7 +84,7 @@ class WorkoutVolumeChartView: BasicChartView {
             
     private func updateChartWithData() {
         guard let workoutTemplate = workoutTemplate else { return }
-        volumesByDate = DBHandler.shared.fechWorkoutVolumeByPeriod(workoutName: workoutTemplate.name, period: period)
+        volumesByDate = DBHandler.shared.fetchWorkoutVolumes(workoutTemplate: workoutTemplate)
         guard let volumesByDate = volumesByDate else { fatalError() }
         
         // MARK: note that x value used for index

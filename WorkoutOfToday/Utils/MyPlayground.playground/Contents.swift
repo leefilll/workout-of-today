@@ -92,54 +92,10 @@ let w5 = W()
 let w6 = W()
 let w7 = W()
 
-w1.created = Date().dateFromDays(-1)
-w2.created = Date()
-w3.created = Date()
-w4.created = Date()
-w5.created = Date()
-w6.created = Date()
-w7.created = Date().dateFromDays(2)
+var arr = [1,2,3,4]
+let s = arr.reduce(0) { (a, b) -> Result in
+    return a += b
+}
 
-ws.append(w1)
-ws.append(w2)
-ws.append(w3)
-ws.append(w4)
-ws.append(w5)
-ws.append(w6)
-ws.append(w7)
-
-//let sections = ws
-//.map { workout in
-//    // get start of a day
-//    return Calendar.current.startOfDay(for: workout.created)
-//}
-//.reduce([]) { dates, date in
-//    // unique sorted array of dates
-//    return dates.last == date ? dates : dates + [date]
-//}
-//.compactMap { startDate -> (date: Date, workouts: Results<W>)? in
-//    // create the end of current day
-//    let endDate = Calendar.current.date(byAdding: .day, value: 1, to: startDate)!
-//    // filter sorted results by a predicate matching current day
-//    let workouts = ws.filter("(created >= %@) AND (created < %@)", startDate, endDate)
-//    // return a section only if current day is non-empty
-//    return workouts.isEmpty ? nil : (date: startDate, workouts: workouts)
-//}
-
-
-//
-//_ = ws.reduce(into: [W]()) { result, workout in
-//    if result.isEmpty {
-//        result.append(workout)
-//    } else if let first = result.first, first.created.isSameDay(with: workout.created) {
-//        result.append(workout)
-//    } else {
-//        totalWorkouts.append(result)
-//        result.removeAll()
-//    }
-//}
-//
-//for w in totalWorkouts {
-//    print(w.count)
-//}
-//print(totalWorkouts)
+print(s)
+let arraySum = arrData.reduce(0) { $0 + $1 }

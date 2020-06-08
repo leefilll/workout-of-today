@@ -30,7 +30,7 @@ class BasicButton: UIButton {
         titleLabel?.font = .subheadline
         
         setTitleColor(.lightGray, for: .normal)
-        backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+        backgroundColor = .concaveColor
     }
 
     override func draw(_ rect: CGRect) {

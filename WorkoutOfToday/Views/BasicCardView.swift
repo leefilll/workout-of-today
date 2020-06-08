@@ -20,10 +20,10 @@ class BasicCardView: UIView {
         setup()
     }
     
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        setup()
-//    }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setup()
+    }
     
     func setup() {
         clipsToBounds = true

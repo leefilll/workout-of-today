@@ -30,8 +30,8 @@ class FeedMasterViewController: BasicViewController {
     private var contentView: UIView!
     
     private var dailyCollectionViewController: DailyCollectionViewController!
-//
-//    private var calendarViewController: CalendarViewController!
+
+    private var calendarViewController: CalendarViewController!
     
     // MARK: ===== for test ==========
     
@@ -56,8 +56,9 @@ class FeedMasterViewController: BasicViewController {
     
     private func setupChildViews() {
         dailyCollectionViewController = DailyCollectionViewController()
-//        calendarViewController = CalendarViewController()
+        calendarViewController = CalendarViewController()
         dailyCollectionViewController.sections = sections
+        calendarViewController.sections = sections
     }
     
 
@@ -157,13 +158,11 @@ class FeedMasterViewController: BasicViewController {
     private func updateView() {
         switch segmentedControl.selectedSegmentIndex {
             case 0:
-//                remove(asChildViewController: calendarViewController)
+                remove(asChildViewController: calendarViewController)
                 add(asChildViewController: dailyCollectionViewController)
-                break
             case 1:
-                break
-//                remove(asChildViewController: dailyCollectionViewController)
-//                add(asChildViewController: calendarViewController)
+                remove(asChildViewController: dailyCollectionViewController)
+                add(asChildViewController: calendarViewController)
             default:
                 break
         }
@@ -180,6 +179,6 @@ extension FeedMasterViewController {
 
 // MARK: Child VC protocol
 protocol Childable where Self: BasicViewController {
-//    var workoutsOfDays: Results<WorkoutsOfDay>? { get set }
+    var sections: [(Date, Results<Workout>)]! { get set }
 }
 
