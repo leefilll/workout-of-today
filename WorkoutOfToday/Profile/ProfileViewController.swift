@@ -81,7 +81,6 @@ class ProfileViewController: BasicViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        highlightWeekChartView.animateChart()
     }
     
     override func setupFeedbackGenerator() {

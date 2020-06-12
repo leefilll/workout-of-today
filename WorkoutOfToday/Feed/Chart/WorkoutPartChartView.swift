@@ -100,6 +100,7 @@ class WorkoutPartChartView: BasicChartView {
         pieChartView.usePercentValuesEnabled = true
         pieChartView.drawEntryLabelsEnabled = false
         pieChartView.chartDescription?.enabled = false
+        pieChartView.rotationEnabled = false
         pieChartView.highlightValues(nil)
         pieChartView.sizeToFit()
         pieChartView.notifyDataSetChanged()

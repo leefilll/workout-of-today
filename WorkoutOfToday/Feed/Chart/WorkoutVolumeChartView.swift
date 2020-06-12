@@ -29,6 +29,10 @@ class WorkoutVolumeChartView: BasicChartView {
     
     private var xAxisFormatter: IAxisValueFormatter?
     
+    private var yAxisFormatter: IAxisValueFormatter?
+    
+    private var maxValue: Double = 0.0
+    
     override var subtitle: String? {
         return "운동별 볼륨량 변화"
     }
@@ -113,17 +117,6 @@ class WorkoutVolumeChartView: BasicChartView {
         let data = LineChartData(dataSet: set)
         data.setValueFormatter(valueFormatter!)
         
-        lineChartView.data = data
-        lineChartView.chartDescription?.enabled = false
-        lineChartView.legend.enabled = false
-        lineChartView.dragEnabled = false
-        lineChartView.setScaleEnabled(false)
-        lineChartView.pinchZoomEnabled = false
-        lineChartView.leftAxis.enabled = false
-        lineChartView.rightAxis.enabled = false
-        lineChartView.extraRightOffset = 30
-        lineChartView.extraLeftOffset = 30
-        
         let xAxis = lineChartView.xAxis
         xAxis.labelPosition = .bottom
         xAxis.gridLineWidth = 0
@@ -134,6 +127,43 @@ class WorkoutVolumeChartView: BasicChartView {
         xAxis.axisLineWidth = 1
         xAxis.axisLineColor = .concaveColor
         xAxis.valueFormatter = xAxisFormatter
+        
+        if let maxVolume = volumesByDate.max(by: { return $0.volume < $1.volume }) {
+            maxValue = maxVolume.volume
+            print("maxVolume: \(maxValue)")
+            print("maxVolume: \(maxValue)")
+            print("maxVolume: \(maxValue)")
+            let upperLimitLine = ChartLimitLine(limit: maxValue)
+            upperLimitLine.lineWidth = 2
+            upperLimitLine.lineDashLengths = [5, 5]
+            upperLimitLine.lineColor = .concaveColor
+            
+            let rightAxis = lineChartView.rightAxis
+            rightAxis.removeAllLimitLines()
+            rightAxis.addLimitLine(upperLimitLine)
+            rightAxis.axisMaximum = maxValue
+            rightAxis.drawLimitLinesBehindDataEnabled = true
+            rightAxis.axisLineColor = .clear
+//            rightAxis.drawLabelsEnabled = false
+            rightAxis.labelFont = .description
+            rightAxis.labelTextColor = .lightGray
+            rightAxis.gridColor = .clear
+            rightAxis.valueFormatter = xAxisFormatter
+            lineChartView.rightAxis.enabled = true
+        } else {
+            lineChartView.rightAxis.enabled = false
+        }
+         
+        lineChartView.data = data
+        lineChartView.chartDescription?.enabled = false
+        lineChartView.legend.enabled = false
+        lineChartView.dragEnabled = false
+        lineChartView.setScaleEnabled(false)
+        lineChartView.pinchZoomEnabled = false
+        lineChartView.leftAxis.enabled = false
+        
+        lineChartView.extraRightOffset = 30
+        lineChartView.extraLeftOffset = 30
     }
     
     func animateChart() {
@@ -161,11 +191,25 @@ extension WorkoutVolumeChartView: IValueFormatter {
 
 extension WorkoutVolumeChartView: IAxisValueFormatter {
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        guard let volumesByDate = volumesByDate else { return "" }
-        let date = volumesByDate[Int(value)].date
-        let formatter = DateFormatter.shared
-        formatter.setLocalizedDateFormatFromTemplate("MMMM-d")
-        let dateString = formatter.string(from: date)
-        return dateString
+        guard let axis = axis else { return "" }
+        if axis == lineChartView.xAxis {
+            guard let volumesByDate = volumesByDate else { return "" }
+            let date = volumesByDate[Int(value)].date
+            let formatter = DateFormatter.shared
+            formatter.setLocalizedDateFormatFromTemplate("MMMM-d")
+            let dateString = formatter.string(from: date)
+            return dateString
+            
+        } else {
+            if value == maxValue {
+                let nFormatter = NumberFormatter()
+                nFormatter.numberStyle = .decimal
+                print(nFormatter.string(from: NSNumber(value: value)))
+                print(nFormatter.string(from: NSNumber(value: value)))
+                
+                return "\(value)kg"
+            }
+            return ""
+        }
     }
 }

@@ -36,7 +36,7 @@ class BasicViewController: UIViewController {
         super.loadView()
         setup()
         setupFeedbackGenerator()
-        configureNavigationBar()
+        
     }
     
     public func setup() {}
@@ -54,6 +54,7 @@ class BasicViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavigationBar()
         registerKeyboardNotifications()
         registerNotifications()
         view.backgroundColor = .defaultBackgroundColor

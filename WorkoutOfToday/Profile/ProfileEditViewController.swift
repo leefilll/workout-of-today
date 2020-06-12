@@ -20,7 +20,7 @@ class ProfileEditViewController: BasicViewController {
     
     // MARK: View
     
-    @IBOutlet weak var titleNavigationBar: UINavigationBar!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     @IBOutlet private var subtitleLabels: [UILabel]!
     
@@ -52,10 +52,10 @@ class ProfileEditViewController: BasicViewController {
         view.addGestureRecognizer(tapGestureRecognize)
         
         let closeButton = CloseButton(target: self, action: #selector(dismiss(_:)))
-        titleNavigationBar.topItem?.title = "기본 정보🏋️‍♂️"
-        titleNavigationBar.topItem?.rightBarButtonItem = closeButton
-        titleNavigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        titleNavigationBar.shadowImage = UIImage()
+        navigationBar.topItem?.title = "기본 정보🏋️‍♂️"
+        navigationBar.topItem?.rightBarButtonItem = closeButton
+        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationBar.shadowImage = UIImage()
         
         subtitleLabels.forEach {
             $0.font = .subheadline

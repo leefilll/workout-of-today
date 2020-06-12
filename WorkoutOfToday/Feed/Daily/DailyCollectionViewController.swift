@@ -16,6 +16,8 @@ class DailyCollectionViewController: BasicViewController, Childable {
     // MARK: Model
 
     var sections: [(Date, Results<Workout>)]!
+    
+    lazy private var popupTransitioningDelegate = PopupTransitioningDelegate(height: self.view.bounds.height * 3 / 4)
 
     // MARK: View
 
@@ -48,6 +50,10 @@ class DailyCollectionViewController: BasicViewController, Childable {
         configureCollectionView()
     }
     
+    override func setupFeedbackGenerator() {
+        selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator?.prepare()
+    }
 
     private func configureCollectionView() {
         collectionView.delegate = self
@@ -106,6 +112,15 @@ extension DailyCollectionViewController: UICollectionViewDataSource {
 extension DailyCollectionViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let workouts = sections[indexPath.section].1
+        let workout = workouts[indexPath.row]
+        
+        let detailVC = WorkoutDetailViewController(nibName: "WorkoutDetailViewController", bundle: nil)
+        detailVC.transitioningDelegate = popupTransitioningDelegate
+        detailVC.modalPresentationStyle = .custom
+        detailVC.workout = workout
+        selectionFeedbackGenerator?.selectionChanged()
+        present(detailVC, animated: true, completion: nil)
     }
 }
 

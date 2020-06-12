@@ -17,9 +17,17 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
             workoutEquipmentButton.equipment = workout?.equipment
         }
     }
+    
+    var isDetailView: Bool = false {
+        willSet {
+            topStackView.isHidden = newValue
+        }
+    }
 
     @IBOutlet weak var containerView: UIView!
-
+    
+    @IBOutlet weak var topStackView: UIStackView!
+    
     @IBOutlet weak var workoutNameLabel: UILabel!
 
     @IBOutlet weak var workoutPartButton: WorkoutPartButton!

@@ -24,8 +24,6 @@ class CalendarTableViewCell: BasicTableViewCell {
     
     @IBOutlet weak var repsLabel: UILabel!
     
-    @IBOutlet weak var completeButton: BasicButton!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = .clear
@@ -35,11 +33,6 @@ class CalendarTableViewCell: BasicTableViewCell {
         
         countLabel.font = .smallBoldTitle
         countLabel.textColor = .lightGray
-        
-        completeButton.setTitle("완료", for: .normal)
-        completeButton.setTitleColor(.tintColor, for: .normal)
-        completeButton.setTitle("취소", for: .selected)
-        completeButton.setTitleColor(.white, for: .selected)
     }
     
     override func prepareForReuse() {
@@ -53,7 +46,10 @@ class CalendarTableViewCell: BasicTableViewCell {
         if let workoutSet = workoutSet {
             let weight = workoutSet.weight
             let reps = workoutSet.reps
-            weightLabel.text = "\(weight)"
+            let weightString = weight.isInt
+                ? String(format: "%d", Int(weight))
+                : String(format: ".1f%", weight)
+            weightLabel.text = weightString
             repsLabel.text = "\(reps)"
         }
     }

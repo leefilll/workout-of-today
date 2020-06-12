@@ -18,7 +18,6 @@ class CalendarHeaderView: BasicView {
 
     override func setup() {
         backgroundColor = .clear
-        
         setupCalendar()
         setupButton()
     }
@@ -43,6 +42,9 @@ class CalendarHeaderView: BasicView {
         calendar.appearance.eventDefaultColor = .tintColor
         calendar.appearance.todayColor = nil
         calendar.appearance.eventOffset = CGPoint(x: 0, y: 0)
+        calendar.setScope(.week, animated: false)
+        // MARK: select today when viewController did load
+        calendar.select(Date.now)
         
         addSubview(calendar)
         calendar.snp.makeConstraints { make in
@@ -58,14 +60,14 @@ class CalendarHeaderView: BasicView {
     private func setupButton() {
         let button = BasicButton()
         
-        button.setTitle("접기", for: .normal)
-        button.setTitle("열기", for: .selected)
+        button.setTitle("접기", for: .selected)
+        button.setTitle("열기", for: .normal)
         
-        button.setTitleColor(.lightGray, for: .normal)
-        button.setTitleColor(.tintColor, for: .selected)
+        button.setTitleColor(.lightGray, for: .selected)
+        button.setTitleColor(.tintColor, for: .normal)
         
-        button.setBackgroundColor(.concaveColor, for: .normal)
-        button.setBackgroundColor(.weakTintColor, for: .selected)
+        button.setBackgroundColor(.concaveColor, for: .selected)
+        button.setBackgroundColor(.weakTintColor, for: .normal)
         
         addSubview(button)
         button.snp.makeConstraints { make in

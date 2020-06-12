@@ -44,6 +44,10 @@ class CalendarViewController: BasicViewController, Childable {
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     private func configureContainerTableView() {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .clear
@@ -91,9 +95,9 @@ extension CalendarViewController {
     func toggleButtonDidTapped(_ sender: BasicButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
-            calendarHeaderView.calendar.setScope(.week, animated: true)
-        } else {
             calendarHeaderView.calendar.setScope(.month, animated: true)
+        } else {
+            calendarHeaderView.calendar.setScope(.week, animated: true)
         }
     }
 }
@@ -113,7 +117,7 @@ extension CalendarViewController: FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
         // MARK: toggle calendar
-        calendarHeaderView.toggleCalendarButton.isSelected = true
+        calendarHeaderView.toggleCalendarButton.isSelected = false
         calendar.setScope(.week, animated: true)
         
         // MARK: update model workoutsInSelectedDay

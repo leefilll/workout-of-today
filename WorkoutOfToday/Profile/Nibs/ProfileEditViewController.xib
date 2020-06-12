@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,8 +13,8 @@
                 <outlet property="heightTextField" destination="TKD-mQ-GNa" id="dOv-ge-rv8"/>
                 <outlet property="muscleWeightTextField" destination="6UW-jA-t4l" id="03D-OR-oyN"/>
                 <outlet property="nameTextField" destination="iQk-m9-bbb" id="q3p-pG-jUd"/>
+                <outlet property="navigationBar" destination="TU9-Wd-WaN" id="bhk-gS-R5s"/>
                 <outlet property="optionalPartDescLabel" destination="zaD-xG-rdL" id="6qs-7D-PXF"/>
-                <outlet property="titleNavigationBar" destination="TU9-Wd-WaN" id="bhk-gS-R5s"/>
                 <outlet property="view" destination="iN0-l3-epB" id="bWD-PD-BFY"/>
                 <outlet property="weightTextField" destination="wHK-jz-psN" id="h0Y-pp-4Zs"/>
                 <outletCollection property="textFields" destination="iQk-m9-bbb" collectionClass="NSMutableArray" id="fEu-5C-7fp"/>
@@ -41,7 +39,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5nM-Nw-uUW">
-                    <rect key="frame" x="20" y="108" width="374" height="125"/>
+                    <rect key="frame" x="20" y="64" width="374" height="125"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZBa-JU-yE7">
                             <rect key="frame" x="0.0" y="0.0" width="374" height="35"/>
@@ -147,7 +145,7 @@
                     <state key="normal" title="Button"/>
                 </button>
                 <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TU9-Wd-WaN">
-                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <items>
@@ -155,13 +153,13 @@
                     </items>
                 </navigationBar>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="선택 사항" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zaD-xG-rdL">
-                    <rect key="frame" x="20" y="253" width="63.5" height="20.5"/>
+                    <rect key="frame" x="20" y="209" width="63.5" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="OXR-YV-8sg">
-                    <rect key="frame" x="20" y="278.5" width="374" height="80"/>
+                    <rect key="frame" x="20" y="234.5" width="374" height="80"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="d2U-XD-CcO">
                             <rect key="frame" x="0.0" y="0.0" width="374" height="35"/>
