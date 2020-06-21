@@ -30,7 +30,7 @@ enum Size {
         static let footerHeight: CGFloat = 70
     }
     static let cornerRadius: CGFloat = 9
-    static let addButtonHeight: CGFloat = 50
+    static let addButtonHeight: CGFloat = 45
     static let addCollectionViewHeight: CGFloat = 50
 }
 
@@ -103,7 +103,7 @@ enum Equipment: Int, CustomStringConvertible, CaseIterable {
 
 enum Style: Int, CustomStringConvertible, CaseIterable {
     case weightWithReps
-    case weight
+//    case weight
     case reps
     case time
     case none
@@ -115,7 +115,7 @@ enum Style: Int, CustomStringConvertible, CaseIterable {
     var description: String {
         switch self {
             case .weightWithReps: return "무게 + 횟수"
-            case .weight: return "무게"
+//            case .weight: return "무게"
             case .reps: return "횟수"
             case .time: return "시간"
             case .none: return "-"

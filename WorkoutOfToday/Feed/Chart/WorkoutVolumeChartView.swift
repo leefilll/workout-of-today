@@ -121,7 +121,7 @@ class WorkoutVolumeChartView: BasicChartView {
         xAxis.labelPosition = .bottom
         xAxis.gridLineWidth = 0
         xAxis.granularity = 1
-        xAxis.labelCount = 7
+        xAxis.labelCount = 4
         xAxis.labelFont = .description
         xAxis.labelTextColor = .lightGray
         xAxis.axisLineWidth = 1
@@ -153,6 +153,7 @@ class WorkoutVolumeChartView: BasicChartView {
 //        }
          
         lineChartView.data = data
+        lineChartView.isUserInteractionEnabled = false
         lineChartView.chartDescription?.enabled = false
         lineChartView.legend.enabled = false
         lineChartView.dragEnabled = false

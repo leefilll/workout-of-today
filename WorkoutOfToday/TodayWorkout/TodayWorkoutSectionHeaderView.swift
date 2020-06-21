@@ -76,11 +76,9 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
     private func setStyle() {
         guard let template = template else { return }
         switch template.style {
-            case .weight:
-                repsLabel.isHidden = true
             case .time:
-                repsLabel.isHidden = true
-                weightLabel.text = "time(m)"
+                weightLabel.isHidden = true
+                repsLabel.text = "time"
             case .reps:
                 weightLabel.isHidden = true
             default: break

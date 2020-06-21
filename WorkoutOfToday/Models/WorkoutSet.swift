@@ -15,7 +15,6 @@ final class WorkoutSet: Object, NSCopying {
     @objc dynamic var reps: Int = 0
     @objc private dynamic var _degree: Degree.RawValue = Degree.none.rawValue
     @objc dynamic var id = UUID().uuidString
-//    @objc dynamic var workout: Workout?
     
     public var degree: Degree {
         get {

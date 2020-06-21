@@ -129,7 +129,7 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
     private func setupWorkoutAddButton() {
         let workoutAddButton = UIButton()
         workoutAddButton.setBackgroundColor(.tintColor, for: .normal)
-        workoutAddButton.setBackgroundColor(UIColor.tintColor.withAlphaComponent(0.7),
+        workoutAddButton.setBackgroundColor(UIColor.tintColor.withAlphaComponent(0.8),
                                             for: .highlighted)
         workoutAddButton.setBackgroundColor(.lightGray, for: .disabled)
         workoutAddButton.setTitle("운동 추가", for: .normal)

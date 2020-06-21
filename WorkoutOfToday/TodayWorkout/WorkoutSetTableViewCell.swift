@@ -21,6 +21,8 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
         }
     }
     
+    var style: Style?
+    
     var indexPath: IndexPath?
     
     var delegate: WorkoutSetDidBeginEditing?

@@ -14,10 +14,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJB-8c-H2H" userLabel="ContainerView">
-                    <rect key="frame" x="15" y="0.0" width="384" height="65"/>
+                    <rect key="frame" x="15" y="20" width="384" height="45"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Mos-sB-u62">
-                            <rect key="frame" x="15" y="10" width="354" height="55"/>
+                            <rect key="frame" x="15" y="10" width="354" height="35"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="0XJ-NL-zXG" userLabel="NameAndButtonsStackView">
                                     <rect key="frame" x="0.0" y="0.0" width="354" height="35"/>
@@ -59,8 +59,8 @@
                                         <constraint firstAttribute="height" constant="35" id="mdH-aZ-pyr"/>
                                     </constraints>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="vgP-it-wca" userLabel="LowerStackView">
-                                    <rect key="frame" x="0.0" y="35" width="354" height="20"/>
+                                <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="vgP-it-wca" userLabel="LowerStackView">
+                                    <rect key="frame" x="0.0" y="0.0" width="354" height="20"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="set" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcD-eV-z53">
                                             <rect key="frame" x="0.0" y="0.0" width="30" height="20"/>

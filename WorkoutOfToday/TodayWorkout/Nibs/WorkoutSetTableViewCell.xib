@@ -18,10 +18,10 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xEg-jC-ybf" userLabel="ContainerView">
                         <rect key="frame" x="15" y="0.0" width="384" height="44"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="OcX-d5-gBa">
-                                <rect key="frame" x="15" y="7" width="354" height="30"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="OcX-d5-gBa">
+                                <rect key="frame" x="20" y="7" width="334" height="30"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNi-P6-7XA">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNi-P6-7XA">
                                         <rect key="frame" x="0.0" y="5" width="30" height="20.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="7ek-No-0Jl"/>
@@ -30,11 +30,11 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Q8I-DA-kdz">
-                                        <rect key="frame" x="60" y="0.0" width="294" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="Q8I-DA-kdz">
+                                        <rect key="frame" x="55" y="0.0" width="279" height="30"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q2X-m5-2jV">
-                                                <rect key="frame" x="0.0" y="0.0" width="137" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="127" height="30"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="APw-zg-I8s"/>
@@ -43,13 +43,13 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HLw-vJ-Tas">
-                                                <rect key="frame" x="157" y="0.0" width="137" height="30"/>
+                                                <rect key="frame" x="152" y="0.0" width="127" height="30"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="EcD-Hh-tr2"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -61,9 +61,9 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="OcX-d5-gBa" firstAttribute="leading" secondItem="xEg-jC-ybf" secondAttribute="leading" constant="15" id="dRP-zH-ywM"/>
+                            <constraint firstItem="OcX-d5-gBa" firstAttribute="leading" secondItem="xEg-jC-ybf" secondAttribute="leading" constant="20" id="dRP-zH-ywM"/>
                             <constraint firstItem="OcX-d5-gBa" firstAttribute="centerY" secondItem="xEg-jC-ybf" secondAttribute="centerY" id="ts4-jV-XIT"/>
-                            <constraint firstAttribute="trailing" secondItem="OcX-d5-gBa" secondAttribute="trailing" constant="15" id="xoz-0c-XCQ"/>
+                            <constraint firstAttribute="trailing" secondItem="OcX-d5-gBa" secondAttribute="trailing" constant="30" id="xoz-0c-XCQ"/>
                         </constraints>
                     </view>
                 </subviews>

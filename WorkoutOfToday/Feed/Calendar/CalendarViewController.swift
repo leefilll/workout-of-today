@@ -46,6 +46,18 @@ class CalendarViewController: BasicViewController, Childable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setWorkoutsInSelectedDay(in: Date.now)
+    }
+    
+    private func setWorkoutsInSelectedDay(in date: Date) {
+        let startDate = Calendar.current.startOfDay(for: date)
+        guard let section = sections
+            .filter({ $0.0 == startDate })
+            .first else {
+                workoutsInSelectedDay = nil
+                return
+        }
+        workoutsInSelectedDay = section.1
     }
     
     private func configureContainerTableView() {
@@ -121,14 +133,7 @@ extension CalendarViewController: FSCalendarDelegate {
         calendar.setScope(.week, animated: true)
         
         // MARK: update model workoutsInSelectedDay
-        let startDate = Calendar.current.startOfDay(for: date)
-        guard let section = sections
-            .filter({ $0.0 == startDate })
-            .first else {
-                workoutsInSelectedDay = nil
-                return
-        }
-        workoutsInSelectedDay = section.1
+        setWorkoutsInSelectedDay(in: date)
     }
 }
 

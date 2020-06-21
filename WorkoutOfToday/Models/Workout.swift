@@ -12,11 +12,8 @@ import RealmSwift
 final class Workout: Object {
     @objc dynamic var id = UUID().uuidString
     @objc dynamic var template: WorkoutTemplate?
-//    @objc dynamic var day: WorkoutsOfDay?
     @objc dynamic var created: Date = Date()
     let sets = List<WorkoutSet>()
-//    let sets = LinkingObjects(fromType: WorkoutSet.self,
-//                              property: "workout")
     
     public var name: String {
         return template?.name ?? ""
@@ -29,26 +26,6 @@ final class Workout: Object {
     public var equipment: Equipment {
         return template?.equipment ?? .none
     }
-       
-    //    public var name: String {
-    //        return _templates[0].name
-    //    }
-    
-//    public var part: Part {
-//        return _templates[0].part
-//    }
-//
-//    public var equipment: Equipment {
-//        return _templates[0].equipment
-//    }
-//
-//    public var template: WorkoutTemplate {
-//        return _templates[0]
-//    }
-//
-//    public var day: WorkoutsOfDay {
-//        return _days[0]
-//    }
     
     public var rm: Double {
         var rm: Double = 0
@@ -65,11 +42,17 @@ final class Workout: Object {
     }
     
     public var totalVolume: Double {
-        var total = 0.0
-        self.sets.forEach { set in
-            total += set.volume
+        guard let template = template else { return 0.0 }
+        switch template.style {
+            case .weightWithReps:
+                return sets.reduce(0.0) { $0 + $1.volume }
+            case .reps:
+                return Double(numberOfSets)
+            case .time:
+                return 0.0
+            default:
+                return 0.0
         }
-        return total
     }
     
     public var bestSet: WorkoutSet? {

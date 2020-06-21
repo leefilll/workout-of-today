@@ -194,21 +194,19 @@ extension DBHandler {
                 .reduce(0.0) { $0 + $1.totalVolume }
                 return workoutVolume == 0.0 ? nil : (date: startDate, volume: workoutVolume)
         }
-        return volumesByDate
+        return volumesByDate.sorted { (prev, next) -> Bool in
+            return prev.date < next.date
+        }
     }
     
     func fechWorkoutVolumeByPeriod(workoutName: String, period: Period) -> [(date: Date, volume: Double)] {
         let sortedWorkout = fetchWorkoutsByPeriod(workoutName: workoutName, period: period)
         var volumesByDate: [(date: Date, volume: Double)] = []
         
-        // TODO: Make same tuple if multiple same workout in a day
         for workout in sortedWorkout {
             let dateWithVolume = (date: workout.created.startOfDate(), volume: workout.totalVolume)
             let lastIdx = volumesByDate.count - 1
-            print(lastIdx)
             if lastIdx > 0 {
-                print(volumesByDate[lastIdx - 1].date, dateWithVolume.date, volumesByDate[lastIdx - 1].date == dateWithVolume.date)
-                
                 if volumesByDate[lastIdx - 1].date == dateWithVolume.date {
                     volumesByDate[lastIdx - 1].volume += dateWithVolume.volume
                     continue
@@ -216,6 +214,7 @@ extension DBHandler {
             }
             volumesByDate.append(dateWithVolume)
         }
+        
         return volumesByDate
     }
     
