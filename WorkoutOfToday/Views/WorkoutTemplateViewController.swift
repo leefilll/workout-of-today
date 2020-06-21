@@ -26,7 +26,7 @@ class WorkoutTemplateViewController: BasicViewController {
     
     // MARK: View
     
-    @IBOutlet weak var searchBar: UISearchBar!
+//    @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var templateCollectionView: UICollectionView!
     

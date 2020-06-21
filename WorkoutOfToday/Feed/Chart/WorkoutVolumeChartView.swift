@@ -130,29 +130,27 @@ class WorkoutVolumeChartView: BasicChartView {
         
         if let maxVolume = volumesByDate.max(by: { return $0.volume < $1.volume }) {
             maxValue = maxVolume.volume
-            print("maxVolume: \(maxValue)")
-            print("maxVolume: \(maxValue)")
-            print("maxVolume: \(maxValue)")
-            let upperLimitLine = ChartLimitLine(limit: maxValue)
-            upperLimitLine.lineWidth = 2
-            upperLimitLine.lineDashLengths = [5, 5]
-            upperLimitLine.lineColor = .concaveColor
-            
-            let rightAxis = lineChartView.rightAxis
-            rightAxis.removeAllLimitLines()
-            rightAxis.addLimitLine(upperLimitLine)
-            rightAxis.axisMaximum = maxValue
-            rightAxis.drawLimitLinesBehindDataEnabled = true
-            rightAxis.axisLineColor = .clear
+//            let upperLimitLine = ChartLimitLine(limit: maxValue)
+//            upperLimitLine.lineWidth = 2
+//            upperLimitLine.lineDashLengths = [5, 5]
+//            upperLimitLine.lineColor = .concaveColor
+//
+//            let rightAxis = lineChartView.rightAxis
+//            rightAxis.removeAllLimitLines()
+//            rightAxis.addLimitLine(upperLimitLine)
+//            rightAxis.axisMaximum = maxValue
+//            rightAxis.drawLimitLinesBehindDataEnabled = true
+//            rightAxis.axisLineColor = .clear
 //            rightAxis.drawLabelsEnabled = false
-            rightAxis.labelFont = .description
-            rightAxis.labelTextColor = .lightGray
-            rightAxis.gridColor = .clear
-            rightAxis.valueFormatter = xAxisFormatter
-            lineChartView.rightAxis.enabled = true
-        } else {
-            lineChartView.rightAxis.enabled = false
+//            rightAxis.labelFont = .description
+//            rightAxis.labelTextColor = .lightGray
+//            rightAxis.gridColor = .clear
+//            rightAxis.valueFormatter = xAxisFormatter
+//            lineChartView.rightAxis.enabled = true
         }
+//        else {
+        lineChartView.rightAxis.enabled = false
+//        }
          
         lineChartView.data = data
         lineChartView.chartDescription?.enabled = false
@@ -174,9 +172,10 @@ class WorkoutVolumeChartView: BasicChartView {
 // MARK: ChartView Delegate
 
 extension WorkoutVolumeChartView: ChartViewDelegate {
-    //    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-    //        print(entry)
-    //    }
+        func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+            print(#function)
+            print(entry)
+        }
 }
 
 // MARK: Value Formatter Delegate
@@ -204,9 +203,6 @@ extension WorkoutVolumeChartView: IAxisValueFormatter {
             if value == maxValue {
                 let nFormatter = NumberFormatter()
                 nFormatter.numberStyle = .decimal
-                print(nFormatter.string(from: NSNumber(value: value)))
-                print(nFormatter.string(from: NSNumber(value: value)))
-                
                 return "\(value)kg"
             }
             return ""

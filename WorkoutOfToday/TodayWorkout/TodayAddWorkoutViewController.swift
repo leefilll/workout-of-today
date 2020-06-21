@@ -50,13 +50,15 @@ class TodayAddWorkoutViewController: WorkoutTemplateViewController {
         originMaxY = view.frame.maxY
     }
     
-    override func configureNavigationBar() {
-        super.configureNavigationBar()
-//        navigationBar.topItem.
-    }
+//    override func configureNavigationBar() {
+//        super.configureNavigationBar()
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(editTemplateButtonDidTapped(_:)))
+////        navigationBar.topItem.
+//    }
     
     private func setupEditTemplateButton() {
 //        editTemplateButton.action = #selector(editTemplateButtonDidTapped(_:))
+        navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(editTemplateButtonDidTapped(_:)))
     }
     
     private func setupPanGestureRecognizer() {

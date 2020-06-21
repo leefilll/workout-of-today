@@ -15,6 +15,10 @@ class ProfileWorkoutTemplateViewController: WorkoutTemplateViewController {
     
     var delegate: WorkoutTemplateDidSelectedDelegate?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedTemplate = templates[indexPath.section][indexPath.item]
         delegate?.workoutTemplateDidSelect(workoutTemplate: selectedTemplate)

@@ -57,9 +57,48 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
         configureTableView()
         configureWorkoutAddButton()
         
+        
+//      MARK: TEST DATA
+//        let ts = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self)
+//            .filter("_name = '다다다거거걱'")
+//            .first!
+//
+//
+//        func makeDummy(numOfSets: Int, day: Int) {
+//            let w1 = Workout()
+//            w1.template = ts
+//            w1.created = Date.now.dateFromDays(day)
+//
+//            var ss = [WorkoutSet]()
+//
+//            Array(0...numOfSets).forEach { _ in
+//                let s1 = WorkoutSet()
+//                s1.reps = 100000
+//                s1.weight = 1000000
+//                ss.append(s1)
+//            }
+//
+//            DBHandler.shared.write {
+//                DBHandler.shared.realm.add(w1)
+//                ss.forEach { s in
+//                    DBHandler.shared.realm.add(s)
+//                    w1.sets.append(s)
+//                }
+//            }
+//        }
+//
+//        makeDummy(numOfSets: 1, day: -57)
+//        makeDummy(numOfSets: 1, day: -56)
+//        makeDummy(numOfSets: 1, day: -55)
+//        makeDummy(numOfSets: 1, day: -54)
+//        makeDummy(numOfSets: 1, day: -53)
+//        makeDummy(numOfSets: 1, day: -52)
+//        makeDummy(numOfSets: 1, day: -51)
+//        makeDummy(numOfSets: 1, day: -50)
+//
         workouts = DBHandler.shared.fetchObjects(ofType: Workout.self)
-            .filter(Date.now.predicateForDay)
-            .sorted(byKeyPath: "created")
+        .filter(Date.now.predicateForDay)
+        .sorted(byKeyPath: "created")
     }
     
     
@@ -241,7 +280,7 @@ extension TodayWorkoutViewController {
     
     @objc
     private func workoutNoteButtonDidTapped(_ sender: UIButton) {
-        guard let workouts = workouts else { return }
+//        guard let workouts = workouts else { return }
         let noteVC = TodayWorkoutNoteViewController(nibName: "TodayWorkoutNoteViewController", bundle: nil)
         noteVC.modalPresentationStyle = .custom
         noteVC.transitioningDelegate = popupTransitioningDelegateForNote
@@ -318,7 +357,8 @@ extension TodayWorkoutViewController: UITableViewDelegate {
         let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(workoutSectionHeaderDidBeginPressed(_:)))
         let headerView = tableView.dequeueReusableHeaderFooterView(TodayWorkoutSectionHeaderView.self)
         headerView.tag = section
-        headerView.workout = workout
+//        headerView.workout = workout
+        headerView.template = workout.template
         headerView.addGestureRecognizer(longPressGestureRecognizer)
         
         let backgroundView = UIView()

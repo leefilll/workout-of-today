@@ -113,7 +113,9 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="containerView" destination="hJB-8c-H2H" id="6g4-6U-BCr"/>
+                <outlet property="repsLabel" destination="4IC-h2-OuT" id="Lwd-jU-iPi"/>
                 <outlet property="topStackView" destination="0XJ-NL-zXG" id="aqj-9f-CEZ"/>
+                <outlet property="weightLabel" destination="Fhc-vA-lew" id="1sR-dd-itX"/>
                 <outlet property="workoutEquipmentButton" destination="dRE-aX-kkQ" id="ZVw-L0-bhc"/>
                 <outlet property="workoutNameLabel" destination="9aa-Ue-OTT" id="d6H-qa-oSx"/>
                 <outlet property="workoutPartButton" destination="UUM-TN-DBH" id="Ceq-jc-pW2"/>

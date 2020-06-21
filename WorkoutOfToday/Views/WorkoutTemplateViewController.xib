@@ -11,7 +11,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WorkoutTemplateViewController" customModule="WorkoutOfToday" customModuleProvider="target">
             <connections>
                 <outlet property="navigationBar" destination="bAk-zd-hMG" id="IGl-PJ-lNd"/>
-                <outlet property="searchBar" destination="L4m-dV-HvU" id="rfL-qV-ron"/>
                 <outlet property="templateCollectionView" destination="BIB-UB-i8f" id="YZY-GE-WLy"/>
                 <outlet property="view" destination="kQS-dL-rTk" id="WgS-ZV-IYG"/>
             </connections>
@@ -22,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="BIB-UB-i8f">
-                    <rect key="frame" x="25" y="144" width="364" height="718"/>
+                    <rect key="frame" x="25" y="88" width="364" height="754"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="3Pe-Yd-YnN" customClass="FeedCollectionViewFlowLayout" customModule="WorkoutOfToday" customModuleProvider="target">
                         <size key="itemSize" width="128" height="128"/>
@@ -31,11 +30,6 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="L4m-dV-HvU">
-                    <rect key="frame" x="20" y="88" width="374" height="56"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <textInputTraits key="textInputTraits"/>
-                </searchBar>
                 <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bAk-zd-hMG">
                     <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                     <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -49,13 +43,10 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="BIB-UB-i8f" firstAttribute="leading" secondItem="8rd-tQ-aQo" secondAttribute="leading" constant="25" id="8QG-FJ-iim"/>
-                <constraint firstItem="L4m-dV-HvU" firstAttribute="top" secondItem="bAk-zd-hMG" secondAttribute="bottom" id="MuB-Mm-9Al"/>
+                <constraint firstItem="BIB-UB-i8f" firstAttribute="top" secondItem="bAk-zd-hMG" secondAttribute="bottom" id="Bo8-wK-c3f"/>
                 <constraint firstItem="bAk-zd-hMG" firstAttribute="leading" secondItem="kQS-dL-rTk" secondAttribute="leading" id="Pf8-VS-FKU"/>
                 <constraint firstItem="bAk-zd-hMG" firstAttribute="top" secondItem="8rd-tQ-aQo" secondAttribute="top" id="i3w-Hb-ckm"/>
-                <constraint firstItem="8rd-tQ-aQo" firstAttribute="bottom" secondItem="BIB-UB-i8f" secondAttribute="bottom" id="ltg-Xv-Ug3"/>
-                <constraint firstItem="8rd-tQ-aQo" firstAttribute="trailing" secondItem="L4m-dV-HvU" secondAttribute="trailing" constant="20" id="mmU-bu-VCu"/>
-                <constraint firstItem="BIB-UB-i8f" firstAttribute="top" secondItem="L4m-dV-HvU" secondAttribute="bottom" id="p3u-5X-5J4"/>
-                <constraint firstItem="L4m-dV-HvU" firstAttribute="leading" secondItem="8rd-tQ-aQo" secondAttribute="leading" constant="20" id="rlC-dz-hM8"/>
+                <constraint firstItem="8rd-tQ-aQo" firstAttribute="bottom" secondItem="BIB-UB-i8f" secondAttribute="bottom" constant="20" id="ltg-Xv-Ug3"/>
                 <constraint firstItem="8rd-tQ-aQo" firstAttribute="trailing" secondItem="bAk-zd-hMG" secondAttribute="trailing" id="w8c-Wx-fYH"/>
                 <constraint firstItem="8rd-tQ-aQo" firstAttribute="trailing" secondItem="BIB-UB-i8f" secondAttribute="trailing" constant="25" id="ylJ-2L-Lzr"/>
             </constraints>

@@ -18,6 +18,14 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
         }
     }
     
+    var template: WorkoutTemplate? {
+        didSet {
+            workoutNameLabel.text = template?.name
+            workoutPartButton.part = template?.part
+            setStyle()
+        }
+    }
+    
     var isDetailView: Bool = false {
         willSet {
             topStackView.isHidden = newValue
@@ -35,6 +43,10 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
     @IBOutlet weak var workoutEquipmentButton: WorkoutEquipmentButton!
     
     @IBOutlet var unitLabels: [UILabel]!
+    
+    @IBOutlet weak var weightLabel: UILabel!
+    
+    @IBOutlet weak var repsLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -59,6 +71,19 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
         unitLabels.forEach { label in
             label.font = .description
             label.textColor = .lightGray
+        }
+    }
+    private func setStyle() {
+        guard let template = template else { return }
+        switch template.style {
+            case .weight:
+                repsLabel.isHidden = true
+            case .time:
+                repsLabel.isHidden = true
+                weightLabel.text = "time(m)"
+            case .reps:
+                weightLabel.isHidden = true
+            default: break
         }
     }
     

@@ -43,6 +43,9 @@ class LabelCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         willSet {
+            if content is Part || content is Style {
+                select(newValue)
+            }
         }
     }
     
@@ -96,5 +99,13 @@ class LabelCollectionViewCell: UICollectionViewCell {
                         }
         },
                        completion: nil)
+    }
+    
+    private func select(_ newValue: Bool) {
+        if newValue {
+            contentView.backgroundColor = UIColor.tintColor
+        } else {
+            contentView.backgroundColor = UIColor.tintColor.withAlphaComponent(0.5)
+        }
     }
 }
