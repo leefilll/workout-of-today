@@ -30,7 +30,7 @@ class BasicSectionHeaderView: UITableViewHeaderFooterView {
         label.snp.makeConstraints { make in
             make.leading.equalTo(Inset.Cell.horizontalInset)
             make.bottom.equalToSuperview().offset(-5)
-            make.top.equalToSuperview().offset(20)
+            make.top.equalToSuperview().offset(0)
         }
     }
 }

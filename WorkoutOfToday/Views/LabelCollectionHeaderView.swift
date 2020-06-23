@@ -38,7 +38,7 @@ class LabelCollectionHeaderView: UICollectionReusableView {
         super.layoutSubviews()
         self.titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(titleLabelLeadingConstant)
-            make.bottom.equalToSuperview().offset(-10)
+            make.bottom.equalToSuperview().offset(-6)
         }
     }
 }

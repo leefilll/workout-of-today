@@ -572,8 +572,8 @@
 				BBE15F142455C777005600B3 /* ProfileEditViewController.swift */,
 				BB6D27742469B41A0011DB2D /* HighlightsWeekChartView.swift */,
 				BBE15F0C2455C283005600B3 /* SummaryView.swift */,
-				BBC65CA1244DCB1C006F0ADB /* Nibs */,
 				BB04AF77248E75340006BE87 /* ProfileWorkoutTemplateViewController.swift */,
+				BBC65CA1244DCB1C006F0ADB /* Nibs */,
 			);
 			path = Profile;
 			sourceTree = "<group>";

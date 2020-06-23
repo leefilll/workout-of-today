@@ -34,7 +34,6 @@ class TodayAddWorkoutViewController: WorkoutTemplateViewController {
         return "운동 추가"
     }
     
-    
     override func setup() {
         super.setup()
         tapGestureRecognizer = UITapGestureRecognizer(target: self,

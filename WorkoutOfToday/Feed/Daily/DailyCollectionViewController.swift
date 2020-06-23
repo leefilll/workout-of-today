@@ -13,15 +13,16 @@ import DZNEmptyDataSet
 
 class DailyCollectionViewController: BasicViewController, Childable {
     
+    // MARK: View
+
+    weak var collectionView: UICollectionView!
+    
     // MARK: Model
 
     var sections: [(Date, Results<Workout>)]!
     
-    lazy private var popupTransitioningDelegate = PopupTransitioningDelegate(height: self.view.bounds.height * 3 / 4)
-
-    // MARK: View
-
-    weak var collectionView: UICollectionView!
+    lazy private var popupTransitioningDelegate
+        = PopupTransitioningDelegate(height: self.view.bounds.height * 3 / 4)
 
     override func setup() {
         setupCollectionView()
@@ -29,9 +30,11 @@ class DailyCollectionViewController: BasicViewController, Childable {
     
     private func setupCollectionView() {
         let sectionInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-        let layout = FeedCollectionViewFlowLayout(minimumInteritemSpacing: 3, minimumLineSpacing: 0, sectionInset: sectionInset)
+        let layout = FeedCollectionViewFlowLayout(minimumInteritemSpacing: 3,
+                                                  minimumLineSpacing: 0,
+                                                  sectionInset: sectionInset)
         layout.scrollDirection = .vertical
-        layout.headerReferenceSize = CGSize(width: 0, height: 80)
+        layout.headerReferenceSize = CGSize(width: 0, height: 60)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear

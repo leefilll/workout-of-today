@@ -58,6 +58,7 @@ class CalendarViewController: BasicViewController, Childable {
                 return
         }
         workoutsInSelectedDay = section.1
+        containerTableView.reloadData()
     }
     
     private func configureContainerTableView() {

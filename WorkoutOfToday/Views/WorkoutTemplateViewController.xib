@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WorkoutTemplateViewController" customModule="WorkoutOfToday" customModuleProvider="target">
             <connections>
+                <outlet property="dragBar" destination="RHh-cd-0tl" id="cxo-nk-eT6"/>
                 <outlet property="navigationBar" destination="bAk-zd-hMG" id="IGl-PJ-lNd"/>
                 <outlet property="templateCollectionView" destination="BIB-UB-i8f" id="YZY-GE-WLy"/>
                 <outlet property="view" destination="kQS-dL-rTk" id="WgS-ZV-IYG"/>
@@ -20,8 +21,17 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="BIB-UB-i8f">
-                    <rect key="frame" x="25" y="88" width="364" height="754"/>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bAk-zd-hMG">
+                    <rect key="frame" x="0.0" y="57.5" width="414" height="44"/>
+                    <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <items>
+                        <navigationItem title="Title" id="ejt-Y3-1xf">
+                            <barButtonItem key="rightBarButtonItem" systemItem="add" id="CM0-ED-d0Q"/>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="BIB-UB-i8f">
+                    <rect key="frame" x="20" y="101.5" width="374" height="794.5"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="3Pe-Yd-YnN" customClass="FeedCollectionViewFlowLayout" customModule="WorkoutOfToday" customModuleProvider="target">
                         <size key="itemSize" width="128" height="128"/>
@@ -30,25 +40,26 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bAk-zd-hMG">
-                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                    <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <items>
-                        <navigationItem title="Title" id="ejt-Y3-1xf">
-                            <barButtonItem key="rightBarButtonItem" systemItem="add" id="CM0-ED-d0Q"/>
-                        </navigationItem>
-                    </items>
-                </navigationBar>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RHh-cd-0tl">
+                    <rect key="frame" x="184.5" y="49" width="45" height="3.5"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="45" id="A9a-Uq-rKh"/>
+                        <constraint firstAttribute="height" constant="3.5" id="FEg-m4-7Tg"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="BIB-UB-i8f" firstAttribute="leading" secondItem="8rd-tQ-aQo" secondAttribute="leading" constant="25" id="8QG-FJ-iim"/>
-                <constraint firstItem="BIB-UB-i8f" firstAttribute="top" secondItem="bAk-zd-hMG" secondAttribute="bottom" id="Bo8-wK-c3f"/>
+                <constraint firstItem="BIB-UB-i8f" firstAttribute="leading" secondItem="8rd-tQ-aQo" secondAttribute="leading" constant="20" id="8QG-FJ-iim"/>
                 <constraint firstItem="bAk-zd-hMG" firstAttribute="leading" secondItem="kQS-dL-rTk" secondAttribute="leading" id="Pf8-VS-FKU"/>
-                <constraint firstItem="bAk-zd-hMG" firstAttribute="top" secondItem="8rd-tQ-aQo" secondAttribute="top" id="i3w-Hb-ckm"/>
-                <constraint firstItem="8rd-tQ-aQo" firstAttribute="bottom" secondItem="BIB-UB-i8f" secondAttribute="bottom" constant="20" id="ltg-Xv-Ug3"/>
+                <constraint firstItem="bAk-zd-hMG" firstAttribute="top" secondItem="RHh-cd-0tl" secondAttribute="bottom" constant="5" id="Ted-zE-MtL"/>
+                <constraint firstItem="8rd-tQ-aQo" firstAttribute="trailing" secondItem="BIB-UB-i8f" secondAttribute="trailing" constant="20" id="Xff-qO-eee"/>
+                <constraint firstItem="RHh-cd-0tl" firstAttribute="centerX" secondItem="kQS-dL-rTk" secondAttribute="centerX" id="ZDe-9l-8aP"/>
+                <constraint firstItem="RHh-cd-0tl" firstAttribute="top" secondItem="8rd-tQ-aQo" secondAttribute="top" constant="5" id="giQ-ir-Khb"/>
+                <constraint firstAttribute="bottom" secondItem="BIB-UB-i8f" secondAttribute="bottom" id="ltg-Xv-Ug3"/>
+                <constraint firstItem="BIB-UB-i8f" firstAttribute="top" secondItem="bAk-zd-hMG" secondAttribute="bottom" id="nhh-Hk-QdX"/>
                 <constraint firstItem="8rd-tQ-aQo" firstAttribute="trailing" secondItem="bAk-zd-hMG" secondAttribute="trailing" id="w8c-Wx-fYH"/>
-                <constraint firstItem="8rd-tQ-aQo" firstAttribute="trailing" secondItem="BIB-UB-i8f" secondAttribute="trailing" constant="25" id="ylJ-2L-Lzr"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="8rd-tQ-aQo"/>
             <point key="canvasLocation" x="-572.46376811594212" y="843.75"/>

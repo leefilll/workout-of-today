@@ -102,12 +102,15 @@ class WorkoutVolumeChartView: BasicChartView {
         set.drawIconsEnabled = false
         set.highlightLineDashLengths = [5, 2.5]
         set.setColor(workoutTemplate.part.color)
+        
+        set.drawCirclesEnabled = entries.count < 20
+        set.drawCircleHoleEnabled = true
         set.setCircleColor(workoutTemplate.part.color)
         set.circleHoleColor = workoutTemplate.part.color.withAlphaComponent(0.1)
-        set.lineWidth = 2
         set.circleRadius = 4
         set.circleHoleRadius = 2
-        set.drawCircleHoleEnabled = true
+        
+        set.lineWidth = 2
         set.valueFont = .subheadline
         set.formLineDashLengths = [5, 2.5]
         set.formLineWidth = 1
@@ -120,7 +123,7 @@ class WorkoutVolumeChartView: BasicChartView {
         let xAxis = lineChartView.xAxis
         xAxis.labelPosition = .bottom
         xAxis.gridLineWidth = 0
-        xAxis.granularity = 1
+        xAxis.granularity = 10
         xAxis.labelCount = 4
         xAxis.labelFont = .description
         xAxis.labelTextColor = .lightGray
@@ -174,8 +177,6 @@ class WorkoutVolumeChartView: BasicChartView {
 
 extension WorkoutVolumeChartView: ChartViewDelegate {
         func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-            print(#function)
-            print(entry)
         }
 }
 

@@ -11,6 +11,14 @@ import UIKit
 import RealmSwift
 
 class WorkoutTemplateViewController: BasicViewController {
+
+    // MARK: View
+    
+    @IBOutlet weak var templateCollectionView: UICollectionView!
+    
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    
+    @IBOutlet weak var dragBar: UIView!
     
     // MARK: Model
     
@@ -24,13 +32,7 @@ class WorkoutTemplateViewController: BasicViewController {
         return partArray
     }
     
-    // MARK: View
-    
-//    @IBOutlet weak var searchBar: UISearchBar!
-    
-    @IBOutlet weak var templateCollectionView: UICollectionView!
-    
-    @IBOutlet weak var navigationBar: UINavigationBar!
+    var searchedTemplates: [[WorkoutTemplate]]?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: "WorkoutTemplateViewController", bundle: nil)
@@ -41,17 +43,17 @@ class WorkoutTemplateViewController: BasicViewController {
     }
     
     override func setup() {
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 10
-        
         setupCollectionView()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchedTemplates = templates
         view.backgroundColor = .white
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        setupDragBar()
     }
-    
     
     override func configureNavigationBar() {
         navigationBar.topItem?.title = navigationBarTitle
@@ -65,6 +67,11 @@ class WorkoutTemplateViewController: BasicViewController {
         selectionFeedbackGenerator?.prepare()
     }
     
+    private func setupDragBar() {
+        dragBar.backgroundColor = .lightGray
+        dragBar.layer.cornerRadius = 3
+    }
+    
     private func setupCollectionView() {
         if let layout = templateCollectionView.collectionViewLayout as? FeedCollectionViewFlowLayout {
             layout.minimumLineSpacing = 0
@@ -72,6 +79,7 @@ class WorkoutTemplateViewController: BasicViewController {
             layout.scrollDirection = .vertical
             layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
+        templateCollectionView.contentInset.bottom = 40
         templateCollectionView.delegate = self
         templateCollectionView.dataSource = self
         templateCollectionView.delaysContentTouches = false
@@ -149,18 +157,5 @@ extension WorkoutTemplateViewController: UICollectionViewDelegateFlowLayout {
         }
         return CGSize(width: itemSize.width + extraWidth,
                       height: Size.addCollectionViewHeight)
-    }
-}
-
-// MARK: TextField Delegate
-
-extension WorkoutTemplateViewController: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let text = textField.text else { return }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
     }
 }

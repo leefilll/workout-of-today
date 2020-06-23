@@ -17,6 +17,7 @@ class ProfileWorkoutTemplateViewController: WorkoutTemplateViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dragBar.isHidden = true
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

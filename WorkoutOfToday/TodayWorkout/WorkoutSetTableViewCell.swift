@@ -36,6 +36,7 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
     
     @IBOutlet weak var repsTextField: UITextField!
     
+    @IBOutlet weak var divideLineView: UIView!
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -49,7 +50,10 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
         
         containerView.backgroundColor = .white
         
-        countLabel.font = .smallBoldTitle
+        divideLineView.backgroundColor = .weakTintColor
+        divideLineView.layer.cornerRadius = 2
+        
+        countLabel.font = .smallestBoldTitle
         countLabel.textColor = .lightGray
         
         weightTextField.backgroundColor = .concaveColor

@@ -59,43 +59,42 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
         
         
 //      MARK: TEST DATA
-//        let ts = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self)
-//            .filter("_name = '다다다거거걱'")
-//            .first!
-//
-//
-//        func makeDummy(numOfSets: Int, day: Int) {
-//            let w1 = Workout()
-//            w1.template = ts
-//            w1.created = Date.now.dateFromDays(day)
-//
-//            var ss = [WorkoutSet]()
-//
-//            Array(0...numOfSets).forEach { _ in
-//                let s1 = WorkoutSet()
-//                s1.reps = 100000
-//                s1.weight = 1000000
-//                ss.append(s1)
-//            }
-//
-//            DBHandler.shared.write {
-//                DBHandler.shared.realm.add(w1)
-//                ss.forEach { s in
-//                    DBHandler.shared.realm.add(s)
-//                    w1.sets.append(s)
-//                }
-//            }
-//        }
-//
-//        makeDummy(numOfSets: 1, day: -57)
-//        makeDummy(numOfSets: 1, day: -56)
-//        makeDummy(numOfSets: 1, day: -55)
-//        makeDummy(numOfSets: 1, day: -54)
-//        makeDummy(numOfSets: 1, day: -53)
-//        makeDummy(numOfSets: 1, day: -52)
-//        makeDummy(numOfSets: 1, day: -51)
-//        makeDummy(numOfSets: 1, day: -50)
-//
+        let ts = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self)
+            .filter("_name = 'ㅌㅌㅇㅇㅊㅎ'")
+            .first!
+
+        func makeDummy(numOfSets: Int, day: Int) {
+            let w1 = Workout()
+            w1.template = ts
+            w1.created = Date.now.dateFromDays(day)
+
+            var ss = [WorkoutSet]()
+
+            Array(0...numOfSets).forEach { _ in
+                let s1 = WorkoutSet()
+                s1.reps = 10
+                s1.weight = 100
+                ss.append(s1)
+            }
+
+            DBHandler.shared.write {
+                DBHandler.shared.realm.add(w1)
+                ss.forEach { s in
+                    DBHandler.shared.realm.add(s)
+                    w1.sets.append(s)
+                }
+            }
+        }
+
+        makeDummy(numOfSets: 1, day: -50)
+        makeDummy(numOfSets: 2, day: -49)
+        makeDummy(numOfSets: 10, day: -48)
+        makeDummy(numOfSets: 5, day: -47)
+        makeDummy(numOfSets: 8, day: -46)
+        makeDummy(numOfSets: 2, day: -45)
+        makeDummy(numOfSets: 4, day: -44)
+        makeDummy(numOfSets: 1, day: -43)
+        
         workouts = DBHandler.shared.fetchObjects(ofType: Workout.self)
         .filter(Date.now.predicateForDay)
         .sorted(byKeyPath: "created")
@@ -310,7 +309,7 @@ extension TodayWorkoutViewController: UITableViewDataSource {
         let workoutSet = workout?.sets[indexPath.row]
         let setCount = indexPath.row + 1
         
-        cell.countLabel.text = "\(setCount)"
+        cell.countLabel.text = "\(setCount) set"
         cell.workoutSet = workoutSet
         cell.indexPath = indexPath
         cell.delegate = self
@@ -409,7 +408,7 @@ extension TodayWorkoutViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDele
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let str = "오늘의 운동이 없습니다."
+        let str = "오늘 운동이 없습니다"
         let font = UIFont.smallBoldTitle
         let attributes = [
             NSAttributedString.Key.font: font,
@@ -419,16 +418,16 @@ extension TodayWorkoutViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDele
         return attributedString
     }
     
-    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let str = "화면을 터치하거나 버튼을 탭하여\n운동을 추가하세요."
-        let font = UIFont.subheadline
-        let attributes = [
-            NSAttributedString.Key.font: font,
-            NSAttributedString.Key.foregroundColor: UIColor.lightGray
-        ]
-        let attributedString = NSAttributedString(string: str, attributes: attributes)
-        return attributedString
-    }
+//    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+//        let str = "화면을 터치하거나 버튼을 탭하여\n운동을 추가하세요."
+//        let font = UIFont.subheadline
+//        let attributes = [
+//            NSAttributedString.Key.font: font,
+//            NSAttributedString.Key.foregroundColor: UIColor.lightGray
+//        ]
+//        let attributedString = NSAttributedString(string: str, attributes: attributes)
+//        return attributedString
+//    }
     
     func emptyDataSet(_ scrollView: UIScrollView!, didTap view: UIView!) {
         workoutAddButtonDidTapped(nil)
