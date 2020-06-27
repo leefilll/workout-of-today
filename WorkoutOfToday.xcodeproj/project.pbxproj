@@ -19,6 +19,7 @@
 		BB12C88B2447343D007DFBC1 /* Pods_WorkoutOfToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1649F6C72DC0D20F9053D785 /* Pods_WorkoutOfToday.framework */; };
 		BB12C88C2447343D007DFBC1 /* Pods_WorkoutOfToday.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1649F6C72DC0D20F9053D785 /* Pods_WorkoutOfToday.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BB12C8A82447441E007DFBC1 /* BasicSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB12C8A72447441E007DFBC1 /* BasicSectionHeaderView.swift */; };
+		BB1BD17324A7A19500B603EA /* ChartMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1BD17224A7A19500B603EA /* ChartMarkerView.swift */; };
 		BB206FA02450776600057CDB /* PopupPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB206F9F2450776600057CDB /* PopupPresentationController.swift */; };
 		BB206FC624508D9600057CDB /* WorkoutTemplateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB206FC524508D9600057CDB /* WorkoutTemplateViewController.xib */; };
 		BB2E75422447752E006108F5 /* UIButton+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2E75412447752E006108F5 /* UIButton+Color.swift */; };
@@ -165,6 +166,7 @@
 		BB12C89F24473CAE007DFBC1 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB12C8A024473CAE007DFBC1 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB12C8A72447441E007DFBC1 /* BasicSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSectionHeaderView.swift; sourceTree = "<group>"; };
+		BB1BD17224A7A19500B603EA /* ChartMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartMarkerView.swift; sourceTree = "<group>"; };
 		BB206F9F2450776600057CDB /* PopupPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupPresentationController.swift; sourceTree = "<group>"; };
 		BB206FC524508D9600057CDB /* WorkoutTemplateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutTemplateViewController.xib; sourceTree = "<group>"; };
 		BB2E75412447752E006108F5 /* UIButton+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Color.swift"; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				BBEE7AF8247599E700F1DF33 /* WarningAlertViewController.swift */,
 				BB04AF75248E69110006BE87 /* WorkoutTemplateViewController.swift */,
 				BB206FC524508D9600057CDB /* WorkoutTemplateViewController.xib */,
+				BB1BD17224A7A19500B603EA /* ChartMarkerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -912,6 +915,7 @@
 				BB6D27752469B41A0011DB2D /* HighlightsWeekChartView.swift in Sources */,
 				BB8BB7A0243CBFBD00774EA9 /* WorkoutsOfDay.swift in Sources */,
 				BB12C8A82447441E007DFBC1 /* BasicSectionHeaderView.swift in Sources */,
+				BB1BD17324A7A19500B603EA /* ChartMarkerView.swift in Sources */,
 				BB04AF76248E69110006BE87 /* WorkoutTemplateViewController.swift in Sources */,
 				BBB5D7B6244AF9BD00F89A68 /* BasicViewController.swift in Sources */,
 				BB96FD642444B99300E8DE10 /* LabelCollectionViewCell.swift in Sources */,

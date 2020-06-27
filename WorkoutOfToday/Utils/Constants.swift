@@ -101,6 +101,7 @@ enum Equipment: Int, CustomStringConvertible, CaseIterable {
     }
 }
 
+@objc
 enum Style: Int, CustomStringConvertible, CaseIterable {
     case weightWithReps
 //    case weight
@@ -115,9 +116,17 @@ enum Style: Int, CustomStringConvertible, CaseIterable {
     var description: String {
         switch self {
             case .weightWithReps: return "무게 + 횟수"
-//            case .weight: return "무게"
             case .reps: return "횟수"
             case .time: return "시간"
+            case .none: return "-"
+        }
+    }
+    
+    var string: String {
+        switch self {
+            case .weightWithReps: return "kg"
+            case .reps: return "회"
+            case .time: return "분"
             case .none: return "-"
         }
     }

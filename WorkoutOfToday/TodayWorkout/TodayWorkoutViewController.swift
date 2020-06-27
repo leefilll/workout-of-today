@@ -65,7 +65,7 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
             .first!
             
             let numOfSets = Int.random(in: 0...10)
-            let day = Int.random(in: -50...0)
+            let day = Int.random(in: -200...0)
             
             let w1 = Workout()
             w1.template = ts
@@ -88,14 +88,14 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
                 }
             }
         }
-//        
-//        for _ in 0...Int.random(in: 0...50) {
+
+//        for _ in 0...Int.random(in: 100...150) {
 //            makeDummy(name: "무게와 횟수 운동")
 //        }
-//        for _ in 0...Int.random(in: 0...50) {
+//        for _ in 0...Int.random(in: 100...150) {
 //            makeDummy(name: "횟수 운동")
 //        }
-//        for _ in 0...Int.random(in: 0...50) {
+//        for _ in 0...Int.random(in: 50...150) {
 //            makeDummy(name: "시간 운동")
 //        }
         

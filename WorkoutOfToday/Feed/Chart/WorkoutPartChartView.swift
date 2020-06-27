@@ -60,10 +60,12 @@ class WorkoutPartChartView: BasicChartView {
     
     private func updateChartWithData() {
         if isEmpty { return }
-        let entries = mostFrequentParts.enumerated().map { idx, count -> PieChartDataEntry in
-            return PieChartDataEntry(value: Double(count),
-                                     label: Part.string(from: idx))}
-        
+        let entries = mostFrequentParts
+            .enumerated()
+            .map { idx, count -> PieChartDataEntry in
+                return PieChartDataEntry(value: Double(count),
+                                         label: Part.string(from: idx))}
+
         let set = PieChartDataSet(entries: entries)
         set.label = nil
         set.sliceSpace = 3

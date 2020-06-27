@@ -80,6 +80,19 @@ class WorkoutVolumeChartView: BasicChartView {
         valueFormatter = self
         xAxisFormatter = self
         lineChartView.delegate = self
+        lineChartView.rightAxis.enabled = false
+        lineChartView.chartDescription?.enabled = false
+        lineChartView.legend.enabled = false
+        lineChartView.extraRightOffset = 30
+        lineChartView.extraLeftOffset = 30
+        lineChartView.dragEnabled = true
+        lineChartView.setScaleEnabled(false)
+        lineChartView.pinchZoomEnabled = false
+        lineChartView.isUserInteractionEnabled = true
+        lineChartView.leftAxis.enabled = false
+        lineChartView.drawBordersEnabled = false
+        lineChartView.drawGridBackgroundEnabled = false
+        lineChartView.drawMarkers = true
         self.lineChartView = lineChartView
     }
     
@@ -116,6 +129,7 @@ class WorkoutVolumeChartView: BasicChartView {
         set.formLineWidth = 1
         set.formSize = 15
         set.drawFilledEnabled = false
+        set.highlightLineWidth = 0
         
         let data = LineChartData(dataSet: set)
         data.setValueFormatter(valueFormatter!)
@@ -131,17 +145,15 @@ class WorkoutVolumeChartView: BasicChartView {
         xAxis.axisLineColor = .concaveColor
         xAxis.valueFormatter = xAxisFormatter
         
+        let marker = ChartMarkerView(color: .concaveColor,
+                                     font: .subheadline,
+                                     textColor: .black,
+                                     insets: UIEdgeInsets(top: 8, left: 8, bottom: 20, right: 8),
+                                     style: workoutTemplate.style)
+        marker.chartView = lineChartView
+        lineChartView.marker = marker
+        
         lineChartView.data = data
-        lineChartView.rightAxis.enabled = false
-        lineChartView.isUserInteractionEnabled = false
-        lineChartView.chartDescription?.enabled = false
-        lineChartView.legend.enabled = false
-        lineChartView.dragEnabled = false
-        lineChartView.setScaleEnabled(false)
-        lineChartView.pinchZoomEnabled = false
-        lineChartView.leftAxis.enabled = false
-        lineChartView.extraRightOffset = 30
-        lineChartView.extraLeftOffset = 30
     }
     
     func animateChart() {
