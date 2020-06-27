@@ -41,10 +41,10 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RHh-cd-0tl">
-                    <rect key="frame" x="184.5" y="49" width="45" height="3.5"/>
+                    <rect key="frame" x="189.5" y="49" width="35" height="3.5"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="45" id="A9a-Uq-rKh"/>
+                        <constraint firstAttribute="width" constant="35" id="A9a-Uq-rKh"/>
                         <constraint firstAttribute="height" constant="3.5" id="FEg-m4-7Tg"/>
                     </constraints>
                 </view>

@@ -9,13 +9,15 @@
 import UIKit
 
 import RealmSwift
+import DZNEmptyDataSet
+import SwiftIcons
 
 class TodayAddWorkoutViewController: WorkoutTemplateViewController {
     
     // MARK: Model
     
     private var tapGestureRecognizer: UITapGestureRecognizer!
-
+    
     private var panGestureRecognizer: UIPanGestureRecognizer!
     
     private var originMinY: CGFloat!
@@ -39,6 +41,8 @@ class TodayAddWorkoutViewController: WorkoutTemplateViewController {
         tapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                       action: #selector(containerViewDidTapped(_:)))
         templateCollectionView.delegate = self
+        templateCollectionView.emptyDataSetDelegate = self
+        templateCollectionView.emptyDataSetSource = self
         setupEditTemplateButton()
         setupPanGestureRecognizer()
     }
@@ -49,14 +53,8 @@ class TodayAddWorkoutViewController: WorkoutTemplateViewController {
         originMaxY = view.frame.maxY
     }
     
-//    override func configureNavigationBar() {
-//        super.configureNavigationBar()
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(editTemplateButtonDidTapped(_:)))
-////        navigationBar.topItem.
-//    }
-    
     private func setupEditTemplateButton() {
-//        editTemplateButton.action = #selector(editTemplateButtonDidTapped(_:))
+        //        editTemplateButton.action = #selector(editTemplateButtonDidTapped(_:))
         navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(editTemplateButtonDidTapped(_:)))
     }
     
@@ -139,5 +137,51 @@ extension TodayAddWorkoutViewController {
         postNotification(.WorkoutDidAdded)
         selectionFeedbackGenerator?.selectionChanged()
         dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: DZNEmptyDataSet DataSource and Delegate
+
+extension TodayAddWorkoutViewController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        for template in templates {
+            if !template.isEmpty {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        let iconImage = UIImage.init(icon: .ionicons(.iosInformationOutline),
+                                     size: CGSize(width: 70, height: 70),
+                                     textColor: .lightGray)
+        return iconImage
+    }
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "운동 템플릿이 없습니다"
+        let font = UIFont.smallBoldTitle
+        let attributes = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray
+        ]
+        let attributedString = NSAttributedString(string: str, attributes: attributes)
+        return attributedString
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "운동 템플릿을 등록하면\n간편하게 운동을 추가할 수 있습니다."
+        let font = UIFont.subheadline
+        let attributes = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray
+        ]
+        let attributedString = NSAttributedString(string: str, attributes: attributes)
+        return attributedString
+    }
+    
+    func emptyDataSet(_ scrollView: UIScrollView!, didTap view: UIView!) {
+        editTemplateButtonDidTapped(nil)
     }
 }

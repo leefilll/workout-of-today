@@ -178,34 +178,25 @@ extension DBHandler {
     }
     
     func fetchWorkoutVolumes(workoutTemplate: WorkoutTemplate) -> [(date: Date, volume: Double)] {
-        let sortedWorkout = DBHandler.shared.fetchObjects(ofType: Workout.self)
+        let selectedWorkouts = DBHandler.shared.fetchObjects(ofType: Workout.self)
             .filter("template == %@", workoutTemplate)
+            .sorted(byKeyPath: "created")
         
-        sortedWorkout.forEach { print("# \($0.created) \($0.totalVolume) \($0.template!.style)")}
-//        let volumesByDate = sortedWorkout
-//            .map { workout in
-//                return Calendar.current.startOfDay(for: workout.created)
-//        }
-//        .reduce([]) { dates, date in
-//            return dates.last == date ? dates : dates + [date]
-//        }
-//        .compactMap { startDate -> (date: Date, volume: Double)? in
-//            let endDate = Calendar.current.date(byAdding: .day, value: 1, to: startDate)!
-//            let workoutVolume = sortedWorkout
-//                .filter("(created >= %@) AND (created < %@)", startDate, endDate)
-//                .reduce(0.0) { $0 + $1.totalVolume }
-//            return workoutVolume == 0.0 ? nil : (date: startDate, volume: workoutVolume)
-//        }
-//        print("################")
-//        print("################")
-//        print("################")
-//        print(volumesByDate)
+        let volumesByDates = selectedWorkouts
+            .map { workout in
+                return (date: Calendar.current.startOfDay(for: workout.created), volume: workout.totalVolume)
+            }
+            .reduce([(date: Date, volume: Double)]()) { result, curr in
+                if let last = result.last, last.date == curr.date {
+                    var result = result
+                    result[result.count - 1].volume += curr.volume
+                    return result
+                } else {
+                    return result + [curr]
+                }
+            }
         
-        return [(date: Date.now, volume: 0.0)]
-        
-//        return volumesByDate.sorted { (prev, next) -> Bool in
-//            return prev.date < next.date
-//        }
+        return volumesByDates
     }
     
     func fechWorkoutVolumeByPeriod(workoutName: String, period: Period) -> [(date: Date, volume: Double)] {

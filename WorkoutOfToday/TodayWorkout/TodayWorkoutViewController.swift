@@ -58,43 +58,47 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
         configureWorkoutAddButton()
         
         
-////      MARK: TEST DATA
-//        let ts = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self)
-//            .filter("_name = 'ㅌㅌㅇㅇㅊㅎ'")
-//            .first!
-//
-//        func makeDummy(numOfSets: Int, day: Int) {
-//            let w1 = Workout()
-//            w1.template = ts
-//            w1.created = Date.now.dateFromDays(day)
-//
-//            var ss = [WorkoutSet]()
-//
-//            Array(0...numOfSets).forEach { _ in
-//                let s1 = WorkoutSet()
-//                s1.reps = 10
-//                s1.weight = 100
-//                ss.append(s1)
-//            }
-//
-//            DBHandler.shared.write {
-//                DBHandler.shared.realm.add(w1)
-//                ss.forEach { s in
-//                    DBHandler.shared.realm.add(s)
-//                    w1.sets.append(s)
-//                }
-//            }
+//      MARK: TEST DATA
+        func makeDummy(name: String) {
+            let ts = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self)
+            .filter("_name = '\(name)'")
+            .first!
+            
+            let numOfSets = Int.random(in: 0...10)
+            let day = Int.random(in: -50...0)
+            
+            let w1 = Workout()
+            w1.template = ts
+            w1.created = Date.now.dateFromDays(day)
+
+            var ss = [WorkoutSet]()
+
+            Array(0...numOfSets).forEach { _ in
+                let s1 = WorkoutSet()
+                s1.reps = Int.random(in: 0...20)
+                s1.weight = Double.random(in: 0...120)
+                ss.append(s1)
+            }
+
+            DBHandler.shared.write {
+                DBHandler.shared.realm.add(w1)
+                ss.forEach { s in
+                    DBHandler.shared.realm.add(s)
+                    w1.sets.append(s)
+                }
+            }
+        }
+//        
+//        for _ in 0...Int.random(in: 0...50) {
+//            makeDummy(name: "무게와 횟수 운동")
 //        }
-//
-//        makeDummy(numOfSets: 1, day: -50)
-//        makeDummy(numOfSets: 2, day: -49)
-//        makeDummy(numOfSets: 10, day: -48)
-//        makeDummy(numOfSets: 5, day: -47)
-//        makeDummy(numOfSets: 8, day: -46)
-//        makeDummy(numOfSets: 2, day: -45)
-//        makeDummy(numOfSets: 4, day: -44)
-//        makeDummy(numOfSets: 1, day: -43)
-//
+//        for _ in 0...Int.random(in: 0...50) {
+//            makeDummy(name: "횟수 운동")
+//        }
+//        for _ in 0...Int.random(in: 0...50) {
+//            makeDummy(name: "시간 운동")
+//        }
+        
         // MARK: Fetch workouts
         workouts = DBHandler.shared.fetchObjects(ofType: Workout.self)
         .filter(Date.now.predicateForDay)

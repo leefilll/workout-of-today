@@ -123,7 +123,7 @@ class WorkoutVolumeChartView: BasicChartView {
         let xAxis = lineChartView.xAxis
         xAxis.labelPosition = .bottom
         xAxis.gridLineWidth = 0
-        xAxis.granularity = 10
+        xAxis.granularity = 1
         xAxis.labelCount = 4
         xAxis.labelFont = .description
         xAxis.labelTextColor = .lightGray
@@ -131,31 +131,8 @@ class WorkoutVolumeChartView: BasicChartView {
         xAxis.axisLineColor = .concaveColor
         xAxis.valueFormatter = xAxisFormatter
         
-        if let maxVolume = volumesByDate.max(by: { return $0.volume < $1.volume }) {
-            maxValue = maxVolume.volume
-//            let upperLimitLine = ChartLimitLine(limit: maxValue)
-//            upperLimitLine.lineWidth = 2
-//            upperLimitLine.lineDashLengths = [5, 5]
-//            upperLimitLine.lineColor = .concaveColor
-//
-//            let rightAxis = lineChartView.rightAxis
-//            rightAxis.removeAllLimitLines()
-//            rightAxis.addLimitLine(upperLimitLine)
-//            rightAxis.axisMaximum = maxValue
-//            rightAxis.drawLimitLinesBehindDataEnabled = true
-//            rightAxis.axisLineColor = .clear
-//            rightAxis.drawLabelsEnabled = false
-//            rightAxis.labelFont = .description
-//            rightAxis.labelTextColor = .lightGray
-//            rightAxis.gridColor = .clear
-//            rightAxis.valueFormatter = xAxisFormatter
-//            lineChartView.rightAxis.enabled = true
-        }
-//        else {
-        lineChartView.rightAxis.enabled = false
-//        }
-         
         lineChartView.data = data
+        lineChartView.rightAxis.enabled = false
         lineChartView.isUserInteractionEnabled = false
         lineChartView.chartDescription?.enabled = false
         lineChartView.legend.enabled = false
@@ -163,7 +140,6 @@ class WorkoutVolumeChartView: BasicChartView {
         lineChartView.setScaleEnabled(false)
         lineChartView.pinchZoomEnabled = false
         lineChartView.leftAxis.enabled = false
-        
         lineChartView.extraRightOffset = 30
         lineChartView.extraLeftOffset = 30
     }

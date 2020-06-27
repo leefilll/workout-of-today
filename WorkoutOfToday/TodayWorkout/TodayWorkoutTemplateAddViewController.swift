@@ -8,8 +8,6 @@
 
 import UIKit
 
-import DZNEmptyDataSet
-
 class TodayWorkoutTemplateAddViewController: BasicViewController {
     
     // MARK: Model
@@ -68,8 +66,6 @@ class TodayWorkoutTemplateAddViewController: BasicViewController {
         }
         templateAttributesCollectionView.delegate = self
         templateAttributesCollectionView.dataSource = self
-        templateAttributesCollectionView.emptyDataSetSource = self
-        templateAttributesCollectionView.emptyDataSetDelegate = self
         templateAttributesCollectionView.registerForHeaderView(LabelCollectionHeaderView.self)
         templateAttributesCollectionView.register(LabelCollectionViewCell.self)
     }
@@ -187,14 +183,6 @@ extension TodayWorkoutTemplateAddViewController: UICollectionViewDelegateFlowLay
         let width = size.width + extraSpace
         
         return CGSize(width: width, height: 35)
-    }
-}
-
-// MARK: DZNEmptyDataSet DataSource and Delegate
-
-extension TodayWorkoutTemplateAddViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
-    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
-        return
     }
 }
 
