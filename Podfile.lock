@@ -6,7 +6,6 @@ PODS:
     - Charts (~> 3.4.0)
     - RealmSwift (~> 3.18.0)
   - DZNEmptyDataSet (1.8.1)
-  - EasyTipView (2.0.4)
   - FSCalendar (2.8.1)
   - Realm (3.18.0):
     - Realm/Headers (= 3.18.0)
@@ -14,16 +13,17 @@ PODS:
   - RealmSwift (3.18.0):
     - Realm (= 3.18.0)
   - SnapKit (5.0.1)
+  - SwiftIcons (3.0)
   - "UITextView+Placeholder (1.4.0)"
 
 DEPENDENCIES:
   - Charts
   - ChartsRealm
   - DZNEmptyDataSet
-  - EasyTipView
   - FSCalendar
   - RealmSwift
   - SnapKit
+  - SwiftIcons (~> 3.0)
   - "UITextView+Placeholder"
 
 SPEC REPOS:
@@ -31,24 +31,24 @@ SPEC REPOS:
     - Charts
     - ChartsRealm
     - DZNEmptyDataSet
-    - EasyTipView
     - FSCalendar
     - Realm
     - RealmSwift
     - SnapKit
+    - SwiftIcons
     - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   ChartsRealm: 2ae8bf478211a94b3b6dd20738db0b9b132eb66b
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  EasyTipView: 4f8beae0a82db2ca4a9b5fd658785fc5f61d296b
   FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
   Realm: 7b3d04740facf45e958a514b466a32b04f1113d6
   RealmSwift: c817b5f374668cf08f649afb05f55d92a787649c
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SwiftIcons: 3b748e57d9eee0c7c8d3bdbf2d742c0b1b4c6172
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
 
-PODFILE CHECKSUM: 2937c7b84ae4276a61db43425ee448060a871d96
+PODFILE CHECKSUM: 4f3f6427b8ee4f30d79d8ed7305bda5203f21a64
 
 COCOAPODS: 1.8.4

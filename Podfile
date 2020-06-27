@@ -6,7 +6,7 @@ target 'WorkoutOfToday' do
   use_frameworks!
   pod 'RealmSwift'
   pod 'SnapKit'
-  pod 'EasyTipView'
+  pod 'SwiftIcons', '~> 3.0'
   pod 'FSCalendar'
   pod 'Charts'
   pod 'ChartsRealm'

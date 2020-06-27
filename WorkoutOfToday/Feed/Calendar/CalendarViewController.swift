@@ -160,7 +160,7 @@ extension CalendarViewController: UITableViewDelegate {
         let workout = workoutsInSelectedDay[section]
         let headerView = tableView.dequeueReusableHeaderFooterView(TodayWorkoutSectionHeaderView.self)
         headerView.tag = section
-        headerView.workout = workout
+        headerView.template = workout.template
         
         let backgroundView = UIView()
         backgroundView.backgroundColor = .clear

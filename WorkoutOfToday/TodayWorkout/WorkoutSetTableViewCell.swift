@@ -8,6 +8,7 @@
 
 import UIKit
 
+import SwiftIcons
 import RealmSwift
 
 final class WorkoutSetTableViewCell: BasicTableViewCell {
@@ -21,7 +22,11 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
         }
     }
     
-    var style: Style?
+    var style: Style? {
+        didSet {
+            setStyle()
+        }
+    }
     
     var indexPath: IndexPath?
     
@@ -36,10 +41,20 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
     
     @IBOutlet weak var repsTextField: UITextField!
     
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
     @IBOutlet weak var divideLineView: UIView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        weightTextField.isHidden = true
+        repsTextField.isHidden = true
+        descriptionLabel.isHidden = true
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        style = nil
         weightTextField.text = nil
         repsTextField.text = nil
     }
@@ -55,6 +70,9 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
         
         countLabel.font = .smallestBoldTitle
         countLabel.textColor = .lightGray
+        
+        descriptionLabel.font = .smallestBoldTitle
+        descriptionLabel.textColor = .lightGray
         
         weightTextField.backgroundColor = .concaveColor
         weightTextField.layer.cornerRadius = 10
@@ -78,6 +96,28 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
             : String(format: ".1f%", weight)
         weightTextField.text = weight != 0 ? weightSting : nil
         repsTextField.text = reps != 0 ? "\(workoutSet.reps)" : nil
+    }
+    
+    private func setStyle() {
+        guard let style = style else { return }
+       switch style {
+            case .weightWithReps:
+                weightTextField.isHidden = false
+                repsTextField.isHidden = false
+                descriptionLabel.isHidden = true
+            case .reps:
+                descriptionLabel.isHidden = false
+                descriptionLabel.text = "회"
+                weightTextField.isHidden = true
+                repsTextField.isHidden = false
+            case .time:
+                descriptionLabel.isHidden = false
+                descriptionLabel.text = "분"
+                weightTextField.isHidden = true
+                repsTextField.isHidden = false
+            default:
+                break
+        }
     }
 }
 

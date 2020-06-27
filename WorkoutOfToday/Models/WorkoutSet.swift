@@ -11,8 +11,8 @@ import RealmSwift
 
 final class WorkoutSet: Object, NSCopying {
     
-    @objc dynamic var weight: Double = 0
-    @objc dynamic var reps: Int = 0
+    @objc dynamic var weight: Double = 0    // weight
+    @objc dynamic var reps: Int = 0         // reps / time
     @objc private dynamic var _degree: Degree.RawValue = Degree.none.rawValue
     @objc dynamic var id = UUID().uuidString
     
@@ -31,22 +31,25 @@ final class WorkoutSet: Object, NSCopying {
     }
     
     public var volume: Double {
-        return self.weight * Double(self.reps)
+        if weight == 0 {
+            return Double(reps)
+        }
+        return weight * Double(reps)
     }
     
     public func copy(with zone: NSZone? = nil) -> Any {
         let copy = WorkoutSet()
-        copy.weight = self.weight
-        copy.reps = self.reps
-        copy.degree = self.degree
+        copy.weight = weight
+        copy.reps = reps
+        copy.degree = degree
         return copy
     }
     
     override var description: String {
-        if self.weight == 0 {
-            return "\(self.reps)"
+        if weight == 0 {
+            return "\(reps)"
         } else {
-            return "\(self.weight) kg X \(self.reps)"
+            return "\(weight) kg X \(reps)"
         }
     }
     

@@ -26,7 +26,7 @@ enum Inset {
 enum Size {
     enum Cell {
         static let rowHeight: CGFloat = 40
-        static let headerHeight: CGFloat = 50
+        static let headerHeight: CGFloat = 65
         static let footerHeight: CGFloat = 60
     }
     static let cornerRadius: CGFloat = 9

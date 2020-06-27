@@ -59,7 +59,7 @@ extension WorkoutDetailViewController: UITableViewDelegate {
         guard let workout = workout else { return nil }
         let headerView = tableView.dequeueReusableHeaderFooterView(TodayWorkoutSectionHeaderView.self)
         headerView.tag = section
-        headerView.workout = workout
+        headerView.template = workout.template
         headerView.isDetailView = true
         
         let backgroundView = UIView()

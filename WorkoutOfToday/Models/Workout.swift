@@ -27,6 +27,10 @@ final class Workout: Object {
         return template?.equipment ?? .none
     }
     
+    public var style: Style {
+        return template?.style ?? .none
+    }
+    
     public var rm: Double {
         var rm: Double = 0
         sets.forEach {
@@ -46,10 +50,10 @@ final class Workout: Object {
         switch template.style {
             case .weightWithReps:
                 return sets.reduce(0.0) { $0 + $1.volume }
-            case .reps:
-                return Double(numberOfSets)
-            case .time:
-                return 0.0
+            case .reps, .time:
+                return sets.reduce(0.0) { $0 + Double($1.reps) }
+//            case .time:
+//                return sets.reduce(0.0) { $0 + Double($1.reps) }
             default:
                 return 0.0
         }

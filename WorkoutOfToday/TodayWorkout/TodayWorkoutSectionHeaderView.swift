@@ -10,14 +10,6 @@ import UIKit
 
 class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
     
-    var workout: Workout? {
-        didSet {
-            workoutNameLabel.text = workout?.name
-            workoutPartButton.part = workout?.part
-            workoutEquipmentButton.equipment = workout?.equipment
-        }
-    }
-    
     var template: WorkoutTemplate? {
         didSet {
             workoutNameLabel.text = template?.name
@@ -48,6 +40,8 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
     
     @IBOutlet weak var repsLabel: UILabel!
     
+    @IBOutlet weak var descriptionView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setup()
@@ -55,7 +49,7 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.workout = nil
+        template = nil
     }
     
     private func setup() {
@@ -76,11 +70,22 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
     private func setStyle() {
         guard let template = template else { return }
         switch template.style {
+            case .weightWithReps:
+                weightLabel.isHidden = false
+                weightLabel.text = "kg"
+                repsLabel.isHidden = false
+                repsLabel.text = "reps"
+                descriptionView.isHidden = true
             case .time:
                 weightLabel.isHidden = true
-                repsLabel.text = "time"
+                repsLabel.isHidden = false
+                repsLabel.text = "min"
+                descriptionView.isHidden = false
             case .reps:
                 weightLabel.isHidden = true
+                repsLabel.isHidden = false
+                repsLabel.text = "reps"
+                descriptionView.isHidden = false
             default: break
         }
     }

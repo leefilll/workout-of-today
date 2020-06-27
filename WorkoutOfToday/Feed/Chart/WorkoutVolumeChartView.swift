@@ -59,8 +59,8 @@ class WorkoutVolumeChartView: BasicChartView {
     
     private func setupModel() {
         if let tempTemplate = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self).first {
-            volumesByDate = DBHandler.shared.fetchWorkoutVolumes(workoutTemplate: tempTemplate)
             workoutTemplate = tempTemplate
+            volumesByDate = DBHandler.shared.fetchWorkoutVolumes(workoutTemplate: tempTemplate)
         }
     }
     
