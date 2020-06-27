@@ -11,34 +11,45 @@ import UITextView_Placeholder
 
 class TodayWorkoutNoteViewController: BasicViewController {
     
+    var note: Note?
+    
     @IBOutlet weak var navigationBar: UINavigationBar!
     
     @IBOutlet weak var noteTextView: UITextView!
     
     @IBOutlet weak var noteAddButton: BasicButton!
     
+    @IBOutlet weak var cancelButton: BasicButton!
+    
     override func setup() {
-        let closeButton = CloseButton(target: self, action: #selector(dismiss(_:)))
+//        let closeButton = CloseButton(target: self, action: #selector(dismiss(_:)))
         navigationBar.topItem?.title = "운동 노트✏️"
-        navigationBar.topItem?.rightBarButtonItem = closeButton
+//        navigationBar.topItem?.rightBarButtonItem = closeButton
         
         navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationBar.shadowImage = UIImage()
         
-        
-        noteTextView.font = .body
-        noteTextView.backgroundColor = .white
-//        noteTextView.text = workoutsOfDay?.note ?? ""
+        noteTextView.font = .smallTitle
+        noteTextView.backgroundColor = .clear
+        noteTextView.text = note?.content ?? ""
         noteTextView.placeholder = "노트를 입력해주세요."
         noteTextView.placeholderColor = .lightGray
         
         noteAddButton.backgroundColor = .tintColor
-        noteAddButton.titleLabel?.font = .boldBody
+        noteAddButton.titleLabel?.font = .smallestBoldTitle
         noteAddButton.setTitle("확인", for: .normal)
         noteAddButton.setTitleColor(.white, for: .normal)
         noteAddButton.addTarget(self,
                                 action: #selector(notAddButtonDidTapped(_:)),
                                 for: .touchUpInside)
+        
+        cancelButton.backgroundColor = .concaveColor
+        cancelButton.titleLabel?.font = .smallestBoldTitle
+        cancelButton.setTitle("취소", for: .normal)
+        cancelButton.setTitleColor(.black, for: .normal)
+        cancelButton.addTarget(self,
+                               action: #selector(cancelButtonDidTapped(_:)),
+                               for: .touchUpInside)
     }
 
     override func viewDidLoad() {
@@ -71,17 +82,30 @@ class TodayWorkoutNoteViewController: BasicViewController {
 
 extension TodayWorkoutNoteViewController {
     @objc
-    func dismiss(_ sender: UIButton) {
+    func dismiss(_ sender: UIBarButtonItem?) {
         dismiss(animated: true, completion: nil)
     }
     
     @objc
     func notAddButtonDidTapped(_ sender: UIButton) {
-        guard let note = noteTextView.text else { return }
-
-        let newNote = Note()
-        newNote.content = note
-        DBHandler.shared.create(object: newNote)
-        dismiss(animated: true, completion: nil)
+        if let note = note {
+            DBHandler.shared.write {
+                note.content = noteTextView.text
+            }
+            dismiss(animated: true, completion: nil)
+        } else {
+            let newNote = Note()
+            newNote.content = noteTextView.text
+            DBHandler.shared.create(object: newNote)
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @objc
+    func cancelButtonDidTapped(_ sender: UIBarButtonItem) {
+//        if let note = note {
+//            DBHandler.shared.delete(object: note)
+//        }
+        dismiss(nil)
     }
 }

@@ -10,8 +10,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TodayWorkoutNoteViewController" customModule="WorkoutOfToday" customModuleProvider="target">
             <connections>
+                <outlet property="cancelButton" destination="CQW-HY-MLN" id="Etf-k8-XFq"/>
                 <outlet property="navigationBar" destination="tBq-Lr-yF4" id="aLA-vx-2R7"/>
-                <outlet property="noteAddButton" destination="CQW-HY-MLN" id="XwI-R7-qTf"/>
+                <outlet property="noteAddButton" destination="Whc-w3-JFs" id="vjr-FT-XWf"/>
                 <outlet property="noteTextView" destination="cwi-qE-hmS" id="aaf-2Y-ODd"/>
                 <outlet property="view" destination="iN0-l3-epB" id="mkE-PJ-EJc"/>
             </connections>
@@ -28,13 +29,28 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQW-HY-MLN" customClass="BasicButton" customModule="WorkoutOfToday" customModuleProvider="target">
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="xdW-9B-c29">
                     <rect key="frame" x="10" y="807" width="394" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQW-HY-MLN" customClass="BasicButton" customModule="WorkoutOfToday" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="189.5" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="PXc-AJ-0f5"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Whc-w3-JFs" customClass="BasicButton" customModule="WorkoutOfToday" customModuleProvider="target">
+                            <rect key="frame" x="204.5" y="0.0" width="189.5" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="7aY-Lm-VI2"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                        </button>
+                    </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="PXc-AJ-0f5"/>
+                        <constraint firstAttribute="height" constant="40" id="JUg-uZ-4gr"/>
                     </constraints>
-                    <state key="normal" title="Button"/>
-                </button>
+                </stackView>
                 <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tBq-Lr-yF4">
                     <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                     <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -46,17 +62,17 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="cwi-qE-hmS" secondAttribute="trailing" constant="25" id="02Y-G4-sF7"/>
-                <constraint firstItem="CQW-HY-MLN" firstAttribute="top" secondItem="cwi-qE-hmS" secondAttribute="bottom" constant="20" id="0Pc-Ay-Sok"/>
+                <constraint firstItem="xdW-9B-c29" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="1pg-xp-tpW"/>
                 <constraint firstItem="tBq-Lr-yF4" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="ACv-hl-jsl"/>
                 <constraint firstItem="cwi-qE-hmS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="25" id="KIf-OS-UM4"/>
                 <constraint firstItem="tBq-Lr-yF4" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="RjB-3m-VXi"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="xdW-9B-c29" secondAttribute="bottom" constant="15" id="TLS-Ub-4Xf"/>
                 <constraint firstItem="cwi-qE-hmS" firstAttribute="top" secondItem="tBq-Lr-yF4" secondAttribute="bottom" constant="15" id="TPo-p4-PGU"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="CQW-HY-MLN" secondAttribute="trailing" constant="10" id="W60-YR-jcb"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="CQW-HY-MLN" secondAttribute="bottom" constant="15" id="b1y-bn-oSj"/>
                 <constraint firstItem="tBq-Lr-yF4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="cWC-QE-ebe"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="cwi-qE-hmS" secondAttribute="trailing" constant="25" id="e4q-CI-myp"/>
                 <constraint firstItem="cwi-qE-hmS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="25" id="fea-nV-zT8"/>
-                <constraint firstItem="CQW-HY-MLN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="pyF-E4-7qC"/>
+                <constraint firstItem="xdW-9B-c29" firstAttribute="top" secondItem="cwi-qE-hmS" secondAttribute="bottom" constant="20" id="mRj-mF-Uk0"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="xdW-9B-c29" secondAttribute="trailing" constant="10" id="vwh-gR-5EO"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

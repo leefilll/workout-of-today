@@ -10,9 +10,11 @@ import UIKit
 
 class LabelCollectionHeaderView: UICollectionReusableView {
     
-    var titleLabel: UILabel!
+    weak var titleLabel: UILabel!
     
-    var titleLabelLeadingConstant: CGFloat = 20 {
+    weak var subtitleLabel : UILabel!
+    
+    var labelHorizontalConstant: CGFloat = 20 {
         didSet {
             setNeedsLayout()
         }
@@ -29,16 +31,31 @@ class LabelCollectionHeaderView: UICollectionReusableView {
     }
     
     private func setup() {
-        self.titleLabel = UILabel()
-        self.titleLabel.font = .smallBoldTitle
-        self.addSubview(self.titleLabel)
+        let titleLabel = UILabel()
+        titleLabel.font = .smallBoldTitle
+        
+        let subtitleLabel = UILabel()
+        subtitleLabel.font = .boldBody
+        subtitleLabel.isHidden = true
+        subtitleLabel.numberOfLines = 0
+        
+        addSubview(titleLabel)
+        addSubview(subtitleLabel)
+        self.titleLabel = titleLabel
+        self.subtitleLabel = subtitleLabel
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(titleLabelLeadingConstant)
+        titleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(labelHorizontalConstant)
             make.bottom.equalToSuperview().offset(-6)
+        }
+        
+        subtitleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(labelHorizontalConstant)
+            make.trailing.equalToSuperview().offset(-labelHorizontalConstant)
+            make.top.equalTo(titleLabel.snp.bottom).offset(5)
         }
     }
 }

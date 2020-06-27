@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftIcons
 
 class CloseButton: UIBarButtonItem {
     
@@ -14,15 +15,7 @@ class CloseButton: UIBarButtonItem {
         super.init()
         self.target = target
         self.action = action
-        self.style = .plain
-        let customView = UIButton()
-        let xmarkImage = UIImage(named: "xmark")
-        
-        xmarkImage?.withRenderingMode(.alwaysTemplate)
-        customView.setBackgroundImage(xmarkImage, for: .normal)
-        customView.addTarget(target, action: action, for: .touchUpInside)
-//        customView.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        self.customView = customView
+        self.setIcon(icon: .ionicons(.iosClose), iconSize: 29, color: .lightGray2)
     }
     
     required init?(coder: NSCoder) {

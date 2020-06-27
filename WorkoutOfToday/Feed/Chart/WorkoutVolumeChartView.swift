@@ -145,7 +145,7 @@ class WorkoutVolumeChartView: BasicChartView {
         xAxis.axisLineColor = .concaveColor
         xAxis.valueFormatter = xAxisFormatter
         
-        let marker = ChartMarkerView(color: .concaveColor,
+        let marker = ChartMarkerView(color: .weakGray,
                                      font: .subheadline,
                                      textColor: .black,
                                      insets: UIEdgeInsets(top: 8, left: 8, bottom: 20, right: 8),

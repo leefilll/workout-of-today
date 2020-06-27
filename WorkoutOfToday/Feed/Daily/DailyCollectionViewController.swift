@@ -21,6 +21,14 @@ class DailyCollectionViewController: BasicViewController, Childable {
 
     var sections: [(Date, Results<Workout>)]!
     
+//    var notes: [(Date, Note)] = {
+//        let notesByDate = DBHandler.shared
+//            .fetchObjects(ofType: Note.self)
+//            .map { (Calendar.current.startOfDay(for: $0.created), $0) }
+//            .sorted { $0.0 < $1.0 }
+//        return notesByDate
+//    }()
+    
     lazy private var popupTransitioningDelegate
         = PopupTransitioningDelegate(height: self.view.bounds.height * 3 / 4)
 
@@ -34,7 +42,6 @@ class DailyCollectionViewController: BasicViewController, Childable {
                                                   minimumLineSpacing: 0,
                                                   sectionInset: sectionInset)
         layout.scrollDirection = .vertical
-        layout.headerReferenceSize = CGSize(width: 0, height: 60)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
@@ -105,7 +112,12 @@ extension DailyCollectionViewController: UICollectionViewDataSource {
         let header = collectionView
             .dequeueReusableSupplementaryView(LabelCollectionHeaderView.self, for: indexPath)
         let date = sections[indexPath.section].0
+//        let noteAtDate = notes.first(where: { $0.0 == date })
         header.titleLabel.text = DateFormatter.shared.string(from: date)
+//        if let note = noteAtDate?.1 {
+//            header.subtitleLabel.isHidden = false
+//            header.subtitleLabel.text = note.content
+//        }
         return header
     }
 }
@@ -124,6 +136,18 @@ extension DailyCollectionViewController: UICollectionViewDelegate {
         detailVC.workout = workout
         selectionFeedbackGenerator?.selectionChanged()
         present(detailVC, animated: true, completion: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        let date = sections[section].0
+//        let noteAtDate = notes.first(where: { $0.0 == date })
+//        if let note = noteAtDate?.1 {
+//            let noteHeight = (note.content as NSString)
+//                .size(withAttributes: [.font : UIFont.boldBody]).height
+//            return CGSize(width: 0, height: 60 + noteHeight + 5)
+//        } else {
+        return CGSize(width: 0, height: 60)
+//        }
     }
 }
 

@@ -44,11 +44,19 @@ extension UIFont {
         UIFont.boldSystemFont(ofSize: fontSize)
     }
     
+    static var smallTitle: UIFont {
+        let font = UIFont.preferredFont(forTextStyle: .title3)
+        let fontSize = font.pointSize
+        return UIFont(name: "AppleSDGothicNeo-Regular", size: fontSize) ??
+            UIFont.systemFont(ofSize: fontSize, weight: .regular)
+    }
+    
     static var smallestBoldTitle: UIFont {
         let font = UIFont.preferredFont(forTextStyle: .title3)
         let fontSize = font.pointSize
-        return UIFont(name: "AppleSDGothicNeo-Bold", size: fontSize) ??
-        UIFont.boldSystemFont(ofSize: fontSize)
+        return UIFont.systemFont(ofSize: fontSize, weight: .semibold)
+//        return UIFont(name: "AppleSDGothicNeo-Bold", size: fontSize) ??
+//        UIFont.boldSystemFont(ofSize: fontSize)
     }
     
     static var body: UIFont {
@@ -61,7 +69,6 @@ extension UIFont {
     static var boldBody: UIFont {
         let font = UIFont.preferredFont(forTextStyle: .body)
         let fontSize = font.pointSize
-//        return UIFont.boldSystemFont(ofSize: fontSize)
         return UIFont(name: "AppleSDGothicNeo-Bold", size: fontSize) ??
             UIFont.boldSystemFont(ofSize: fontSize)
     }

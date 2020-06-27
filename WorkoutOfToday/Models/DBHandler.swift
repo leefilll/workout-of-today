@@ -177,12 +177,31 @@ extension DBHandler {
         return sortedWorkouts.filter { $0.name == workoutName }
     }
     
+    func fetchWorkoutsByDate() -> [(date: Date, workouts: Results<Workout>)] {
+        let workouts = DBHandler.shared.fetchObjects(ofType: Workout.self).sorted(byKeyPath: "created")
+
+        let workoutsByDate = workouts
+            .map { workout in
+                return Calendar.current.startOfDay(for: workout.created)
+            }
+            .reduce([]) { dates, date in
+                return dates.last == date ? dates : dates + [date]
+            }
+            .compactMap { startDate -> (date: Date, workouts: Results<Workout>)? in
+                let endDate = Calendar.current.date(byAdding: .day, value: 1, to: startDate)!
+                let workouts = workouts.filter("(created >= %@) AND (created < %@)", startDate, endDate)
+                return workouts.isEmpty ? nil : (date: startDate, workouts: workouts)
+            }
+        
+        return workoutsByDate
+    }
+    
     func fetchWorkoutVolumes(workoutTemplate: WorkoutTemplate) -> [(date: Date, volume: Double)] {
         let selectedWorkouts = DBHandler.shared.fetchObjects(ofType: Workout.self)
             .filter("template == %@", workoutTemplate)
             .sorted(byKeyPath: "created")
         
-        let volumesByDates = selectedWorkouts
+        let volumesByDate = selectedWorkouts
             .map { workout in
                 return (date: Calendar.current.startOfDay(for: workout.created), volume: workout.totalVolume)
             }
@@ -196,28 +215,11 @@ extension DBHandler {
                 }
             }
         
-        return volumesByDates
-    }
-    
-    func fechWorkoutVolumeByPeriod(workoutName: String, period: Period) -> [(date: Date, volume: Double)] {
-        let sortedWorkout = fetchWorkoutsByPeriod(workoutName: workoutName, period: period)
-        var volumesByDate: [(date: Date, volume: Double)] = []
-        
-        for workout in sortedWorkout {
-            let dateWithVolume = (date: workout.created.startOfDate(), volume: workout.totalVolume)
-            let lastIdx = volumesByDate.count - 1
-            if lastIdx > 0 {
-                if volumesByDate[lastIdx - 1].date == dateWithVolume.date {
-                    volumesByDate[lastIdx - 1].volume += dateWithVolume.volume
-                    continue
-                }
-            }
-            volumesByDate.append(dateWithVolume)
-        }
-        
         return volumesByDate
     }
     
+    
+//
     // MARK: TODO - Onerm Calulator
 //
 //    func fetchWorkoutOnermByPeriod(workoutName: String, period: Period) -> [(date: Date, volume: Int)] {

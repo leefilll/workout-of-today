@@ -24,12 +24,15 @@ extension UIColor {
     
     static var weakTintColor = UIColor.colorWithRGBHex(hex: 0xe2e9fd)
     
-//    static var defaultBackgroundColor = UIColor.groupTableViewBackground
     static var defaultBackgroundColor = UIColor.colorWithRGBHex(hex: 0xf5f6f8)
     
     static var defaultTextColor = UIColor.colorWithRGBHex(hex: 0x444a4f)
     
-    static var concaveColor = UIColor.colorWithRGBHex(hex: 0xe5e6e8).withAlphaComponent(0.5)
+    static var concaveColor = UIColor.colorWithRGBHex(hex: 0xe5e6e8).withAlphaComponent(0.4)
+    
+    static var weakGray = UIColor.colorWithRGBHex(hex: 0xe5e6e8).withAlphaComponent(0.8)
+    
+    static var lightGray2 = UIColor.lightGray.withAlphaComponent(0.5)
         
     static func part(_ part: Part) -> UIColor {
         switch part {

@@ -26,6 +26,8 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
     
     var workouts: Results<Workout>?
     
+    var notes: Results<Note>?
+    
     override var navigationBarTitle: String {
         return "오늘의 운동"
     }
@@ -65,7 +67,7 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
             .first!
             
             let numOfSets = Int.random(in: 0...10)
-            let day = Int.random(in: -200...0)
+            let day = Int.random(in: -200 ... -100)
             
             let w1 = Workout()
             w1.template = ts
@@ -76,7 +78,7 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
             Array(0...numOfSets).forEach { _ in
                 let s1 = WorkoutSet()
                 s1.reps = Int.random(in: 0...20)
-                s1.weight = Double.random(in: 0...120)
+                s1.weight = Double.random(in: 30...150)
                 ss.append(s1)
             }
 
@@ -89,18 +91,25 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
             }
         }
 
-//        for _ in 0...Int.random(in: 100...150) {
-//            makeDummy(name: "무게와 횟수 운동")
+//        for _ in 0...Int.random(in: 50...200) {
+//            makeDummy(name: "버피테스트")
 //        }
-//        for _ in 0...Int.random(in: 100...150) {
-//            makeDummy(name: "횟수 운동")
+//        for _ in 0...Int.random(in: 20...200) {
+//            makeDummy(name: "랫풀다운")
 //        }
-//        for _ in 0...Int.random(in: 50...150) {
-//            makeDummy(name: "시간 운동")
+//        for _ in 0...Int.random(in: 50...200) {
+//            makeDummy(name: "덤벨 오버헤드 프레스")
+//        }
+//        for _ in 0...Int.random(in: 50...200) {
+//            makeDummy(name: "벤치프레스")
 //        }
         
         // MARK: Fetch workouts
         workouts = DBHandler.shared.fetchObjects(ofType: Workout.self)
+        .filter(Date.now.predicateForDay)
+        .sorted(byKeyPath: "created")
+        
+        notes = DBHandler.shared.fetchObjects(ofType: Note.self)
         .filter(Date.now.predicateForDay)
         .sorted(byKeyPath: "created")
     }
@@ -284,8 +293,8 @@ extension TodayWorkoutViewController {
     
     @objc
     private func workoutNoteButtonDidTapped(_ sender: UIButton) {
-//        guard let workouts = workouts else { return }
         let noteVC = TodayWorkoutNoteViewController(nibName: "TodayWorkoutNoteViewController", bundle: nil)
+        if let note = notes?.first { noteVC.note = note }
         noteVC.modalPresentationStyle = .custom
         noteVC.transitioningDelegate = popupTransitioningDelegateForNote
         selectionFeedbackGenerator?.selectionChanged()

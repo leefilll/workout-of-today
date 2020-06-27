@@ -40,8 +40,6 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
     
     @IBOutlet weak var repsLabel: UILabel!
     
-    @IBOutlet weak var descriptionView: UIView!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         setup()
@@ -75,17 +73,14 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
                 weightLabel.text = "kg"
                 repsLabel.isHidden = false
                 repsLabel.text = "reps"
-                descriptionView.isHidden = true
             case .time:
                 weightLabel.isHidden = true
                 repsLabel.isHidden = false
                 repsLabel.text = "min"
-                descriptionView.isHidden = false
             case .reps:
                 weightLabel.isHidden = true
                 repsLabel.isHidden = false
                 repsLabel.text = "reps"
-                descriptionView.isHidden = false
             default: break
         }
     }

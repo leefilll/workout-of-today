@@ -163,7 +163,7 @@ extension TodayWorkoutTemplateAddViewController: UICollectionViewDataSource {
         let title = atttributes[indexPath.section][indexPath.item].title
         header.titleLabel.text = title
         header.titleLabel.font = .subheadline
-        header.titleLabelLeadingConstant = 5
+        header.labelHorizontalConstant = 5
         return header
     }
 }

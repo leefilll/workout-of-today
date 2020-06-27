@@ -41,15 +41,12 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
     
     @IBOutlet weak var repsTextField: UITextField!
     
-    @IBOutlet weak var descriptionLabel: UILabel!
-    
     @IBOutlet weak var divideLineView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         weightTextField.isHidden = true
         repsTextField.isHidden = true
-        descriptionLabel.isHidden = true
     }
     
     override func prepareForReuse() {
@@ -71,18 +68,15 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
         countLabel.font = .smallestBoldTitle
         countLabel.textColor = .lightGray
         
-        descriptionLabel.font = .smallestBoldTitle
-        descriptionLabel.textColor = .lightGray
-        
         weightTextField.backgroundColor = .concaveColor
         weightTextField.layer.cornerRadius = 10
         weightTextField.delegate = self
-        weightTextField.font = .boldBody
+        weightTextField.font = .smallestBoldTitle
         
         repsTextField.backgroundColor = .concaveColor
         repsTextField.layer.cornerRadius = 10
         repsTextField.delegate = self
-        repsTextField.font = .boldBody
+        repsTextField.font = .smallestBoldTitle
         
         fillTextField()
     }
@@ -104,15 +98,10 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
             case .weightWithReps:
                 weightTextField.isHidden = false
                 repsTextField.isHidden = false
-                descriptionLabel.isHidden = true
             case .reps:
-                descriptionLabel.isHidden = false
-                descriptionLabel.text = "회"
                 weightTextField.isHidden = true
                 repsTextField.isHidden = false
             case .time:
-                descriptionLabel.isHidden = false
-                descriptionLabel.text = "분"
                 weightTextField.isHidden = true
                 repsTextField.isHidden = false
             default:

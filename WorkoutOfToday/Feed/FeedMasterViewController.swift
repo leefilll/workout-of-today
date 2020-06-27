@@ -64,20 +64,7 @@ class FeedMasterViewController: BasicViewController {
 
     private func fetchData() {
         // fetch all Items sorted by date
-        let results = DBHandler.shared.fetchObjects(ofType: Workout.self).sorted(byKeyPath: "created")
-
-        sections = results
-            .map { workout in
-                return Calendar.current.startOfDay(for: workout.created)
-            }
-            .reduce([]) { dates, date in
-                return dates.last == date ? dates : dates + [date]
-            }
-            .compactMap { startDate -> (date: Date, workouts: Results<Workout>)? in
-                let endDate = Calendar.current.date(byAdding: .day, value: 1, to: startDate)!
-                let workouts = results.filter("(created >= %@) AND (created < %@)", startDate, endDate)
-                return workouts.isEmpty ? nil : (date: startDate, workouts: workouts)
-            }
+        sections = DBHandler.shared.fetchWorkoutsByDate()
     }
     
     override func configureNavigationBar() {
