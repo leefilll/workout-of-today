@@ -11,7 +11,6 @@ import RealmSwift
 
 final class Profile: Object {
     @objc dynamic var created: Date = Date()
-    @objc dynamic var name: String = ""
     @objc dynamic var height: Double = 0
     @objc dynamic var muscleWeight: Double = 0
     @objc dynamic var fatPercentage: Double = 0

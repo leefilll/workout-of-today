@@ -38,7 +38,7 @@ class DailyCollectionViewController: BasicViewController, Childable {
     
     private func setupCollectionView() {
         let sectionInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-        let layout = FeedCollectionViewFlowLayout(minimumInteritemSpacing: 3,
+        let layout = FeedCollectionViewFlowLayout(minimumInteritemSpacing: 0,
                                                   minimumLineSpacing: 0,
                                                   sectionInset: sectionInset)
         layout.scrollDirection = .vertical
@@ -58,6 +58,14 @@ class DailyCollectionViewController: BasicViewController, Childable {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let lastSectionIndex = sections.count - 1
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: lastSectionIndex),
+                                    at: .centeredVertically,
+                                    animated: false)
     }
     
     override func setupFeedbackGenerator() {

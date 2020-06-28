@@ -26,7 +26,8 @@ class FormTextField: UITextField {
         backgroundColor = .concaveColor
         clipsToBounds = true
         layer.cornerRadius = 10
-        font = .boldBody
+        font = .smallestBoldTitle
+        textColor = .defaultTextColor
     }
     
     //let padding = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)

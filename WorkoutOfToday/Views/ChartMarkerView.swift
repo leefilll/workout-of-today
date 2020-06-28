@@ -33,6 +33,8 @@ class ChartMarkerView: MarkerImage {
     
     private var _drawAttributes = [NSAttributedString.Key : Any]()
     
+    private var selectionFeedbackGenerator: UISelectionFeedbackGenerator?
+    
     @objc
     init(color: UIColor, font: UIFont, textColor: UIColor, insets: UIEdgeInsets, style: Style)
     {
@@ -44,6 +46,8 @@ class ChartMarkerView: MarkerImage {
         
         _paragraphStyle = NSParagraphStyle.default.mutableCopy() as? NSMutableParagraphStyle
         _paragraphStyle?.alignment = .center
+        selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator?.prepare()
         super.init()
     }
     
@@ -185,7 +189,6 @@ class ChartMarkerView: MarkerImage {
         label.draw(in: rect, withAttributes: _drawAttributes)
         
         UIGraphicsPopContext()
-        
         context.restoreGState()
     }
     
@@ -195,6 +198,7 @@ class ChartMarkerView: MarkerImage {
         let numFormatter = NumberFormatter()
         numFormatter.numberStyle = .decimal
         guard let formattedString = numFormatter.string(from: NSNumber(value: volume)) else { return }
+        selectionFeedbackGenerator?.selectionChanged()
         setLabel(formattedString + " " + style.string)
     }
     

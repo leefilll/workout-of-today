@@ -24,11 +24,9 @@ class SummaryView: BasicCardView, NibLoadable {
         subtitleLabel.textColor = .lightGray
         
         unitLabel.font = .boldBody
-        unitLabel.textColor = .lightGray
+        unitLabel.textColor = .defaultTextColor
         
         mainLabel.font = .boldTitle
-        
-        unitLabel.textColor = .defaultTextColor
         mainLabel.textColor = .defaultTextColor
     }
 }

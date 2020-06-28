@@ -59,7 +59,6 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
         configureTableView()
         configureWorkoutAddButton()
         
-        
 //      MARK: TEST DATA
         func makeDummy(name: String) {
             let ts = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self)
@@ -90,18 +89,17 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
                 }
             }
         }
-
-//        for _ in 0...Int.random(in: 50...200) {
-//            makeDummy(name: "버피테스트")
-//        }
-//        for _ in 0...Int.random(in: 20...200) {
-//            makeDummy(name: "랫풀다운")
-//        }
-//        for _ in 0...Int.random(in: 50...200) {
-//            makeDummy(name: "덤벨 오버헤드 프레스")
-//        }
-//        for _ in 0...Int.random(in: 50...200) {
+//        for _ in 0...Int.random(in: 0...50) {
 //            makeDummy(name: "벤치프레스")
+//        }
+//        for _ in 0...Int.random(in: 0...50) {
+//            makeDummy(name: "버피 테스트")
+//        }
+//        for _ in 0...Int.random(in: 0...50) {
+//            makeDummy(name: "밀리터리 프레스")
+//        }
+//        for _ in 0...Int.random(in: 0...50) {
+//            makeDummy(name: "플랭크")
 //        }
         
         // MARK: Fetch workouts

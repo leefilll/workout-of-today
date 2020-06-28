@@ -32,14 +32,6 @@ class FeedMasterViewController: BasicViewController {
     private var dailyCollectionViewController: DailyCollectionViewController!
 
     private var calendarViewController: CalendarViewController!
-    
-    // MARK: ===== for test ==========
-    
-    private weak var collectionView: UICollectionView!
-    
-   
-    
-    // MARK: ===== end test ==========
 
     // MARK: View Life Cycle
     override func setup() {

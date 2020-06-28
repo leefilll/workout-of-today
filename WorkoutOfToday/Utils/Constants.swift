@@ -29,7 +29,7 @@ enum Size {
         static let headerHeight: CGFloat = 65
         static let footerHeight: CGFloat = 60
     }
-    static let cornerRadius: CGFloat = 9
+    static let cornerRadius: CGFloat = 13
     static let addButtonHeight: CGFloat = 45
     static let addCollectionViewHeight: CGFloat = 50
 }

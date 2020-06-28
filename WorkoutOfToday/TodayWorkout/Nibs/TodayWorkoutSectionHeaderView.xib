@@ -59,7 +59,7 @@
                                         <constraint firstAttribute="height" constant="35" id="mdH-aZ-pyr"/>
                                     </constraints>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZC5-N5-hBG">
+                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZC5-N5-hBG" userLabel="Lower Stack View">
                                     <rect key="frame" x="0.0" y="35" width="344" height="20"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eB1-1Y-t2w">
@@ -139,6 +139,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="containerView" destination="hJB-8c-H2H" id="6g4-6U-BCr"/>
+                <outlet property="lowerStackView" destination="ZC5-N5-hBG" id="HVj-YC-d1T"/>
                 <outlet property="repsLabel" destination="4IC-h2-OuT" id="Lwd-jU-iPi"/>
                 <outlet property="topStackView" destination="0XJ-NL-zXG" id="aqj-9f-CEZ"/>
                 <outlet property="weightLabel" destination="Fhc-vA-lew" id="1sR-dd-itX"/>

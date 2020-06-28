@@ -8,6 +8,8 @@
 
 import UIKit
 
+import SwiftIcons
+
 class CalendarTableViewCell: BasicTableViewCell {
     
     var workoutSet: WorkoutSet? {
@@ -16,6 +18,13 @@ class CalendarTableViewCell: BasicTableViewCell {
             setNeedsDisplay()
         }
     }
+    
+    var style: Style? {
+        didSet {
+            setStyle()
+        }
+    }
+    
     @IBOutlet weak var containerView: UIView!
     
     @IBOutlet weak var countLabel: UILabel!
@@ -24,12 +33,22 @@ class CalendarTableViewCell: BasicTableViewCell {
     
     @IBOutlet weak var repsLabel: UILabel!
     
+    @IBOutlet weak var divideLineView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = .clear
         selectionStyle = .none
         
         containerView.backgroundColor = .white
+        
+        divideLineView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.8)
+        divideLineView.layer.cornerRadius = 2
+        
+        weightLabel.font = .smallestBoldTitle
+        weightLabel.textColor = .defaultTextColor
+        repsLabel.font = .smallestBoldTitle
+        repsLabel.textColor = .defaultTextColor
         
         countLabel.font = .smallBoldTitle
         countLabel.textColor = .lightGray
@@ -48,9 +67,23 @@ class CalendarTableViewCell: BasicTableViewCell {
             let reps = workoutSet.reps
             let weightString = weight.isInt
                 ? String(format: "%d", Int(weight))
-                : String(format: ".1f%", weight)
-            weightLabel.text = weightString
-            repsLabel.text = "\(reps)"
+                : String(format: "%.1f", weight)
+            weightLabel.text = weightString + " kg"
+            repsLabel.text = "\(reps)회"
+        }
+    }
+    
+    private func setStyle() {
+        guard let style = style else { return }
+        switch style {
+            case .weightWithReps:
+                weightLabel.isHidden = false
+                repsLabel.isHidden = false
+            case .reps, .time:
+                weightLabel.isHidden = true
+                repsLabel.isHidden = false
+            default:
+                break
         }
     }
 }

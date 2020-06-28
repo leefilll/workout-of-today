@@ -20,13 +20,11 @@ class ProfileEditViewController: BasicViewController {
     
     // MARK: View
     
-    @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet private var subtitleLabels: [UILabel]!
     
     @IBOutlet private var textFields: [FormTextField]!
-    
-    @IBOutlet private weak var nameTextField: FormTextField!
     
     @IBOutlet private weak var heightTextField: FormTextField!
     
@@ -38,7 +36,9 @@ class ProfileEditViewController: BasicViewController {
     
     @IBOutlet weak var muscleWeightTextField: FormTextField!
     
-    @IBOutlet weak var editProfileButton: UIButton!
+    @IBOutlet weak var editProfileButton: BasicButton!
+    
+    @IBOutlet weak var cancelButton: BasicButton!
     
     @IBOutlet var unitLabels: [UILabel]!
     
@@ -51,14 +51,17 @@ class ProfileEditViewController: BasicViewController {
         tapGestureRecognize = UITapGestureRecognizer(target: self, action: #selector(viewDidTapped(_:)))
         view.addGestureRecognizer(tapGestureRecognize)
         
-        let closeButton = CloseButton(target: self, action: #selector(dismiss(_:)))
-        navigationBar.topItem?.title = "기본 정보🏋️‍♂️"
-        navigationBar.topItem?.rightBarButtonItem = closeButton
-        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationBar.shadowImage = UIImage()
+//        navigationBar.topItem?.title = "기본 정보"
+//        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+//        navigationBar.shadowImage = UIImage()
+        
+        titleLabel.text = "프로필 편집"
+        titleLabel.font = .smallBoldTitle
+        titleLabel.textColor = .defaultTextColor
         
         subtitleLabels.forEach {
-            $0.font = .subheadline
+            $0.font = .boldBody
+            $0.textColor = .defaultTextColor
         }
         
         textFields.forEach {
@@ -66,19 +69,26 @@ class ProfileEditViewController: BasicViewController {
         }
         
         unitLabels.forEach {
-            $0.font = .boldBody
-            $0.textColor = .lightGray
+            $0.font = .body
+            $0.textColor = .defaultTextColor
         }
-        optionalPartDescLabel.font = .description
-        optionalPartDescLabel.textColor = .lightGray
+        
+        optionalPartDescLabel.font = .boldBody
+        optionalPartDescLabel.textColor = UIColor.lightGray.withAlphaComponent(0.8)
         
         editProfileButton.setTitle("확인", for: .normal)
         editProfileButton.setTitleColor(.white, for: .normal)
-        editProfileButton.titleLabel?.font = .boldBody
+        editProfileButton.titleLabel?.font = .smallestBoldTitle
         editProfileButton.backgroundColor = .tintColor
-        editProfileButton.clipsToBounds = true
-        editProfileButton.layer.cornerRadius = 10
         editProfileButton.addTarget(self, action: #selector(editProfileButtonDidTapped(_:)), for: .touchUpInside)
+        
+        cancelButton.backgroundColor = .concaveColor
+        cancelButton.titleLabel?.font = .smallestBoldTitle
+        cancelButton.setTitle("취소", for: .normal)
+        cancelButton.setTitleColor(.black, for: .normal)
+        cancelButton.addTarget(self,
+                               action: #selector(dismiss(_:)),
+                               for: .touchUpInside)
         
         setupTextFields()
     }
@@ -86,7 +96,6 @@ class ProfileEditViewController: BasicViewController {
     private func setupTextFields() {
         if let user = user {
             self.user = user
-            nameTextField.text = user.name
             heightTextField.text = String(user.height)
             weightTextField.text = String(user.getRecentWeight())
             fatPercentageTextField.text = String(user.fatPercentage)
@@ -130,9 +139,6 @@ extension ProfileEditViewController {
     
     @objc
     func editProfileButtonDidTapped(_ sender: UIButton) {
-        
-        let name = nameTextField.text
-        
         guard let heightString = heightTextField.text,
             let weightString = weightTextField.text,
             let height = Double(heightString),
@@ -144,9 +150,6 @@ extension ProfileEditViewController {
         
         if let user = user {
             DBHandler.shared.write {
-                if let name = name {
-                    user.name = name
-                }
                 user.height = height
                 user.addNewWeight(weight)
                 
@@ -160,7 +163,6 @@ extension ProfileEditViewController {
             }
         } else {
             let newProfile = Profile()
-            newProfile.name = name ?? ""
             newProfile.height = height
             newProfile.addNewWeight(weight)
             if let fatPercentageString = fatPercentageTextField.text,
@@ -182,8 +184,6 @@ extension ProfileEditViewController {
 extension ProfileEditViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
-            case nameTextField:
-                heightTextField.becomeFirstResponder()
             case heightTextField:
                 weightTextField.becomeFirstResponder()
             case weightTextField:

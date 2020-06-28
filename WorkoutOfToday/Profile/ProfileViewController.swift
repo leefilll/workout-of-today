@@ -25,9 +25,10 @@ class ProfileViewController: BasicViewController {
     
     // MARK: Model
     
-    private let popupTransitioningDelegate = PopupTransitioningDelegate(height: 400)
+    private let popupTransitioningDelegate = PopupTransitioningDelegate(height: 370)
     
-    lazy private var popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(height: self.view.bounds.height * 3 / 4)
+    lazy private var popupTransitioningDelegateForTemplate =
+        PopupTransitioningDelegate(height: self.view.bounds.height * 3 / 4)
     
     private var user: Profile? {
         didSet {
@@ -112,7 +113,7 @@ class ProfileViewController: BasicViewController {
         summaryEditButton.setTitleColor(.tintColor, for: .normal)
         summaryEditButton.addTarget(self, action: #selector(summaryEditButtonDidTapped(_:)), for: .touchUpInside)
         
-        summaryHeightView.subtitleLabel.text = "키"
+        summaryHeightView.subtitleLabel.text = "신장"
         summaryWeightView.subtitleLabel.text = "체중"
         summaryBodyFatView.subtitleLabel.text = "체지방"
         summaryMuscleView.subtitleLabel.text = "골격근"
@@ -194,6 +195,7 @@ extension ProfileViewController: ProfileDidUpdatedDelegate {
 extension ProfileViewController: WorkoutTemplateDidSelectedDelegate {
     func workoutTemplateDidSelect(workoutTemplate: WorkoutTemplate) {
         highlightVolumeChartView.updateWorkoutTemplate(workoutTemplate: workoutTemplate)
+        highlightVolumeChartView.animateChart()
     }
 }
 

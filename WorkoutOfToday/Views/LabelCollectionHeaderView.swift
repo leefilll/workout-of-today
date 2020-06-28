@@ -33,6 +33,7 @@ class LabelCollectionHeaderView: UICollectionReusableView {
     private func setup() {
         let titleLabel = UILabel()
         titleLabel.font = .smallBoldTitle
+        titleLabel.textColor = .defaultTextColor
         
         let subtitleLabel = UILabel()
         subtitleLabel.font = .boldBody

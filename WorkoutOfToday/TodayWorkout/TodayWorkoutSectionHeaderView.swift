@@ -23,10 +23,18 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
             topStackView.isHidden = newValue
         }
     }
+    
+    var isCalendarView: Bool = false {
+        willSet {
+            lowerStackView.isHidden = newValue
+        }
+    }
 
     @IBOutlet weak var containerView: UIView!
     
     @IBOutlet weak var topStackView: UIStackView!
+    
+    @IBOutlet weak var lowerStackView: UIStackView!
     
     @IBOutlet weak var workoutNameLabel: UILabel!
 
@@ -54,6 +62,7 @@ class TodayWorkoutSectionHeaderView: UITableViewHeaderFooterView, NibLoadable {
         containerView.backgroundColor = .white
         
         workoutNameLabel.font = .smallBoldTitle
+        workoutNameLabel.textColor = .defaultTextColor
         workoutNameLabel.lineBreakMode = .byTruncatingTail
         workoutNameLabel.numberOfLines = 1
         
