@@ -63,33 +63,17 @@
                                     <rect key="frame" x="0.0" y="35" width="344" height="20"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eB1-1Y-t2w">
-                                            <rect key="frame" x="0.0" y="0.0" width="15" height="20"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="130" height="20"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="15" id="CaZ-xK-qfy"/>
+                                                <constraint firstAttribute="width" constant="130" id="CaZ-xK-qfy"/>
                                             </constraints>
                                         </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alignment="center" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="vgP-it-wca" userLabel="Lower Stack View">
-                                            <rect key="frame" x="15" y="0.0" width="314" height="20"/>
+                                            <rect key="frame" x="130" y="0.0" width="194" height="20"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="set" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcD-eV-z53">
-                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="ye8-Py-qy1"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BYs-xc-aIc">
-                                                    <rect key="frame" x="65" y="0.0" width="20" height="20"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="wiA-v3-6iw"/>
-                                                    </constraints>
-                                                </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LpX-il-HyS">
-                                                    <rect key="frame" x="120" y="0.0" width="194" height="20"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="194" height="20"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="kg" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fhc-vA-lew">
                                                             <rect key="frame" x="0.0" y="0.0" width="92" height="20"/>
@@ -111,10 +95,10 @@
                                             </constraints>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8rf-Nl-Ukp">
-                                            <rect key="frame" x="329" y="0.0" width="15" height="20"/>
+                                            <rect key="frame" x="324" y="0.0" width="20" height="20"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="15" id="B1O-rf-DQy"/>
+                                                <constraint firstAttribute="width" constant="20" id="B1O-rf-DQy"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -147,7 +131,6 @@
                 <outlet property="workoutNameLabel" destination="9aa-Ue-OTT" id="d6H-qa-oSx"/>
                 <outlet property="workoutPartButton" destination="UUM-TN-DBH" id="Ceq-jc-pW2"/>
                 <outletCollection property="unitLabels" destination="4IC-h2-OuT" collectionClass="NSMutableArray" id="tNh-21-EMq"/>
-                <outletCollection property="unitLabels" destination="OcD-eV-z53" collectionClass="NSMutableArray" id="qYO-sg-BAo"/>
                 <outletCollection property="unitLabels" destination="Fhc-vA-lew" collectionClass="NSMutableArray" id="Xtl-jT-CEY"/>
             </connections>
             <point key="canvasLocation" x="-30.434782608695656" y="301.67410714285711"/>

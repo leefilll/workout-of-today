@@ -65,7 +65,7 @@ class CalendarViewController: BasicViewController, Childable {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .clear
         tableView.alwaysBounceVertical = true
-        tableView.sectionHeaderHeight = Size.Cell.headerHeight - 10
+        tableView.sectionHeaderHeight = CGFloat(45)
         tableView.sectionFooterHeight = 30
         tableView.rowHeight = Size.Cell.rowHeight
         tableView.showsVerticalScrollIndicator = false
@@ -204,9 +204,11 @@ extension CalendarViewController: UITableViewDataSource {
         let workout = workoutsInSelectedDay[indexPath.section]
         let workoutSet = workout.sets[indexPath.row]
         let cell = tableView.dequeueReusableCell(CalendarTableViewCell.self, for: indexPath)
+        
         cell.countLabel.text = "\(indexPath.row + 1) set"
         cell.workoutSet = workoutSet
         cell.style = workout.style
+        
         return cell
     }
 }

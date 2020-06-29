@@ -48,6 +48,12 @@ class BasicViewController: UIViewController {
             navigationBar.prefersLargeTitles = true
             navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
             navigationBar.shadowImage = UIImage()
+            navigationBar.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.defaultTextColor
+            ]
+            navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.defaultTextColor
+            ]
             title = self.navigationBarTitle
         }
     }

@@ -41,8 +41,6 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
     
     @IBOutlet weak var repsTextField: UITextField!
     
-    @IBOutlet weak var divideLineView: UIView!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         weightTextField.isHidden = true
@@ -62,9 +60,6 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
         
         containerView.backgroundColor = .white
         
-        divideLineView.backgroundColor = .weakTintColor
-        divideLineView.layer.cornerRadius = 2
-        
         countLabel.font = .smallestBoldTitle
         countLabel.textColor = .lightGray
         
@@ -72,11 +67,13 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
         weightTextField.layer.cornerRadius = 10
         weightTextField.delegate = self
         weightTextField.font = .smallestBoldTitle
+        weightTextField.textColor = .defaultTextColor
         
         repsTextField.backgroundColor = .concaveColor
         repsTextField.layer.cornerRadius = 10
         repsTextField.delegate = self
         repsTextField.font = .smallestBoldTitle
+        repsTextField.textColor = .defaultTextColor
         
         fillTextField()
     }
@@ -161,10 +158,15 @@ extension WorkoutSetTableViewCell: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let charSet = CharacterSet(charactersIn: "0123456789.").inverted
-        if let _ = string.rangeOfCharacter(from: charSet) {
+        guard let text = textField.text,
+            string.rangeOfCharacter(from: charSet) == nil else {
             return false
         }
-        return true
+        var length = text.count + string.count - range.length
+        if let pointIndex = text.firstIndex(of: ".") {
+            length -= text[pointIndex...].count
+        }
+        return length <= 4
     }
 }
 

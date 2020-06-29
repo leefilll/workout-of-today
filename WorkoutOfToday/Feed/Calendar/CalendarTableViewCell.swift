@@ -56,6 +56,7 @@ class CalendarTableViewCell: BasicTableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        style = nil
         countLabel.text = nil
         weightLabel.text = nil
         repsLabel.text = nil
@@ -68,8 +69,12 @@ class CalendarTableViewCell: BasicTableViewCell {
             let weightString = weight.isInt
                 ? String(format: "%d", Int(weight))
                 : String(format: "%.1f", weight)
+            var repsString = "\(reps)"
+            if let style = style {
+                repsString += style.string
+            }
             weightLabel.text = weightString + " kg"
-            repsLabel.text = "\(reps)회"
+            repsLabel.text = repsString
         }
     }
     

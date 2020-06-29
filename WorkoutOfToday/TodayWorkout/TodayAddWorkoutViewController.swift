@@ -54,7 +54,6 @@ class TodayAddWorkoutViewController: WorkoutTemplateViewController {
     }
     
     private func setupEditTemplateButton() {
-        //        editTemplateButton.action = #selector(editTemplateButtonDidTapped(_:))
         navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(editTemplateButtonDidTapped(_:)))
     }
     

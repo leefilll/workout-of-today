@@ -18,29 +18,20 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xEg-jC-ybf" userLabel="ContainerView">
                         <rect key="frame" x="15" y="0.0" width="383" height="44"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="OcX-d5-gBa">
-                                <rect key="frame" x="35" y="7" width="313" height="30"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="OcX-d5-gBa">
+                                <rect key="frame" x="35" y="7" width="308" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UNi-P6-7XA">
-                                        <rect key="frame" x="0.0" y="5" width="30" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="5" width="55" height="20.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="7ek-No-0Jl"/>
+                                            <constraint firstAttribute="width" constant="55" id="7ek-No-0Jl"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQa-rz-7k1">
-                                        <rect key="frame" x="65" y="13.5" width="20" height="3"/>
-                                        <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="fqy-rU-IFI"/>
-                                            <constraint firstAttribute="height" constant="3" id="nuN-lT-pcf"/>
-                                        </constraints>
-                                    </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="IZv-O8-xDF">
-                                        <rect key="frame" x="120" y="0.0" width="193" height="30"/>
+                                        <rect key="frame" x="115" y="0.0" width="193" height="30"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q2X-m5-2jV">
                                                 <rect key="frame" x="0.0" y="0.0" width="91.5" height="30"/>
@@ -72,7 +63,7 @@
                         <constraints>
                             <constraint firstItem="OcX-d5-gBa" firstAttribute="leading" secondItem="xEg-jC-ybf" secondAttribute="leading" constant="35" id="dRP-zH-ywM"/>
                             <constraint firstItem="OcX-d5-gBa" firstAttribute="centerY" secondItem="xEg-jC-ybf" secondAttribute="centerY" id="ts4-jV-XIT"/>
-                            <constraint firstAttribute="trailing" secondItem="OcX-d5-gBa" secondAttribute="trailing" constant="35" id="xoz-0c-XCQ"/>
+                            <constraint firstAttribute="trailing" secondItem="OcX-d5-gBa" secondAttribute="trailing" constant="40" id="xoz-0c-XCQ"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -86,7 +77,6 @@
             <connections>
                 <outlet property="containerView" destination="xEg-jC-ybf" id="0ZW-J4-ldu"/>
                 <outlet property="countLabel" destination="UNi-P6-7XA" id="CSb-RV-qxj"/>
-                <outlet property="divideLineView" destination="AQa-rz-7k1" id="7Qk-E7-g0a"/>
                 <outlet property="repsTextField" destination="HLw-vJ-Tas" id="Q8O-Lt-Dhj"/>
                 <outlet property="weightTextField" destination="Q2X-m5-2jV" id="4OA-Ya-n1A"/>
             </connections>

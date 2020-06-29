@@ -321,7 +321,7 @@ extension TodayWorkoutViewController: UITableViewDataSource {
         let workoutSet = workout?.sets[indexPath.row]
         let setCount = indexPath.row + 1
         
-        cell.countLabel.text = "\(setCount)"
+        cell.countLabel.text = "\(setCount) set"
         cell.workoutSet = workoutSet
         cell.style = workout?.style
         cell.indexPath = indexPath

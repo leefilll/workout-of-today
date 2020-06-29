@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftIcons
 
 class TodayWorkoutTableHeaderView: BasicView, NibLoadable {
     
@@ -17,6 +18,7 @@ class TodayWorkoutTableHeaderView: BasicView, NibLoadable {
     override func setup() {
         commonInit()
         titleLabel.font = .smallBoldTitle
+        titleLabel.textColor = .defaultTextColor
         workoutNoteButton.backgroundColor = .weakTintColor
         workoutNoteButton.setTitleColor(.tintColor, for: .normal)
         workoutNoteButton.setTitle("노트", for: .normal)
