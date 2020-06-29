@@ -13,7 +13,7 @@ class TodayWorkoutNoteViewController: BasicViewController {
     
     var note: Note?
     
-    @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var noteTextView: UITextView!
     
@@ -22,12 +22,9 @@ class TodayWorkoutNoteViewController: BasicViewController {
     @IBOutlet weak var cancelButton: BasicButton!
     
     override func setup() {
-//        let closeButton = CloseButton(target: self, action: #selector(dismiss(_:)))
-        navigationBar.topItem?.title = "운동 노트✏️"
-//        navigationBar.topItem?.rightBarButtonItem = closeButton
-        
-        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationBar.shadowImage = UIImage()
+        titleLabel.text = "운동 노트"
+        titleLabel.font = .smallBoldTitle
+        titleLabel.textColor = .defaultTextColor
         
         noteTextView.font = .smallTitle
         noteTextView.backgroundColor = .clear

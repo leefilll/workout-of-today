@@ -21,7 +21,6 @@
 		BB12C8A82447441E007DFBC1 /* BasicSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB12C8A72447441E007DFBC1 /* BasicSectionHeaderView.swift */; };
 		BB1BD17324A7A19500B603EA /* ChartMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1BD17224A7A19500B603EA /* ChartMarkerView.swift */; };
 		BB206FA02450776600057CDB /* PopupPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB206F9F2450776600057CDB /* PopupPresentationController.swift */; };
-		BB206FC624508D9600057CDB /* WorkoutTemplateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB206FC524508D9600057CDB /* WorkoutTemplateViewController.xib */; };
 		BB2E75422447752E006108F5 /* UIButton+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2E75412447752E006108F5 /* UIButton+Color.swift */; };
 		BB2E754724486CCF006108F5 /* FeedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2E754624486CCF006108F5 /* FeedCollectionViewFlowLayout.swift */; };
 		BB58CD4B24936279009CA34B /* WorkoutDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB58CD4A24936279009CA34B /* WorkoutDetailViewController.swift */; };
@@ -168,7 +167,6 @@
 		BB12C8A72447441E007DFBC1 /* BasicSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSectionHeaderView.swift; sourceTree = "<group>"; };
 		BB1BD17224A7A19500B603EA /* ChartMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartMarkerView.swift; sourceTree = "<group>"; };
 		BB206F9F2450776600057CDB /* PopupPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupPresentationController.swift; sourceTree = "<group>"; };
-		BB206FC524508D9600057CDB /* WorkoutTemplateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutTemplateViewController.xib; sourceTree = "<group>"; };
 		BB2E75412447752E006108F5 /* UIButton+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Color.swift"; sourceTree = "<group>"; };
 		BB2E7543244826FF006108F5 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		BB2E754624486CCF006108F5 /* FeedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
@@ -337,6 +335,7 @@
 				BB77E9C12452EA0F00C7C4B5 /* WorkoutVolumeChartView.swift */,
 				BB77E9C32452EB4E00C7C4B5 /* WorkoutOnermChartView.swift */,
 				BBC65CBD244F27F9006F0ADB /* TopWorkoutChartCell.swift */,
+				BB58CD4A24936279009CA34B /* WorkoutDetailViewController.swift */,
 			);
 			path = Chart;
 			sourceTree = "<group>";
@@ -468,7 +467,6 @@
 				BB5D31CD24558AE100303B14 /* Calendar */,
 				BB5D31CC24558ADA00303B14 /* Chart */,
 				BB5D31CF24558B0E00303B14 /* Nibs */,
-				BB58CD4A24936279009CA34B /* WorkoutDetailViewController.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -490,7 +488,6 @@
 				BBE15F1E2455EFC0005600B3 /* FormTextField.swift */,
 				BBEE7AF8247599E700F1DF33 /* WarningAlertViewController.swift */,
 				BB04AF75248E69110006BE87 /* WorkoutTemplateViewController.swift */,
-				BB206FC524508D9600057CDB /* WorkoutTemplateViewController.xib */,
 				BB1BD17224A7A19500B603EA /* ChartMarkerView.swift */,
 			);
 			path = Views;
@@ -729,7 +726,6 @@
 				BB58CD4D249366BB009CA34B /* WorkoutDetailViewController.xib in Resources */,
 				BBE15F2C24581779005600B3 /* TodayWorkoutNoteViewController.xib in Resources */,
 				BBE15F0B2455C1C0005600B3 /* SummaryView.xib in Resources */,
-				BB206FC624508D9600057CDB /* WorkoutTemplateViewController.xib in Resources */,
 				BBC65C9F244DBF88006F0ADB /* TodayWorkoutTableHeaderView.xib in Resources */,
 				BBC65CC0244F2815006F0ADB /* TopWorkoutChartCell.xib in Resources */,
 				BB8BB76C243CBA0400774EA9 /* LaunchScreen.storyboard in Resources */,

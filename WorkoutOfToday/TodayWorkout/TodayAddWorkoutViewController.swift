@@ -14,6 +14,8 @@ import SwiftIcons
 
 class TodayAddWorkoutViewController: WorkoutTemplateViewController {
     
+    private weak var searchBar: UISearchBar!
+    
     // MARK: Model
     
     private var tapGestureRecognizer: UITapGestureRecognizer!
@@ -32,19 +34,25 @@ class TodayAddWorkoutViewController: WorkoutTemplateViewController {
     
     private let popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.50)
     
+    var searchedTemplates: [[WorkoutTemplate]]?
+    
     override var navigationBarTitle: String {
         return "운동 추가"
     }
-    
-    override func setup() {
-        super.setup()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
         tapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                       action: #selector(containerViewDidTapped(_:)))
-        templateCollectionView.delegate = self
-        templateCollectionView.emptyDataSetDelegate = self
-        templateCollectionView.emptyDataSetSource = self
-        setupEditTemplateButton()
+        collectionView.delegate = self
+        collectionView.emptyDataSetDelegate = self
+        collectionView.emptyDataSetSource = self
+        searchedTemplates = templates
+        navigationController?.isNavigationBarHidden = true
         setupPanGestureRecognizer()
+        setupHeader()
+        setupSearchBar()
+        setupCollectionViewLayout()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -53,13 +61,71 @@ class TodayAddWorkoutViewController: WorkoutTemplateViewController {
         originMaxY = view.frame.maxY
     }
     
-    private func setupEditTemplateButton() {
-        navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(editTemplateButtonDidTapped(_:)))
+    private func setupHeader() {
+        headerLabel.text = "운동 추가"
+        
+        let dragBar = UIView()
+        dragBar.backgroundColor = .weakGray
+        dragBar.layer.cornerRadius = 3
+        view.addSubview(dragBar)
+        dragBar.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(7)
+            make.width.equalTo(40)
+            make.height.equalTo(5)
+        }
+        
+        let templateAddButton = UIButton()
+        templateAddButton.setTitle("템플릿", for: .normal)
+        templateAddButton.setTitleColor(.tintColor, for: .normal)
+        templateAddButton.titleLabel?.font = .smallestBoldTitle
+        templateAddButton.addTarget(self,
+                                    action: #selector(templateAddButtonDidTapped(_:)),
+                                    for: .touchUpInside)
+        view.addSubview(templateAddButton)
+        templateAddButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(5)
+            make.trailing.equalToSuperview().offset(-20)
+        }
+    }
+    
+    private func setupSearchBar() {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "템플릿 검색"
+        searchBar.delegate = self
+        searchBar.backgroundImage = UIImage()
+        
+        view.addSubview(searchBar)
+        searchBar.snp.makeConstraints { make in
+            make.top.equalTo(headerLabel.snp.bottom)
+            make.leading.equalToSuperview().offset(15)
+            make.trailing.equalToSuperview().offset(-15)
+        }
+        self.searchBar = searchBar
+    }
+    
+    private func setupCollectionViewLayout() {
+        collectionView.snp.remakeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview()
+        }
     }
     
     private func setupPanGestureRecognizer() {
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureDidBegin(_:)))
         view.addGestureRecognizer(panGestureRecognizer)
+    }
+    
+    
+    override func keyboardWillShow(in bounds: CGRect?) {
+        guard let keyboardHeight = bounds?.height else { return }
+        collectionView.contentInset.bottom += keyboardHeight
+    }
+    
+    override func keyboardWillHide() {
+        collectionView.contentInset.bottom = 20
     }
 }
 
@@ -67,7 +133,7 @@ class TodayAddWorkoutViewController: WorkoutTemplateViewController {
 
 extension TodayAddWorkoutViewController: AddWorkoutTemplate {
     func workoutTemplateDidAdded() {
-        templateCollectionView.reloadData()
+        collectionView.reloadData()
     }
 }
 
@@ -75,12 +141,13 @@ extension TodayAddWorkoutViewController: AddWorkoutTemplate {
 
 extension TodayAddWorkoutViewController {
     @objc
-    func editTemplateButtonDidTapped(_ sender: UITapGestureRecognizer?) {
-        let templateAddVC = TodayWorkoutTemplateAddViewController(nibName: "TodayWorkoutTemplateAddViewController", bundle: nil)
-        templateAddVC.modalPresentationStyle = .custom
-        templateAddVC.transitioningDelegate = popupTransitioningDelegateForTemplate
-        templateAddVC.delegate = self
-        present(templateAddVC, animated: true, completion: nil)
+    func templateAddButtonDidTapped(_ sender: UITapGestureRecognizer?) {
+        let vc = TodayWorkoutTemplateAddViewController(nibName: "TodayWorkoutTemplateAddViewController", bundle: nil)
+//        vc.modalPresentationStyle = .
+//        vc.transitioningDelegate = popupTransitioningDelegateForTemplate
+        vc.delegate = self
+        navigationController?.pushViewController(vc, animated: true)
+//        present(templateAddVC, animated: true, completion: nil)
     }
     
     @objc
@@ -139,6 +206,12 @@ extension TodayAddWorkoutViewController {
     }
 }
 
+extension TodayAddWorkoutViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+    }
+}
+
 // MARK: DZNEmptyDataSet DataSource and Delegate
 
 extension TodayAddWorkoutViewController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
@@ -181,6 +254,6 @@ extension TodayAddWorkoutViewController: DZNEmptyDataSetDelegate, DZNEmptyDataSe
     }
     
     func emptyDataSet(_ scrollView: UIScrollView!, didTap view: UIView!) {
-        editTemplateButtonDidTapped(nil)
+        templateAddButtonDidTapped(nil)
     }
 }

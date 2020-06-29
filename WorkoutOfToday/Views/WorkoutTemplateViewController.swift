@@ -9,16 +9,15 @@
 import UIKit
 
 import RealmSwift
+import SwiftIcons
 
 class WorkoutTemplateViewController: BasicViewController {
 
     // MARK: View
     
-    @IBOutlet weak var templateCollectionView: UICollectionView!
+    weak var collectionView: UICollectionView!
     
-    @IBOutlet weak var navigationBar: UINavigationBar!
-    
-    @IBOutlet weak var dragBar: UIView!
+    weak var headerLabel: UILabel!
     
     // MARK: Model
     
@@ -32,34 +31,13 @@ class WorkoutTemplateViewController: BasicViewController {
         return partArray
     }
     
-    var searchedTemplates: [[WorkoutTemplate]]?
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: "WorkoutTemplateViewController", bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    override func setup() {
-        setupCollectionView()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchedTemplates = templates
+        setupHeaderLabel()
+        setupCollectionView()
         view.backgroundColor = .white
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
-        setupDragBar()
-    }
-    
-    override func configureNavigationBar() {
-        navigationBar.topItem?.title = navigationBarTitle
-        navigationBar.barTintColor = .white
-        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationBar.shadowImage = UIImage()
     }
     
     override func setupFeedbackGenerator() {
@@ -67,24 +45,49 @@ class WorkoutTemplateViewController: BasicViewController {
         selectionFeedbackGenerator?.prepare()
     }
     
-    private func setupDragBar() {
-        dragBar.backgroundColor = .lightGray
-        dragBar.layer.cornerRadius = 3
+    private func setupHeaderLabel() {
+        let headerLabel = UILabel()
+        headerLabel.font = .boldTitle
+        headerLabel.textColor = .defaultTextColor
+        
+        view.addSubview(headerLabel)
+        headerLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(30)
+            make.leading.equalToSuperview().offset(25)
+        }
+        self.headerLabel = headerLabel
     }
     
     private func setupCollectionView() {
-        if let layout = templateCollectionView.collectionViewLayout as? FeedCollectionViewFlowLayout {
-            layout.minimumLineSpacing = 0
-            layout.minimumInteritemSpacing = 3
-            layout.scrollDirection = .vertical
-            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        let layout = FeedCollectionViewFlowLayout(minimumInteritemSpacing: 3,
+                                                  minimumLineSpacing: 0,
+                                                  sectionInset: .zero)
+        let collectionView = UICollectionView(frame: .zero,
+                                              collectionViewLayout: layout)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                          action: #selector(containerViewDidTapped(_:)))
+        
+        collectionView.addGestureRecognizer(tapGestureRecognizer)
+        collectionView.contentInset.bottom = 40
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.delaysContentTouches = false
+        collectionView.backgroundColor = .white
+        collectionView.alwaysBounceVertical = true
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.keyboardDismissMode = .interactive
+        collectionView.register(LabelCollectionViewCell.self)
+        collectionView.registerForHeaderView(TodayAddWorkoutCollectionHeaderView.self)
+        
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(headerLabel.snp.bottom).offset(5)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview()
         }
-        templateCollectionView.contentInset.bottom = 40
-        templateCollectionView.delegate = self
-        templateCollectionView.dataSource = self
-        templateCollectionView.delaysContentTouches = false
-        templateCollectionView.register(LabelCollectionViewCell.self)
-        templateCollectionView.registerForHeaderView(TodayAddWorkoutCollectionHeaderView.self)
+        
+        self.collectionView = collectionView
     }
 }
 

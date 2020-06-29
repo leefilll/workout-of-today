@@ -19,7 +19,7 @@ extension UIFont {
     static var largeTitle: UIFont {
         let font = UIFont.preferredFont(forTextStyle: .largeTitle)
         let fontSize = font.pointSize
-        return UIFont(name: "AppleSDGothicNeo-SemiBold", size: fontSize) ??
+        return UIFont(name: "AppleSDGothicNeo-Bold", size: fontSize) ??
             UIFont.boldSystemFont(ofSize: fontSize)
     }
     

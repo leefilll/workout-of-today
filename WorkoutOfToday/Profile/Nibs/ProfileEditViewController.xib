@@ -115,18 +115,18 @@
                         </stackView>
                     </subviews>
                 </stackView>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="3BE-gx-MDb">
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3BE-gx-MDb">
                     <rect key="frame" x="10" y="558" width="394" height="40"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RSf-uX-DYF" customClass="BasicButton" customModule="WorkoutOfToday" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="189.5" height="40"/>
+                            <rect key="frame" x="0.0" y="0.0" width="192" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="jbO-F1-tqk"/>
                             </constraints>
                             <state key="normal" title="Button"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rjv-rG-6c8" customClass="BasicButton" customModule="WorkoutOfToday" customModuleProvider="target">
-                            <rect key="frame" x="204.5" y="0.0" width="189.5" height="40"/>
+                            <rect key="frame" x="202" y="0.0" width="192" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="qSG-6w-0kT"/>
                             </constraints>
@@ -221,7 +221,7 @@
                     </subviews>
                 </stackView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74b-gL-tO7">
-                    <rect key="frame" x="25" y="59" width="369" height="20.5"/>
+                    <rect key="frame" x="20" y="59" width="374" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -240,7 +240,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="3BE-gx-MDb" secondAttribute="bottom" constant="15" id="eDI-TB-xf3"/>
                 <constraint firstItem="zaD-xG-rdL" firstAttribute="top" secondItem="5nM-Nw-uUW" secondAttribute="bottom" constant="20" id="ecN-Bh-H2r"/>
                 <constraint firstItem="3BE-gx-MDb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="lcu-6b-CgN"/>
-                <constraint firstItem="74b-gL-tO7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="25" id="sjJ-lz-exe"/>
+                <constraint firstItem="74b-gL-tO7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="sjJ-lz-exe"/>
                 <constraint firstItem="zaD-xG-rdL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="tON-QB-f0F"/>
                 <constraint firstItem="OXR-YV-8sg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="vGY-pX-cnT"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5nM-Nw-uUW" secondAttribute="trailing" constant="20" id="wbn-h1-YeF"/>

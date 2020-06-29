@@ -11,9 +11,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TodayWorkoutNoteViewController" customModule="WorkoutOfToday" customModuleProvider="target">
             <connections>
                 <outlet property="cancelButton" destination="CQW-HY-MLN" id="Etf-k8-XFq"/>
-                <outlet property="navigationBar" destination="tBq-Lr-yF4" id="aLA-vx-2R7"/>
                 <outlet property="noteAddButton" destination="Whc-w3-JFs" id="vjr-FT-XWf"/>
                 <outlet property="noteTextView" destination="cwi-qE-hmS" id="aaf-2Y-ODd"/>
+                <outlet property="titleLabel" destination="5lI-hC-o1j" id="dim-1z-l1M"/>
                 <outlet property="view" destination="iN0-l3-epB" id="mkE-PJ-EJc"/>
             </connections>
         </placeholder>
@@ -23,24 +23,24 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cwi-qE-hmS">
-                    <rect key="frame" x="25" y="103" width="364" height="684"/>
+                    <rect key="frame" x="25" y="109.5" width="364" height="677.5"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="xdW-9B-c29">
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xdW-9B-c29">
                     <rect key="frame" x="10" y="807" width="394" height="40"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQW-HY-MLN" customClass="BasicButton" customModule="WorkoutOfToday" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="189.5" height="40"/>
+                            <rect key="frame" x="0.0" y="0.0" width="192" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="PXc-AJ-0f5"/>
                             </constraints>
                             <state key="normal" title="Button"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Whc-w3-JFs" customClass="BasicButton" customModule="WorkoutOfToday" customModuleProvider="target">
-                            <rect key="frame" x="204.5" y="0.0" width="189.5" height="40"/>
+                            <rect key="frame" x="202" y="0.0" width="192" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="7aY-Lm-VI2"/>
                             </constraints>
@@ -51,28 +51,27 @@
                         <constraint firstAttribute="height" constant="40" id="JUg-uZ-4gr"/>
                     </constraints>
                 </stackView>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tBq-Lr-yF4">
-                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                    <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <items>
-                        <navigationItem title="Title" id="iJa-q6-bMD"/>
-                    </items>
-                </navigationBar>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lI-hC-o1j">
+                    <rect key="frame" x="20" y="59" width="374" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="cwi-qE-hmS" secondAttribute="trailing" constant="25" id="02Y-G4-sF7"/>
                 <constraint firstItem="xdW-9B-c29" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="1pg-xp-tpW"/>
-                <constraint firstItem="tBq-Lr-yF4" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="ACv-hl-jsl"/>
                 <constraint firstItem="cwi-qE-hmS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="25" id="KIf-OS-UM4"/>
-                <constraint firstItem="tBq-Lr-yF4" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="RjB-3m-VXi"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="xdW-9B-c29" secondAttribute="bottom" constant="15" id="TLS-Ub-4Xf"/>
-                <constraint firstItem="cwi-qE-hmS" firstAttribute="top" secondItem="tBq-Lr-yF4" secondAttribute="bottom" constant="15" id="TPo-p4-PGU"/>
-                <constraint firstItem="tBq-Lr-yF4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="cWC-QE-ebe"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="cwi-qE-hmS" secondAttribute="trailing" constant="25" id="e4q-CI-myp"/>
                 <constraint firstItem="cwi-qE-hmS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="25" id="fea-nV-zT8"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="5lI-hC-o1j" secondAttribute="trailing" constant="20" id="k6o-1H-CDb"/>
+                <constraint firstItem="cwi-qE-hmS" firstAttribute="top" secondItem="5lI-hC-o1j" secondAttribute="bottom" constant="30" id="knQ-v4-d4W"/>
                 <constraint firstItem="xdW-9B-c29" firstAttribute="top" secondItem="cwi-qE-hmS" secondAttribute="bottom" constant="20" id="mRj-mF-Uk0"/>
+                <constraint firstItem="5lI-hC-o1j" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="tRv-iI-NPW"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="xdW-9B-c29" secondAttribute="trailing" constant="10" id="vwh-gR-5EO"/>
+                <constraint firstItem="5lI-hC-o1j" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="15" id="x17-1p-h9w"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
