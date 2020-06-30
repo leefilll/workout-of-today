@@ -10,10 +10,10 @@ import UIKit
 
 final class SlidePresentationController: UIPresentationController {
     
-    private let dimmingView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.55)
-        return view
+    private let dimmingView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .dark)
+        let effectView = UIVisualEffectView(effect: blurEffect)
+        return effectView
     }()
     
     private var heightRatio: CGFloat = 1.0
@@ -54,7 +54,7 @@ final class SlidePresentationController: UIPresentationController {
         
         guard let coordinator = presentedViewController.transitionCoordinator else { return }
         coordinator.animate(alongsideTransition:{ context in
-            self.dimmingView.alpha = 1.0
+            self.dimmingView.alpha = 1
         } , completion: nil)
     }
     

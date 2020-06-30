@@ -143,11 +143,8 @@ extension TodayAddWorkoutViewController {
     @objc
     func templateAddButtonDidTapped(_ sender: UITapGestureRecognizer?) {
         let vc = TodayWorkoutTemplateAddViewController(nibName: "TodayWorkoutTemplateAddViewController", bundle: nil)
-//        vc.modalPresentationStyle = .
-//        vc.transitioningDelegate = popupTransitioningDelegateForTemplate
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
-//        present(templateAddVC, animated: true, completion: nil)
     }
     
     @objc
