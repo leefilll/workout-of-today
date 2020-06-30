@@ -18,7 +18,7 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
     
     private let slideTransitioningDelegate =  SlideTransitioningDelegate(heightRatio: 0.90)
     
-    private let popupTransitioningDelegate = PopupTransitioningDelegate(height: 230)
+    private let popupTransitioningDelegate = PopupTransitioningDelegate(height: 255)
     
     private let popupTransitioningDelegateForNote = PopupTransitioningDelegate(height: 300)
     

@@ -10,7 +10,6 @@ import UIKit
 
 final class RootTabBarController: UITabBarController, UITabBarControllerDelegate {
     
-//    private var workoutsOfDay: WorkoutsOfDay?
     private weak var profileViewController: ProfileViewController!
     
     private weak var todayWorkoutViewController: TodayWorkoutViewController!
@@ -51,5 +50,21 @@ final class RootTabBarController: UITabBarController, UITabBarControllerDelegate
         self.profileViewController = profileViewController
         self.todayWorkoutViewController = todayWorkoutViewController
         self.feedViewController = feedViewController
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if let selectedViewController = selectedViewController, selectedViewController == viewController {
+            if let navigationController = selectedViewController as? UINavigationController,
+                let feedMasterVC = navigationController.children.first as? FeedMasterViewController,
+                let dailyVC = feedMasterVC.dailyCollectionViewController {
+                dailyVC.scrollToBottom()
+            }
+        }
+        return true
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+//        print(#function, viewController)
+        
     }
 }

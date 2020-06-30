@@ -14,7 +14,6 @@ class WarningAlertViewController: BasicViewController {
     
     var message: String?
     
-//    var delegate: WorkoutDidModiFieid?
     var index: Int?
     
     var workoutToDelete: Workout?
@@ -77,7 +76,7 @@ class WarningAlertViewController: BasicViewController {
         messageLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(10)
             make.trailing.equalToSuperview().offset(-10)
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.top.equalTo(titleLabel.snp.bottom).offset(30)
         }
         
         cancelButton.snp.makeConstraints { make in

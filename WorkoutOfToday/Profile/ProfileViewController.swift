@@ -8,19 +8,6 @@
 
 import UIKit
 
-/*
- 요약 =
- 
- 키
- 몸무게
- 평균 운동 시간
- 주당 운동 횟수
- 
- 차트 =
- 몸무게 변화
- 운동량 변화
- */
-
 class ProfileViewController: BasicViewController {
     
     // MARK: Model
@@ -179,6 +166,7 @@ extension ProfileViewController {
         vc.delegate = self
         vc.transitioningDelegate = popupTransitioningDelegateForTemplate
         vc.modalPresentationStyle = .custom
+        selectionFeedbackGenerator?.selectionChanged()
         present(vc, animated: true, completion: nil)
     }
 }

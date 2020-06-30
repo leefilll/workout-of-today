@@ -59,8 +59,7 @@ class WorkoutVolumeChartView: BasicChartView {
     
     private func setupModel() {
         if let tempTemplate = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self).first {
-            workoutTemplate = tempTemplate
-            volumesByDate = DBHandler.shared.fetchWorkoutVolumes(workoutTemplate: tempTemplate)
+            updateWorkoutTemplate(workoutTemplate: tempTemplate)
         }
     }
     
@@ -77,8 +76,9 @@ class WorkoutVolumeChartView: BasicChartView {
         lineChartView.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
-        valueFormatter = self
+        
         xAxisFormatter = self
+        valueFormatter = self
         lineChartView.delegate = self
         lineChartView.rightAxis.enabled = false
         lineChartView.chartDescription?.enabled = false
@@ -105,6 +105,7 @@ class WorkoutVolumeChartView: BasicChartView {
         }
         
         isEmpty = false
+        
         // MARK: note that x value used for index
         let entries = volumesByDate.enumerated().map { idx, value -> ChartDataEntry in
             let volume = value.volume
@@ -145,6 +146,7 @@ class WorkoutVolumeChartView: BasicChartView {
         xAxis.axisLineColor = .concaveColor
         xAxis.valueFormatter = xAxisFormatter
         
+        
         let marker = ChartMarkerView(color: .weakGray,
                                      font: .subheadline,
                                      textColor: .black,
@@ -180,7 +182,7 @@ extension WorkoutVolumeChartView: IValueFormatter {
 
 extension WorkoutVolumeChartView: IAxisValueFormatter {
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        guard let axis = axis else { return "" }
+        guard isEmpty == false, let axis = axis else { return "" }
         if axis == lineChartView.xAxis {
             guard let volumesByDate = volumesByDate else { return "" }
             let date = volumesByDate[Int(value)].date

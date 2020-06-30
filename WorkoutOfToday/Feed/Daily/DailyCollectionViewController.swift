@@ -32,8 +32,13 @@ class DailyCollectionViewController: BasicViewController, Childable {
     lazy private var popupTransitioningDelegate
         = PopupTransitioningDelegate(height: self.view.bounds.height * 3 / 4)
 
-    override func setup() {
+    override func viewDidLoad() {
+        super.viewDidLoad()
         setupCollectionView()
+        configureCollectionView()
+        
+        collectionView.layoutIfNeeded()
+        scrollToBottom()
     }
     
     private func setupCollectionView() {
@@ -54,25 +59,7 @@ class DailyCollectionViewController: BasicViewController, Childable {
         }
         self.collectionView = collectionView
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureCollectionView()
-    }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let lastSectionIndex = sections.count - 1
-        collectionView.scrollToItem(at: IndexPath(item: 0, section: lastSectionIndex),
-                                    at: .centeredVertically,
-                                    animated: false)
-    }
-    
-    override func setupFeedbackGenerator() {
-        selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-        selectionFeedbackGenerator?.prepare()
-    }
-
     private func configureCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -80,6 +67,18 @@ class DailyCollectionViewController: BasicViewController, Childable {
         collectionView.emptyDataSetDelegate = self
         collectionView.register(LabelCollectionViewCell.self)
         collectionView.registerForHeaderView(LabelCollectionHeaderView.self)
+    }
+    
+    public func scrollToBottom() {
+        let lastSectionIndex = sections.count - 1
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: lastSectionIndex),
+                                    at: .centeredVertically,
+                                    animated: true)
+    }
+    
+    override func setupFeedbackGenerator() {
+        selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator?.prepare()
     }
 
     override func registerNotifications() {

@@ -64,10 +64,12 @@ class WorkoutTemplateViewController: BasicViewController {
                                                   sectionInset: .zero)
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
+        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                           action: #selector(containerViewDidTapped(_:)))
-        
+        tapGestureRecognizer.cancelsTouchesInView = false
         collectionView.addGestureRecognizer(tapGestureRecognizer)
+        
         collectionView.contentInset.bottom = 40
         collectionView.delegate = self
         collectionView.dataSource = self

@@ -29,9 +29,9 @@ class FeedMasterViewController: BasicViewController {
     
     private var contentView: UIView!
     
-    private var dailyCollectionViewController: DailyCollectionViewController!
+    var dailyCollectionViewController: DailyCollectionViewController!
 
-    private var calendarViewController: CalendarViewController!
+    var calendarViewController: CalendarViewController!
 
     // MARK: View Life Cycle
     override func setup() {
