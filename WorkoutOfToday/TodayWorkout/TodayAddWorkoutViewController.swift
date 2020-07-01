@@ -34,7 +34,11 @@ class TodayAddWorkoutViewController: WorkoutTemplateViewController {
     
     private let popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.50)
     
-    var searchedTemplates: [[WorkoutTemplate]]?
+    var searchedTemplates: [[WorkoutTemplate]]? {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     override var navigationBarTitle: String {
         return "운동 추가"
@@ -185,11 +189,35 @@ extension TodayAddWorkoutViewController {
     }
 }
 
+// MARK: CollectionView DataSource
+
+extension TodayAddWorkoutViewController {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        guard let searchedTemplates = searchedTemplates else { return 0 }
+        let matchedTemplates = searchedTemplates.filter {
+            return !$0.isEmpty
+        }
+        return matchedTemplates.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let searchedTemplates = searchedTemplates else { return 0 }
+        return searchedTemplates[section].count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(LabelCollectionViewCell.self,
+                                                      for: indexPath)
+        cell.content = searchedTemplates?[indexPath.section][indexPath.item]
+        return cell
+    }
+}
+
 // MARK: CollectionView Delegate
 
 extension TodayAddWorkoutViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedTemplate = templates[indexPath.section][indexPath.item]
+        guard let selectedTemplate = searchedTemplates?[indexPath.section][indexPath.item] else { return }
         
         DBHandler.shared.write {
             let newWorkout = Workout()
@@ -201,11 +229,48 @@ extension TodayAddWorkoutViewController {
         selectionFeedbackGenerator?.selectionChanged()
         dismiss(animated: true, completion: nil)
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        guard let searchedTemplates = searchedTemplates?[section],
+            !searchedTemplates.isEmpty else { return .zero }
+        return CGSize(width: 0, height: 20)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let searchedTemplates = searchedTemplates?[indexPath.section],
+            !searchedTemplates.isEmpty else { return .zero }
+            
+        let workoutTemplate = templates[indexPath.section][indexPath.item]
+        let templateString = workoutTemplate.name
+        let itemSize = templateString.size(withAttributes: [
+            NSAttributedString.Key.font : UIFont.smallBoldTitle
+        ])
+
+        let extraWidth: CGFloat = 30
+        let insetHorizontal = collectionView.contentInset.left + collectionView.contentInset.right
+        let maxWidth = collectionView.bounds.width - insetHorizontal
+        
+        if itemSize.width + extraWidth > maxWidth {
+            return CGSize(width: maxWidth, height: Size.addCollectionViewHeight)
+        }
+        return CGSize(width: itemSize.width + extraWidth,
+                      height: Size.addCollectionViewHeight)
+    }
 }
 
 extension TodayAddWorkoutViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
+        if searchText == "" {
+            searchedTemplates = templates
+            return
+        }
+        let matchedTemplates = templates.map { templatesInPart -> [WorkoutTemplate] in
+            return templatesInPart.filter { template in
+                if template.name.contains(searchText) { print(template) }
+                return template.name.contains(searchText)
+            }
+        }
+        searchedTemplates = matchedTemplates
     }
 }
 
@@ -213,7 +278,8 @@ extension TodayAddWorkoutViewController: UISearchBarDelegate {
 
 extension TodayAddWorkoutViewController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
-        for template in templates {
+        guard let searchedTemplates = searchedTemplates else { return false }
+        for template in searchedTemplates {
             if !template.isEmpty {
                 return false
             }

@@ -21,6 +21,15 @@ class WorkoutTemplateViewController: BasicViewController {
     
     // MARK: Model
     
+    var test: [Part : WorkoutTemplate] {
+        let templates = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self)
+        let templatesInPart = templates.reduce([Part: WorkoutTemplate]()) { dict, template in
+            
+            return dict
+        }
+        return templatesInPart
+    }
+    
     var templates: [[WorkoutTemplate]] {
         let templates = DBHandler.shared.fetchObjects(ofType: WorkoutTemplate.self)
         var partArray = [[WorkoutTemplate]](repeating: [], count: Part.allCases.count)
