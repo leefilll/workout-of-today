@@ -100,8 +100,9 @@ class WorkoutVolumeChartView: BasicChartView {
         guard let workoutTemplate = workoutTemplate,
             let volumesByDate = volumesByDate,
             volumesByDate.count > 1 else {
-            isEmpty = true
-            return
+                isEmpty = true
+                lineChartView.marker = nil
+                return
         }
         
         isEmpty = false
@@ -154,7 +155,6 @@ class WorkoutVolumeChartView: BasicChartView {
                                      style: workoutTemplate.style)
         marker.chartView = lineChartView
         lineChartView.marker = marker
-        
         lineChartView.data = data
     }
     
@@ -166,8 +166,8 @@ class WorkoutVolumeChartView: BasicChartView {
 // MARK: ChartView Delegate
 
 extension WorkoutVolumeChartView: ChartViewDelegate {
-        func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        }
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+    }
 }
 
 // MARK: Value Formatter Delegate

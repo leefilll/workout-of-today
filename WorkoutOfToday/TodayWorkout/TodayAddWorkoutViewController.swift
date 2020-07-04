@@ -12,27 +12,13 @@ import RealmSwift
 import DZNEmptyDataSet
 import SwiftIcons
 
-class TodayAddWorkoutViewController: WorkoutTemplateViewController {
+final class TodayAddWorkoutViewController: WorkoutTemplateViewController {
     
     private weak var searchBar: UISearchBar!
     
     // MARK: Model
     
     private var tapGestureRecognizer: UITapGestureRecognizer!
-    
-    private var panGestureRecognizer: UIPanGestureRecognizer!
-    
-    private var originMinY: CGFloat!
-    
-    private var originMaxY: CGFloat!
-    
-    private var minimumVelocityToHide: CGFloat = 1200
-    
-    private var minimumScreenRatioToHide: CGFloat = 0.3
-    
-    private var animationDuration: TimeInterval = 0.2
-    
-    private let popupTransitioningDelegateForTemplate = PopupTransitioningDelegate(widthRatio: 0.95, heightRatio: 0.50)
     
     var searchedTemplates: [[WorkoutTemplate]]? {
         didSet {
@@ -53,31 +39,13 @@ class TodayAddWorkoutViewController: WorkoutTemplateViewController {
         collectionView.emptyDataSetSource = self
         searchedTemplates = templates
         navigationController?.isNavigationBarHidden = true
-        setupPanGestureRecognizer()
         setupHeader()
         setupSearchBar()
         setupCollectionViewLayout()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        originMinY = view.frame.minY
-        originMaxY = view.frame.maxY
-    }
-    
     private func setupHeader() {
         headerLabel.text = "운동 추가"
-        
-        let dragBar = UIView()
-        dragBar.backgroundColor = .weakGray
-        dragBar.layer.cornerRadius = 3
-        view.addSubview(dragBar)
-        dragBar.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(7)
-            make.width.equalTo(40)
-            make.height.equalTo(5)
-        }
         
         let templateAddButton = UIButton()
         templateAddButton.setTitle("템플릿", for: .normal)
@@ -117,12 +85,6 @@ class TodayAddWorkoutViewController: WorkoutTemplateViewController {
         }
     }
     
-    private func setupPanGestureRecognizer() {
-        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureDidBegin(_:)))
-        view.addGestureRecognizer(panGestureRecognizer)
-    }
-    
-    
     override func keyboardWillShow(in bounds: CGRect?) {
         guard let keyboardHeight = bounds?.height else { return }
         collectionView.contentInset.bottom += keyboardHeight
@@ -150,43 +112,6 @@ extension TodayAddWorkoutViewController {
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    @objc
-    func panGestureDidBegin(_ sender: UIPanGestureRecognizer) {
-        func slideViewVerticallyTo(_ y: CGFloat) {
-            view.frame.origin = CGPoint(x: 0, y: y)
-        }
-        
-        switch sender.state {
-            case .began, .changed:
-                let translation = sender.translation(in: view)
-                let y = max(originMinY, originMinY + translation.y)
-                slideViewVerticallyTo(y)
-            case .ended:
-                let translation = sender.translation(in: view)
-                let velocity = sender.velocity(in: view)
-                let closing = (translation.y > view.frame.height * minimumScreenRatioToHide) ||
-                    (velocity.y > minimumVelocityToHide)
-                
-                if closing {
-                    UIView.animate(withDuration: animationDuration, animations: {
-                        slideViewVerticallyTo(self.originMaxY)
-                    }, completion: { (isCompleted) in
-                        if isCompleted {
-                            self.dismiss(animated: false, completion: nil)
-                        }
-                    })
-                } else {
-                    UIView.animate(withDuration: animationDuration, animations: {
-                        slideViewVerticallyTo(self.originMinY)
-                    })
-            }
-            default:
-                UIView.animate(withDuration: animationDuration, animations: {
-                    slideViewVerticallyTo(self.originMinY)
-                })
-        }
-    }
 }
 
 // MARK: CollectionView DataSource
@@ -194,21 +119,22 @@ extension TodayAddWorkoutViewController {
 extension TodayAddWorkoutViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         guard let searchedTemplates = searchedTemplates else { return 0 }
-        let matchedTemplates = searchedTemplates.filter {
-            return !$0.isEmpty
-        }
+        let matchedTemplates = searchedTemplates.filter { !$0.isEmpty }
         return matchedTemplates.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let searchedTemplates = searchedTemplates else { return 0 }
-        return searchedTemplates[section].count
+        let matchedTemplates = searchedTemplates.filter { !$0.isEmpty }
+        return matchedTemplates[section].count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let searchedTemplates = searchedTemplates else { return UICollectionViewCell() }
+        let matchedTemplates = searchedTemplates.filter { !$0.isEmpty }
         let cell = collectionView.dequeueReusableCell(LabelCollectionViewCell.self,
                                                       for: indexPath)
-        cell.content = searchedTemplates?[indexPath.section][indexPath.item]
+        cell.content = matchedTemplates[indexPath.section][indexPath.item]
         return cell
     }
 }
@@ -217,7 +143,10 @@ extension TodayAddWorkoutViewController {
 
 extension TodayAddWorkoutViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let selectedTemplate = searchedTemplates?[indexPath.section][indexPath.item] else { return }
+        guard let searchedTemplates = searchedTemplates else { return }
+        let matchedTemplates = searchedTemplates.filter { !$0.isEmpty }
+        let selectedTemplate = matchedTemplates[indexPath.section][indexPath.item]
+//        guard let selectedTemplate = searchedTemplates?[indexPath.section][indexPath.item] else { return }
         
         DBHandler.shared.write {
             let newWorkout = Workout()
@@ -230,22 +159,39 @@ extension TodayAddWorkoutViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        guard let searchedTemplates = searchedTemplates?[section],
-            !searchedTemplates.isEmpty else { return .zero }
-        return CGSize(width: 0, height: 20)
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let searchedTemplates = searchedTemplates else { return UICollectionReusableView() }
+        let header = collectionView.dequeueReusableSupplementaryView(TodayAddWorkoutCollectionHeaderView.self, for: indexPath)
+        let parts = Part.allCases.enumerated().filter { idx, part in
+            return !searchedTemplates[idx].isEmpty
+        }
+        let part = parts[indexPath.section]
+        header.titleLabel.text = part.element.name
+        return header
     }
     
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        guard let searchedTemplates = searchedTemplates else { return .zero }
+        
+        let matchedTemplates = searchedTemplates.filter { !$0.isEmpty }
+        if matchedTemplates[section].isEmpty { return .zero }
+        
+        return CGSize(width: 0, height: 40)
+    }
+    
+    // MARK: CollectionView Delegate Flow Layout
+    
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let searchedTemplates = searchedTemplates?[indexPath.section],
-            !searchedTemplates.isEmpty else { return .zero }
-            
-        let workoutTemplate = templates[indexPath.section][indexPath.item]
+        guard let searchedTemplates = searchedTemplates else { return .zero }
+        
+        let matchedTemplates = searchedTemplates.filter { !$0.isEmpty }
+        if matchedTemplates[indexPath.section].isEmpty { return .zero }
+        let workoutTemplate = matchedTemplates[indexPath.section][indexPath.item]
         let templateString = workoutTemplate.name
         let itemSize = templateString.size(withAttributes: [
             NSAttributedString.Key.font : UIFont.smallBoldTitle
         ])
-
+        
         let extraWidth: CGFloat = 30
         let insetHorizontal = collectionView.contentInset.left + collectionView.contentInset.right
         let maxWidth = collectionView.bounds.width - insetHorizontal
@@ -264,10 +210,11 @@ extension TodayAddWorkoutViewController: UISearchBarDelegate {
             searchedTemplates = templates
             return
         }
+        let lowerSearchText = searchText.lowercased()
+        
         let matchedTemplates = templates.map { templatesInPart -> [WorkoutTemplate] in
             return templatesInPart.filter { template in
-                if template.name.contains(searchText) { print(template) }
-                return template.name.contains(searchText)
+                return template.name.lowercased().contains(lowerSearchText)
             }
         }
         searchedTemplates = matchedTemplates

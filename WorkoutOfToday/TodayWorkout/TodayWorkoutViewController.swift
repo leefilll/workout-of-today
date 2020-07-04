@@ -16,7 +16,7 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
     
     // MARK: Model
     
-    private let slideTransitioningDelegate =  SlideTransitioningDelegate(heightRatio: 0.90)
+    private let slideTransitioningDelegate =  SlideTransitioningDelegate(heightRatio: 0.92)
     
     private let popupTransitioningDelegate = PopupTransitioningDelegate(height: 255)
     
@@ -258,7 +258,7 @@ extension TodayWorkoutViewController {
     
     @objc
     private func workoutAddButtonDidTapped(_ sender: UIButton?) {
-        let addWorkoutVC = UINavigationController(rootViewController: TodayAddWorkoutViewController())
+        let addWorkoutVC = DraggableNavigationController(rootViewController: TodayAddWorkoutViewController())
         addWorkoutVC.modalPresentationStyle = .custom
         addWorkoutVC.transitioningDelegate = slideTransitioningDelegate
         selectionFeedbackGenerator?.selectionChanged()

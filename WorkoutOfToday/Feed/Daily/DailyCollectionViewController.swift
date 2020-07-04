@@ -72,7 +72,7 @@ class DailyCollectionViewController: BasicViewController, Childable {
     public func scrollToBottom() {
         let lastSectionIndex = sections.count - 1
         collectionView.scrollToItem(at: IndexPath(item: 0, section: lastSectionIndex),
-                                    at: .centeredVertically,
+                                    at: .top,
                                     animated: true)
     }
     

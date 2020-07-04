@@ -84,7 +84,7 @@ final class WorkoutSetTableViewCell: BasicTableViewCell {
         let reps = workoutSet.reps
         let weightSting = weight.isInt
             ? String(format: "%d", Int(weight))
-            : String(format: ".1f%", weight)
+            : String(format: "%.1f", weight)
         weightTextField.text = weight != 0 ? weightSting : nil
         repsTextField.text = reps != 0 ? "\(workoutSet.reps)" : nil
     }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4ED928474D7D7FC0509DA153 /* Pods_WorkoutOfTodayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39BFF9168A261E9B4EECA678 /* Pods_WorkoutOfTodayTests.framework */; };
 		B0881FDB94ACD171777EC513 /* Pods_WorkoutOfToday_WorkoutOfTodayUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759A9CFEB15D065C565DBBB2 /* Pods_WorkoutOfToday_WorkoutOfTodayUITests.framework */; };
+		BB01335524B08FAF0008BCCC /* DraggableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB01335424B08FAF0008BCCC /* DraggableNavigationController.swift */; };
 		BB04A86D248617BA00C9FA69 /* NotificationDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04A86C248617BA00C9FA69 /* NotificationDescriptor.swift */; };
 		BB04A86F2486189D00C9FA69 /* KeyboardPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04A86E2486189D00C9FA69 /* KeyboardPayload.swift */; };
 		BB04A871248619FD00C9FA69 /* BasicNotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB04A870248619FD00C9FA69 /* BasicNotificationToken.swift */; };
@@ -150,6 +151,7 @@
 		931CE3F9D04CD2D6BEAEB252 /* Pods-WorkoutOfToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorkoutOfToday.debug.xcconfig"; path = "Target Support Files/Pods-WorkoutOfToday/Pods-WorkoutOfToday.debug.xcconfig"; sourceTree = "<group>"; };
 		A4EB4DDD8565068A8DF0231D /* Pods-WorkoutOfTodayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorkoutOfTodayTests.debug.xcconfig"; path = "Target Support Files/Pods-WorkoutOfTodayTests/Pods-WorkoutOfTodayTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A792CD34C8F57C276FFA3DCF /* Pods-WorkoutOfToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorkoutOfToday.release.xcconfig"; path = "Target Support Files/Pods-WorkoutOfToday/Pods-WorkoutOfToday.release.xcconfig"; sourceTree = "<group>"; };
+		BB01335424B08FAF0008BCCC /* DraggableNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableNavigationController.swift; sourceTree = "<group>"; };
 		BB04A86C248617BA00C9FA69 /* NotificationDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDescriptor.swift; sourceTree = "<group>"; };
 		BB04A86E2486189D00C9FA69 /* KeyboardPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardPayload.swift; sourceTree = "<group>"; };
 		BB04A870248619FD00C9FA69 /* BasicNotificationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicNotificationToken.swift; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				BBEE7AF8247599E700F1DF33 /* WarningAlertViewController.swift */,
 				BB04AF75248E69110006BE87 /* WorkoutTemplateViewController.swift */,
 				BB1BD17224A7A19500B603EA /* ChartMarkerView.swift */,
+				BB01335424B08FAF0008BCCC /* DraggableNavigationController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -885,6 +888,7 @@
 				BB04A871248619FD00C9FA69 /* BasicNotificationToken.swift in Sources */,
 				BBC65CB6244EFAE2006F0ADB /* CalendarHeaderView.swift in Sources */,
 				BBC65CC2244FF772006F0ADB /* BasicTableViewCell.swift in Sources */,
+				BB01335524B08FAF0008BCCC /* DraggableNavigationController.swift in Sources */,
 				BBEE7AF9247599E700F1DF33 /* WarningAlertViewController.swift in Sources */,
 				BB5C5193243EED1B00A1CD9C /* UIFont+Static.swift in Sources */,
 				BBE15F1D2455E3BE005600B3 /* Profile.swift in Sources */,
