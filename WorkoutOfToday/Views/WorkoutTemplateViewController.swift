@@ -107,7 +107,7 @@ class WorkoutTemplateViewController: BasicViewController {
 extension WorkoutTemplateViewController {
     @objc
     func containerViewDidTapped(_ sender: UITapGestureRecognizer) {
-        view.endEditing(true)
+        view.endEditing(false)
     }
 }
 
@@ -121,7 +121,7 @@ extension WorkoutTemplateViewController: UICollectionViewDelegate {
         if templates[section].count == 0 {
             return .zero
         }
-        return CGSize(width: 0, height: 40)
+        return CGSize(width: 0, height: 55)
     }
 }
 

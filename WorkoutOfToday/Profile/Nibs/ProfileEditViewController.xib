@@ -18,6 +18,7 @@
                 <outlet property="optionalPartDescLabel" destination="zaD-xG-rdL" id="6qs-7D-PXF"/>
                 <outlet property="titleLabel" destination="74b-gL-tO7" id="QuX-Ho-zdQ"/>
                 <outlet property="view" destination="iN0-l3-epB" id="bWD-PD-BFY"/>
+                <outlet property="warningLabel" destination="bGe-PB-KE5" id="Dbu-OC-m3F"/>
                 <outlet property="weightTextField" destination="wHK-jz-psN" id="h0Y-pp-4Zs"/>
                 <outletCollection property="subtitleLabels" destination="sNF-TM-7cv" collectionClass="NSMutableArray" id="Cvh-w2-2Ph"/>
                 <outletCollection property="subtitleLabels" destination="m2f-Ko-deg" collectionClass="NSMutableArray" id="qBE-CJ-jhg"/>
@@ -226,16 +227,24 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGe-PB-KE5">
+                    <rect key="frame" x="312" y="194.5" width="42" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="OXR-YV-8sg" firstAttribute="top" secondItem="zaD-xG-rdL" secondAttribute="bottom" constant="5" id="7k1-kO-OEV"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="74b-gL-tO7" secondAttribute="trailing" constant="20" id="AqC-ij-MbE"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="3BE-gx-MDb" secondAttribute="trailing" constant="10" id="EdU-Bu-VE9"/>
+                <constraint firstItem="bGe-PB-KE5" firstAttribute="trailing" secondItem="wHK-jz-psN" secondAttribute="trailing" id="MFV-9J-FXI"/>
                 <constraint firstItem="5nM-Nw-uUW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Nza-NZ-ZBV"/>
                 <constraint firstItem="3BE-gx-MDb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="OXR-YV-8sg" secondAttribute="bottom" constant="15" id="O3M-NG-FMc"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="OXR-YV-8sg" secondAttribute="trailing" constant="20" id="QHc-7U-Lq9"/>
                 <constraint firstItem="5nM-Nw-uUW" firstAttribute="top" secondItem="74b-gL-tO7" secondAttribute="bottom" constant="30" id="RRD-X0-wpn"/>
+                <constraint firstItem="bGe-PB-KE5" firstAttribute="top" secondItem="5nM-Nw-uUW" secondAttribute="bottom" constant="5" id="Wct-ZR-fRf"/>
                 <constraint firstItem="74b-gL-tO7" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="15" id="Zh2-s5-ctW"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="3BE-gx-MDb" secondAttribute="bottom" constant="15" id="eDI-TB-xf3"/>
                 <constraint firstItem="zaD-xG-rdL" firstAttribute="top" secondItem="5nM-Nw-uUW" secondAttribute="bottom" constant="20" id="ecN-Bh-H2r"/>

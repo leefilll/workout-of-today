@@ -179,6 +179,7 @@ extension DBHandler {
     
     func fetchWorkoutsByDate() -> [(date: Date, workouts: Results<Workout>)] {
         let workouts = DBHandler.shared.fetchObjects(ofType: Workout.self).sorted(byKeyPath: "created")
+//            .filter { $0.totalVolume != 0 }
 
         let workoutsByDate = workouts
             .map { workout in

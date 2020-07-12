@@ -27,6 +27,8 @@ class CalendarTableViewCell: BasicTableViewCell {
     
     @IBOutlet weak var containerView: UIView!
     
+    @IBOutlet weak var emptyLabel: UILabel!
+    
     @IBOutlet weak var countLabel: UILabel!
     
     @IBOutlet weak var weightLabel: UILabel!
@@ -49,6 +51,11 @@ class CalendarTableViewCell: BasicTableViewCell {
         weightLabel.textColor = .defaultTextColor
         repsLabel.font = .smallestBoldTitle
         repsLabel.textColor = .defaultTextColor
+        
+        emptyLabel.text = "정보가 없습니다."
+        emptyLabel.font = .smallBoldTitle
+        emptyLabel.textColor = .lightGray
+        emptyLabel.isHidden = true
         
         countLabel.font = .smallBoldTitle
         countLabel.textColor = .lightGray

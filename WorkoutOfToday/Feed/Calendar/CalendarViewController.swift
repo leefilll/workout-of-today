@@ -196,6 +196,7 @@ extension CalendarViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let workoutsInSelectedDay = workoutsInSelectedDay else { return 0}
         let workout = workoutsInSelectedDay[section]
+        
         return workout.sets.count
     }
     

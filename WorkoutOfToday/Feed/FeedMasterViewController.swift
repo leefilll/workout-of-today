@@ -36,7 +36,7 @@ class FeedMasterViewController: BasicViewController {
     // MARK: View Life Cycle
     override func setup() {
         fetchData()
-        setupSegmentedControll()
+        setupSegmentedControl()
         setupContentView()
         setupChildViews()
     }
@@ -64,7 +64,7 @@ class FeedMasterViewController: BasicViewController {
         navigationItem.titleView = segmentedControl
     }
     
-    private func setupSegmentedControll() {
+    private func setupSegmentedControl() {
         let items = ["일별", "월별"]
         
         segmentedControl = UISegmentedControl(items: items)

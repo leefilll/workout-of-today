@@ -30,6 +30,8 @@ class ProfileEditViewController: BasicViewController {
     
     @IBOutlet private weak var weightTextField: FormTextField!
     
+    @IBOutlet weak var warningLabel: UILabel!
+    
     @IBOutlet weak var optionalPartDescLabel: UILabel!
     
     @IBOutlet weak var fatPercentageTextField: FormTextField!
@@ -47,13 +49,14 @@ class ProfileEditViewController: BasicViewController {
         view.backgroundColor = .white
     }
     
+    override func setupFeedbackGenerator() {
+        notificationFeedbackGenerator = UINotificationFeedbackGenerator()
+        notificationFeedbackGenerator?.prepare()
+    }
+    
     override func setup() {
         tapGestureRecognize = UITapGestureRecognizer(target: self, action: #selector(viewDidTapped(_:)))
         view.addGestureRecognizer(tapGestureRecognize)
-        
-//        navigationBar.topItem?.title = "기본 정보"
-//        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-//        navigationBar.shadowImage = UIImage()
         
         titleLabel.text = "프로필 편집"
         titleLabel.font = .smallBoldTitle
@@ -72,6 +75,11 @@ class ProfileEditViewController: BasicViewController {
             $0.font = .body
             $0.textColor = .defaultTextColor
         }
+        
+        warningLabel.text = "올바른 값을 입력해주세요"
+        warningLabel.textColor = Part.chest.color
+        warningLabel.font = .subheadline
+        warningLabel.isHidden = true
         
         optionalPartDescLabel.font = .boldBody
         optionalPartDescLabel.textColor = UIColor.lightGray.withAlphaComponent(0.8)
@@ -134,54 +142,87 @@ extension ProfileEditViewController {
     
     @objc
     func viewDidTapped(_ sender: UITapGestureRecognizer) {
-        view.endEditing(true)
+        view.endEditing(false)
     }
     
     @objc
     func editProfileButtonDidTapped(_ sender: UIButton) {
-        guard let heightString = heightTextField.text,
-            let weightString = weightTextField.text,
-            let height = Double(heightString),
-            let weight = Double(weightString)
-            else {
-                showBasicAlert(title: "필수 입력 사항", message: "키와 몸무게 모두 입력하여 주세요.")
-                return
+        
+        var flag = true
+        
+        // MARK: Check for both of height and weight
+        if heightTextField.text == "" {
+            heightTextField.backgroundColor = Part.chest.color.withAlphaComponent(0.5)
+            flag = false
+        } else {
+            heightTextField.backgroundColor = .concaveColor
         }
         
-        if let user = user {
-            DBHandler.shared.write {
-                user.height = height
-                user.addNewWeight(weight)
-                
+        if weightTextField.text == "" {
+            weightTextField.backgroundColor = Part.chest.color.withAlphaComponent(0.5)
+            flag = false
+        } else {
+            weightTextField.backgroundColor = .concaveColor
+        }
+        
+        if flag {
+            guard let heightString = heightTextField.text,
+                let weightString = weightTextField.text,
+                let height = Double(heightString),
+                let weight = Double(weightString),
+                height >= 50, height <= 300, weight > 30, weight <= 250
+                else {
+                    warningLabel.isHidden = false
+                    notificationFeedbackGenerator?.notificationOccurred(.error)
+                    return
+            }
+            if let user = user {
+                DBHandler.shared.write {
+                    user.height = height
+                    user.addNewWeight(weight)
+                    
+                    if let fatPercentageString = fatPercentageTextField.text,
+                        let muscleWeightString = muscleWeightTextField.text,
+                        let fatPercentage = Double(fatPercentageString),
+                        let muscleWeight = Double(muscleWeightString),
+                        fatPercentage >= 0, fatPercentage <= 100, muscleWeight > 5, muscleWeight <= 200 {
+                        user.fatPercentage = fatPercentage
+                        user.muscleWeight = muscleWeight
+                    }
+                }
+            } else {
+                let newProfile = Profile()
+                newProfile.height = height
+                newProfile.addNewWeight(weight)
                 if let fatPercentageString = fatPercentageTextField.text,
                     let muscleWeightString = muscleWeightTextField.text,
                     let fatPercentage = Double(fatPercentageString),
-                    let muscleWeight = Double(muscleWeightString) {
-                    user.fatPercentage = fatPercentage
-                    user.muscleWeight = muscleWeight
+                    let muscleWeight = Double(muscleWeightString),
+                    fatPercentage >= 0, fatPercentage <= 100, muscleWeight > 5, muscleWeight <= 200 {
+                    newProfile.fatPercentage = fatPercentage
+                    newProfile.muscleWeight = muscleWeight
                 }
+                DBHandler.shared.create(object: newProfile)
             }
+            delegate?.profileDidUpdated()
+            dismiss(animated: true, completion: nil)
+            
         } else {
-            let newProfile = Profile()
-            newProfile.height = height
-            newProfile.addNewWeight(weight)
-            if let fatPercentageString = fatPercentageTextField.text,
-                let muscleWeightString = muscleWeightTextField.text,
-                let fatPercentage = Double(fatPercentageString),
-                let muscleWeight = Double(muscleWeightString) {
-                newProfile.fatPercentage = fatPercentage
-                newProfile.muscleWeight = muscleWeight
-            }
-            DBHandler.shared.create(object: newProfile)
+            notificationFeedbackGenerator?.notificationOccurred(.error)
+            return
         }
-        delegate?.profileDidUpdated()
-        dismiss(animated: true, completion: nil)
     }
 }
 
 // MARK: Textfield Delegate
 
 extension ProfileEditViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        if let _ = textField.text, textField.text != "" {
+            textField.backgroundColor = .concaveColor
+        }
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
             case heightTextField:

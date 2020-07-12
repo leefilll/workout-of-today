@@ -35,6 +35,7 @@
 		BB5C5193243EED1B00A1CD9C /* UIFont+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C5192243EED1B00A1CD9C /* UIFont+Static.swift */; };
 		BB5C5197243EF8FE00A1CD9C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C5196243EF8FE00A1CD9C /* Constants.swift */; };
 		BB5C5199243F0BD400A1CD9C /* UITextField+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C5198243F0BD400A1CD9C /* UITextField+Toolbar.swift */; };
+		BB664B0B24BB241C0006CD1D /* CircularLabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB664B0A24BB241C0006CD1D /* CircularLabelCollectionViewCell.swift */; };
 		BB6D27752469B41A0011DB2D /* HighlightsWeekChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6D27742469B41A0011DB2D /* HighlightsWeekChartView.swift */; };
 		BB6D2777246C49770011DB2D /* WorkoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6D2776246C49770011DB2D /* WorkoutTemplate.swift */; };
 		BB6D2779246C56860011DB2D /* TodayAddWorkoutCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6D2778246C56860011DB2D /* TodayAddWorkoutCollectionHeaderView.swift */; };
@@ -183,6 +184,7 @@
 		BB5C5192243EED1B00A1CD9C /* UIFont+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Static.swift"; sourceTree = "<group>"; };
 		BB5C5196243EF8FE00A1CD9C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BB5C5198243F0BD400A1CD9C /* UITextField+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Toolbar.swift"; sourceTree = "<group>"; };
+		BB664B0A24BB241C0006CD1D /* CircularLabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularLabelCollectionViewCell.swift; sourceTree = "<group>"; };
 		BB6D27742469B41A0011DB2D /* HighlightsWeekChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsWeekChartView.swift; sourceTree = "<group>"; };
 		BB6D2776246C49770011DB2D /* WorkoutTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplate.swift; sourceTree = "<group>"; };
 		BB6D2778246C56860011DB2D /* TodayAddWorkoutCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayAddWorkoutCollectionHeaderView.swift; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 				BB04AF75248E69110006BE87 /* WorkoutTemplateViewController.swift */,
 				BB1BD17224A7A19500B603EA /* ChartMarkerView.swift */,
 				BB01335424B08FAF0008BCCC /* DraggableNavigationController.swift */,
+				BB664B0A24BB241C0006CD1D /* CircularLabelCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -922,6 +925,7 @@
 				BB58CD4B24936279009CA34B /* WorkoutDetailViewController.swift in Sources */,
 				BB96FD662444BF5600E8DE10 /* LabelCollectionHeaderView.swift in Sources */,
 				BB8BB79E243CBEE700774EA9 /* Workout.swift in Sources */,
+				BB664B0B24BB241C0006CD1D /* CircularLabelCollectionViewCell.swift in Sources */,
 				BBC65CB4244EA915006F0ADB /* BasicButton.swift in Sources */,
 				BB8BB760243CBA0200774EA9 /* AppDelegate.swift in Sources */,
 				BBE15F30245818E8005600B3 /* CloseButton.swift in Sources */,

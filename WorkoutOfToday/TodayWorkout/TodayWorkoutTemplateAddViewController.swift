@@ -8,78 +8,145 @@
 
 import UIKit
 
+import SwiftIcons
+
 class TodayWorkoutTemplateAddViewController: BasicViewController {
     
     // MARK: Model
     
-    private var atttributes: [[Selectable]] = {
+    private var parts: [Part] = {
         let parts = Part.allCases.filter { $0.name != "-" }
-        let styles = Style.allCases.filter { $0.name != "-" }
-        return [parts, styles]
+        return parts
+    }()
+    
+    private var styles: [Style] = {
+        let styles = Style.allCases.filter { $0 != .none}
+        return styles
     }()
     
     var delegate: AddWorkoutTemplate?
     
     // MARK: View
     
-    @IBOutlet weak var titleNavigationBar: UINavigationBar!
+    @IBOutlet weak var titleLabel: UILabel!
     
-    @IBOutlet weak var templateNameLabel: UILabel!
+    @IBOutlet var subtitleLabels: [UILabel]!
     
     @IBOutlet weak var templateNameTextField: FormTextField!
     
     @IBOutlet weak var templateAttributesCollectionView: UICollectionView!
     
-    @IBOutlet weak var templateAddButton: UIButton!
+    @IBOutlet weak var templateAddButton: BasicButton!
     
-    override func setup() {
+    @IBOutlet weak var templateStyleSegementedControl: UISegmentedControl!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupSubViews()
+        setupSegmentedControl()
+        setupCollectionView()
+        view.backgroundColor = .white
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        templateNameTextField.becomeFirstResponder()
+    }
+    
+    override func keyboardWillShow(in bounds: CGRect?) {
+        guard let bounds = bounds else { return }
+        let overlappedHeight = view.frame.maxY - bounds.minY
+        let extraHeight: CGFloat = 5
+        let move = overlappedHeight + extraHeight
+        self.moved = move
         
-        titleNavigationBar.topItem?.title = "운동 템플릿"
-        titleNavigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        titleNavigationBar.shadowImage = UIImage()
+        UIView.animate(withDuration: 0.3) {
+            self.view.frame.origin.y -= move
+        }
+    }
+    
+    override func keyboardWillHide() {
+        guard let moved = moved else {
+            return
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.view.frame.origin.y += moved
+        }
+    }
+    
+    override func setupFeedbackGenerator() {
+        notificationFeedbackGenerator = UINotificationFeedbackGenerator()
+        notificationFeedbackGenerator?.prepare()
         
-        templateNameLabel.text = "이름"
-        templateNameLabel.font = .subheadline
+        selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+        selectionFeedbackGenerator?.prepare()
+    }
+    
+    private func setupSubViews() {
+        titleLabel.text = "템플릿 추가"
+        titleLabel.font = .smallBoldTitle
+        titleLabel.textColor = .defaultTextColor
+        
+        let subtitles = ["이름", "파트", "스타일"]
+        for (index, subtitleLabel) in subtitleLabels.enumerated() {
+            subtitleLabel.text = subtitles[index]
+            subtitleLabel.font = .boldBody
+            subtitleLabel.textColor = .defaultTextColor
+        }
+        
         
         templateNameTextField.font = .smallBoldTitle
         templateNameTextField.textAlignment = .left
-        templateNameTextField.placeholder = "운동 이름을 입력해주세요."
+        templateNameTextField.placeholder = "운동 템플릿 이름"
         templateNameTextField.delegate = self
         
-        templateAddButton.setTitle("저장", for: .normal)
+        templateAddButton.setTitle("확인", for: .normal)
         templateAddButton.setTitleColor(.white, for: .normal)
-        templateAddButton.titleLabel?.font = .boldBody
+        templateAddButton.titleLabel?.font = .smallestBoldTitle
         templateAddButton.backgroundColor = .tintColor
-        templateAddButton.clipsToBounds = true
-        templateAddButton.layer.cornerRadius = 10
         templateAddButton.addTarget(self, action: #selector(templateAddButtonDidTapped(_:)), for: .touchUpInside)
+    }
+    
+    private func setupSegmentedControl() {
+        templateStyleSegementedControl.selectedSegmentIndex = 0
+        templateStyleSegementedControl.layer.cornerRadius = 5.0
+        templateStyleSegementedControl.backgroundColor = .white
+        templateStyleSegementedControl.tintColor = .white
         
-        setupCollectionView()
+        // TODO: change to all versions
+        if #available(iOS 13.0, *) {
+            templateStyleSegementedControl.selectedSegmentTintColor = .tintColor
+            templateStyleSegementedControl.setTitleTextAttributes(
+                [
+                    NSAttributedString.Key.foregroundColor: UIColor.white
+                ],
+                for: .selected
+            )
+            templateStyleSegementedControl.setTitleTextAttributes(
+                [
+                    NSAttributedString.Key.foregroundColor: UIColor.tintColor,
+                    NSAttributedString.Key.font: UIFont.boldBody
+                ],
+                for: .normal
+            )
+        }
     }
     
     private func setupCollectionView() {
         if let layout = templateAttributesCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .vertical
-            layout.minimumLineSpacing = 5
-            layout.minimumInteritemSpacing = 10
-            layout.headerReferenceSize = CGSize(width: 0, height: 40)
+            layout.scrollDirection = .horizontal
+            layout.minimumLineSpacing = 0
+            layout.minimumInteritemSpacing = 8
+            layout.itemSize = CGSize(width: 55, height: 55)
         }
-        templateAttributesCollectionView.delegate = self
-        templateAttributesCollectionView.dataSource = self
-        templateAttributesCollectionView.registerForHeaderView(LabelCollectionHeaderView.self)
-        templateAttributesCollectionView.register(LabelCollectionViewCell.self)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureCollectionView()
-        view.backgroundColor = .white
-    }
-    
-    private func configureCollectionView() {
-        templateAttributesCollectionView.isScrollEnabled = false
+        
         templateAttributesCollectionView.allowsMultipleSelection = true
         templateAttributesCollectionView.delaysContentTouches = false
+        templateAttributesCollectionView.showsHorizontalScrollIndicator = false
+        
+        templateAttributesCollectionView.delegate = self
+        templateAttributesCollectionView.dataSource = self
+        templateAttributesCollectionView.register(CircularLabelCollectionViewCell.self)
     }
 }
 
@@ -91,27 +158,30 @@ extension TodayWorkoutTemplateAddViewController {
         let newWorkoutTemplate = WorkoutTemplate()
         
         guard let name = templateNameTextField.text, name != "" else {
-            showBasicAlert(title: "알림", message: "운동 템플릿 이름을 입력해주세요.")
+            templateNameTextField.backgroundColor = Part.chest.color.withAlphaComponent(0.5)
+            notificationFeedbackGenerator?.notificationOccurred(.error)
             return
         }
         
-        guard let selectedIndex = templateAttributesCollectionView.indexPathsForSelectedItems,
-            selectedIndex.count >= 2 else {
-            showBasicAlert(title: "알림", message: "파트와 스타일 모두 선택해주세요.")
+        guard let selectedIndexPaths = templateAttributesCollectionView.indexPathsForSelectedItems,
+            !selectedIndexPaths.isEmpty else {
+            notificationFeedbackGenerator?.notificationOccurred(.error)
             return
         }
+        
+        let part = parts[selectedIndexPaths[0].item]
+        let style = styles[templateStyleSegementedControl.selectedSegmentIndex]
         
         newWorkoutTemplate.name = name
-        selectedIndex.forEach {
-            if $0.section == 0 {
-                newWorkoutTemplate.part = atttributes[$0.section][$0.item] as! Part
-            } else if $0.section == 1{
-                newWorkoutTemplate.style = atttributes[$0.section][$0.item] as! Style
-            }
-        }
-        
+        newWorkoutTemplate.part = part
+        newWorkoutTemplate.style = style
         DBHandler.shared.create(object: newWorkoutTemplate)
         delegate?.workoutTemplateDidAdded()
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc
+    private func closeButtonDidTapped(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
 }
@@ -123,16 +193,12 @@ extension TodayWorkoutTemplateAddViewController: UICollectionViewDelegate{
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
+        guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems,
+            !selectedIndexPaths.isEmpty else {
             return true
         }
         
-        let selectingSection = indexPath.section
-        selectedIndexPaths.forEach {
-            if $0.section == selectingSection {
-                collectionView.deselectItem(at: $0, animated: true)
-            }
-        }
+        collectionView.deselectItem(at: selectedIndexPaths[0], animated: true)
         return true
     }
 }
@@ -140,55 +206,28 @@ extension TodayWorkoutTemplateAddViewController: UICollectionViewDelegate{
 // MARK: CollectionView Data Source
 
 extension TodayWorkoutTemplateAddViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return atttributes.count
-    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return atttributes[section].count
+        return parts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(LabelCollectionViewCell.self, for: indexPath)
-        let attribute = atttributes[indexPath.section][indexPath.item]
-        cell.content = attribute
+        let cell = collectionView.dequeueReusableCell(CircularLabelCollectionViewCell.self, for: indexPath)
+        let part = parts[indexPath.item]
+        cell.content = part
         cell.nameLabel.font = .boldBody
         return cell
-    }
-    
-    // MARK: Header View
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView
-            .dequeueReusableSupplementaryView(LabelCollectionHeaderView.self, for: indexPath)
-        
-        let title = atttributes[indexPath.section][indexPath.item].title
-        header.titleLabel.text = title
-        header.titleLabel.font = .subheadline
-        header.labelHorizontalConstant = 5
-        return header
-    }
-}
-
-// MARK: CollectionView Flow Layout Delegate
-
-extension TodayWorkoutTemplateAddViewController: UICollectionViewDelegateFlowLayout{
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let attribute = atttributes[indexPath.section][indexPath.item]
-        let attributeString = attribute.name
-        
-        let fontAtttribute = [NSAttributedString.Key.font: UIFont.boldBody]
-        let size = attributeString.size(withAttributes: fontAtttribute)
-        
-        let extraSpace: CGFloat = 20
-        let width = size.width + extraSpace
-        
-        return CGSize(width: width, height: 35)
     }
 }
 
 // MARK: TextField Delegate
 
 extension TodayWorkoutTemplateAddViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        if let _ = textField.text, textField.text != "" {
+            textField.backgroundColor = .concaveColor
+        }
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

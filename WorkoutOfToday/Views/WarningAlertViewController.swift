@@ -52,15 +52,15 @@ class WarningAlertViewController: BasicViewController {
         let confirmButton = BasicButton()
         confirmButton.setTitle("삭제", for: .normal)
         confirmButton.setTitleColor(.white, for: .normal)
-        confirmButton.titleLabel?.font = .boldBody
+        confirmButton.titleLabel?.font = .smallestBoldTitle
         confirmButton.backgroundColor = Part.chest.color
         confirmButton.addTarget(self, action: #selector(deleteWorkout(_:)), for: .touchUpInside)
         
         let cancelButton = BasicButton()
         cancelButton.setTitle("취소", for: .normal)
         cancelButton.setTitleColor(.black, for: .normal)
-        cancelButton.titleLabel?.font = .boldBody
-        cancelButton.backgroundColor = .concaveColor
+        cancelButton.titleLabel?.font = .smallestBoldTitle
+        cancelButton.backgroundColor = .clear
         cancelButton.addTarget(self, action: #selector(cancel(_:)), for: .touchUpInside)
         
         view.addSubview(titleLabel)

@@ -18,7 +18,7 @@ final class TodayAddWorkoutViewController: WorkoutTemplateViewController {
     
     // MARK: Model
     
-    private var tapGestureRecognizer: UITapGestureRecognizer!
+    private let popupTransitioningDelegate = PopupTransitioningDelegate(height: 380)
     
     var searchedTemplates: [[WorkoutTemplate]]? {
         didSet {
@@ -32,8 +32,6 @@ final class TodayAddWorkoutViewController: WorkoutTemplateViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tapGestureRecognizer = UITapGestureRecognizer(target: self,
-                                                      action: #selector(containerViewDidTapped(_:)))
         collectionView.delegate = self
         collectionView.emptyDataSetDelegate = self
         collectionView.emptyDataSetSource = self
@@ -99,6 +97,7 @@ final class TodayAddWorkoutViewController: WorkoutTemplateViewController {
 
 extension TodayAddWorkoutViewController: AddWorkoutTemplate {
     func workoutTemplateDidAdded() {
+        searchedTemplates = templates
         collectionView.reloadData()
     }
 }
@@ -109,8 +108,10 @@ extension TodayAddWorkoutViewController {
     @objc
     func templateAddButtonDidTapped(_ sender: UITapGestureRecognizer?) {
         let vc = TodayWorkoutTemplateAddViewController(nibName: "TodayWorkoutTemplateAddViewController", bundle: nil)
+        vc.modalPresentationStyle = .custom
+        vc.transitioningDelegate = popupTransitioningDelegate
         vc.delegate = self
-        navigationController?.pushViewController(vc, animated: true)
+        present(vc, animated: true, completion: nil)
     }
 }
 
@@ -146,7 +147,6 @@ extension TodayAddWorkoutViewController {
         guard let searchedTemplates = searchedTemplates else { return }
         let matchedTemplates = searchedTemplates.filter { !$0.isEmpty }
         let selectedTemplate = matchedTemplates[indexPath.section][indexPath.item]
-//        guard let selectedTemplate = searchedTemplates?[indexPath.section][indexPath.item] else { return }
         
         DBHandler.shared.write {
             let newWorkout = Workout()
@@ -176,7 +176,7 @@ extension TodayAddWorkoutViewController {
         let matchedTemplates = searchedTemplates.filter { !$0.isEmpty }
         if matchedTemplates[section].isEmpty { return .zero }
         
-        return CGSize(width: 0, height: 40)
+        return CGSize(width: 0, height: 55)
     }
     
     // MARK: CollectionView Delegate Flow Layout

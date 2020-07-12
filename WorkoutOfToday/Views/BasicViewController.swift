@@ -28,6 +28,8 @@ class BasicViewController: UIViewController {
     
     public var impactFeedbackGenerator: UIImpactFeedbackGenerator?
     
+    public var notificationFeedbackGenerator: UINotificationFeedbackGenerator?
+    
     public var navigationBarTitle: String {
         return ""
     }

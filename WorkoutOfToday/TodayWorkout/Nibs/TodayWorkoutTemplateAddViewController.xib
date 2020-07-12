@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -12,10 +12,13 @@
             <connections>
                 <outlet property="templateAddButton" destination="oUH-bp-Zff" id="3R1-A3-f3O"/>
                 <outlet property="templateAttributesCollectionView" destination="bik-ur-RZa" id="mRB-ef-fpA"/>
-                <outlet property="templateNameLabel" destination="j0a-Et-Cjc" id="Efy-LC-As7"/>
                 <outlet property="templateNameTextField" destination="c9Z-wc-GUt" id="LCu-Bw-7mQ"/>
-                <outlet property="titleNavigationBar" destination="hxv-IS-7lG" id="2U7-qR-V9N"/>
+                <outlet property="templateStyleSegementedControl" destination="NrG-W2-a4E" id="pvS-Yk-zP1"/>
+                <outlet property="titleLabel" destination="QxS-Nr-wHu" id="YPW-kh-ef7"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outletCollection property="subtitleLabels" destination="Knm-RC-jiY" collectionClass="NSMutableArray" id="FdK-o6-r9x"/>
+                <outletCollection property="subtitleLabels" destination="3aB-Lf-IFj" collectionClass="NSMutableArray" id="Rd4-fx-dIO"/>
+                <outletCollection property="subtitleLabels" destination="rOX-EC-7rw" collectionClass="NSMutableArray" id="GId-Ou-DXt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -23,26 +26,18 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="s17-lF-5yg">
-                    <rect key="frame" x="20" y="104" width="374" height="688"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="s17-lF-5yg">
+                    <rect key="frame" x="20" y="104.5" width="374" height="240.5"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="dhh-ce-0V7">
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ltt-pK-3o7">
                             <rect key="frame" x="0.0" y="0.0" width="374" height="65.5"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="EJi-lY-gpu">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Knm-RC-jiY">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0a-Et-Cjc">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="20.5"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="50" id="gGU-Gy-h6P"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </stackView>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c9Z-wc-GUt" customClass="FormTextField" customModule="WorkoutOfToday" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="25.5" width="374" height="40"/>
                                     <constraints>
@@ -53,49 +48,77 @@
                                 </textField>
                             </subviews>
                         </stackView>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bik-ur-RZa">
-                            <rect key="frame" x="0.0" y="70.5" width="374" height="617.5"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2lb-Fe-JGO">
-                                <size key="itemSize" width="128" height="128"/>
-                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            </collectionViewFlowLayout>
-                        </collectionView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="QnO-kP-wmw">
+                            <rect key="frame" x="0.0" y="80.5" width="374" height="88.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3aB-Lf-IFj">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bik-ur-RZa">
+                                    <rect key="frame" x="0.0" y="25.5" width="374" height="63"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="63" id="nZ5-ea-wA6"/>
+                                    </constraints>
+                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2lb-Fe-JGO">
+                                        <size key="itemSize" width="128" height="128"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                </collectionView>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zF2-nj-gVt">
+                            <rect key="frame" x="0.0" y="184" width="374" height="56.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOX-EC-7rw">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NrG-W2-a4E">
+                                    <rect key="frame" x="0.0" y="25.5" width="374" height="32"/>
+                                    <segments>
+                                        <segment title="무게 / 횟수"/>
+                                        <segment title="횟수"/>
+                                        <segment title="시간"/>
+                                    </segments>
+                                </segmentedControl>
+                            </subviews>
+                        </stackView>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="6eZ-rp-GAV"/>
                 </stackView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oUH-bp-Zff">
-                    <rect key="frame" x="10" y="807" width="394" height="40"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oUH-bp-Zff" customClass="BasicButton" customModule="WorkoutOfToday" customModuleProvider="target">
+                    <rect key="frame" x="10" y="804" width="394" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="Tcm-4Y-Suo"/>
                     </constraints>
                     <state key="normal" title="Button"/>
                 </button>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxv-IS-7lG">
-                    <rect key="frame" x="0.0" y="44" width="414" height="55"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <items>
-                        <navigationItem title="Title" id="aLU-5H-sf6"/>
-                    </items>
-                </navigationBar>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QxS-Nr-wHu">
+                    <rect key="frame" x="186" y="59" width="42" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="oUH-bp-Zff" secondAttribute="bottom" constant="15" id="2rg-fO-uqx"/>
                 <constraint firstItem="oUH-bp-Zff" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="I8s-Dk-oIL"/>
-                <constraint firstItem="hxv-IS-7lG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="MUK-Fg-Dcd"/>
-                <constraint firstItem="oUH-bp-Zff" firstAttribute="top" relation="greaterThanOrEqual" secondItem="s17-lF-5yg" secondAttribute="bottom" constant="5" id="OcR-wT-xi3"/>
-                <constraint firstItem="s17-lF-5yg" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Qg7-Ip-Q9R"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="s17-lF-5yg" secondAttribute="trailing" constant="20" id="XEu-eg-oLo"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="oUH-bp-Zff" secondAttribute="trailing" constant="10" id="Y1F-SN-7i5"/>
                 <constraint firstItem="s17-lF-5yg" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="YcZ-wW-896"/>
-                <constraint firstItem="hxv-IS-7lG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ch7-3U-mnD"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hxv-IS-7lG" secondAttribute="trailing" id="dtO-nn-j4f"/>
-                <constraint firstItem="s17-lF-5yg" firstAttribute="top" secondItem="hxv-IS-7lG" secondAttribute="bottom" constant="5" id="mnX-QN-d9q"/>
-                <constraint firstItem="s17-lF-5yg" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="oQv-3s-sSn"/>
+                <constraint firstItem="QxS-Nr-wHu" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="15" id="axg-5K-vVp"/>
+                <constraint firstItem="oUH-bp-Zff" firstAttribute="top" relation="greaterThanOrEqual" secondItem="s17-lF-5yg" secondAttribute="bottom" constant="15" id="fiM-Fj-yon"/>
+                <constraint firstItem="QxS-Nr-wHu" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="iex-16-qh2"/>
+                <constraint firstItem="s17-lF-5yg" firstAttribute="top" secondItem="QxS-Nr-wHu" secondAttribute="bottom" constant="25" id="p5J-XT-O5O"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="oUH-bp-Zff" secondAttribute="bottom" constant="18" id="pkf-oX-nrq"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
