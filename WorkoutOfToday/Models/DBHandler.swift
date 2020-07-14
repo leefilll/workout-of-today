@@ -138,34 +138,35 @@ extension DBHandler {
 //        return mostFrequentWorkouts
 //    }
     
-    private func fetcthPartsByCount(workouts: Results<Workout>) -> [Int] {
-        let numberOfPart = Part.allCases.count
-        var mostFrequentParts = [Int](repeating: 0, count: numberOfPart)
+    private func fetcthPartsByCount(workouts: Results<Workout>) -> [Part: Int] {
+        var countsOfParts: [Part: Int] = [:]
+        Part.allCases.forEach { countsOfParts.updateValue(0, forKey: $0) }
         
-        workouts.forEach {
-            mostFrequentParts[$0.part.rawValue] += 1
+        workouts.forEach { workout in
+            if let oldValue = countsOfParts[workout.part] {
+                countsOfParts.updateValue(oldValue + 1, forKey: workout.part)
+            }
         }
-        
-        return mostFrequentParts
+        return countsOfParts
     }
     
     /// Note that index of this array means Part.rawValue
-    func fetchWorkoutPartInPercentage() -> [Int] {
+    func fetchWorkoutPartInPercentage() -> [(Part, Int)] {
         let totalWorkouts = DBHandler.shared.fetchObjects(ofType: Workout.self)
         
-        let mostFrequentParts = fetcthPartsByCount(workouts: totalWorkouts)
+        let countsOfParts = fetcthPartsByCount(workouts: totalWorkouts)
         let numberOfWorkouts = totalWorkouts.count
-        
         if numberOfWorkouts == 0 {
-            return [0]
+            return []
         }
         
-        var percentagesOfWorkoutPart = [Int](repeating: 0, count: mostFrequentParts.count)
-        for (i, numberOfPart) in mostFrequentParts.enumerated() {
-            percentagesOfWorkoutPart[i] = (numberOfPart * 100) / numberOfWorkouts
+        var percentagesOfParts: [Part: Int] = [:]
+        countsOfParts.forEach {
+            percentagesOfParts
+                .updateValue(($0.value * 100) / numberOfWorkouts, forKey: $0.key )
         }
-
-        return percentagesOfWorkoutPart
+        
+        return percentagesOfParts.sorted { $0.key.rawValue < $1.key.rawValue }
     }
     
     /// fetch all workouts after period.rawvalue months before today
@@ -179,7 +180,6 @@ extension DBHandler {
     
     func fetchWorkoutsByDate() -> [(date: Date, workouts: Results<Workout>)] {
         let workouts = DBHandler.shared.fetchObjects(ofType: Workout.self).sorted(byKeyPath: "created")
-//            .filter { $0.totalVolume != 0 }
 
         let workoutsByDate = workouts
             .map { workout in

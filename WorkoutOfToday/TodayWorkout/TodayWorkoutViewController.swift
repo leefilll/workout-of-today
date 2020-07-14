@@ -66,7 +66,7 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
             .first!
             
             let numOfSets = Int.random(in: 0...10)
-            let day = Int.random(in: -200 ... -100)
+            let day = Int.random(in: -300 ... -10)
             
             let w1 = Workout()
             w1.template = ts
@@ -77,7 +77,7 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
             Array(0...numOfSets).forEach { _ in
                 let s1 = WorkoutSet()
                 s1.reps = Int.random(in: 0...20)
-                s1.weight = Double.random(in: 30...150)
+                s1.weight = Double.random(in: 30...200)
                 ss.append(s1)
             }
 
@@ -89,17 +89,17 @@ final class TodayWorkoutViewController: BasicViewController, Feedbackable {
                 }
             }
         }
-//        for _ in 0...Int.random(in: 0...50) {
-//            makeDummy(name: "벤치프레스")
+//        for _ in 0...Int.random(in: 0...200) {
+//            makeDummy(name: "해머 컬")
 //        }
-//        for _ in 0...Int.random(in: 0...50) {
-//            makeDummy(name: "버피 테스트")
+//        for _ in 0...Int.random(in: 0...250) {
+//            makeDummy(name: "런닝머신")
 //        }
-//        for _ in 0...Int.random(in: 0...50) {
-//            makeDummy(name: "밀리터리 프레스")
+//        for _ in 0...Int.random(in: 0...250) {
+//            makeDummy(name: "아아아아아아")
 //        }
-//        for _ in 0...Int.random(in: 0...50) {
-//            makeDummy(name: "플랭크")
+//        for _ in 0...Int.random(in: 0...150) {
+//            makeDummy(name: "테스트 운동")
 //        }
         
         // MARK: Fetch workouts

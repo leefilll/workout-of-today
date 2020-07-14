@@ -20,7 +20,7 @@ class WorkoutPartChartView: BasicChartView {
     // MARK: Model
     
     
-    private var mostFrequentParts: [Int] = []
+    private var percentagesOfParts: [(Part, Int)] = []
     
     private var chartFormatter: IValueFormatter?
     
@@ -35,14 +35,13 @@ class WorkoutPartChartView: BasicChartView {
     }
     
     func setupModel() {
-        mostFrequentParts = DBHandler.shared.fetchWorkoutPartInPercentage()
-        if mostFrequentParts == [0] {
+        percentagesOfParts = DBHandler.shared.fetchWorkoutPartInPercentage()
+        guard !percentagesOfParts.isEmpty else {
             isEmpty = true
             return
-        } else {
-            isEmpty = false
-            updateChartWithData()
         }
+        isEmpty = false
+        updateChartWithData()
     }
     
     private func setupChartView() {
@@ -60,25 +59,36 @@ class WorkoutPartChartView: BasicChartView {
     
     private func updateChartWithData() {
         if isEmpty { return }
-        let entries = mostFrequentParts
-            .enumerated()
-            .map { idx, count -> PieChartDataEntry in
-                return PieChartDataEntry(value: Double(count),
-                                         label: Part.string(from: idx))}
-
+        let occupiedPercentagesOfParts = percentagesOfParts.filter { $0.1 > 0 }
+        
+        let entries = occupiedPercentagesOfParts
+            .map { part, percentage -> PieChartDataEntry in
+                return PieChartDataEntry(value: Double(percentage),
+                                         label: part.description)
+        }
+        
         let set = PieChartDataSet(entries: entries)
         set.label = nil
         set.sliceSpace = 3
-        set.colors = Part.allCases.map { return $0.color }
+        set.colors = occupiedPercentagesOfParts.map { $0.0.color }
         set.selectionShift = 0
         set.yValuePosition = .insideSlice
         
+        // MARK: with line
+//        set.valueLinePart1OffsetPercentage = 0.9
+//        set.valueLinePart1Length = 0.4
+//        set.valueLinePart2Length = 0.2
+//        set.valueLineColor = .defaultTextColor
+//        set.valueLineWidth = 2
+//        set.yValuePosition = .outsideSlice
+//        set.entryLabelColor = .white
+//        set.valueTextColor = .defaultTextColor
+//        set.entryLabelFont = .boldBody
+//        set.valueFont = .subheadline
+        
         let data = PieChartData(dataSet: set)
         data.setValueFormatter(chartFormatter!)
-        
-        let valueFont: UIFont = .boldBody
-        data.setValueFont(valueFont)
-        data.setValueTextColor(.white)
+        data.setValueFont(UIFont.subheadline)
         
         let l = pieChartView.legend
         l.horizontalAlignment = .right
@@ -100,6 +110,7 @@ class WorkoutPartChartView: BasicChartView {
         pieChartView.transparentCircleColor = NSUIColor.white.withAlphaComponent(0.1)
         pieChartView.transparentCircleRadiusPercent = 0.48
         pieChartView.usePercentValuesEnabled = true
+//        pieChartView.legend.enabled = false
         pieChartView.drawEntryLabelsEnabled = false
         pieChartView.chartDescription?.enabled = false
         pieChartView.rotationEnabled = false
@@ -117,11 +128,7 @@ extension WorkoutPartChartView: IValueFormatter {
     func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
         
         let numberOfPart = Part.allCases.count
-        
-        if value < Double(100 / numberOfPart) {
-            return ""
-        }
-
+        guard value >= Double(100 / numberOfPart) else { return "" }
         let pFormatter = NumberFormatter()
         pFormatter.numberStyle = .percent
         pFormatter.maximumFractionDigits = 1

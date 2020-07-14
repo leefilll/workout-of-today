@@ -143,10 +143,7 @@ extension CalendarViewController: FSCalendarDelegate {
 extension CalendarViewController: FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         let startDate = Calendar.current.startOfDay(for: date)
-        let section = sections.filter({ $0.0 == startDate })
-        if section.isEmpty {
-            return 0
-        }
+        guard let _ = sections.filter({ $0.0 == startDate }).first else { return 0 }
         return 1
     }
 }
@@ -189,20 +186,20 @@ extension CalendarViewController: UITableViewDelegate {
 extension CalendarViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let workoutsInSelectedDay = workoutsInSelectedDay else { return 0}
-        return workoutsInSelectedDay.count
+        guard let workoutsInSelectedDay = workoutsInSelectedDay else { return 0 }
+        return workoutsInSelectedDay.filter({ $0.totalVolume != 0 }).count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let workoutsInSelectedDay = workoutsInSelectedDay else { return 0}
         let workout = workoutsInSelectedDay[section]
-        
         return workout.sets.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let workoutsInSelectedDay = workoutsInSelectedDay else { return UITableViewCell() }
         let workout = workoutsInSelectedDay[indexPath.section]
+        guard workout.totalVolume != 0 else { return UITableViewCell() }
         let workoutSet = workout.sets[indexPath.row]
         let cell = tableView.dequeueReusableCell(CalendarTableViewCell.self, for: indexPath)
         

@@ -43,6 +43,7 @@ class CalendarHeaderView: BasicView {
         calendar.appearance.todayColor = nil
         calendar.appearance.eventOffset = CGPoint(x: 0, y: 0)
         calendar.setScope(.week, animated: false)
+        
         // MARK: select today when viewController did load
         calendar.select(Date.now)
         
