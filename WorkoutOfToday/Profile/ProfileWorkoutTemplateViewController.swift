@@ -45,6 +45,12 @@ class ProfileWorkoutTemplateViewController: WorkoutTemplateViewController {
     }
 }
 
+extension ProfileWorkoutTemplateViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return PopupTransitioningDelegate
+    }
+}
+
 // MARK: objc functions
 
 extension ProfileWorkoutTemplateViewController {
